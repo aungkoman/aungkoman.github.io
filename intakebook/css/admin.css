@@ -1,0 +1,27 @@
+@font-face {
+    font-family: Zawgyi;
+    src: url("../fonts/zawgyi.ttf")
+}
+body {
+    font-family: Zawgyi;
+}
+.soldier-card{
+	margin-top : 10px;
+}
+.course-card{
+	margin-top : 10px;
+}
+div.app{
+}
+
+div.main_content_section{
+	margin-bottom: 10px;
+}
+
+a.btn{
+	border: 1px solid black;
+}
+
+#login_section{
+	margin-top: 50px;
+}

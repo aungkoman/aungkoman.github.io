@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <!--link rel="manifest" href="manifest.json">-->
+  <link rel="icon" href="images/intakebook_sdt_logo.png" type="image/png" />
+  <title>Intake Book</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/all.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <script src="js/modernizr.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/underscore.min.js"></script>
+  <script src="js/backbone.js"></script>
+
+  <style type="text/css">
+  img[src="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhost-white2.png"] {
+    display: none;
+  }
+  </style>
+</head>
+<body>
+    
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<!--script src="https://www.gstatic.com/firebasejs/6.4.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-messaging.js"></script>-->
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<!--script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCHlt-8RR9D_AcEac9krTxNqzHf-CSC1aU",
+    authDomain: "web-push-test-79d11.firebaseapp.com",
+    databaseURL: "https://web-push-test-79d11.firebaseio.com",
+    projectId: "web-push-test-79d11",
+    storageBucket: "",
+    messagingSenderId: "847240203983",
+    appId: "1:847240203983:web:b05d680989304777"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  
+  // Retrieve Firebase Messaging object.
+    const messaging = firebase.messaging();
+    // Add the public key generated from the console here.
+    messaging.usePublicVapidKey("BCfUIsboBQgy8337Ztjm3gc71Cn8eG93QQTvj-fPwRp1aAkTshDNDW72yWQGShAw5D2Sy6th2kysQNK1ESnUKVg");
+    
+    // Handle incoming messages. Called when:
+// - a message is received while the app has focus
+// - the user clicks on an app notification created by a service worker
+//   `messaging.setBackgroundMessageHandler` handler.
+messaging.onMessage((payload) => {
+  console.log('Message received. ', payload);
+  // ...
+});
+
+
+    Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+                console.log('Notification permission granted.');
+                
+                /*
+                // TODO(developer): Retrieve an Instance ID token for use with FCM.
+                // ...
+                // Get Instance ID token. Initially this makes a network call, once retrieved
+                    // subsequent calls to getToken will return from cache.
+                    messaging.getToken().then((currentToken) => {
+                        if (currentToken) {
+                            sendTokenToServer(currentToken);
+                            updateUIForPushEnabled(currentToken);
+                        } else {
+                            // Show permission request.
+                            console.log('No Instance ID token available. Request permission to generate one.');
+                            // Show permission UI.
+                            //updateUIForPushPermissionRequired();
+                            //setTokenSentToServer(false);
+                        }
+                    }).catch((err) => {
+                        console.log('An error occurred while retrieving token. ', err);
+                        //showToken('Error retrieving Instance ID token. ', err);
+                        //setTokenSentToServer(false);
+                    });
+                    */
+
+        } else {
+            console.log('Unable to get permission to notify.');
+        }
+    });
+</script-->
+
+
+  <!--div class="alert alert-primary" role="alert" id="default_alert_div">
+    default alert
+  </div-->
+
+<!-- here is component for app -->
+
+
+
+  <!-- Modal for ALERT -->
+  <div class="modal fade" id="modal_alert" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" style="float:right;">&times;</button>
+            <p id="modal_alert_para">Some text in the modal.</p>
+          </div>
+      </div>
+      
+    </div>
+  </div>
+  
+
+
+<!-- Modal -->
+<div class="modal fade" id="sign_up_soldier_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="sign_up_soldier_modal_label">မွတ္ပံုတင္ေဖာင္</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="sign_up_template_host">
+        hello
+
+
+      </div>
+      <div class="modal-footer">
+        <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Register</button>
+        <button type="button" class="btn btn-primary">Update</button-->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- loading model -->
+<div class="modal fade" id="loading_modal"  tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div id="server_modal_loading">
+          <div class="text-center">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+          <div class="text-center">
+            <strong id="loading_modal_title">ဆာဗာသို႕ ခ်ိတ္ဆက္ေနပါသည္....</strong>
+          </div>
+        </div>
+      </div> <!-- end of modal body -->
+    </div>
+  </div>
+</div>
+
+<!-- course  model -->
+<div class="modal fade" id="course_modal"  tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="course_modal_label">New Course</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="new_course_template_host">
+        <p>here is new course form </p>
+          
+          <div class="form-group">
+            <label for="mc">သင္တန္းအမည္ :</label>
+            <input type="text" class="form-control register_course_name_input" placeholder="မဟာဘြဲ႕ သင္တန္း" name="register_course_name_input"  value="<%= name %>" >
+          </div>
+          
+          <div class="form-group">
+            <label for="mc">သင္တန္းအမွတ္စဥ္ :</label>
+            <input type="number" class="form-control register_course_intake_input" placeholder="သင္တန္းအမွတ္စဥ္ အား အဂၤလိပ္ ဂဏန္းျဖင့္ ရိုက္ထည့္ရန္" name="register_course_intake_input"  value="<%= intake %>" >
+          </div>
+          
+          <div class="form-group">
+            <label for="mc">သင္တန္းစတင္သည့္ရက္:</label>
+            <input type="date" class="form-control register_course_start_date_input" placeholder="" name="register_course_start_date_input"  value="<%= start_date %>" >
+          </div>
+          
+          <div class="form-group">
+            <label for="mc">သင္တန္းျပီးဆံုးသည့္ရက္ :</label>
+            <input type="date" class="form-control register_course_end_date_input" placeholder="" name="register_course_end_date_input"  value="<%= end_date %>" >
+          </div>
+          
+          <div class="form-group">
+            <label for="mc">သင္တန္းေက်ာင္း:</label>
+            <input type="text" class="form-control register_course_location_input" placeholder="စစ္တကၠသိုလ္၊ စာေပ (၂)" name="register_course_localtion_input"  value="<%= location %>" >
+          </div>
+
+
+            <% if(db_id  > 0) { %> 
+              <button type="button" class="btn btn-primary course_update_button">ျပင္ဆင္မည္</button>
+            <% } else { %> 
+              <button type="button" class="btn btn-primary course_register_button">ထည့္သြင္းမည္</button>
+            <% } %> 
+
+      </div> <!-- end of modal body -->
+    </div>
+  </div>
+</div>
+
+
+<!-- end of component -->
+  <div class="app">
+
+<div class="container" id="login_section">
+  <center><h2>Intake Book</h2></center>
+  <form action="#">
+    <div class="form-group">
+      <label for="mc">ျပန္တမ္းဝင္အမွတ္ :</label>
+      <input type="number" class="form-control" id="login_mc_input" placeholder="အဂၤလိပ္ဂဏန္းျဖင့္ ရိုက္ထည့္ရန္" name="mc">
+    </div>
+    <div class="form-group">
+      <label for="pwd">စကားဝွက္ :</label>
+      <input type="password" class="form-control" id="login_password_input" placeholder="စကားဝွက္ ရိုက္ထည့္ရန္" name="pswd">
+    </div>
+    <div class="form-group">
+      <button type="button" class="btn  btn-outline-secondary" id="sign_in_button">ဝင္ေရာက္မည္</button>
+    </div>
+  </form>
+  <span>ဝင္ေရာက္ရန္ စကားဝွက္ မရိွေသးပါက ဒီေနရာမွာ <a href="#" id="sign_up_a" data-toggle="modal" data-target="#sign_up_soldier_modal"> မွတ္ပံုတင္ </a> ႏိုင္ပါသည္။</span>
+
+
+
+
+
+
+</div> <!-- end of sign in container -->
+
+
+<div class="main-content" id="main_content_section">
+
+
+<nav class="navbar navbar-expand-md bg-primary navbar-dark sticky-top">
+  <a class="navbar-brand" href="#name_list_section">Intake Book</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="#name_list_section"  data-toggle="collapse" data-target="#collapsibleNavbar">အပါတ္စဥ္တူ အခ်က္အလက္မ်ား</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#courses_section"  data-toggle="collapse" data-target="#collapsibleNavbar">တက္ေရာက္ခဲ့ေသာ သင္တန္းမ်ား</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#profile_section"  data-toggle="collapse" data-target="#collapsibleNavbar">မိမိ ကိုယ္ေရးအခ်က္အလက္</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#course_admin_section"  data-toggle="collapse" data-target="#collapsibleNavbar">သင္တန္းမ်ား</a>
+      </li>
+      <!--li class="nav-item">
+        <a class="nav-link" href="#system_admin_section"  data-toggle="collapse" data-target="#collapsibleNavbar">System Admin</a>
+      </li-->
+      <li class="nav-item">
+        <a class="nav-link" href="#logout_section"  data-toggle="collapse" data-target="#collapsibleNavbar" id="logout_a">ထြက္မည္</a>
+      </li>    
+    </ul>
+  </div>  
+</nav>
+
+<div> <!-- divider for main contenct each section -->
+<div class="container mt-3" id="name_list_section">
+    
+
+  <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+    <div class="input-group" style="width:100%">
+      <input type="search"  style="width:90%" id="search_name_card_list_input" placeholder="ရွာေဖြရန္" aria-describedby="button-addon1" class="form-control border-0 bg-light">
+      <div class="input-group-append" style="width:10%;" id="sync_button">
+        <button id="button-addon1" type="submit" class="btn btn-link text-primary" title="Sync with server"><i class="fa fa-sync"></i> </button>
+      </div>
+    </div>
+  </div>
+
+  <!--h2>Name List </h2>
+  <p>Create a media object with the .media and .media-body classes:</p-->
+  <div id="name_list_holder_div">
+  <div class="media border p-3 shadow soldier-card   name_list_card">
+    <img src="images/img_avatar3.png" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+    <div class="media-body">
+      <h4>{{name}} <small><i>{{mc_type}} {{mc}}</i></small></h4>
+      <p>{{rank}} {{unit}} {{academy}} {{intake}} {{phone_no}}</p>      
+    </div>
+  </div>
+
+  <div class="media border p-3 shadow soldier-card  name_list_card">
+    <img src="images/img_avatar3.png" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+    <div class="media-body">
+      <h4>John Doe <small><i>Posted on February 19, 2016</i></small></h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>      
+    </div>
+  </div>
+
+  </div> <!-- end for name_card_list_holder -->
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- Intake Book Web Ads -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-4224641533746813"
+       data-ad-slot="2907444807"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+  
+</div> <!-- end of name list -->
+
+
+
+<div class="container mt-3" id="courses_section">
+  <h2>တက္ေရာက္ခဲ့ေသာ သင္တန္းမ်ား</h2>
+  <!--input class="form-control" id="my_course_list_input" type="text" placeholder="Search.."-->
+  <br>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Intake Book Web Ads -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4224641533746813"
+     data-ad-slot="2907444807"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+  <ul class="list-group" id="my_course_list_ul">
+    <li class="list-group-item"> မရိွပါ</li>
+  </ul>  
+  <hr>
+
+  <h2 id="course_name_current"></h2>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Intake Book Web Ads -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4224641533746813"
+     data-ad-slot="2907444807"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+  <div id="course_name_list">
+
+  </div>
+</div>
+
+
+
+<div class="container mt-3" id="profile_section">
+  <h2>မိမိ ကိုယ္ေရးအခ်က္အလက္</h2>
+  <div id="my_profile_card">
+  </div>
+  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Intake Book Web Ads -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4224641533746813"
+     data-ad-slot="2907444807"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+</div>
+
+
+
+
+<!-------------------
+course_admin_section
+ Here is course admin section
+ this section include :
+ 1. What's course admin (explanation slide)
+ 2. Courses List (already registred)
+ 3. How to register new course (if your course does not include in the course list)
+ 4. New Course Button (open up modal and insert new course data, ajax with current user and insert pending...) => may be course record
+ 5. your course list
+  ---------------------------------->
+
+<div class="container mt-3" id="course_admin_section">
+  <h2>သင္တန္းစာရင္း</h2>
+  <p> သင္တက္ေရာက္ခဲ့ေသာ သင္တန္း အား ေဖာ္ျပထားျခင္း မရိွေသးပါက ေအာက္ပါ ခလုပ္ကို ႏွိပ္ျပီး ျဖည့္သြင္းထားႏိုင္ပါသည္</p>
+  <a  class="btn" id="new_course_button"  data-toggle="modal" data-target="#course_modal">သင္တန္းအသစ္ ျဖည့္သြင္းရန္ + </a>
+  
+  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Intake Book Web Ads -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4224641533746813"
+     data-ad-slot="2907444807"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+  <hr>
+  <h2>သင္တန္းစာရင္း</h2>
+  <div id="course_admin_host">
+
+  </div>
+
+
+  <hr>
+  <h2 id="current_selected_course_name"></h2>
+  <div id="course_admin_namelist_host">
+
+  </div>
+  <!--div class="media border p-3 shadow soldier-card   name_list_card">
+    <img src="images/img_avatar3.png" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+    <div class="media-body">
+      <h4>{{course_name}} <small><i>{{intake}}</i></small></h4>
+      <p>{{start_date}} {{end_date}} {{location}}</p>      
+    </div>
+  </div>
+
+
+  <div class="media border p-3 shadow soldier-card   name_list_card">
+    <img src="images/img_avatar3.png" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+    <div class="media-body">
+      <h4>{{course_name}} <small><i>{{intake}}</i></small></h4>
+      <p>{{start_date}} {{end_date}} {{location}}</p>      
+    </div>
+  </div-->
+
+</div>
+
+
+<div class="container mt-3" id="system_admin_section">
+  <h2>System Admin</h2>
+
+
+  <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+    <div class="input-group">
+      <input type="search"  id="search_course_record_card_list_input" placeholder="What're you searching for?" aria-describedby="button-addon1" class="form-control border-0 bg-light">
+      <div class="input-group-append">
+        <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="media border p-3 shadow soldier-card   course_record_card_list">
+    <img src="images/img_avatar3.png" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+    <div class="media-body">
+      <h4>{{name}} <small><i>{{mc_type}} {{mc}}</i></small></h4>
+      <p>{{rank}} {{unit}} {{academy}} {{intake}} {{phone_no}}</p>  
+
+      <p>{{course_name}} {{course_intake}}</p>
+      <p>{{course_record_rold}}</p>    
+    </div>
+  </div>
+
+</div>
+
+
+
+
+</div> <!-- each section divivder -->
+
+</div><!-- end of main-content -->
+
+</div> <!-- end of app container -->
+
+
+<script type="text/x-template" id="thanks_view">
+      <div class="swipeout-content">
+        <div class="item-content">
+          <div class="item-inner">
+              <p><a href="#about"><span class="thanks_name_display"><%= name %></span></a> _ <span class="thanks_about_display"><%= about %></span><span class="thanks_id"><%= id %></span></p>
+              
+          </div>
+        </div>
+      </div>
+      <div class="swipeout-actions-right">
+        <a href="#" class="thanks_delete_btn">Delete</a>
+        <!--a href="#" class="thanks_edit_btn">Edit</a-->
+        <a class="swipeout-close" href="#">Cancel</a>
+      </div>
+ </script>
+
+ <script type="text/x-template" id="soldier_card_view">
+   <div class="media border p-3 shadow soldier-card   name_list_card">
+     <img src="images/img_avatar3.png" alt="Hello World" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+     <div class="media-body">
+       <b><%= name %></b> <br>
+       <small><i><%= soldier_config.mc_type[mc_type] %> <%= mc %></i></small> <br>
+       <p><%= soldier_config.rank[rank] %> 
+         <%= unit %> 
+         <%= soldier_config.academy[academy] %> <%= intake %>
+         <b><%= phone_no %></b>
+         <br>
+         <!-- check this is admin or not using soldier_config.logged_user_role  -->
+         
+          <% if( soldier_config.logged_user_role  == 1 || soldier_config.logged_user_role  == 2 ) { %>
+              <!-- button to call up Edit Modal -->
+              <a href="#" id="sign_up_a" class="admin_link">Edit Data</a>
+            <% } %>
+
+       </p>      
+     </div>
+   </div>
+  </script>
+
+  <script type="text/x-template" id="soldier_card_for_course_admin_edit">
+    <div class="media border p-3 shadow soldier-card   name_list_card">
+      <img src="images/img_avatar3.png" alt="Hello World" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+      <div class="media-body">
+        <b><%= name %></b> <br>
+        <small><i><%= soldier_config.mc_type[mc_type] %> <%= mc %></i></small> <br>
+        <p><%= soldier_config.rank[rank] %> 
+          <%= unit %> 
+          <%= soldier_config.academy[academy] %> <%= intake %>
+          <b><%= phone_no %></b>
+        </p>   
+        
+      <label for="sel1">Role</label>
+      <select class="form-control user_course_role_select">
+        <% _.each(soldier_config.role, function(v, i) { %>
+            <% if(i == role) { %>
+                <option value='<%= i %>' selected><%= v %></option>
+            <% } else if(i == 0 ||i == 2 ||i == 3 || i == 5 ) { %>
+                <option value='<%= i %>'><%= v %></option>
+            <% } %>
+        <% }) %>
+      </select>
+
+</div>
+
+
+        <!--a class="btn update_course_role_btn">Update Role</a-->
+      </div>
+    </div>
+   </script>
+
+ <script type="text/x-template" id="course_card_view">
+   <li class="list-group-item course-card">
+     <b><%= name %></b><br>
+     အမွတ္စဥ္ ( <%= intake %> )<br>
+     သင္တန္းေက်ာင္း : <%= location %> <br>
+     <%= start_date %> မွ <%= end_date %> ထိ
+   </li>
+  </script>
+
+
+  <script type="text/x-template" id="course_card_admin_view">
+    <li class="list-group-item course-card">
+      <b><%= name %></b><br>
+      အမွတ္စဥ္ ( <%= intake %> )<br>
+      သင္တန္းေက်ာင္း : <%= location %> <br>
+      <%= start_date %> မွ <%= end_date %> ထိ
+
+      <!-- button row -->
+      <!--div class="btn-group btn-group-justified">-->
+      <br><br>
+      <div>
+          <a href="#" class="btn course_edit">ျပင္ဆင္ရန္</a>
+          <a href="#" class="btn course_name_list">အမည္စာရင္း ၾကည့္ရန္</a>
+          <a href="#" class="btn course_join">တက္ေရာက္ျပီး +</a>
+      </div>
+    </li>
+   </script>
+   
+
+ <script type="text/x-template" id="soldier_edit_template_view">
+
+  <form action="#">
+
+            <% if(db_id  > 0) { %> 
+              <div class="form-group" style="display:none">
+                  <input type="number" class="form-control register_db_id_input" placeholder="Enter DB ID" name="register_db_id_input"   value="<%= db_id %>">
+              </div>
+            <% } %> 
+
+
+    <div class="form-group">
+      <label for="sel1">ၾကည္း/ေရ/ေလ</label>
+
+                  <select class="form-control register_mc_type_select" id="register_mc_type_select">
+                    <% _.each(soldier_config.mc_type, function(v, i) { %>
+                        <% if(i == mc_type) { %>
+                            <option value='<%= i %>' selected><%= v %></option>
+                        <% } else { %>
+                            <option value='<%= i %>'><%= v %></option>
+                        <% } %>
+                    <% }) %>
+                  </select>
+
+    </div>
+    <div class="form-group">
+      <label for="mc">ျပန္တမ္းဝင္အမွတ္:</label>
+      <input type="number" class="form-control register_mc_input" placeholder="အဂၤလိပ္ဂဏန္းျဖင့္ ရိုက္ထည့္ရန္" name="register_mc_input"  value="<%= mc %>" >
+    </div>
+    <div class="form-group">
+      <label for="sel1">အဆင့္ :</label>
+
+                  <select class="form-control register_rank_select" id="register_rank_select">
+                    <% _.each(soldier_config.rank, function(v, i) { %>
+                        <% if(i == rank) { %>
+                            <option value='<%= i %>' selected><%= v %></option>
+                        <% } else { %>
+                            <option value='<%= i %>'><%= v %></option>
+                        <% } %>
+                    <% }) %>
+                  </select>
+    </div>
+    <div class="form-group">
+      <label for="pwd">အမည္ :</label>
+      <input type="text" class="form-control register_name_input" placeholder="Enter Name" name="register_name_input" value="<%= name %>">
+    </div>
+    <div class="form-group">
+      <label for="pwd">ရာထူး ႏွင့္ တပ္/ဌာန :</label>
+      <input type="text" class="form-control register_unit_input" placeholder="တပ္စုမွဴး။ အမွတ္ (၅၂၈ ) ေျချမန္တပ္ရင္း၊ ေျမာက္ပိုင္းတုိင္းစစ္ဌာနခ်ဴပ္။" name="register_unit_input"  value="<%= unit %>">
+    </div>
+    <div class="form-group">
+      <label for="sel1">ဗလ သင္တန္းေက်ာင္း</label>
+
+                  <select class="form-control register_academy_select" id="register_academy_select">
+                    <% _.each(soldier_config.academy, function(v, i) { %>
+                        <% if(i == academy) { %>
+                            <option value='<%= i %>' selected><%= v %></option>
+                        <% } else { %>
+                            <option value='<%= i %>'><%= v %></option>
+                        <% } %>
+                    <% }) %>
+                  </select>
+    </div>
+
+    <!-- check this is admin or not using soldier_config.logged_user_role  -->
+    <% if( soldier_config.logged_user_role  == 1 ) { %>
+
+    <div class="form-group">
+      <label for="sel1">Role : </label>
+
+                  <select class="form-control register_role_select" id="register_role_select">
+                    <% _.each(soldier_config.role, function(v, i) { %>
+                        <% if(i == role) { %>
+                            <option value='<%= i %>' selected><%= v %></option>
+                        <% } else { %>
+                            <option value='<%= i %>'><%= v %></option>
+                        <% } %>
+                    <% }) %>
+                  </select>
+    </div>
+    <% } %> 
+
+    <div class="form-group">
+      <label for="mc">ဗလသင္တန္း အမွတ္စဥ္:</label>
+      <input type="number" class="form-control register_intake_input" placeholder="အဂၤလိပ္ဂဏန္းျဖင့္ ရိုက္ထည့္ရန္" name="register_intake_input"   value="<%= intake %>">
+    </div>
+    <div class="form-group">
+      <label for="pwd"> ဖုန္းနံပတ္ :</label>
+      <input type="text" class="form-control register_phone_no_input" placeholder="ဖုန္းနံပတ္အား အဂၤလိပ္ဂဏန္းျဖင့္ ရိုက္ထည့္ရန္" name="pswd" value="<%= phone_no %>">
+    </div>
+    <div class="form-group">
+      <label for="pwd">စကားဝွက္:</label>
+      <input type="password" class="form-control register_password_input" placeholder="စကားဝွက္ ရိုက္ထည့္ရန္" name="pswd">
+    </div>
+    <div class="form-group">
+      <label for="pwd">စကားဝွက္အား ထပ္မံရိုက္ထည့္ရန္:</label>
+      <input type="password" class="form-control register_re_type_password_input" placeholder="စကားဝွက္အား ထပ္မံရိုက္ထည့္ရန္" name="register_re_type_password_input">
+    </div>
+  </form>
+
+        <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
+
+
+            <% if(db_id  > 0) { %> 
+              <button type="button" class="btn btn-primary soldier_update_button">ျပင္ဆင္မည္</button>
+            <% } else { %> 
+              <button type="button" class="btn btn-primary soldier_register_button">စာရင္းသြင္းမည္</button>
+            <% } %> 
+
+
+ </script>
+
+ <script type="text/x-template" id="course_edit_template_view_for_admin">
+
+          <div class="form-group">
+            <label for="mc">သင္တန္းအမည္:</label>
+            <input type="text" class="form-control register_course_name_input" placeholder="သင္တန္းအမည္" name="register_course_name_input"  value="<%= name %>" >
+          </div>
+          
+          <div class="form-group">
+            <label for="mc">သင္တန္းအမွတ္စဥ္:</label>
+            <input type="number" class="form-control register_course_intake_input" placeholder="သင္တန္းအမွတ္စဥ္" name="register_course_intake_input"  value="<%= intake %>" >
+          </div>
+          
+          <div class="form-group">
+            <label for="mc">သင္တန္းစတင္သည့္ရက္:</label>
+            <input type="date" class="form-control register_course_start_date_input" placeholder="" name="register_course_start_date_input"  value="<%= start_date %>" >
+          </div>
+          
+          <div class="form-group">
+            <label for="mc">သင္တန္းျပီးဆံုးသည့္ရက္:</label>
+            <input type="date" class="form-control register_course_end_date_input" placeholder="" name="register_course_end_date_input"  value="<%= end_date %>" >
+          </div>
+          
+          <div class="form-group">
+            <label for="mc">သင္တန္းေက်ာင္း :</label>
+            <input type="text" class="form-control register_course_localtion_input" placeholder="သင္တန္းေက်ာင္း" name="register_course_localtion_input"  value="<%= location %>" >
+          </div>
+
+
+            <% if(db_id  > 0) { %> 
+              <button type="button" class="btn btn-primary course_update_button">ျပင္ဆင္မည္</button>
+            <% } else { %> 
+              <button type="button" class="btn btn-primary course_register_button">စာရင္းသြင္းမည္</button>
+            <% } %> 
+
+ </script>
+
+ 
+ <script type="text/x-template" id="soldier_edit_template_view_for_admin">
+
+  <form action="#">
+
+            <% if(db_id  > 0) { %> 
+              <div class="form-group" style="display:none">
+                  <input type="number" class="form-control register_db_id_input" placeholder="Enter DB ID" name="register_db_id_input"   value="<%= db_id %>">
+              </div>
+            <% } %> 
+
+
+    <div class="form-group">
+      <label for="sel1">ၾကည္း/ေရ/ေလ</label>
+
+                  <select class="form-control register_mc_type_select" id="register_mc_type_select">
+                    <% _.each(soldier_config.mc_type, function(v, i) { %>
+                        <% if(i == mc_type) { %>
+                            <option value='<%= i %>' selected><%= v %></option>
+                        <% } else { %>
+                            <option value='<%= i %>'><%= v %></option>
+                        <% } %>
+                    <% }) %>
+                  </select>
+
+    </div>
+    <div class="form-group">
+      <label for="mc">ျပန္တမ္းဝင္အမွတ္:</label>
+      <input type="number" class="form-control register_mc_input" placeholder="Enter MC" name="register_mc_input"  value="<%= mc %>" >
+    </div>
+    <div class="form-group">
+      <label for="sel1">အဆင့္</label>
+
+                  <select class="form-control register_rank_select" id="register_rank_select">
+                    <% _.each(soldier_config.rank, function(v, i) { %>
+                        <% if(i == rank) { %>
+                            <option value='<%= i %>' selected><%= v %></option>
+                        <% } else { %>
+                            <option value='<%= i %>'><%= v %></option>
+                        <% } %>
+                    <% }) %>
+                  </select>
+    </div>
+    <div class="form-group">
+      <label for="pwd">အမည္:</label>
+      <input type="text" class="form-control register_name_input" placeholder="Enter Name" name="register_name_input" value="<%= name %>">
+    </div>
+    <div class="form-group">
+      <label for="pwd">Unit:</label>
+      <input type="text" class="form-control register_unit_input" placeholder="Enter Unit" name="register_unit_input"  value="<%= unit %>">
+    </div>
+    <div class="form-group">
+      <label for="sel1">ဗိုလ္ေလာင္း သင္တန္းေက်ာင္း</label>
+
+                  <select class="form-control register_academy_select" id="register_academy_select">
+                    <% _.each(soldier_config.academy, function(v, i) { %>
+                        <% if(i == academy) { %>
+                            <option value='<%= i %>' selected><%= v %></option>
+                        <% } else { %>
+                            <option value='<%= i %>'><%= v %></option>
+                        <% } %>
+                    <% }) %>
+                  </select>
+    </div>
+    <div class="form-group">
+      <label for="mc">ဗိုလ္ေလာင္း သင္တန္းအမွတ္စဥ္:</label>
+      <input type="number" class="form-control register_intake_input" placeholder="Enter Intake" name="register_intake_input"   value="<%= intake %>">
+    </div>
+  </form>
+
+
+  <div class="form-group">
+    <label for="pwd">ဖုနး္နံပတ္:</label>
+    <input type="text" class="form-control register_phone_no_input" placeholder="Enter Phone No" name="pswd" value="<%= phone_no %>">
+  </div>
+  <!-- role -->
+
+    <!-- check this is admin or not using soldier_config.logged_user_role  -->
+    <% if( soldier_config.logged_user_role  == 1 ) { %>
+
+      <div class="form-group">
+        <label for="sel1">Role : </label>
+  
+                    <select class="form-control register_role_select" id="register_role_select">
+                      <% _.each(soldier_config.role, function(v, i) { %>
+                          <% if(i == role) { %>
+                              <option value='<%= i %>' selected><%= v %></option>
+                          <% } else { %>
+                              <option value='<%= i %>'><%= v %></option>
+                          <% } %>
+                      <% }) %>
+                    </select>
+      </div>
+      <% } %> 
+  
+        <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
+
+
+            <% if(db_id  > 0) { %> 
+              <button type="button" class="btn btn-primary soldier_update_button">ျပင္ဆင္မည္</button>
+            <% } else { %> 
+              <button type="button" class="btn btn-primary soldier_register_button">ထည့္သြင္းမည္</button>
+            <% } %> 
+
+
+ </script>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <!--link rel="manifest" href="manifest.json">-->
+  <link rel="icon" href="images/intakebook_sdt_logo.png" type="image/png" />
+  <title>Intake Book CMS</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/all.css">
+  <link rel="stylesheet" href="css/cms.css">
+  <script src="js/modernizr.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/underscore.min.js"></script>
+  <script src="js/backbone.js"></script>
+
+  <style type="text/css">
+  img[src="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhost-white2.png"] {
+    display: none;
+  }
+  </style>
+
+<link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
+ 
+<script type="text/javascript" src="DataTables/datatables.min.js"></script>
+
+
+</head>
+<body>
+<!-- modal section -->
+
+<!-- loading model -->
+<div class="modal fade" id="blog_post_new_modal"  tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+          <!--Material textarea-->
+          <div class="md-form">
+              <textarea id="form7" class="md-textarea form-control" rows="3" placeholder="စိတ္ထဲရိွတာ ေရးပါ"></textarea>
+              <!--label for="form7">စိတ္ထဲရိွတာ ေရးပါ</label-->
+          </div>
+          <br>
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroupFileAddon01">ပံုတင္ရန္</span>
+            </div>
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="inputGroupFile01"
+                aria-describedby="inputGroupFileAddon01">
+              <label class="custom-file-label" for="inputGroupFile01">ပံုေရြးပါ</label>
+            </div>
+          </div>
+          <br>
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroupFileAddon01">စာအုပ္တင္ရန္</span>
+            </div>
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="inputGroupFile01"
+                aria-describedby="inputGroupFileAddon01">
+              <label class="custom-file-label" for="inputGroupFile01">စာအုပ္ေရြးပါ</label>
+            </div>
+          </div>
+          <br>
+          <button type="button" class="btn btn-primary">တင္မည္</button>
+          <button type="button" class="btn btn-light" data-dismiss="modal">ပိတ္မည္</button>
+
+          
+      </div> <!-- end of modal body -->
+    </div>
+  </div>
+</div>
+
+<!-- End Modal Section-->
+
+<!-- Template Section -->
+  
+<script type="text/x-template" id="blog_post_view">
+  <%= db_id %>
+  <%= content %>
+  <%= author %>
+  <%= modified_date %>
+</script>
+
+<script type="text/x-template" id="blog_post_edit_view">
+  <%= db_id %>
+  <%= content %>
+  <%= author %>
+  <%= modified_date %>
+</script>
+<!-- End Template Section -->
+
+<!-- here is component for app -->
+<div id="new_feed_div">
+  <!-- this is new feed section 
+   - new post button or input field => show modal 
+    - new feed card list ( we just show first 50 chars in content read more )
+  
+  -->
+
+  
+  <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4 km_search_bar">
+    <div class="input-group" style="width:100%">
+      <input type="text"  style="width:90%" id="blog_post_new_input" placeholder="အသစ္တင္ရန္" aria-describedby="button-addon1" class="form-control border-0 bg-light">
+      <div class="input-group-append" style="width:10%;" id="sync_button">
+        <button id="button-addon1" type="submit" class="btn btn-link text-primary" title="Sync with server"><i class="fa fa-sync"></i> </button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div id="new_feed_holder">
+
+    <div class="card km_card">
+      <img class="card-img-top km_card_img" src="images/post_image.jpg" alt="Card image cap">
+      <div class="card-body">
+        <!--h5 class="card-title">Card title</h5-->
+        <p class="card-text"><span class="content_span">Some quick example text to build on the card title and make up the bulk of the card's content.</span><span class="read_more_span"> read more...</span></p> 
+      </div>
+    </div>
+
+    <div class="card km_card">
+      <img class="card-img-top" src="images/img_avatar1.png" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text"><span>Some quick example text to build on the card title and make up the bulk of the card's content.</span><span> read more...</span></p> 
+      </div>
+    </div>
+
+    <div class="card" style="max-width:400px; margin: 5px auto;">
+      <img class="card-img-top" src="images/intakebook_sdt_logo.png" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text"><span>Some quick example text to build on the card title and make up the bulk of the card's content.</span><span> read more...</span></p> 
+      </div>
+    </div>
+    
+
+
+
+
+</div>
+
+
+
+
+  <script src="js/cms.js"></script>
+</body>
+</html>
+
+

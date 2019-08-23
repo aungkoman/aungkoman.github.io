@@ -1,5 +1,9 @@
 /* Your app custom files in this file */
 /* Tab bar icons */
+body{
+  margin: 0 auto;
+  max-width: 600px;
+}
 i.tabbar-demo-icon-1 {
   width: 30px;
   height: 30px;
