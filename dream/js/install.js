@@ -16,7 +16,7 @@
  * limitations under the License
  */
 'use strict';
-
+console.log("hello install");
 let deferredInstallPrompt = null;
 const installButton = document.getElementById('butInstall');
 installButton.addEventListener('click', installPWA);
@@ -75,6 +75,6 @@ window.addEventListener('appinstalled', logAppInstalled);
  */
 function logAppInstalled(evt) {
   // CODELAB: Add code to log the event
-console.log('Weather App was installed.', evt);
+console.log('Dream Translatewas installed.', evt);
 
 }
