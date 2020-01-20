@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	//var main_base ="http://localhost/";
-	var main_base ="https://teamcs.000webhostapp.com/";
+//	var main_base ="https://teamcs.000webhostapp.com/";
+	var main_base ="https://team-cs.herokuapp.com/intakebook/";
 	console.log("welcome to admin \n document is ready");
 
   var soldier_config = {
