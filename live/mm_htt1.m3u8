@@ -1,0 +1,17 @@
+#EXTM3U
+#EXT-X-MEDIA-SEQUENCE:491330
+#EXT-X-ALLOW-CACHE:NO
+#EXT-X-VERSION:2
+#EXT-X-TARGETDURATION:8
+#EXTINF:8,
+../../../../hls-live/streams/livepkgr/events/_definst_/htt/htt1Num491330.ts
+#EXTINF:8,
+../../../../hls-live/streams/livepkgr/events/_definst_/htt/htt1Num491331.ts
+#EXTINF:8,
+../../../../hls-live/streams/livepkgr/events/_definst_/htt/htt1Num491332.ts
+#EXTINF:8,
+../../../../hls-live/streams/livepkgr/events/_definst_/htt/htt1Num491333.ts
+#EXTINF:8,
+../../../../hls-live/streams/livepkgr/events/_definst_/htt/htt1Num491334.ts
+#EXTINF:8,
+../../../../hls-live/streams/livepkgr/events/_definst_/htt/htt1Num491335.ts

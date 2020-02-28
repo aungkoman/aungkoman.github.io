@@ -1,0 +1,15 @@
+#EXTM3U
+
+#EXT-X-STREAM-INF:PROGRAM-ID=4,BANDWIDTH=150000
+
+http://203.81.81.229/hls-live/livepkgr/_definst_/mitv/mitv1.m3u8
+
+
+#EXT-X-STREAM-INF:PROGRAM-ID=4,BANDWIDTH=500000
+
+http://203.81.81.229/hls-live/livepkgr/_definst_/mitv/mitv2.m3u8
+
+
+#EXT-X-STREAM-INF:PROGRAM-ID=4,BANDWIDTH=1000000
+
+http://203.81.81.229/hls-live/livepkgr/_definst_/mitv/mitv3.m3u8

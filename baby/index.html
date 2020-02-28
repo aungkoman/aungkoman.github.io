@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+                <meta name="apple-mobile-web-app-capable" content="yes">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+                <title>Baby Name Suggection</title>
+                <style>
+                        .hidden{
+                                display:none;
+                        }
+                        input[type=text], select {
+                                width: 100%;
+                                padding: 12px 20px;
+                                margin: 8px 0;
+                                display: inline-block;
+                                border: 1px solid #ccc;
+                                border-radius: 4px;
+                                box-sizing: border-box;
+                              }
+                              
+                              input[type=submit] {
+                                width: 100%;
+                                background-color: #4CAF50;
+                                color: white;
+                                padding: 14px 20px;
+                                margin: 8px 0;
+                                border: none;
+                                border-radius: 4px;
+                                cursor: pointer;
+                              }
+                              
+                              input[type=submit]:hover {
+                                background-color: #45a049;
+                              }
+                              
+                              form,p,a {
+                                margin: auto;
+                                max-width: 300px;
+                                border-radius: 5px;
+                                background-color: #f2f2f2;
+                                padding: 20px;
+                              }
+                              a{
+                                      margin-top: 5px;
+                              }
+                              a:link {
+                                color: blue;
+                                text-transform: uppercase;
+                                padding: 1em 1.5em;
+                              }
+                              
+                              a:visited {
+                                color: blue;
+                              }
+                              
+                              a:hover {
+                                color: lightgreen;
+                              }
+                              
+                              a:active {
+                                color: red;
+                              } 
+                </style>
+        </head>
+        <body>
+                <form id="familyInsertForm">
+                        <fieldset>
+                                <legend>Insert Form</legend>
+                                <label for="dadInput">Dad</label><br>
+                                <input type="text" name="dad" id="dadInput" placeholder="Dad's name"  required/><br>
+                                <label for="momInput">Mom</label><br>
+                                <input type="text" name="mom" id="momInput" placeholder="Mom's name"   required /><br>
+                                <label for="babyInput">Baby</label><br>
+                                <input type="text" name="baby" id="babyInput" placeholder="Baby's name"   required /><br>
+                                <label for="genderInput">Gender</label><br>
+                                <select name="gender" id="genderInput" required>
+                                        <option value="">-- choose gender --</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                </select><br>
+                                <label for="birthdateInput">Birthdate</label><br>
+                                <select name="birthdate" id="birthdateInput" required>
+                                        <option value="">-- choose birthdate -- </option>
+                                        <option value="sun">Sun</option>
+                                        <option value="mon">Mon</option>
+                                        <option value="tue">Tue</option>
+                                        <option value="wed">Wed</option>
+                                        <option value="thu">Thu</option>
+                                        <option value="fri">Fri</option>
+                                        <option value="sat">Sat</option>
+                                </select><br>
+                                <input type="submit" value="Register Family">
+                        </fieldset>
+                </form>
+                
+                <form id="queryForm" class="hidden">
+                        <fieldset>
+                                <legend>Query Form</legend>
+                                <label for="dadQueryInput">Dad</label><br>
+                                <input type="text" name="dad" id="dadQueryInput"  required/><br>
+                                <label for="momQueryInput">Mom</label><br>
+                                <input type="text" name="mom" id="momQueryInput" required /><br>
+                                <label for="genderQueryInput">Baby</label><br>
+                                <select name="gender" id="genderQueryInput" required>
+                                        <option value="">-- choose gender --</option>
+                                        <option value="male">Son</option>
+                                        <option value="female">Daughter</option>
+                                </select><br>
+                                <input type="submit" value="Generate Baby Name">
+                        </fieldset>
+                </form>
+                <p id="statusPara" class="hidden">status...</p>
+                <a href="#" id="showFamilyInsertFormLink" class="hidden">Insert Form</a>
+                <a href="#" id="showQueryFormLink" class="hidden">Query Form</a>
+                <script>
+                       console.log("baby is ready");
+                       /* 
+                                What we have to do?
+                                1. Handle Form Submit
+                                2. hide form and show result, save in localStorage not to ask again :D
+                                3. back link or next link ( may be classification )
+                                4. show query form
+                                5. Handle Query Form Submit
+                                6. hide form and show result
+                                7. new query or share :D
+                       */
+
+                       // 1. familyInsertForm listener
+                       /*
+                                Ref;  https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit_event
+                                function logSubmit(event) {
+                                log.textContent = `Form Submitted! Time stamp: ${event.timeStamp}`;
+                                event.preventDefault();
+                                }
+
+                                const form = document.getElementById('form');
+                                const log = document.getElementById('log');
+                                form.addEventListener('submit', logSubmit);
+
+                                // formdata tutorial
+                                // https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects
+                                var formElement = document.querySelector("form");
+                                var formData = new FormData(formElement);
+                                var request = new XMLHttpRequest();
+                                request.open("POST", "submitform.php");
+                                formData.append("serialnumber", serialNumber++);
+                                request.send(formData);
+
+
+                                // request event listener
+                                var oReq = new XMLHttpRequest();
+
+                                oReq.addEventListener("progress", updateProgress);
+                                oReq.addEventListener("load", transferComplete);
+                                oReq.addEventListener("error", transferFailed);
+                                oReq.addEventListener("abort", transferCanceled);
+
+                                oReq.open();
+
+                                // ...
+
+                                // progress on transfers from the server to the client (downloads)
+                                function updateProgress (oEvent) {
+                                if (oEvent.lengthComputable) {
+                                var percentComplete = oEvent.loaded / oEvent.total * 100;
+                                // ...
+                                } else {
+                                // Unable to compute progress information since the total size is unknown
+                                }
+                                }
+
+                                function transferComplete(evt) {
+                                console.log("The transfer is complete.");
+                                }
+
+                                function transferFailed(evt) {
+                                console.log("An error occurred while transferring the file.");
+                                }
+
+                                function transferCanceled(evt) {
+                                console.log("The transfer has been canceled by the user.");
+                                }
+
+                       */
+                       
+                       // function list
+                       function familyInsertFormSubmit(event){
+                                console.log("familyInsertForm is submited");
+                                var formData = new FormData(familyInsertForm);
+                                formData.append("ops_type","register");
+                                console.log("request is started");
+                                var request = new XMLHttpRequest();
+                                request.responseType = "json";
+                                request.addEventListener("load",function(evt){
+                                        console.log("request on Load "+request.response);
+                                        console.log(request.response);
+                                        setTimeout(()=>{
+                                                if(request.response.status){
+                                                        //alert("Insert Success");
+                                                        statusPara.innerHTML = "Insert Success";
+                                                        showFamilyInsertFormLink.style.display = "block";
+                                                        showQueryFormLink.style.display = "block";
+                                                }else{
+                                                        //alert("Insert Fail");
+                                                        statusPara.innerHTML = "Insert Fail";
+                                                        showFamilyInsertFormLink.style.display = "block";
+                                                        showQueryFormLink.style.display = "block";
+                                                }
+                                        },1000);
+                                        
+                                });
+                                request.addEventListener("error",function(evt){
+                                        console.log("request on error "+request.statusText);
+                                });
+                                request.open("POST",familyEndpoint);
+                                request.send(formData);
+                                console.log("request is sent");
+                                familyInsertForm.reset();
+                                familyInsertForm.style.display = "none";
+                                statusPara.innerHTML = "inserting....";
+                                statusPara.style.display = "block";
+                                event.preventDefault();
+                       }
+                       function queryFormSubmit(event){
+                                console.log("queryFormSubmit is submited");
+                                var formData = new FormData(queryForm);
+                                formData.append("ops_type","guess");
+                                console.log("queryForm request is started");
+                                var request = new XMLHttpRequest();
+                                request.responseType = "json";
+                                request.addEventListener("load",function(evt){
+                                        console.log("queryForm request on Load "+request.response);
+                                        console.log(request.response);
+                                        setTimeout(()=>{
+                                                if(request.response.status){
+                                                        //alert("Guess Success");
+                                                        var html = "<ul>";
+                                                        for(var i = 0 ; i < request.response.data.length ; i++){
+                                                                html += "<li>"+request.response.data[i]+"</li>";
+                                                        }
+                                                        statusPara.innerHTML = "Guess Success <br>"+html;
+                                                        showFamilyInsertFormLink.style.display = "block";
+                                                        showQueryFormLink.style.display = "block";
+                                                }else{
+                                                        //alert("Guess Fail");
+                                                        statusPara.innerHTML = "Guess Fail";
+                                                        showFamilyInsertFormLink.style.display = "block";
+                                                        showQueryFormLink.style.display = "block";
+                                                }
+                                        },1000);
+                                        
+                                });
+                                request.addEventListener("error",function(evt){
+                                        console.log("request on error "+request.statusText);
+                                });
+                                request.open("POST",familyEndpoint);
+                                request.send(formData);
+                                console.log("request is sent");
+                                queryForm.reset();
+                                queryForm.style.display = "none";
+                                statusPara.innerHTML = "guessing....";
+                                statusPara.style.display = "block";
+                                event.preventDefault();
+                        }
+                       function showFamilyInsertFormLinkClick(event){
+                               console.log("showFamilyInsertFormLink is clicked");
+                               // show family insert form and hide self :D
+                               familyInsertForm.style.display = "block";
+                               showQueryFormLink.style.display = "block";
+                               queryForm.style.display = "none";
+                               showFamilyInsertFormLink.style.display = "none";
+                               statusPara.style.display = "none";
+                       }
+                       function showQueryFormLinkClick(event){
+                                console.log("showQueryFormLinkClick is clicked");
+                                // show query form and  hide self :D
+                                queryForm.style.display = "block";
+                                showFamilyInsertFormLink.style.display = "block";
+                                familyInsertForm.style.display = "none";
+                                showQueryFormLink.style.display = "none";
+                                statusPara.style.display = "none";
+
+                        }
+                       
+                       // element list
+                       const familyInsertForm = document.getElementById("familyInsertForm");
+                       const queryForm = document.getElementById("queryForm");
+                       const statusPara = document.getElementById("statusPara");
+                       const showFamilyInsertFormLink = document.getElementById("showFamilyInsertFormLink");
+                       const showQueryFormLink = document.getElementById("showQueryFormLink");
+
+                       // event listener list
+                       familyInsertForm.addEventListener("submit",familyInsertFormSubmit);
+                       queryForm.addEventListener("submit",queryFormSubmit);
+                       showFamilyInsertFormLink.addEventListener("click",showFamilyInsertFormLinkClick);
+                       showQueryFormLink.addEventListener("click",showQueryFormLinkClick);
+
+                        // data list 
+                       const webserviceUrl = "https://mmsoftware100.com/baby/api/v1/";
+                       const familyUrl = "family/index.php";
+                       const familyEndpoint = webserviceUrl+familyUrl;
+
+                       // ui initialization
+                       // show insert form
+                       familyInsertForm.style.display = "block";
+                       showQueryFormLink.style.display = "block";
+                </script>
+        </body>
+</html>
