@@ -71,15 +71,33 @@ function showdata(index){
 //myApp.alert(index+ " is index");
 var eng=data[index].endef;
 var mm=data[index].mmdef;
+var note = "";
+var loopLen = 0;
+if(data[index].note === undefined) loopLen = 0;
+else loopLen = data[index].note.length;
+for(let i=0; i< loopLen; i++){
+	console.log(data[index].note[i]);
+	note += "<p>"+data[index].note[i]+"</p>";
+}
+console.log(note);
 //myApp.alert("text is : "+eng+mm);
 //var eng=$("div.engdef", this).text();
 	//var mm=$("div.mmdef", this).text();
 	//myApp.alert(eng+'<br>'+mm,"Defination");
 //myApp.alert(eng+"<br><hr>"+mm,"Defination");
-addDefCard(eng,mm);
+addDefCard(eng,mm,note);
 //$("#btnSayIt").prop("onclick",null);
 console.log("Android.speak "+eng);
-$("#btnSayIt").click(function(){Android.speak(eng);});
+$("#btnSayIt").click(function(){
+		try{
+			Android.speak(eng);
+		} catch(err){
+			console.log("Android error "+err);
+			window.location.assign("tel://"+eng);
+		}
+		
+	}
+);
 //Android.speak(eng);
 }
 
@@ -94,10 +112,11 @@ addDefCard(eng,mm);
 });
 */
 
-function addDefCard(eng,mm){
+function addDefCard(eng,mm,note){
 var defHTML = myApp.templates.defTemplate({
     engTemp:eng,
-		mmTemp:mm
+		mmTemp:mm,
+		note:note
 });
 
 $("#defcard").empty();
