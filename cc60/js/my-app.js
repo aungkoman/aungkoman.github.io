@@ -90,7 +90,7 @@ addDefCard(eng,mm,note);
 console.log("Android.speak "+eng);
 $("#btnSayIt").click(function(){
 		try{
-			Android.speak(eng);
+			Android.speak(mm);
 		} catch(err){
 			console.log("Android error "+err);
 			window.location.assign("tel://"+eng);
