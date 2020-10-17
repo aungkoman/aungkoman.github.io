@@ -160,7 +160,7 @@ function App(){
   );
 
   return (
-    <Router>
+    <Router basename="/2dlive">
     <div>
       <AppBar position="static">
         <Toolbar>
