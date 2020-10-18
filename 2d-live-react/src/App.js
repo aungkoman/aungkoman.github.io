@@ -51,6 +51,9 @@ import {
  } from "react-router-dom";
  import { Redirect } from "react-router-dom";
 
+ 
+import { useEffect } from "react";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -120,6 +123,18 @@ const rows = [
 ];
 
 
+var liveDataStructure = {
+  live2d : 55,
+  live2dUpdateTime : "2020-10-18 12:34 PM",
+  morningSet : 23,
+  morningValue : 34,
+  morningDigit : 33,
+  eveningSet : 67,
+  eveningValue : 78,
+  eveningDigit : 88,
+  live3d : 558,
+  live3dUpdateTime : "2020-10-18 12:34 PM",
+}
 function App(){
   const classes = useStyles();
   const [state, setState] = React.useState({
@@ -128,6 +143,8 @@ function App(){
     bottom: false,
     right: false,
   });
+
+  const [liveData, setLiveData] = React.useState(liveDataStructure);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -158,7 +175,38 @@ function App(){
       </List>
     </div>
   );
+  function randomIntFromInterval(min, max) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
 
+  function makeDigit(number,count){
+    number = number + "";
+    for(let i=number.length ; i < count; i++){
+      number = "0"+number;
+    }
+    return number;
+  }
+
+  /* life cycle or hook */
+  useEffect(() => {
+    console.log("this is useEffect");
+    setInterval(function(){ 
+      // console.log("replaced with socket event"); 
+      setLiveData({
+        live2d : makeDigit(randomIntFromInterval(0,99),2),
+        live2dUpdateTime : "2020-10-18 12:34 PM",
+        live3d : makeDigit(randomIntFromInterval(0,999),3),
+        live2dUpdateTime : Date(),
+        morningSet : randomIntFromInterval(0,99),
+        morningValue : randomIntFromInterval(0,99),
+        morningDigit : randomIntFromInterval(0,99),
+        eveningSet : randomIntFromInterval(0,99),
+        eveningValue : randomIntFromInterval(0,99),
+        eveningDigit : randomIntFromInterval(0,99),
+        live3dUpdateTime : Date(),
+      });
+    }, 3000);
+  }, []);
   return (
     <Router basename="/2dlive">
     <div>
@@ -183,14 +231,14 @@ function App(){
       <Switch>
         <Route path="/2dlive">
             <div className={classes.card}>
-            <center ><span className={classes.cardNumber}>43</span></center>
-            <center className={classes.cardUpdatedTime}>Updated on 2020-10-20 12:34 PM</center>
+            <center className="blink"><span className={classes.cardNumber}>{liveData.live2d}</span></center>
+            <center className={classes.cardUpdatedTime}>Updated on {liveData.live2dUpdateTime}</center>
           </div>
           
           <div className={classes.card}>
             <table  className={classes.tableSub}>
               <tr>
-                <td colSpan="3"><center><span className={classes.tableSubTitleHighlight}>12:00 PM</span></center></td>
+                <td colSpan="3"><center ><span className={classes.tableSubTitleHighlight}>12:00 PM</span></center></td>
               </tr>
               <tr>
                 <td><span className={classes.tableSubTitle}>SET</span></td>
@@ -198,9 +246,9 @@ function App(){
                 <td><span className={classes.tableSubTitle}>2D</span></td>
               </tr>
               <tr>
-                <td><span className={classes.tableSubTitleHighlight}>1,435</span></td>
-                <td><span className={classes.tableSubTitleHighlight}>3,453</span></td>
-                <td><span className={classes.tableSubTitleHighlight}>34</span></td>
+                <td><span className={classes.tableSubTitleHighlight}>{liveData.morningSet}</span></td>
+                <td><span className={classes.tableSubTitleHighlight}>{liveData.morningValue}</span></td>
+                <td><span className={classes.tableSubTitleHighlight}>{liveData.morningDigit}</span></td>
               </tr>
             </table>
           </div>
@@ -216,9 +264,9 @@ function App(){
                 <td><span className={classes.tableSubTitle}>2D</span></td>
               </tr>
               <tr>
-                <td><span className={classes.tableSubTitleHighlight}>1,435</span></td>
-                <td><span className={classes.tableSubTitleHighlight}>3,453</span></td>
-                <td><span className={classes.tableSubTitleHighlight}>34</span></td>
+                <td><span className={classes.tableSubTitleHighlight}>{liveData.eveningSet}</span></td>
+                <td><span className={classes.tableSubTitleHighlight}>{liveData.eveningValue}</span></td>
+                <td><span className={classes.tableSubTitleHighlight}>{liveData.eveningDigit}</span></td>
               </tr>
             </table>
           </div>
@@ -226,8 +274,8 @@ function App(){
 
         <Route path="/3dlive">
             <div className={classes.card}>
-            <center ><span className={classes.cardNumber}>443</span></center>
-            <center className={classes.cardUpdatedTime}>Updated on 2020-10-20 12:34 PM</center>
+            <center className="blink"><span className={classes.cardNumber}>{liveData.live3d}</span></center>
+            <center className={classes.cardUpdatedTime}>Updated on {liveData.live3dUpdateTime}</center>
           </div>
         </Route>
 
