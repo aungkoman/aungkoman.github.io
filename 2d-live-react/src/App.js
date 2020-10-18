@@ -54,6 +54,11 @@ import {
  
 import { useEffect } from "react";
 
+import socketIOClient from "socket.io-client";
+// const socketUrl = "http://127.0.0.1:5508";
+const socketUrl = "https://shan-server.herokuapp.com/";
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -187,11 +192,13 @@ function App(){
     return number;
   }
 
+  const socket = socketIOClient(socketUrl);
+
   /* life cycle or hook */
   useEffect(() => {
-    console.log("this is useEffect");
+
+    /*
     setInterval(function(){ 
-      // console.log("replaced with socket event"); 
       setLiveData({
         live2d : makeDigit(randomIntFromInterval(0,99),2),
         live2dUpdateTime : "2020-10-18 12:34 PM",
@@ -206,6 +213,13 @@ function App(){
         live3dUpdateTime : Date(),
       });
     }, 3000);
+    */
+    
+    socket.on("data", data => {
+      console.log("socket data");
+      console.log(data);
+      setLiveData(data);
+    });
   }, []);
   return (
     <Router basename="/2dlive">
