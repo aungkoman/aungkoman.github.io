@@ -32,6 +32,8 @@ Flutter App ကနေ Facebook Page တစ်ခုကို လှမ်းဖ�
 ```
 > facebook page/ profile id ကို https://lookup-id.com မှာ ရှာလို့ရပါတယ်။
 
+ဒီ coding ကိုတော့ https://www.reddit.com/r/FlutterDev/comments/aowu6c/how_to_deeplink_into_the_facebook_app/ က ရှာတွေ့ထားတာဖြစ်ပါတယ်။
+
 
 
 
