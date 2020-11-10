@@ -13,7 +13,7 @@ I think you'll understand
 When I say that something
 I wanna hold your hand
 ```
-ဒီလိုနဲ့ပဲ ကျွန်တော်က ခင်ဗျားကို လွမ်းမိရော။
+ဒီလိုနဲ့ပဲ ကျွန်တော်က ခင်ဗျားကို လွမ်းမိရော။ 
 
 
 
