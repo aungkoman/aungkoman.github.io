@@ -2,6 +2,28 @@
 layout: post
 title: Making Money Online Part-1
 ---
+
+<head>
+
+<!-- Primary Meta Tags -->
+<title>အွန်လိုင်းပေါ်မှာ ငွေဘယ်လို ရှာမလဲ?</title>
+<meta name="title" content="အွန်လိုင်းပေါ်မှာ ငွေဘယ်လို ရှာမလဲ?">
+<meta name="description" content="အွန်လိုင်းပေါ် ကနေ ငွေဘယ်လိုရှာမလဲ? (Google Admob)">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aungkoman.github.io/making-money-online-part1/">
+<meta property="og:title" content="အွန်လိုင်းပေါ်မှာ ငွေဘယ်လို ရှာမလဲ?">
+<meta property="og:description" content="အွန်လိုင်းပေါ် ကနေ ငွေဘယ်လိုရှာမလဲ? (Google Admob)">
+<meta property="og:image" content="https://aungkoman.github.io/images/social-preview/social-preview-making-money-part1.png">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://aungkoman.github.io/making-money-online-part1/">
+<meta property="twitter:title" content="အွန်လိုင်းပေါ်မှာ ငွေဘယ်လို ရှာမလဲ?">
+<meta property="twitter:description" content="အွန်လိုင်းပေါ် ကနေ ငွေဘယ်လိုရှာမလဲ? (Google Admob)">
+<meta property="twitter:image" content="https://aungkoman.github.io/images/social-preview/social-preview-making-money-part1.png">
+</head>
 အွန်လိုင်းပေါ် ကနေ ငွေဘယ်လိုရှာမလဲ? (Google Admob)
 ငွေဘယ်လိုရှာမလဲ မပြောခင် သူများတွေ ငွေဘယ်လိုရနေလဲ ပြောပြပါမယ်။
 
@@ -50,22 +72,3 @@ Reareded Video Ads
 
 
 အဓိကကတော့ ကိုယ့်မှာ ဆန်းသစ်တဲ့ အတွေးအမြင်ရှိပြီး လူတွေလိုတဲ့ လူတွေ ကြုံတွေ့နေရတဲ့ ပြသနာကို ဖြေရှင်းပေးနိုင်တဲ့ app မျိုးဆိုရင် လူသုံးများလာမှာပါ။
-
-<!-- Primary Meta Tags -->
-<title>အွန်လိုင်းပေါ်မှာ ငွေဘယ်လို ရှာမလဲ?</title>
-<meta name="title" content="အွန်လိုင်းပေါ်မှာ ငွေဘယ်လို ရှာမလဲ?">
-<meta name="description" content="အွန်လိုင်းပေါ် ကနေ ငွေဘယ်လိုရှာမလဲ? (Google Admob)">
-
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://aungkoman.github.io/making-money-online-part1/">
-<meta property="og:title" content="အွန်လိုင်းပေါ်မှာ ငွေဘယ်လို ရှာမလဲ?">
-<meta property="og:description" content="အွန်လိုင်းပေါ် ကနေ ငွေဘယ်လိုရှာမလဲ? (Google Admob)">
-<meta property="og:image" content="https://aungkoman.github.io/images/social-preview/social-preview-making-money-part1.png">
-
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="https://aungkoman.github.io/making-money-online-part1/">
-<meta property="twitter:title" content="အွန်လိုင်းပေါ်မှာ ငွေဘယ်လို ရှာမလဲ?">
-<meta property="twitter:description" content="အွန်လိုင်းပေါ် ကနေ ငွေဘယ်လိုရှာမလဲ? (Google Admob)">
-<meta property="twitter:image" content="https://aungkoman.github.io/images/social-preview/social-preview-making-money-part1.png">
