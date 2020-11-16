@@ -2,26 +2,24 @@
 layout: post
 title: Making Money Online Part-1
 ---
-
 အွန်လိုင်းပေါ် ကနေ ငွေဘယ်လိုရှာမလဲ? (Google Admob)
-
 ငွေဘယ်လိုရှာမလဲ မပြောခင် သူများတွေ ငွေဘယ်လိုရနေလဲ ပြောပြပါမယ်။
 
+![Banner Ads](../images/social-preview/social-preview-making-money-part1.png)
 
 ပထမတစ်ခုကတော့ Admob ပါ။ Admob ဆိုတာ Google ရဲ့ ကြော်ညာပလက်ဖောင်း တစ်ခု ဖြစ်ပါတယ်။ သူက Mobile App Developer တွေကို သူတို့ ရေးတဲ့ app တွေအတွက် ငွေပြန်ပေးတဲ့ ပလက်ဖောင်းပါ။ ဒီအတိုင်းကြီး ပြန်ပေးတာတော့ မဟုတ်ဘူးပေါ့။ ကိုယ်ရေးတဲ့ mobile app မှာ admob ကြော်ညာအတွက် နေရာတစ်ခု ပေးထားရပါတယ်။ ဒီကြော်ညာ တွေနဲ့ ကျွန်တော်တို့ အားလုံးလိုလို နီးစပ်ပြီးသားပါ။ သတိမထားမိလို့သာ ဖြစ်ပါလိမ့်မယ်။ တွေ့နေကြ ကြော်ညာ(၃) ခုရှိပါတယ်။
 
 
 
-
 Banner and Interstitial Ads
 
-![Banner Ads](images/making-money/part1/step1.jpg)
+![Banner Ads](../images/making-money/part1/step1.jpg)
 ပထမ တစ်ခုက Banner Ads ပါ။ သူကတော့ ရှင်းပါတယ်။ app ရဲ့ အောက်ဆုံးဘားမှာ ထိုးထားတဲ့ ကြော်ညာပါ။
 
 
 
 
-![Reward Ads](images/making-money/part1/step2.png)
+![Reward Ads](../images/making-money/part1/step2.png)
 ဒုတိယ တစ်ခုက Intrestitial Ads ပါ။ သူကတော့ ကျွန်တော်တို့ ဂိမ်း လယ်ဗယ်တစ်ခု အောင်သွားတဲ့ အချိန်ပဲ ဖြစ်ဖြစ်၊ စာဖတ်နေရင်း နောက်တစ်မျက်နှာ ကနေ နောက်တစ်မျက်နှာ ကို ကူးတဲ့အခါပဲ ဖြစ်ဖြစ် မျက်နှာပြင်အပြည့် ကြားဖြတ်ဝင်လာတက်တဲ့ ကြော်ညာမျိုးကို ခေါ်တာပါ။
 
 
@@ -30,7 +28,7 @@ Banner and Interstitial Ads
 Reareded Video Ads
 
 
-![Features Ads](images/making-money/part1/step3.png)
+![Features Ads](../images/making-money/part1/step3.png)
 
 
 တတိယ တစ်ခုကတော့ Reward Video ပါ။ သူကတော့ ဒဲ့ကို ကြော်ညာကြည့်ခို်ငးတဲ့ သ‌ဘောပါပဲ။ အတွေ့ရအများဆုံးကတော့ ဂိမ်းတွေမှာပါ။ သူ သတ်မှတ်တဲ့ ဂိမ်း item ကိုရဖို့ပဲဖြစ်ဖြစ် ကစားနေရင်း ပန်းတိုင်မရောက်ခင် သေသွားလို့ အသက်ဆက်ဖို့အတွက်ပဲဖြစ်ဖြစ် ကြော်ညာ ဗီဒီယို ကြည့်ရတာမျိုးတို့ပါ။
@@ -52,3 +50,22 @@ Reareded Video Ads
 
 
 အဓိကကတော့ ကိုယ့်မှာ ဆန်းသစ်တဲ့ အတွေးအမြင်ရှိပြီး လူတွေလိုတဲ့ လူတွေ ကြုံတွေ့နေရတဲ့ ပြသနာကို ဖြေရှင်းပေးနိုင်တဲ့ app မျိုးဆိုရင် လူသုံးများလာမှာပါ။
+
+<!-- Primary Meta Tags -->
+<title>အွန်လိုင်းပေါ်မှာ ငွေဘယ်လို ရှာမလဲ?</title>
+<meta name="title" content="အွန်လိုင်းပေါ်မှာ ငွေဘယ်လို ရှာမလဲ?">
+<meta name="description" content="အွန်လိုင်းပေါ် ကနေ ငွေဘယ်လိုရှာမလဲ? (Google Admob)">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aungkoman.github.io/making-money-online-part1/">
+<meta property="og:title" content="အွန်လိုင်းပေါ်မှာ ငွေဘယ်လို ရှာမလဲ?">
+<meta property="og:description" content="အွန်လိုင်းပေါ် ကနေ ငွေဘယ်လိုရှာမလဲ? (Google Admob)">
+<meta property="og:image" content="https://aungkoman.github.io/images/social-preview/social-preview-making-money-part1.png">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://aungkoman.github.io/making-money-online-part1/">
+<meta property="twitter:title" content="အွန်လိုင်းပေါ်မှာ ငွေဘယ်လို ရှာမလဲ?">
+<meta property="twitter:description" content="အွန်လိုင်းပေါ် ကနေ ငွေဘယ်လိုရှာမလဲ? (Google Admob)">
+<meta property="twitter:image" content="https://aungkoman.github.io/images/social-preview/social-preview-making-money-part1.png">
