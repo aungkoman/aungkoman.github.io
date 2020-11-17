@@ -7,24 +7,21 @@ title: Making Money Online Part-4
 Admob မှာ မသိမဖြစ် သိထားသင့်တဲ့ ‌ဝေါဟာရ (၅) ခု
 ‌‌ငွေရှာလို့ရတဲ့ မှန်ကန်တဲ့နည်းတွေအများကြီးထဲကမှ ကျွန်တော်တို့နဲ့ နီးစပ်တဲ့ Google Admob အကြောင်းကို ပြောပြချင်ပါတယ်။
 ![Photo](../images/social-preview/social-preview-making-money-part4.png)
+ 
+
 
 ပထမဆုံး Google Admob က ဘာလို့ ကျွန်တော်တို့ကို ပိုက်ဆံတွေ ပေးတာလဲဆိုတာကို အပိုင်း(၁) https://aungkoman.github.io/making-money-online-part1/ မှာ ရေးခဲ့ပါတယ်။
 ![Photo](../images/making-money/part4/step1.png)
+ 
+ 
 အပိုင်း(၂) https://aungkoman.github.io/making-money-online-part2/ မှာတော့ မြန်မာနို်ငငံကနေ Admob Account တစ်ခု ဖောက်ဖို့ ဘာတွေလိုမလဲ ဘယ်လိုပြင်ဆင်ရမလဲ ကြုံလာနို်ငတဲ့ အခက်အခဲတွေနဲ့ ဖြေရှင် ဖြေရှင်းနည်းတွေ ရေးခဲ့ပါတယ်။
 
-
-
-
 ပရိုဂရမ်မာမဟုတ်တဲ့ သူတွေ အနေနဲ့ Admob က ငွေဘယ်လိုရနို်ငမလဲဆိုတာကိုတော့ အပိုင်း(၃) https://aungkoman.github.io/making-money-online-part3/ မှာ ဖတ်ရှုနိုင်ပါတယ်။
-
 
 အခု အပိုင်း(၄) https://aungkoman.github.io/making-money-online-part4/ အနေနဲ့ ကျွန်တော့တို့ Admob မှာ ငွေရှာပြီဆိုရင် သိထားသင့်တဲ့ ဝေါဟာရ အခေါ်အဝေါ် (၅) မျိုးအကြောင်း ပြန်လည်မျှဝေပေးချင်ပါတယ်။
 
 
 Admob ကို ဝင်ဝင်ချင်း dashboard မှာ အခုလို တွေ့ရမှာပါ
-
-
-
 
 Admob Dashboard
 
