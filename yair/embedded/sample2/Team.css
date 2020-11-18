@@ -1,0 +1,90 @@
+.mediaViewInfo {
+	--web-view-name: Team;
+	--web-view-id: Team;
+	--web-scale-on-resize: true;
+	--web-enable-deep-linking: true;
+}
+:root {
+	--web-view-ids: Team;
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	border: none;
+}
+#Team {
+	position: absolute;
+	width: 800px;
+	height: 600px;
+	background-color: rgba(255,255,255,1);
+	overflow: hidden;
+	--web-view-name: Team;
+	--web-view-id: Team;
+	--web-scale-on-resize: true;
+	--web-enable-deep-linking: true;
+}
+#Group_65 {
+	position: absolute;
+	width: 196px;
+	height: 196px;
+	left: 121px;
+	top: 64px;
+	overflow: visible;
+}
+#Ellipse_254 {
+	position: absolute;
+	width: 196px;
+	height: 196px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Group_66 {
+	position: absolute;
+	width: 196px;
+	height: 196px;
+	left: 466px;
+	top: 64px;
+	overflow: visible;
+}
+#Ellipse_254_bi {
+	position: absolute;
+	width: 196px;
+	height: 196px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Group_67 {
+	position: absolute;
+	width: 196px;
+	height: 196px;
+	left: 121px;
+	top: 338px;
+	overflow: visible;
+}
+#Ellipse_255 {
+	position: absolute;
+	width: 196px;
+	height: 196px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Group_68 {
+	position: absolute;
+	width: 196px;
+	height: 196px;
+	left: 466px;
+	top: 338px;
+	overflow: visible;
+}
+#Ellipse_254_bm {
+	position: absolute;
+	width: 196px;
+	height: 196px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
