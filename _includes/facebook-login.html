@@ -33,8 +33,20 @@ function statusChangeCallback(response){
 		console.log("user is logged in ");
 	}
 	else{
-		console.log("open login")
-		FB.login();
+		console.log("user need to login");
+		//FB.login();
 	}
 }
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
   </script>
+
+  
+<fb:login-button 
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
