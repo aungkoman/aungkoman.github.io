@@ -1,0 +1,39 @@
+---
+layout: post
+title: How to open facebook page from Flutter
+---
+
+Flutter App ကနေ Facebook Page တစ်ခုကို လှမ်းဖွင့်ချင်တဲ့အခါ
+ 
+ Url Launcher ထည့်ပါမယ်။
+
+> url_launcher: ^5.7.10
+ 
+ ခေါ်ပုံခေါ်နည်းက 
+
+```dart
+  void _openFacebook() async{
+    /* numeric value ကို https://lookup-id.com/ မှာ ရှာပါ */
+    String fbProtocolUrl = "fb://page/110486103786309";
+    String fallbackUrl = "https://www.facebook.com/mmsoftware100";
+    try {
+      bool launched = await launch(fbProtocolUrl, forceSafariVC: false);
+      print("launching..."+fbProtocolUrl);
+      if (!launched) {
+        print("can't launch");
+        await launch(fallbackUrl, forceSafariVC: false);
+      }
+    } catch (e) {
+      print("can't launch exp "+e.toString());
+      await launch(fallbackUrl, forceSafariVC: false);
+    }
+  }
+}
+```
+> facebook page/ profile id ကို https://lookup-id.com မှာ ရှာလို့ရပါတယ်။
+
+ဒီ coding ကိုတော့ https://www.reddit.com/r/FlutterDev/comments/aowu6c/how_to_deeplink_into_the_facebook_app/ က ရှာတွေ့ထားတာဖြစ်ပါတယ်။
+
+
+
+
