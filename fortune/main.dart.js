@@ -48249,7 +48249,7 @@ $1:function(a){return new Q.jx(H.d([],t.jU),new P.br(t.V))},
 $S:299}
 O.xR.prototype={
 H:function(a,b){var s=X.a2L(null,C.bz)
-return new S.pD(P.aP(["/main-route",new O.Mq(),"/answer-route",new O.Mr()],t.bi,t.gd),"/main-route","Flutter Demo",s,null)}}
+return new S.pD(P.aP(["/main-route",new O.Mq(),"/answer-route",new O.Mr()],t.bi,t.gd),"/main-route","နတ်မျက်စေ့ လက်ထောက်ဗေဒင်",s,null)}}
 O.Mq.prototype={
 $1:function(a){return new A.k6(null)},
 $S:300}
