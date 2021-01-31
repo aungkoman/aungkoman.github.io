@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>PWA Offline</title>
+</head>
+<body>
+    <!--The document content will be inserted here-->
+    <h2>PWS Offline</h2>
+    <script>
+        console.log('hello world');
+        if('serviceWorker' in navigator) {
+            console.log('serviceWorker in navigator');
+            navigator.serviceWorker.register('./sw.js');
+            console.log('done');
+        };
+    </script>
+</body>
+</html>
