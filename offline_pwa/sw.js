@@ -2,7 +2,7 @@ var cacheName = 'cache-v2';
 var cacheNameOld = 'cache-v2';
 
 var appShellFiles = [
-  'index.html'
+  '/index.html'
 ];
 
 self.addEventListener('install', (e) => {
