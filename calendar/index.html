@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Myanmar Calendar ~1500 years</title>
+    <script src='js/mc.js'></script>
+    <style>
+        body{
+            width: 300px;
+            margin: auto;
+        }
+        lable {
+            width: 100px;
+            display: inline-block;
+        }
+        input{
+            height: 30px;
+        }
+        select{
+            height: 50px;
+            line-height: 50px;
+        }
+        input, select {
+            margin-bottom: 30px;
+            display: inline-block;
+            max-width: 150px;
+            min-width: 150px;
+        }
+        input[type=submit] {
+            font-weight: bold;
+            padding: 10px;
+            height: auto;
+            width: auto;
+            margin: auto;
+        }
+        input[type=date] {
+            font-weight: bold;
+            padding: 10px;
+            height: auto;
+            width: auto;
+            margin-bottom: 30px;
+        }
+        div.submitBtnDiv{
+            width: 100%;
+            margin: auto;
+            text-align: center;
+        }
+        #englishDataSpan{
+            margin-bottom: 30px;
+            display: inline-block;
+        }
+        a{
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form action="#" id="engToMmForm">
+        <h3>English Date to Myanmar Date</h3>
+        <lable for="englishDataInput">အင်္ဂလိပ် ရက်စွဲ</lable>
+        <input type="date" id="englishDateInput" required />
+        <br>
+        <span id="myanmarDataSpan"></span>
+        <br>
+    </form>
+        
+    <hr>
+    <form action="#" id="mmToEngForm">
+        <h3>Myanmar Date to English Date</h3>
+        <lable for="myanmarYearInput">မြန်မာ ခုနှစ်</lable>
+        <input type="number" id="myanmarYearInput" required/>
+        <br>
+        <lable for="myanmarMonthInput">မြန်မာ လ</lable>
+        <select id="myanmarMonthInput" required>
+            <option value="0" selected>ပဝါဆို</option>
+            <option value="1">တန်ခူး</option>
+            <option value="2" >ကဆုန်</option>
+            <option value="3">နယုန်</option>
+            <option value="4">ဝါဆို</option>
+            <option value="5">ဝါခေါင်</option>
+            <option value="6">တော်သလင်း</option>
+            <option value="7">သီတင်းကျွတ်</option>
+            <option value="8">တန်ဆောင်မုန်း</option>
+            <option value="9">နတ်တော်</option>
+            <option value="10">ပြာသို</option>
+            <option value="11">တပို့တွဲ</option>
+            <option value="12">တပေါင်း</option>
+        </select>
+        <br>
+        <lable for="myanmarMoonPhaseInput">လဆန်း / လပြည့်ကျော်</lable>
+        <select id="myanmarMoonPhaseInput" required>
+            <option value="0">လဆန်း</option>
+            <option value="1">လပြည့်</option>
+            <option value="2">လပြည့်ကျော်</option>
+            <option value="3">လကွယ်</option>
+        </select>
+        <br>
+        <lable for="myanmarMonthTypeInput">နှောင်းတန်ခူး / ဉီးတန်ခူး</lable>
+        <select id="myanmarMonthTypeInput" required>
+            <option value="0">နှောင်းတန်ခူး</option>
+            <option value="1">ဉီးတန်ခူး</option>
+        </select>
+        <br>
+        <lable for="myanmarDayInput">ရက်</lable>
+        <input type="number" id="myanmarDayInput" min="1" max="15" required />
+        <br>
+        <lable>အင်္ဂလိပ် ရက်စွဲ</lable>
+        <span id="englishDataSpan">--</span>
+        <br>
+        <div class="submitBtnDiv">
+            <input type="submit" value="အင်္ဂလိပ် ရက်စွဲပြောင်းရန်" />
+        </div>
+        
+
+    </form>
+    <hr>
+    <ul>
+        <li>ကမ္ဘာသုံး ပြက္ခဒိန် နှင့် မြန်မာ ပြက္ခဒိန် ကြား အပြန်အလှန်ပြောင်းပေးသည့် ပရိုဂရမ် ဖြစ်ပါသည်။</li>
+        <li><a href="https://www.npmjs.com/package/myanmar-calendar">Myanmar Calendar JS Library</a> ကို အသုံးပြု၍ ရေးသားထားခြင်း ဖြစ်ပါသည်။</li>
+        <li>အသုံးပြုသည့် သီအိုရီ၊ အော်ဂိုရစ်သမ် နှင့် ရှင်းလင်းချက် များကို <a href="http://cool-emerald.blogspot.com/2013/06/algorithm-program-and-calculation-of.html">ဤနေရာ</a> တွင် ဖတ်နိုင်ပါသည်။</li>
+    </ul>
+    <script>
+        
+        console.log('hello world');
+        document.getElementById("myanmarMoonPhaseInput").addEventListener("change",(event) => {
+            console.log("myanmarMoonPhaseInput->onChange");
+            let mmMoonPhase = parseInt(document.getElementById("myanmarMoonPhaseInput").value);
+            if(mmMoonPhase == 1 || mmMoonPhase == 3) {
+                document.getElementById("myanmarDayInput").value = 1;
+                // hide and disabled
+            }
+        });
+        document.getElementById("mmToEngForm").addEventListener("submit",(event) => {
+            event.preventDefault();
+            console.log("mmToEngForm submitted");
+            
+            let mmYear = parseInt( document.getElementById("myanmarYearInput").value );// int
+            let mmMonth = parseInt( document.getElementById("myanmarMonthInput").value );// int
+            let mmMonthType = parseInt( document.getElementById("myanmarMonthTypeInput").value );// int
+            let mmMoonPhase = parseInt( document.getElementById("myanmarMoonPhaseInput").value );// int
+            let mmFortnightDay = parseInt( document.getElementById("myanmarDayInput").value );// int
+            
+            
+            let jDayFromMm = m2j(mmYear,mmMonth,mmMonthType,mmMoonPhase,mmFortnightDay);
+            //let jDayFromMm = m2j(M.my,M.mm,M.mmt,M.mp,M.fd);
+            console.log(jDayFromMm);
+            console.log('jDayFromMm '+jDayFromMm);
+            let westernDate = j2w(jDayFromMm);
+            console.log(westernDate);
+            document.getElementById("englishDataSpan").textContent = ""+westernDate.y+"-"+monthsEN[westernDate.m]+"-"+westernDate.d;
+        });
+        document.getElementById("englishDateInput").addEventListener("change",() => {
+            console.log('date input change');
+            console.log(document.getElementById("englishDateInput").value);
+            let dateObj = new Date(document.getElementById("englishDateInput").value);
+            console.log(dateObj);
+            console.log(dateObj.getFullYear());
+
+            let year = dateObj.getFullYear();
+            let month = dateObj.getMonth() + 1;
+            let date = dateObj.getDate();
+            
+            console.log(dateObj.getFullYear() +"/"+dateObj.getMonth()+1 +"/"+dateObj.getDate());
+            let j=w2j(year, month, date); //get julian day number
+
+            let M=j2m(j);
+            console.log(M);
+            // mp = 0 meaning လဆန်း
+            // mp = 1 meaning လပြည့်
+            // mp = 2 meaning လဆုတ်
+            // mp = 3 meaning လကွယ်
+            // document.getElementById("myanmarDataSpan").textContent = document.getElementById("englishDateInput").value ;
+            document.getElementById("myanmarDataSpan").textContent = myNumbers(M.my,"my") +" ခုနှစ် "+monthsMM[M.mm]+" "+mpDefinations[M.mp]+" "+myNumbers(M.fd,"my") +" ရက်၊ "+ weekDay[M.wd] + " နေ့";
+        });
+
+        function init(){
+            let dateObj = new Date();
+            document.getElementById("englishDateInput").valueAsDate = dateObj;
+            
+            let year = dateObj.getFullYear();
+            let month = dateObj.getMonth() + 1;
+            let date = dateObj.getDate();
+            console.log(dateObj.getFullYear() +"/"+dateObj.getMonth()+1 +"/"+dateObj.getDate());
+            let j=w2j(year, month, date); //get julian day number
+
+            let M=j2m(j);
+            console.log(M);
+            document.getElementById("myanmarDataSpan").textContent = myNumbers(M.my,"my") +" ခုနှစ်၊ "+monthsMM[M.mm]+" "+mpDefinations[M.mp]+" "+myNumbers(M.fd,"my") +" ရက်၊" + weekDay[M.wd] + " နေ့";
+            
+            // document.getElementById("myanmarDataSpan").textContent = toMyanmar(dateObj);
+
+            let mmYear = M.my;// int
+            let mmMonth = M.mm; // string
+            let mmMonthType = M.mmt; // int
+            let mmMoonPhase = M.mp; // int
+            let mmFortnightDay = M.fd;
+            console.log(M);
+            let jDayFromMm = m2j(mmYear,mmMonth,mmMonthType,mmMoonPhase,mmFortnightDay);
+            //let jDayFromMm = m2j(M.my,M.mm,M.mmt,M.mp,M.fd);
+            console.log(jDayFromMm);
+            console.log('jDayFromMm '+jDayFromMm);
+            let westernDate = j2w(jDayFromMm);
+            console.log(westernDate);
+
+            console.log('--------------');
+            //let jDayFromMm2 = m2j(1382, 12, 0, 2, 13);
+            let jDayFromMm2 = m2j(1355, 3, 0, 2, 9);
+            console.log(j2w(jDayFromMm2));
+
+        }
+
+        init();
+
+    </script>
+</body>
+
+</html>
