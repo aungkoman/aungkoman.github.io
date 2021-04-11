@@ -65,7 +65,7 @@
             text-decoration: none;
         }
 
-        span{
+        span {
             color: blue;
             border: 2px solid blue;
             padding: 5px;
@@ -73,16 +73,28 @@
             display: inline-block;
             border-radius: 5%;
         }
-        span.nagahle_body, span.mahabote_body, span.nakhat_body{
+
+        span.nagahle_body,
+        span.mahabote_body,
+        span.nakhat_body {
             border: none;
         }
-        span.nagahle, span.mahabote, span.nakhat{
+
+        span.nagahle,
+        span.mahabote,
+        span.nakhat {
             border: none;
             font-weight: bold;
         }
-        #myanmarDataSpan{
+
+        #myanmarDataSpan {
             display: inline-block;
             border: none;
+        }
+
+        span.thingyanTitle{
+            border: none;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -112,6 +124,16 @@
         <span class="nagahle_body">နဂါးခေါင်း <span class="nagahle"></span> ဘက်သို့လှည့်</span>
         <span class="mahabote_body">မဟာဘုတ်အရ <span class="mahabote"></span> ဖွားဖြစ်သည်</span>
         <span class="nakhat_body">နက္ခတ်အရ<span class="nakhat"></span> နက္ခတ်</span>
+        <h3>သင်္ကြန်အချိန်အခါများ</h3>
+        <ul>
+            <li> <span class="thingyanTitle">သင်္ကြန်ကျချိန်</span>  <span class="thingyanAkyaTime"></span></li>
+            <li> <span class="thingyanTitle">သင်္ကြန်တက်ချိန်</span> <span class="thingyanAtatTime"></span></li>
+            <li> <span class="thingyanTitle">သင်္ကြန်အကြိုနေ့</span> <span class="thingyanAkyoDate"></span></li>
+            <li> <span class="thingyanTitle">သင်္ကြန်အကျနေ့</span> <span class="thingyanAkyaDate"></span></li>
+            <li> <span class="thingyanTitle">သင်္ကြန်အကြတ်နေ့</span> <span class="thingyanAkytDate"></span></li>
+            <li> <span class="thingyanTitle">သင်္ကြန်အတက်နေ့</span> <span class="thingyanAtatDate"></span></li>
+            <li> <span class="thingyanTitle">နှစ်ဆန်းတစ်ရက်နေ့</span> <span class="thingyanAtatDate"></span></li>
+        </ul>
         <br>
     </form>
 
@@ -196,8 +218,22 @@
         var mahaboteSpan = document.getElementsByClassName("mahabote");
         var nakhatBodySpan = document.getElementsByClassName("nakhat_body");
         var nakhatSpan = document.getElementsByClassName("nakhat");
-        
-        function hideAll(){
+
+        var thingyanAkyaTimeSpan = document.getElementsByClassName("thingyanAkyaTime");
+
+        var thingyanAtatTimeSpan = document.getElementsByClassName("thingyanAtatTime");
+
+        var thingyanAkyoDateSpan = document.getElementsByClassName("thingyanAkyoDate");
+
+        var thingyanAkyaDateSpan = document.getElementsByClassName("thingyanAkyaDate");
+
+        var thingyanAkytDateSpan = document.getElementsByClassName("thingyanAkytDate");
+
+        var thingyanAtatDateSpan = document.getElementsByClassName("thingyanAtatDate");
+
+        var thingyanAtatDateSpan = document.getElementsByClassName("thingyanAtatDate");
+
+        function hideAll() {
             sabbathSpan[0].style.display = "none";
             sabbatheveSpan[0].style.display = "none";
             yatyazaSpan[0].style.display = "none";
@@ -247,37 +283,61 @@
             console.log(westernDate);
             document.getElementById("englishDataSpan").textContent = "" + westernDate.y + "-" + monthsEN[westernDate.m] + "-" + westernDate.d;
         });
-        function engDateOnChange(){
+        function engDateOnChange() {
             let dateObj = new Date(document.getElementById("englishDateInput").value);
             let year = dateObj.getFullYear();
             let month = dateObj.getMonth() + 1;
             let date = dateObj.getDate();
             let mmDate = engToMm(year, month, date);
-            document.getElementById("myanmarDataSpan").textContent = mmDate.year + " ခုနှစ် " + mmDate.month + " " +  mmDate.moonPhase + " " +  mmDate.date + " ရက်၊ " +  mmDate.day + " နေ့";
+            document.getElementById("myanmarDataSpan").textContent = mmDate.year + " ခုနှစ် " + mmDate.month + " " + mmDate.moonPhase + " " + mmDate.date + " ရက်၊ " + mmDate.day + " နေ့";
             // hide all
             hideAll();
-            if(mmDate.sabbath != "") sabbathSpan[0].style.display = "inline-block";
-            if(mmDate.sabbatheve != "") sabbatheveSpan[0].style.display = "inline-block";
-            if(mmDate.yatyaza != "") yatyazaSpan[0].style.display = "inline-block";
-            if(mmDate.pyathada != "") pyathadaSpan[0].style.display = "inline-block";
-            if(mmDate.thamanyo != "") thamanyoSpan[0].style.display = "inline-block";
-            if(mmDate.amyeittasote != "") amyeittasoteSpan[0].style.display = "inline-block";
-            if(mmDate.warameittugyi != "") warameittugyiSpan[0].style.display = "inline-block";
-            if(mmDate.warameittunge != "") warameittungeSpan[0].style.display = "inline-block";
-            if(mmDate.yatpote != "") yatpoteSpan[0].style.display = "inline-block";
-            if(mmDate.thamaphyu != "") thamaphyuSpan[0].style.display = "inline-block";
-            if(mmDate.nagapor != "") nagaporSpan[0].style.display = "inline-block";
-            if(mmDate.yatyotema != "") yatyotemaSpan[0].style.display = "inline-block";
-            if(mmDate.mahayatkyan != "") mahayatkyanSpan[0].style.display = "inline-block";
-            // if(mmDate.nagahle != "") nagahleSpan[0].style.display = "inline-block";
+            if (mmDate.sabbath != "") sabbathSpan[0].style.display = "inline-block";
+            if (mmDate.sabbatheve != "") sabbatheveSpan[0].style.display = "inline-block";
+            if (mmDate.yatyaza != "") yatyazaSpan[0].style.display = "inline-block";
+            if (mmDate.pyathada != "") pyathadaSpan[0].style.display = "inline-block";
+            if (mmDate.thamanyo != "") thamanyoSpan[0].style.display = "inline-block";
+            if (mmDate.amyeittasote != "") amyeittasoteSpan[0].style.display = "inline-block";
+            if (mmDate.warameittugyi != "") warameittugyiSpan[0].style.display = "inline-block";
+            if (mmDate.warameittunge != "") warameittungeSpan[0].style.display = "inline-block";
+            if (mmDate.yatpote != "") yatpoteSpan[0].style.display = "inline-block";
+            if (mmDate.thamaphyu != "") thamaphyuSpan[0].style.display = "inline-block";
+            if (mmDate.nagapor != "") nagaporSpan[0].style.display = "inline-block";
+            if (mmDate.yatyotema != "") yatyotemaSpan[0].style.display = "inline-block";
+            if (mmDate.mahayatkyan != "") mahayatkyanSpan[0].style.display = "inline-block";
             nagahleSpan[0].textContent = mmDate.nagahle;
             mahaboteSpan[0].textContent = mmDate.mahabote;
             nakhatSpan[0].textContent = mmDate.nakhat;
+            thingyanAkyaTimeSpan[0].textContent = makeDateTimeText(mmDate.thingyan.သင်္ကြန်ကျချိန်);
+            thingyanAtatTimeSpan[0].textContent = makeDateTimeText(mmDate.thingyan.သင်္ကြန်တက်ချိန်);
+            thingyanAkyoDateSpan[0].textContent = makeDateText(mmDate.thingyan.သင်္ကြန်အကြိုနေ့);
+            thingyanAkyaDateSpan[0].textContent = makeDateText(mmDate.thingyan.သင်္ကြန်အကျနေ့);
+            thingyanAkytDateSpan[0].textContent = makeDateTimeTextArray(mmDate.thingyan.သင်္ကြန်အကြတ်နေ့);
+            thingyanAtatDateSpan[0].textContent = makeDateText(mmDate.thingyan.သင်္ကြန်အတက်နေ့);
+            thingyanAtatDateSpan[0].textContent = makeDateText(mmDate.thingyan.နှစ်ဆန်းတစ်ရက်နေ့);
+
         }
         document.getElementById("englishDateInput").addEventListener("change", engDateOnChange);
 
+        function makeDateText(date){
+            console.log('makeDateText');
+            return date.y+" ခုနစ် "+date.m+" အေပြီလ "+date.d+" ရက်";
+        }
+        function makeDateTimeText(date){
+            console.log('makeDateTimeText');
+            return date.y+" ခုနစ် "+date.m+" အေပြီလ "+date.d+" ရက် "+date.h+" နာရီ "+ date.m +" မိနစ်" + Math.round(date.s) +" စက္ကန့်";
+            //return "၂၀၂၁ ခုနစ် အေပြီလ ၂၃ ရက် ၂ နာရီ ၄ မိနစ် ၆ စက္ကန့်";
+        }
+        function makeDateTimeTextArray(dateArr){
+            let str = "";
+            for(let i=0; i<dateArr.length; i++){
+                let date = dateArr[i];
+                str += date.y+" ခုနစ် "+date.m+" အေပြီလ "+date.d+" ရက်။ "
+            }
+            return str;
+        }
         function init() {
-            document.getElementById("englishDateInput").valueAsDate  = new Date();
+            document.getElementById("englishDateInput").valueAsDate = new Date();
             engDateOnChange();
         }
 
@@ -311,34 +371,36 @@
                 nagahle: '',
                 mahabote: '',
                 nakhat: '',
+                thingyan : {},
                 original: {}
             };
             let j = w2j(year, month, date); //get julian day number
             let M = j2m(j);
+            mmDate.thingyan = သင်္ကြန်ချိတ်တွက်ရန်(M.my + 1);
             mmDate.year = myNumbers(M.my, "my");
             mmDate.month = monthsMM[M.mm];
             mmDate.moonPhase = mpDefinations[M.mp];
             mmDate.date = myNumbers(M.fd, "my");
             mmDate.day = weekDay[M.wd];
 
-            let nagahleDefination = ['အနောက်','မြောက်','အရှေ့','တောင်'];
-            let mahaboteDefination = ['ဘင်္ဂ','အထွန်း','ရာဇာ','အဓိပတိ','မရဏ','သိုက်','ပုတိ'];
-            let nakhatDefination = ['နတ်','ဘီလူး','လူ'];
+            let nagahleDefination = ['အနောက်', 'မြောက်', 'အရှေ့', 'တောင်'];
+            let mahaboteDefination = ['ဘင်္ဂ', 'အထွန်း', 'ရာဇာ', 'အဓိပတိ', 'မရဏ', 'သိုက်', 'ပုတိ'];
+            let nakhatDefination = ['နတ်', 'ဘီလူး', 'လူ'];
             mmDate.astro = astro(M.mm, M.mml, M.md, M.wd, M.my);
-            if(mmDate.astro.sabbath == 1) mmDate.sabbath = 'ဉပုဒ်နေ့';
-            if(mmDate.astro.sabbatheve == 1) mmDate.sabbatheve = 'အဖိတ်နေ့';
-            if(mmDate.astro.yatyaza == 1) mmDate.yatyaza = 'ရက်ရာဇာ';
-            if(mmDate.astro.pyathada == 1) mmDate.pyathada = 'ပြဿဒါး';
-            if(mmDate.astro.thamanyo == 1) mmDate.thamanyo = 'သမားညို';
-            if(mmDate.astro.amyeittasote == 1) mmDate.amyeittasote = 'အမြိတ္တစုတ်';
-            if(mmDate.astro.warameittugyi == 1) mmDate.warameittugyi = 'ဝါရမိတ္တုကြီး';
-            if(mmDate.astro.warameittunge == 1) mmDate.warameittunge = 'ဝါရမိတ္တုငယ်';
-            if(mmDate.astro.yatpote == 1) mmDate.yatpote = 'ရက်ပုပ်';
-            if(mmDate.astro.thamaphyu == 1) mmDate.thamaphyu = 'သမားဖြူ';
-            if(mmDate.astro.nagapor == 1) mmDate.nagapor = 'နဂါးပေါ်';
-            if(mmDate.astro.yatyotema == 1) mmDate.yatyotema = 'ရက်ယုတ်မာ';
-            if(mmDate.astro.mahayatkyan == 1) mmDate.mahayatkyan = 'မဟာရက်ကြမ်း';
-            if(mmDate.astro.shanyat == 1) mmDate.shanyat = 'ရှမ်းရက်';
+            if (mmDate.astro.sabbath == 1) mmDate.sabbath = 'ဉပုဒ်နေ့';
+            if (mmDate.astro.sabbatheve == 1) mmDate.sabbatheve = 'အဖိတ်နေ့';
+            if (mmDate.astro.yatyaza == 1) mmDate.yatyaza = 'ရက်ရာဇာ';
+            if (mmDate.astro.pyathada == 1) mmDate.pyathada = 'ပြဿဒါး';
+            if (mmDate.astro.thamanyo == 1) mmDate.thamanyo = 'သမားညို';
+            if (mmDate.astro.amyeittasote == 1) mmDate.amyeittasote = 'အမြိတ္တစုတ်';
+            if (mmDate.astro.warameittugyi == 1) mmDate.warameittugyi = 'ဝါရမိတ္တုကြီး';
+            if (mmDate.astro.warameittunge == 1) mmDate.warameittunge = 'ဝါရမိတ္တုငယ်';
+            if (mmDate.astro.yatpote == 1) mmDate.yatpote = 'ရက်ပုပ်';
+            if (mmDate.astro.thamaphyu == 1) mmDate.thamaphyu = 'သမားဖြူ';
+            if (mmDate.astro.nagapor == 1) mmDate.nagapor = 'နဂါးပေါ်';
+            if (mmDate.astro.yatyotema == 1) mmDate.yatyotema = 'ရက်ယုတ်မာ';
+            if (mmDate.astro.mahayatkyan == 1) mmDate.mahayatkyan = 'မဟာရက်ကြမ်း';
+            if (mmDate.astro.shanyat == 1) mmDate.shanyat = 'ရှမ်းရက်';
             mmDate.nagahle = nagahleDefination[mmDate.astro.nagahle];
             mmDate.mahabote = mahaboteDefination[mmDate.astro.mahabote];
             mmDate.nakhat = nakhatDefination[mmDate.astro.nakhat];
@@ -346,7 +408,7 @@
             mmDate.original = M;
             return mmDate;
         }
-        
+
 
         function mmToEng(year, month, monthType, moonPhase, date) {
             let engDate = {
@@ -414,6 +476,64 @@
                 nagahle: nagahle, mahabote: mahabote, nakhat: nakhat
             };
         }
+
+        //Calculate the Thingyan (Myanmar new year)
+        //input: (my -myanmar year)
+        //output: (ja: atat time, jk: akya time, da: atat day, dk: akya day)
+        function ThingyanTime(my) {
+            var SY = 1577917828 / 4320000; //solar year (365.2587565)
+            var LM = 1577917828 / 53433336; //lunar month (29.53058795)
+            var MO = 1954168.050623; //beginning of 0 ME
+            var SE3 = 1312; //beginning of 3rd Era
+            ja = SY * my + MO; if (my >= SE3) jk = ja - 2.169918982; else jk = ja - 2.1675;
+
+            
+            let jaW = j2w(ja);
+            let jkW = j2w(jk);
+            
+            // အကြတ်နေ့ တစ်ရက်လားနှစ်ရက်လား ဘယ်လိုတွက်မလဲ?
+            // အကြိုနေ့ 
+            let aKyaoW = j2w(Math.round(jk) - 1);
+            // နှစ်ဆန်းတစ်ရက်နေ့
+            let hnitSanW = j2w(Math.round(ja) + 1);
+            // အကျနေ့
+            let aKya = j2w(Math.round(ja));
+            // အတက်နေ့
+            let အတက်နေ့ = j2w(Math.round(jk));
+            //return { ja: ja, jk: jk, da: Math.round(ja), dk: Math.round(jk) };
+            return { အတက်နေ့: အတက်နေ့, အတက်နေ့: အတက်နေ့, အတက်နေ့: အတက်နေ့, အတက်နေ့: အတက်နေ့ };
+        }
+
+        function သင်္ကြန်ချိတ်တွက်ရန်(မြန်မာခုနှစ်){
+            var SY = 1577917828 / 4320000; //solar year (365.2587565)
+            var LM = 1577917828 / 53433336; //lunar month (29.53058795)
+            var MO = 1954168.050623; //beginning of 0 ME
+            var SE3 = 1312; //beginning of 3rd Era
+            ja = SY * မြန်မာခုနှစ် + MO; if (မြန်မာခုနှစ် >= SE3) jk = ja - 2.169918982; else jk = ja - 2.1675;
+            let သင်္ကြန်ကျချိန် = j2w(jk);
+            let သင်္ကြန်တက်ချိန် = j2w(ja);
+            let သင်္ကြန်အကြိုနေ့ = j2w(Math.round(jk) - 1);
+            let သင်္ကြန်အကျနေ့ = j2w(Math.round(jk));
+            let သင်္ကြန်အကြတ်နေ့ = [];
+            သင်္ကြန်အကြတ်နေ့[0] = j2w(Math.round(jk) + 1);
+            if( Math.round(jk) + 2 != Math.round(ja) ) {
+                သင်္ကြန်အကြတ်နေ့[1] = j2w(Math.round(jk) + 2);
+            }
+            let သင်္ကြန်အတက်နေ့ = j2w(Math.round(ja));
+            let နှစ်ဆန်းတစ်ရက်နေ့ = j2w(Math.round(ja) + 1);
+            return { 
+                သင်္ကြန်ကျချိန်: သင်္ကြန်ကျချိန်, 
+                သင်္ကြန်တက်ချိန်: သင်္ကြန်တက်ချိန်, 
+                သင်္ကြန်အကြိုနေ့ : သင်္ကြန်အကြိုနေ့, 
+                သင်္ကြန်အကျနေ့: သင်္ကြန်အကျနေ့,
+                သင်္ကြန်အကြတ်နေ့ : သင်္ကြန်အကြတ်နေ့,
+                သင်္ကြန်အတက်နေ့: သင်္ကြန်အတက်နေ့, 
+                နှစ်ဆန်းတစ်ရက်နေ့ : နှစ်ဆန်းတစ်ရက်နေ့
+            };
+        }
+
+        // console.log(ThingyanTime(1383));
+        console.log(သင်္ကြန်ချိတ်တွက်ရန်(1383));
     </script>
 </body>
 
