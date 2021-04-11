@@ -96,6 +96,21 @@
             border: none;
             font-weight: bold;
         }
+
+        span.yatyaza,
+        span.pyathada,
+        span.thamanyo,
+        span.amyittasote,
+        span.warameittugyi,
+        span.warameittunge,
+        span.yatpote,
+        span.thamaphyu,
+        span.nagapor,
+        span.mahayatkyan,
+        span.yatyoutema,
+        span.shanyat{ 
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -132,7 +147,7 @@
             <li> <span class="thingyanTitle">သင်္ကြန်အကျနေ့</span> <span class="thingyanAkyaDate"></span></li>
             <li> <span class="thingyanTitle">သင်္ကြန်အကြတ်နေ့</span> <span class="thingyanAkytDate"></span></li>
             <li> <span class="thingyanTitle">သင်္ကြန်အတက်နေ့</span> <span class="thingyanAtatDate"></span></li>
-            <li> <span class="thingyanTitle">နှစ်ဆန်းတစ်ရက်နေ့</span> <span class="thingyanAtatDate"></span></li>
+            <li> <span class="thingyanTitle">နှစ်ဆန်းတစ်ရက်နေ့</span> <span class="hnitSanDate"></span></li>
         </ul>
         <br>
     </form>
@@ -196,6 +211,20 @@
             ဖတ်နိုင်ပါသည်။</li>
     </ul>
     <script>
+        var dayDefination ={
+            yatyaza: "ကိစ္စ အမျိုးမျိုး ကို ရက်ရာဇာမှာ ပြုလုပ် ဆောင်ရွက်ပါက အောင်မြင်နိုင်တယ် လို့ ဆိုပါတယ်။ မင်္ဂလာ ကိစ္စတွေ ကို ရက်ရာဇာမှာ အဓိက ထားပြီး ပြုလုပ်ကြပါတယ်။",
+            pyathada: "ပြဿဒါး နေ့က ပျက်စီးတတ်၏ လို့ ဆိုကြပါတယ်",
+            thamanyo: "သမားညို နေ့မှာ ဆုံးရှုံးရတတ်၏ လို့ ဆိုပါတယ်",
+            amyeittasote: "ဘယ်ကိစ္စ မဆို အမြိတ္တစုတ် ရက်မှာ ဆောင်ရွက်ရင် ပြဿဒါး၊ ဝါရမိတ္တု၊ ရက်ကြမ်း ဘယ်လောက် အဆိုးကြုံကြုံ ပြီးစီး အောင်မြင်နိုင်တယ်။ အမြိတ္တစုတ် ရက်က ရက်တစ်ရက်ရဲ့ အဆိုး၊ အပြစ် အားလုံး ကြေပျက်စေတယ်။ မကောင်းတဲ့ အခိုက်အညံ့ အားလုံး ဖယ်ရှားပေးတယ် လို့ဆိုပါတယ်",
+            warameittugyi: "ဝါရမိတ္တုကြီး နေ့က နှောင့်နှေး ပျက်စီး တတ်၏ လို့ ဆိုပါတယ်",
+            warameittunge: "ဝါရမိတ္တုငယ် နေ့က နှောင့်နှေး ပျက်စီး တတ်၏ လို့ ဆိုပါတယ်",
+            yatpote: "ရက်ပုပ် က ညစ်နွမ်းတတ်၏ လို့ ဆိုကြပါတယ်",
+            thamaphyu: "သမားဖြူ နေ့မှာ ဆုံးရှုံးရတတ်၏ လို့ ဆိုပါတယ်",
+            nagapor: "နဂါးပေါ်မှာ တပိုင်းတစ ဖြစ်တတ်၏ လို့ဆိုပါတယ်",
+            yatyotema: "ရက်ယုတ်မာ က ညစ်နွမ်းတတ်၏ လို့ ဆိုကြပါတယ်",
+            mahayatkyan: "မဟာရက်ကြမ်း ရှောင်ရ၏ လို့ ဆိုပါတယ်",
+            shanyat: "ရှမ်းရက် မှာ ရှောင်ရ၏ လို့ ဆိုပါတယ်"
+        };
         var englishDateInput = document.getElementById("englishDateInput");
         var myanmarDateInput = document.getElementById("myanmarDateInput");
         var sabbathSpan = document.getElementsByClassName("sabbath");
@@ -232,6 +261,56 @@
         var thingyanAtatDateSpan = document.getElementsByClassName("thingyanAtatDate");
 
         var thingyanAtatDateSpan = document.getElementsByClassName("thingyanAtatDate");
+
+        var hnitSanDateSpan = document.getElementsByClassName("hnitSanDate");
+
+        yatyazaSpan[0].addEventListener('click',(event)=>{
+            alert(dayDefination.yatyaza);
+        });
+
+        pyathadaSpan[0].addEventListener('click',(event)=>{
+            alert(dayDefination.pyathada);
+        });
+
+        thamanyoSpan[0].addEventListener('click',(event)=>{
+            alert(dayDefination.thamanyo);
+        });
+
+        amyeittasoteSpan[0].addEventListener('click',(event)=>{
+            alert(dayDefination.amyeittasote);
+        });
+
+        warameittugyiSpan[0].addEventListener('click',(event)=>{
+            alert(dayDefination.warameittugyi);
+        });
+
+        warameittungeSpan[0].addEventListener('click',(event)=>{
+            alert(dayDefination.warameittunge);
+        });
+
+        yatpoteSpan[0].addEventListener('click',(event)=>{
+            alert(dayDefination.yatpote);
+        });
+
+        thamaphyuSpan[0].addEventListener('click',(event)=>{
+            alert(dayDefination.thamaphyu);
+        });
+
+        nagaporSpan[0].addEventListener('click',(event)=>{
+            alert(dayDefination.nagapor);
+        });
+
+        mahayatkyanSpan[0].addEventListener('click',(event)=>{
+            alert(dayDefination.mahayatkyan);
+        });
+
+        yatyotemaSpan[0].addEventListener('click',(event)=>{
+            alert(dayDefination.yatyotema);
+        });
+
+        shanyatSpan[0].addEventListener('click',(event)=>{
+            alert(dayDefination.shanyat);
+        });
 
         function hideAll() {
             sabbathSpan[0].style.display = "none";
@@ -314,7 +393,7 @@
             thingyanAkyaDateSpan[0].textContent = makeDateText(mmDate.thingyan.သင်္ကြန်အကျနေ့);
             thingyanAkytDateSpan[0].textContent = makeDateTimeTextArray(mmDate.thingyan.သင်္ကြန်အကြတ်နေ့);
             thingyanAtatDateSpan[0].textContent = makeDateText(mmDate.thingyan.သင်္ကြန်အတက်နေ့);
-            thingyanAtatDateSpan[0].textContent = makeDateText(mmDate.thingyan.နှစ်ဆန်းတစ်ရက်နေ့);
+            hnitSanDateSpan[0].textContent = makeDateText(mmDate.thingyan.နှစ်ဆန်းတစ်ရက်နေ့);
 
         }
         document.getElementById("englishDateInput").addEventListener("change", engDateOnChange);
