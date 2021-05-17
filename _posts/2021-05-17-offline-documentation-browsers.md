@@ -4,7 +4,7 @@ title: Offline Documentation Browsers
 ---
 အင်တာနက် မရှိတဲ့အခါ လေ့လာနေတာတွေ ရပ်မသွားအောင် အကူအညီပေးနိုင်မယ့် Offline Documentation Browsers များ။
 
-![Offline Documentation Browsers]('../assets/images/offline_documentation_browsers.png')
+![Offline Documentation Browsers](../assets/images/offline_documentation_browsers.png)
 
 
 ကျွန်တော် က Laravel + Bootstrap သုံးပြီး Project တစ်ခုရေးနေတာ၊ ဒီ Framework တွေ၊ Library တွေနဲ့လည်း သိပ်တော့ တရင်းတနှီးရှိလာတာလဲ မဟုတ်ဘူး၊ MVC လို Design Pattern တွေ အာဂုံဆောင်ပြီး ကိုယ့်ဘာသာကိုယ် ထင်တိုင်းကြဲနေတာကနေ Team နဲ့ ရေးကြပြုကြဆိုတော့ စံသတ်မှတ်ထားတဲ့ Framework တစ်ခုသုံးကြမယ်ဆိုပြီး Laravel နဲ့ Bootstrap ဘက်ကို ရောက်လာတာ။ ဆရာအိမောင် ရဲ့ laravel လို-တို-ရှင်း တစ်ခေါက်နှစ်ခေါက်ဖတ်၊ sample project သေးသေးလေး တစ်ခုနှစ်ခု ရေးပြီး ဘာပဲလိုလို Google ကနေ ရှာဖွေ ကူးချနေတာ။
