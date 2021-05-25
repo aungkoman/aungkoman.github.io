@@ -2,10 +2,10 @@
 layout: post
 title: How to add multiple domain in One Server?
 ---
-
-
 1. DNS and Name Server Configuration
+  
    Domain Name Company နဲ့ Name Server Company ကို ချိတ်ဆက်ပေးခြင်း
+   
   https://www.digitalocean.com/community/tutorials/how-to-point-to-digitalocean-nameservers-from-common-domain-registrars
 
 2. A-Record configuration
@@ -26,7 +26,9 @@ title: How to add multiple domain in One Server?
 ```
 အဓိက ပြင်ရမှာက
 ServerName
+
 ServerAlias နဲ့
+
 DocumentRoot ပဲ။
 
 ServerName => ကိုယ့်ရဲ့ domain name ကို ထည့်မယ် ( ဉပမာ mmsoftware100.com)
