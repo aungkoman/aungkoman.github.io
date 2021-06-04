@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="icon" type="image/png" sizes="20x20" href="images/lottery.png">
+    <title>ထီပေါက်</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="css/mdb.min.css">
+    <!-- Our custom styles (optional) -->
+    <link rel="stylesheet" href="css/teamcs.css">
+
+    <link rel="icon" href="images/app_icon.png" type="image/gif" sizes="16x16">
+
+    <style>
+        .my_card {
+            margin-bottom: 20px;
+        }
+        
+        .no_link {
+            text-decoration: none;
+        }
+        
+        #popupbox {
+            display: none;
+        }
+        
+        #popupbox2 {
+            display: none;
+        }
+        
+        #popupbox3 {
+            display: none;
+        }
+        
+        #popupbox4 {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="fixed-sn white-skin">
+
+    <!-- Main Navigation -->
+    <header>
+        <!-- Sidebar navigation -->
+        <div id="slide-out" class="side-nav sn-bg-4 fixed">
+            <ul class="custom-scrollbar">
+                <!-- Logo -->
+                <li class="logo-sn waves-effect py-3">
+                    <div class="text-center">
+                        <a href="#" class="pl-0">
+                            <img width="100%" src="images/team-cs-logo.png">
+                        </a>
+                        <p style="color:black; font-size:12px; padding-top: 50px;">
+                            ထီပေါက်
+                            <p>
+                    </div>
+                </li>
+                <!-- Side navigation links -->
+                <li>
+                    <ul class="collapsible collapsible-accordion">
+                        <li>
+                            <a class="collapsible-header waves-effect arrow-r"> <i class="fab fa-android "></i>ထီဗေဒင် တွက်နည်းများ<i class="fas fa-angle-down rotate-icon"></i></a>
+                            <div class="collapsible-body">
+                                <ul>
+                                    <li> <a href="#intro_section" class="waves-effect ui_navigation" id='departmentBtn'>စလေဦးပုည၏ ထီတွက်နည်း</a>
+                                    </li>
+                                    <li> <a href="#otherway_section" class="waves-effect ui_navigation" id='otherway'>ရှေးပညာရှိများ၏ ထီတွက်နည်း</a>
+                                    </li>
+                                    <li> <a href="#sayar_section" class="waves-effect ui_navigation" id='sayar'>ဆရာဝေဒမောင်မောင်၏ ထီထိုးနည်း</a>
+                                    </li>
+                                    <li> <a href="#lucky_number_section" class="waves-effect ui_navigation" id='luckyBtnn'>ကံကောင်းစေသော ဂဏာန်း </a>
+                                    </li>
+                                    <!-- <li> <a href="#number_love_baydin_section" class="waves-effect ui_navigation" id='numberBtn'>သင့်အချစ် အတွက်ဂဏာန်း ဗေဒင်</a>
+									</li>
+									<li> <a href="#number_mind_baydin_section" class="waves-effect ui_navigation" id='numberBtn'>သင့်စိတ် အတွက်ဂဏာန်း ဗေဒင်</a>
+									</li>
+									<li> <a href="#do_you_love_section" class="waves-effect ui_navigation" id='DoLoveBtn'>ကိုယ့်ကို တကယ်ချစ်မချစ် တွက်နည်း</a>
+									</li> -->
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="collapsible-header waves-effect arrow-r"> <i class="fab fa-android "></i>ဗေဒင်ယတြာများ<i class="fas fa-angle-down rotate-icon"></i></a>
+                            <div class="collapsible-body">
+                                <ul>
+                        </li>
+                        <li> <a href="#read_section4" class="waves-effect ui_navigation" id='read4'>ထီထိုးပြီးလျှင် ပြုလုပ်ရမည့် အစီအရင်</a>
+                        </li>
+                        <li> <a href="#read_section5" class="waves-effect ui_navigation" id='read5'>ဝင်ငွေမပြတ်စေတဲ့ အစီအရင်</a></li>
+
+                        <li> <a href="#read_section6" class="waves-effect ui_navigation" id='read6'>အဖိုးထိုက်တန်သော ထီပေါက်ဂါထာ</a>
+                        </li>
+                        <li> <a href="#read_section7" class="waves-effect ui_navigation" id='read7'>ထီပေါက်စေနိုင်သော နည်းလမ်းများ  </a>
+                        </li>
+                        <li> <a href="#read_section8" class="waves-effect ui_navigation" id='read8'> အဘမင်းသိင်္ခ ၏ ဓာတ်တူနံတူငွေကိုယူ </a>
+                        </li>
+                        <!-- <li> <a href="#read_section9" class="waves-effect ui_navigation" id='read9'>ငွေဝင်ထီပေါက်ကိန်းကြုံသူများ</a>
+									</li> -->
+                        </ul>
+                        </div>
+                </li>
+                <li>
+                    <a class="collapsible-header waves-effect arrow-r"> <i class="fab fa-android "></i>About Software<i class="fas fa-angle-down rotate-icon"></i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li> <a href="#salay_about_section" class="waves-effect ui_navigation" id='departmentBtn'>စလေဦးပုည၏ ထီတွက်နည်း လေ့လာရန်</a>
+                            </li>
+                            <li> <a href="#otherway_about_section" class="waves-effect ui_navigation" id='otherway'>ရှေးပညာရှိများ၏ ထီတွက်နည်း လေ့လာရန်</a>
+                            </li>
+                            <li> <a href="#sayar_about_section" class="waves-effect ui_navigation" id='otherway'>ဆရာဝေဒမောင်မောင်၏ ထီထိုးနည်း လေ့လာရန်</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <!-- Simple link -->
+                <li> <a href="#contact_section" class="collapsible-header waves-effect ui_navigation" id="Contactbtn"><i class="w-fa fas fa-chart-pie  ui_navigation"></i>Contact Us</a>
+                </li>
+                </ul>
+                </li>
+                <!-- Side navigation links -->
+            </ul>
+            <div class="sidenav-bg mask-strong"></div>
+        </div>
+        <!-- Sidebar navigation -->
+        <!-- Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg scrolling-navbar double-nav" id="nav_id">
+            <!-- SideNav slide-out button -->
+            <div class="float-left"> <a href="#" data-activates="slide-out" class="button-collapse"><i class="fas fa-bars"></i></a>
+            </div>
+            <!-- Breadcrumb -->
+            <div class="breadcrumb-dn mr-auto align-center">
+                <p></p>
+            </div>
+            <div class="title_text mr-auto align-center text-center">
+                <h4 id="header_id">ထီပေါက်ကံ ရှိ/မရှိ တွက်မည် </h4>
+            </div>
+
+        </nav>
+    </header>
+    <!-- Main Navigation -->
+
+    <!-- Main layout -->
+    <main>
+        <div class="container-fluid">
+
+            <!-- Section: intro_section -->
+            <section id="intro_section">
+                <h2>စလေဦးပုည၏ ထီပေါက် မပေါက် တွက်နည်းဖြစ်ပါတယ်။</h2>
+                </br>
+                <h4>ထီပေါက်ချင်လျှင် စာရေးတံမဲလှူပါ။</h4>
+                </br>
+                </br>
+                <div class="md-form">
+                    <input type="date" id='birthday' class="form-control">
+                    <label for="birthday"> မိမိ မွေးနေ့ ရွေးချယ်ပါ</label></br>
+                    <!-- ရာဟုသားသမီးunchecked -->
+                    <!-- <div class="form-check"> -->
+                    <input type="checkbox" class="form-check-input" id="materialUnchecked" name="yarhu" value="1">
+                    <label class="form-check-label" for="materialUnchecked">ရာဟုသားသမီးဆိုလျှင် အမှန်ခြစ်ပါ!</label>
+                    <!-- </div> -->
+
+                    <input type="button" class="btn btn-info" id="calculate" value=" တွက်မည် " />
+                </div>
+
+                <div id='popupbox' class="md-form" style='margin:0 auto;position:absolute;z-index:100;left:0;right:0;bottom:10%;top:20%;background:rgb(193, 221, 140);
+						width:80%;height:400px;border-radius:5px;'>
+                    </br>
+                    <!-- <i class="fas fa-times close" id='popup_close'></i> -->
+                    <button type="button" class="close" data-dismiss="modal" id='popup_close'>
+							<span aria-hidden="true">&times;</span>
+						</button>
+                    <center>
+                        <p><span class='conn'></span></p>
+                        <p><span class='y_or_n'></span></p>
+                        <!-- <p><span class='word' style="color:rgb(214, 26, 136)"> ဒီဂဏန်းလေးတွေ ထိုးပေးပါ...</span></p> -->
+                        <p><span class='digist'></span></p>
+                        <p><span class='word'></span></p>
+                        <p><span class='same'></span></p>
+                    </center>
+                    <!-- <button type="button" id='popup_close' style='width:20%;height:50px;background-color: brown;border-radius: 5px;margin-left:50%;margin-top:0%;'>ပိတ်မည်</button>		 -->
+                </div>
+            </section>
+            <!-- Section: intro_section -->
+
+            <!-- Section: otherway_section -->
+            <section id="otherway_section">
+                <h2>ရှေးပညာရှိများ၏ ထီပေါက် မပေါက် တွက်နည်းဖြစ်ပါတယ်။</h2>
+                </br>
+                <h4>ယခုနည်းမှာမူ အလွန်ရှေးကျသော ရှေးပညာရှိများ ရေးသားပြုစုခဲ့သောနည်းဖြစ်သည်။</h4>
+                </br>
+                </br>
+                <div class="md-form">
+                    <input type="date" id='birthday2' class="form-control">
+                    <label for="birthday2"> မိမိ မွေးနေ့ ရွေးချယ်ပါ</label></br>
+                    <input type="button" class="btn btn-info" id="calculate2" value=" တွက်မည် " />
+                </div>
+
+                <div id='popupbox2' class="md-form" style='display:;margin:0 auto;position:absolute;z-index:100;left:0;right:0;bottom:10%;top:20%;background:rgb(248, 138, 224);
+						width:80%;height:400px;border-radius:5px;'>
+                    </br>
+                    <!-- <i class="fas fa-times close" id='popup_close2'></i> -->
+                    <button type="button" class="close" data-dismiss="modal" id='popup_close2'>
+							<span aria-hidden="true">&times;</span>
+						</button>
+                    <center>
+                        <p><span class='connn'></span></p>
+                        <p><span class='digist1'></span></p>
+                        <p><span class='word5'></span></p>
+                        <p><span class='word2'></span></p>
+                        <p><span class='word3'></span></p>
+                        <p><span class='same3'></span></p>
+                    </center>
+                    <!-- <button type="button" id='popup_close' style='width:20%;height:50px;background-color: brown;border-radius: 5px;margin-left:50%;margin-top:0%;'>ပိတ်မည်</button>		 -->
+                </div>
+            </section>
+            <!-- Section: otherway_section -->
+
+            <!-- Section: sayar_section -->
+            <section id="sayar_section">
+                <h2>ဆရာ ဝေဒမောင်မောင်၏ ထီထိုးနည်း ဖြစ်ပါတယ်။</h2>
+                </br>
+
+                <h4>ယခုတွက်နည်းမှာ အထက်က ဖော်ပြခဲ့သော ထီတွက်နည်း(၂)နည်းထဲမှ နည်း(၁)နည်းဖြင့် တွက်၍ ထီပေါက်ကံ ရှိမှသာ ဆက်လက်ဆောင်ရွက်ရမှာ ဖြစ်ပါတယ်။</h4>
+                </br>
+                <div class="md-form">
+                    <select class="mdb-select md-form select_date" id="select_date" name="select_date">
+									<option value="">မိမိ မွေးရက် ရွေးချယ်ပါ</option>
+									<option value="1">၁</option>
+									<option value="2">၂</option>
+									<option value="3">၃</option>
+									<option value="4">၄</option>
+									<option value="5">၅</option>
+									<option value="6">၆</option>
+									<option value="7">၇</option>
+									<option value="8">၈</option>
+									<option value="9">၉</option>
+									<option value="1">၁၀</option>
+									<option value="2">၁၁</option>
+									<option value="3">၁၂</option>
+									<option value="4">၁၃</option>
+									<option value="5">၁၄</option>
+									<option value="6">၁၅</option>
+									<option value="7">၁၆</option>
+									<option value="8">၁၇</option>
+									<option value="9">၁၈</option>
+									<option value="1">၁၉</option>
+									<option value="2">၂၀</option>
+									<option value="3">၂၁</option>
+									<option value="4">၂၂</option>
+									<option value="5">၂၃</option>
+									<option value="6">၂၄</option>
+									<option value="7">၂၅</option>
+									<option value="8">၂၆</option>
+									<option value="9">၂၇</option>
+									<option value="1">၂၈</option>
+									<option value="2">၂၉</option>
+									<option value="3">၃၀</option>
+									<option value="4">၃၁</option>
+								</select></br>
+                    <input type="button" class="btn btn-info" id="calculate3" value="တွက်မည် " />
+                </div>
+
+                <div id='popupbox3' class="md-form" style='display:;margin:0 auto;position:absolute;z-index:100;left:0;right:0;bottom:10%;top:20%;background:rgb(245, 238, 149);
+						width:80%;height:auto;border-radius:5px;'>
+                    </br><i class="fas fa-times close" id='popup_close3'></i>
+                    <center>
+                        <p><span class='lottery0' style='color:rgb(36, 206, 36);font-size: x-large;font-weight: bold;'></span></p>
+                        <p><span class='lottery' style='color:rgb(228, 18, 18);font-size: 18px;'></span></p>
+                        <p><span class='lottery1' style='color:rgb(15, 9, 9);'></span></p>
+                        <p><span class='lottery2' style='color:rgb(15, 9, 9);'></span></p>
+                        <p><span class='lottery4' style='color:rgb(15, 9, 9);'></span></p>
+                        <p><span class='lottery3' style='color:rgb(15, 9, 9);'></span></p>
+                        <p><span class='lottery8' style='color:rgb(19, 15, 223);font-weight: bold;'></span></p>
+                        <p><span class='lottery5' style='color:rgb(15, 9, 9);'></span></p>
+                        <p><span class='lottery6' style='color:rgb(39, 228, 235);font-size: 18px;'></span></p>
+                        <p><span class='lottery7' style='color:rgb(125, 100, 235);font-weight: bold;'></span></p>
+                    </center>
+                    <!-- <button type="button" id='popup_close' style='width:20%;height:50px;background-color: brown;border-radius: 5px;margin-left:50%;margin-top:0%;'>ပိတ်မည်</button>		 -->
+                </div>
+            </section>
+            <!-- Section: sayar_section -->
+
+            <!-- Section: lucky_number_section -->
+            <section id="lucky_number_section">
+                <h2>(၁၅)ရက်အတွင်း ကံကောင်းစေသော ဂဏာန်း </h2>
+                </br>
+                <h4>ယခုတွက်နည်းမှာ အကြားအမြင် ဆရာမကြီး ဒေါ်ကြည်ကြည်စိန်၏ ဟောစာတမ်း ဖြစ်သည်။ ။</h4>
+                </br>
+                </br>
+
+                <div class="md-form">
+                    <!-- <input type="date" id='birthday2' class="form-control">
+							<label for="birthday2"> မိမိ မွေးနေ့ ရွေးချယ်ပါ</label></br> -->
+                    <input type="button" class="btn btn-info" id="luckyBtn" value="ကံကောင်းစေသော ဂဏာန်း ကြည့်မည်" />
+                </div>
+
+                <div id='popupbox4' class="md-form" style='display:;margin:0 auto;position:absolute;z-index:100;left:0;right:0;bottom:10%;top:20%;background:rgb(140, 196, 241);
+						width:80%;height:200px;border-radius:5px;'>
+                    </br><i class="fas fa-times close" id='popup_close4'></i>
+                    <center>
+                        <p><span class='connn'></span></p>
+                        <p><span class='lucky_word'></span></p>
+                        <p><span class='lucky_num'></span></p>
+                        <!-- <p><span class='word3' ></span></p>
+									<p><span class='same3' ></span></p> -->
+                    </center>
+                    <!-- <button type="button" id='popup_close' style='width:20%;height:50px;background-color: brown;border-radius: 5px;margin-left:50%;margin-top:0%;'>ပိတ်မည်</button>		 -->
+                </div>
+            </section>
+            <!-- Section: lucky_number_section -->
+
+            <!-------Software About Section----->
+            <!-- Section: salay_about_section -->
+            <section id="salay_about_section">
+
+                <h3>
+                    <p><span>"မင်္ဂလာပါ"</span></p>
+                </h3>
+                <span><p></p>
+							လောကတွင် လူတိုင်း တကြိမ်တခါ ကံကောင်းတတ်ပါသည်။</span></p>
+                <span><p></p>
+							ထိုတစ်ကြိမ်တခါ ကံကောင်းတတ်သော အချိန်အခါအား မသိလိုက်၍ ကံကောင်းသော အချိန်အခါနှင့် လွဲချောမသွားအောင် 
+							ထီပေါက် မပေါက် app မှ ထီပေါက်နိုင်ချေ ရှိ မရှိအား တွက်ချက် ဖော်ပြပေးသွားမှာ ဖြစ်ပါတယ်။</span></p>
+                <span><p></p>
+							ထီပေါက်နိုင်ချေရှိလျှင်လည်း ထိုးသင့်သော ဂဏန်းများကိုပါ ဖော်ပြထားပါတယ်။</span></p>
+                <span><p></p>
+							ထီပေါက်နိုင်ချေရှိပြီး မထိုးလိုက်ရ၍ ထီမပေါက်ဘဲ ဝမ်းနည်းနေရမယ့် သူများမဖြစ်အောင် 
+							ရည်သန်၍ ဖန်တီးခဲ့ခြင်းဖြစ်ပါသည်။ </span></p>
+                <span><p></p>
+							လာရောက်အသုံးပြုသူများ အဆင်ပြေမှု ရှိစေရန် 
+							အကောင်းဆုံးကြိုးစားထားပါသည်။ 
+							အဆင်ပြေကြလိမ့်မည်ဟု မျှော်လင့်မိပါသည်။ </span></p>
+                <span><p></p>
+							လိုအပ်ချက်များရှိပါက မိမိတို့ Facebook page တွင် လာရောက်အကြံပေးနိုင်ပါသည်။ 
+							ယခုထက် ပိုမိုကောင်းမွန်သော ၀န်ဆောင်မှုများပေးနိုင်ရန် ထပ်မံကြိုးစားသွားပါဦးမည်။
+						</span></p>
+
+                <span><p>ကျေးဇူးတင်ပါသည်။</span></p>
+
+                <h4>စလေဦးပုည၏ ထီပေါက် မပေါက် တွက်နည်းဖြစ်ပါတယ်။</h4>
+                </br>
+
+                <div>
+                    <p><span class=''>
+											၁။ မိမိရဲ့ မြန်မာ မွေးခုနှစ်ကို တည်
+											
+											မိမိရဲ့ ဂြိုဟ်သက်နှင့် ပေါင်းပါ။</span> </p>
+                    <p><span>ဂြိုဟ်သက်များ </span></p>
+
+                    <p><span>တနင်္ဂနွေ= ၆ </span></p>
+
+                    <p><span>တနင်္လာ= ၁၅ </span></p>
+
+                    <p><span>အင်္ဂါ= ၈ </span></p>
+
+                    <p><span>ဗုဒ္ဓဟူး= ၁၇ </span></p>
+
+                    <p><span>ကြာသပ‌တေး= ၁၉ </span></p>
+
+                    <p><span>သောကြာ= ၂၁ </span></p>
+
+                    <p><span>စနေ= ၁၀ </span></p>
+
+                    <p><span>ရာဟု= ၁၂ ဟု သတ်မှတ်ထားပါသည်။ (ယခု app တွင် ရာဟုသားသမီးများအတွက် မရရှိသေးပါ)</span></p>
+
+                    <p><span> ၂။ ပေါင်းပြီး ၄၃နဲ့ (÷)ပါ။</span> </p>
+
+                    <p><span>၃။ ရရှိတဲ့ အကြွင်းနဲ့ မိမိရဲ့ အသက်နဲ့ ထပ်ပေါင်းပါ။
+											
+												မိမိအသက်ဆိုတာ ၂၉ ပြည့်ပြီးလျှင် ၃ဝလို့ ယူရပါမယ်။ </span></p>
+
+                    <p><span>၄။ ပေါင်းပြီးလျှင် ၇နဲ့ ထပ် (÷)စားပါ။
+										
+												ရလာတဲ့ အကြွင်းက
+												
+												ဝကြွင်း၊ ၅ကြွင်းဆို ထီဆုကြီးပေါက်မည်။
+												
+												၁ကြွင်း၊ ၆ကြွင်းဆို ထီဆုသေး ဖြစ်မည်။ </span></p>
+
+                    <p><span>ထိုသို့ ပေါက်ဖို့အခွင့်ရှိလာလျှင်
+											
+											မိမိ၏ မြန်မာမွေးခုနှစ်ကို တည် ၇ဖြင့် ထပ် (÷)စားပါ။ 	</span></p>
+                    <center>
+                        <p><span> ၁ကြွင်း = ၇အစ ၅အဆုံး၊ ၆အစ ၅အဆုံး ထိုးပေးပါ </span></p>
+
+                        <p><span> ၂ကြွင်း= ၁အစ ၆အဆုံး၊ ၆အစ ၇အဆုံး ထိုးပေးပါ </span></p>
+
+                        <p><span> ၃ကြွင်း= ၂အစ ၇အဆုံး၊ ၅အစ ၇အဆုံး ထိုးပေးပါ </span></p>
+
+                        <p><span> ၄ကြွင်း= ၃အစ ၁အဆုံး၊ ၂အစ ၁အဆုံး ထိုးပေးပါ </span></p>
+
+                        <p><span> ၅ကြွင်း= ၄အစ ၂အဆုံး၊ ၃အစ ၂အဆုံး ထိုးပေးပါ </span></p>
+
+                        <p><span> ၆ကြွင်း= ၅အစ ၃အဆုံး၊ ၃အစ ၄အဆုံး ထိုးပေးပါ </span></p>
+
+                        <p><span> ၀ကြွင်း= ၆အစ ၄အဆုံး၊ ၅အစ ၄အဆုံး ထိုးပေးပါ </span></p>
+                    </center>
+
+                    <span><p>စလေဦးပုည၏ ထီပေါက် မပေါက် တွက်နည်းမူရင်း ဖော်ပြပေးသူအား Credit ပေးပါသည်။ ကျေးဇူးတင်ပါသည်။</span></p>
+
+
+
+
+
+
+                    <!-- <button type="button" id='popup_close' style='width:20%;height:50px;background-color: brown;border-radius: 5px;margin-left:50%;margin-top:0%;'>ပိတ်မည်</button>		 -->
+                </div>
+            </section>
+            <!-- Section: salay_about_section -->
+
+            <!-- Section: otherway_about_section -->
+            <section id="otherway_about_section">
+
+                <h3>
+                    <p><span>"မင်္ဂလာပါ"</span></p>
+                </h3>
+
+                <h4>ထီပေါက်ကိန်းတွက်နည်း တေးထပ် ဖြစ်ပါတယ်။</h4>
+                </br>
+                <p><span> **************************************************************************************** </span></p>
+                <p><span>
+							( လွန်ခဲ့သော နှစ်ပေါင်း ၅၀ )ငယ်စဉ် ၄ တန်းကျောင်းသား အရွယ်တွင် အဖွားဗေဒင်ဆရာမက သင်ပေးခဲ့ရာ ယခုအချိန်ထိ အလွတ်ရနေပါသည်။</span></p>
+                <p><span>	ငယ်စဉ်က တေးထပ်မှန်းလည်း မသိခဲ့ပါ။ </span></p>
+                <p><span>	ယခုမှ တေးထပ် တစ်ပုဒ်မှန်းသိရပြီး ရေးသူမှာ အမည်မသိ ရှေးစာဆိုဟု သိရပါသည်။</span></p>
+                <p><span>	စိတ်ဝင်စားသူများ နည်းယူနိုင်ရန် အတွက်မေတ္တာဖြင့် တေးထပ်နှင့်တစ်ကွ တွက်နည်းကိုပါ ဖေါ်ပြလိုက်ပါသည်။ </span></p>
+                <div>
+                    <center>
+                        <p>
+                            <h4><span class=''>ထီပေါက်ကိန်းတွက်နည်း တေးထပ်</span></h4>
+                        </p>
+
+                        <br><span>ဖွားကောဇာ  တည်ထောင်လှစ်</span></br>
+                        <p><span>နှစ်ဆယ့်တစ် နှောပါ</span></br>
+                            <p><span>လေးဆယ့်သုံး  စားခြေခါငယ်</span></br>
+                                <p><span>ကြွင်းသေသာ   တည်တော့။</span></p>
+
+                                <p><span>ရောက်သက်နှင့်  နှောက်စွက်ပြန်လျှင်</span></br>
+                                    <p><span>နောက်ဆက်ရန်   စားသတ္တနော့။</span></br>
+
+                                        <p><span>ကြွင်းသုည   ကြုံသည့်အခါ</span></br>
+                                            <p><span>ဂုဏ်ရှိမှာ  မှန်ပေါ့။</span></p>
+
+                                            <p><span>နုံချိစွာ   ဥာဏ်မလျှော့လေနှင့်</span></br>
+                                                <p><span>မြန်အသော့  စပ်လေ။</span></p>
+
+                                                <p><span>ချစ်မိတ်ဆွေ  သူငယ်ချင်းရယ်နှင့်</span></br>
+                                                    <p><span>ဖယ်မယွင်း  ထိုးသင့်လှပေ။</span></p>
+
+                                                    <p><span>ငါးပဉ္စ    ကြွင်းခါနေလျှင်</span></br>
+                                                        <p><span>ယွင်းမှာလေ  ဟုတ်ဘူးမို့</span></br>
+                                                            <p><span>တစ်ဦးတည်း  ကိုယ့်ချည်းသာ</span></br>
+                                                                <p><span>ထိုးလိုက်ဖို့ရာ။</span></p>
+
+                                                                <p><span>ရွှေငွေမိုး  စည်းစိမ်မဟာကို</span></br>
+                                                                    <p><span>အပြီးမမှိန်စရာ   ရကိန်းမို့လေး။</span></p>
+                    </center>
+
+                    <p><span>( အမည်မသိ ရှေးစာဆို )</span> </p>
+
+
+                    <p><span> **************************************************************************************** </span></p>
+
+                    <p><span> ရှင်းလင်းချက်</span> </p>
+
+                    <p><span>၁။ မိမိ၏ မြန်မာမွေးသက္ကရာဇ်ကိုတည်ပြီး ၂၁ ဖြင့် ပေါင်းပါ။</span></p>
+
+                    <p><span>၂။ ပေါင်း၍ရသော ပေါင်းလာဒ်ကို  ၄၃ ဖြင့်စားပါ။</span></p>
+
+                    <p><span>၃။ စား၍ ကျန်သောအကြွင်းကို ယခု လက်ရှိ အသက်နှင့် ထပ်ပေါင်းပါ။</span></p>
+
+                    <p><span> ၄။ ပေါင်းလဒ်ကို ၇ ဖြင့် ထပ်မံ၍ စားပါ။</span></p>
+
+                    <p><span> ၅။ သုည(၀)ကြွင်းလျှင်အခြားတစ်ဦးနှင့်စပ်ထိုးပါ။ </span></p>
+
+                    <p><span> ၆။ ငါး( ၅ ) ကြွင်းလျှင် မိမိတစ်ဦးတည်းထိုးပါ။ ထီဆုကြီးများ ပေါက်နိုင်ပါသည်။ </span></p>
+
+                    <p><span> ၇။ ( ၅ / ၀ ) မကြွင်းလျှင်မူ ထီမပေါက်နိုင်၊မထိုး ပါနှင့်ဟုတော့ မဆိုလိုပါ။ ဆုကြီးပေါက်နိုင်ခြေနည်းပြီး ဆုငယ်များလောက်သာ ရရှိနိုင်မည်ဟု ဆိုလိုပါသည်။ </span></p>
+
+                    <center>
+                        <p><span> ဥပမာ  ပုံစံ</span></p>
+                        <p><span></span>---------------</span>
+                        </p>
+                        <p><span>သင်သည်……</span></p>
+
+                        <p><span>( ၁၃၃၀ ခုနှစ်မွေးဖွားသည်ဆိုပါစို့)</span></p>
+                        <p><span>ယခုမြန်မာသက္ကရာဇ်သည်  ၁၃၈၀ ပြည့်နှစ်ဆိုပါစို့။</span></p>
+                        <p><span>ထိုလူ၏ အသက်သည်  ၅၀နှစ်ဖြစ်သည်။</span></p>
+
+                        <p><span>မွေးသက္ကရာဇ်ကို ( ၂ ၁ ) ဖြင့်ပေါင်းပါ။</span></p>
+                        <p><span>				  ၁၃ ၃၀</span></p>
+                        <p><span>				+     ၂၁</span></p>
+                        <p><span>				--------------     </span></p>
+                        <p><span>				  ၁၃ ၅၁</span></p>
+
+                        <p><span>၄ ၃ ဖြင့် စားပါ။</span></p>
+                        <p><span>			၄၃ ) ၁၃၅၁ ( ၃၁  </span></p>
+                        <p><span>					၁၂၉</span></p>
+                        <p><span>				 ---------------</span></p>
+                        <p><span>					 _  ၆၁</span></p>
+                        <p><span>						 ၄၃</span></p>
+                        <p><span>				--------------------       </span></p>
+                        <p><span>						၁ ၈  ( အကြွင်း )</span></p>
+
+                        <p><span>အကြွင်းကို ယခုအသက်ဖြင့်ပေါင်းပါ…</span></p>
+                        <p><span>					+  ၁ ၈</span></p>
+                        <p><span>ယခု အသက်    ၅ ၀</span></p>
+                        <p><span>				   ----------------</span></p>
+                        <p><span>						၆ ၈</span></p>
+                        <p><span>၇ ဖြင့် ထပ်မံစားပါ။</span></p>
+
+                        <p><span>				၇ )   ၆ ၈  (  ၉</span></p>
+                        <p><span>				   _   ၆ ၃</span></p>
+                        <p><span>				   -----------------------</span></p>
+                        <p><span>						   ၅    ကြွင်း</span></p>
+                    </center>
+                    <p><span>( ၅ ) ကြွင်းသဖြင့် မိမိ တစ်ဦးတည်း တစ်နှစ်ပတ်လုံးထိုးပါ။
+												၎င်း နှစ်အတွင်း ဆုကြီးများပေါက် နိုင်သည်ဟု
+												ဆိုလိုပါသည်။ </span></p>
+
+                    <p><span> ( 0 ) ကြွင်းခဲ့သော် အခြားတဦးနှင့် တစ်နှစ်ပတ်လုံးစပ်ထိုးရန်ဖြစ်ပါသည်။</span></p>
+                    <p><span>၅ / ၀  မကြွင်းသောနှစ်များတွင်မူ ဆုကြီးများ
+											ပေါက်ရန် ခဲယဉ်းသည်ဟုဆိုလိုပါသည်။ဆုငယ်
+											များလောက်တော့ ပေါက်နိုင်ပါသည်။</span></p>
+                    <span><p>ယခုနည်းမှာမူ အလွန်ရှေးကျသော
+									ရှေးပညာရှိများ ရေးသားပြုစုခဲ့သောနည်းဖြစ်သ
+									ဖြင့် စိတ်ဝင်စားသူများ အသုံးပြုနိုင်ကြစေရန် ရည်ရွယ်၍ မေတ္တာဖြင့် တင်ပြအပ်ပါသည်။ </span></p>
+                    <span><p>	တွက်နည်းမူရင်း ဖော်ပြပေးသူအား Credit ပေးပါသည်။</span></p>
+                    <span><p> ကျေးဇူးတင်ပါသည်။</span></p>
+                    <!-- <button type="button" id='popup_close' style='width:20%;height:50px;background-color: brown;border-radius: 5px;margin-left:50%;margin-top:0%;'>ပိတ်မည်</button>		 -->
+                </div>
+            </section>
+            <!-- Section: otherway_about_section -->
+
+            <!-- Section: sayar_about_section -->
+            <section id="sayar_about_section">
+                <h3>
+                    <p><span>"မင်္ဂလာပါ"</span></p>
+                </h3>
+                <h4>ဆရာ ဝေဒမောင်မောင်ရဲ့ ထီပေါက်စေတဲ့ ထီထိုးနည်း ဖြစ်ပါတယ်။</h4>
+                </br>
+                <p><span> ****************************************** </span></p>
+                <p><span>ထီပေါက်စေတဲ့နည်းဆိုတဲ့ အကြောင်းလေးကိုတင် ပေးလိုက်ပေမယ့် ကြံကြံဖန်ဖန် မေးတတ်တဲ့သူတွေက နည်းသိမှတော့ ခင်ဗျားဘာသာ ဘာလို့မထိုးလဲလို့ မေးကြဦးမယ်ထင်ပါတယ် ။</span></p>
+                <p><span></span>အဖြေကရှင်းရှင်း လေးပါဗျာ ... ကံမပါရင်မပေါက်ဘူး၊ ကံပါရင်ပေါက်မယ် ...</span>
+                </p>
+                <p><span>ဒါပဲလေ ... ခင် ဗျားမှာကံပါရင်တော့ ဒီနည်း လေးအသုံပြုပြီးထိုးကြည့်ပေါ့ ... ပေါက်မှာ သေချာပါတယ် ...</span></p>
+                <p><span>ရိုးရိုးထိုးတာထက် ထူးပါတယ် ... ကျနော်ကတော့ဒီနှစ်ထဲကံမပါသေးဘူးဗျို့ ... ကံပါမပါဘယ်လိုသိနိုင် မလဲ ...</span></p>
+                <p><span>ဟုတ်လား ... ဒါကတော့ကျနော့်ကိုယုံရင် ကျနော့်ဆီမှာတွက် ကြည့်ပေါ့ ....</span></p>
+                <p><span>မဟုတ်လည်းခင်ဗျားတို့ယုံကြည်ရာ ဗေဒပညာရှင် တစ်ဦးဦးနဲ့တိုင်ပင် လိုက်ပေါ့ ...</span></p>
+                <p><span>ကဲ ... နည်းလမ်းလေးစ,လိုက်ရအောင် ...</span></p>
+                <div>
+                    <center>
+                        <p><span>မွေးရက် ကို တစ် လုံးထဲဂဏန် းဖြစ် အောင် လုပ် ပါ။</span></p>
+
+                        <p><span>ဥပမာ ... 26 ရက် မွေးရင် ... 2+6 = 8 ရမယ် ... အဲဒီဂဏန် းအရ ...</span></p>
+
+                        <p><span>1 = 1,5,7 ( 3,6,9 )//၁,၁၀,၁၉,၂၈,</span></p>
+                        <p><span>5 = 1,5,7 ( 2,4,8 )//၅,၁၄,၂၃,</span></p>
+                        <p><span>7 = 1,5,7 ( 3,6,9 )//၇,၁၆,၂၅,</span></p>
+
+                        <p><span>2 = 2,4,8 ( 1,5,7 )//၂,၁၁,၂၀,၂၉,</span></p>
+                        <p><span>4 = 2,4,8 ( 3,6,9 )//၄,၁၃,၂၂,၃၁,</span></p>
+                        <p><span>8 = 2,4,8 ( 1,5,7 )//၈,၁၇,၂၆,</span></p>
+
+                        <p><span>3 = 3,6,9 ( 1,5,7 )//၃,၁၂,၂၁,၃၀,</span></p>
+                        <p><span>6 = 3,6,9 ( 2,4,8 )//၆,၁၅,၂၄,</span></p>
+                        <p><span>9 = 3,6,9 ( 2,4,8 )//၉,၁၈,၂၇</span></p>
+
+                        <p><span>( ... ) ထဲက ဂဏန် း တွေက ရှောင် ရမှာပါ။</span></p>
+                        <p><span>ခုဥပမာအရ 8 ရသူဟာ 2,4,8 ကိုများများပါအောင် ရှာထိုးရမှာဖြစ်ပြီး 1,5,7 ကိုတော့ မပါအောင် သတိပြုရပါမယ် ... </span></p>
+                        <p><span>ဥပမာ ...ဏ 2248282 ထိုးပါ။</span></p>
+                        <p><span>ဏ 2247484 ထိုးပါ။ 7 ပါ ပေမယ့်ရပါတယ် ။</span></p>
+                        <p><span>ဏ 1772851 မထိုးရပါ။ ဏ 7159217 မထိုးရပါ။ </span></p>
+                        <p><span>ကျန် တာဉာဏ် ချဲ ့သုံး ပေါ့ ... </span></p>
+
+                        <p><span>နောက် တစ်ခုကထိုးရမယ့်ရက် ရွေးတာပဲ ...
+										<p><span>8 ရသူဟာ 2,4,8 နဲ့တိုက်ဆိုင်တဲ့ ရက် တွေဖြစ်တဲ့ ... 2,4,8,11,13,17,20,22,26,29,31 ရက် တွေမှာထိုးပါ။</span></p>
+                        <p><span> အဲဒီရက်က တနင်္လာ၊ တနင်္ဂနွေ၊ စ နေ နဲ့တိုက် ဆိုင် ရင် ပို ကောင် းပါတယ် ...</span></p>
+                        <p><span>၂ ရသူဟာ ၂,၄,၈ နဲ့တိုက်ဆိုင်တဲ့ ရက် တွေဖြစ်တဲ့ ...၂,၄,၈,၁၁,၁၃,၁၇,၂၀,၂၂,၂၆,၂၉,၃၁ ရက် တွေမှာထိုးပါ။</span></p>
+                        <p><span>၄ ရသူဟာ ၂,၄,၈ နဲ့တိုက်ဆိုင်တဲ့ ရက် တွေဖြစ်တဲ့ ...၂,၄,၈,၁၁,၁၃,၁၇,၂၀,၂၂,၂၆,၂၉,၃၁ ရက် တွေမှာထိုးပါ။</span></p>
+
+                        <p><span>၇ ရသူဟာ ၁,၅,၇ နဲ့တိုက်ဆိုင်တဲ့ ရက် တွေဖြစ်တဲ့ ... ၁,၅,၇,၁၀,၁၄,၁၆,၂၃,၂၅,၂၈ ရက် တွေမှာထိုးပါ။</span></p>
+                        <p><span>၅ ရသူဟာ ၁,၅,၇ နဲ့တိုက်ဆိုင်တဲ့ ရက် တွေဖြစ်တဲ့ ...၁,၅,၇,၁၀,၁၄,၁၉,၂၃,၂၈ ရက် တွေမှာထိုးပါ။</span></p>
+                        <p><span>၁ ရသူဟာ ၁,၅,၇ နဲ့တိုက်ဆိုင်တဲ့ ရက် တွေဖြစ်တဲ့ ...၁,၅,၇,၁၀,၁၄,၁၉,၂၃,၂၈ ရက် တွေမှာထိုးပါ။</span></p>
+
+                        <p><span>၆ ရသူဟာ ၃,၆,၉ နဲ့တိုက်ဆိုင်တဲ့ ရက် တွေဖြစ်တဲ့ ...၃,၆,၉,၁၂,၁၅,၁၈,၂၁,၂၄,၂၇,၃၀ ရက် တွေမှာထိုးပါ။</span></p>
+                        <p><span>၃ ရသူဟာ ၃,၆,၉ နဲ့တိုက်ဆိုင်တဲ့ ရက် တွေဖြစ်တဲ့ ...၃,၆,၉,၁၂,၁၅,၁၈,၂၁,၂၄,၂၇,၃၀ ရက် တွေမှာထိုးပါ။</span></p>
+                        <p><span>၉ ရသူဟာ ၃,၆,၉ နဲ့တိုက်ဆိုင်တဲ့ ရက် တွေဖြစ်တဲ့ ...၃,၆,၉,၁၂,၁၅,၁၈,၂၁,၂၄,၂၇,၃၀ ရက် တွေမှာထိုးပါ။</span></p>
+
+
+
+                        <p><span> ဒီနေရာမှာ နေ့ယူပုံတင် ပြရမယ် ... ကိုယ့်မွေးရက် ဂဏန် းအရ ....</span></p>
+                        <p><span>1 = တနင်္ဂနွေ၊ ဗုဒ္ဓဟူး၊ တနင်္လာ</span></p>
+                        <p><span>2 = တနင်္လာ၊ တနင်္ဂနွေ၊ စနေ</span></p>
+                        <p><span>3 = အင်္ဂါ သောကြာ၊ ကြာသပတေး</span></p>
+                        <p><span>4 = တနင်္လာ၊ တနင်္ဂနွေ၊ စနေ</span></p>
+                        <p><span>5 = တနင်္ဂနွေ၊ ဗုဒ္ဓဟူး၊ တနင်္လာ</span></p>
+                        <p><span>6 = အင်္ဂါ သောကြာ၊ ကြာသပတေး</span></p>
+                        <p><span>7 = တနင်္ဂနွေ၊ ဗုဒ္ဓဟူး၊ တနင်္လာ</span></p>
+                        <p><span>8 = တနင်္လာ၊ တနင်္ဂနွေ၊ စနေ</span></p>
+                        <p><span>9 = အင်္ဂါ သောကြာ၊ ကြာသပတေး</span></p>
+
+                        <p><span>အဆောင် အနေနဲ့ကတော့ ဘယ်သူမဆို ထီသွားထိုးကာနီးသွားမယ့်အရပ်ကို မျက် နှာမူကာ " တာဗနိုး " ဆိုတဲ့အသံကို အခေါက် (၃၀) ရွတ် သွားပါ။</span></p>
+                    </center>
+                </div>
+                <p><span> ဒီလောက်ဆို လုံလောက်ပါတယ် ...</span></p>
+                <p><span> ကျန်တာတွေက ဉာဏ်ယှဉ်သုံးပေါ့ ... ထီအကြိမ်ဟာ ကိုယ်နဲ့အကျိုးပေးဂဏန်းဖြစ်ရင် ပိုကောင်းပါတယ် ၊</span></p>
+                <p><span> နောက်ပြီး ထီဂဏန်းအားလုံး ပေါင်းရဟာ မိမိအကျိုး ပေးဂဏန် းဖြစ် နေရင်လည်း ကောင်းပါတယ် ။</span></p>
+                <p><span> အက္ခရာအကျိုးပေးက တော့ ဒီနည်းမှာ မလိုအပ်လို့ချန်ခဲ့ပါတယ် ... ဒီလောက်ဆို လုံလောက်ပါတယ် ...</span></p>
+                <p><span> ထပ်ပြောပါရ စေ ... ဒီလိုထိုးရင် ပေါက်မယ်လို့အာမခံတာမဟုတ်ဘူးနော် ...</span></p>
+                <p><span> ကိုယ့်မှာထီ ပေါက်ကံရှိမှ ပေါက်မှာပါ ...  ကံရှိသူတွေ ကံစမ်းကြပါလေ ...</span></p>
+                <p><span>မှတ်ချက်။ ။ သင်ထီပေါက်ကံ ရှိမှ အောက်ဖော်ပြပါ အကြောင်းအရာများကို ပြုလုပ်ပါ....</span></p>
+                <p><span>(၇)ရက် သားသမီးအပေါင်း ကိုယ်စိတ်နှဖြာ ရွှင်လန်းချမ်းမြေ့ပါစေ....</span></p>
+                <span><p>တွက်နည်းမူရင်း ဖော်ပြပေးသူအား Credit ပေးပါသည်။</span></p>
+                <span><p> ကျေးဇူးတင်ပါသည်။</span></p>
+                <!-- <button type="button" id='popup_close' style='width:20%;height:50px;background-color: brown;border-radius: 5px;margin-left:50%;margin-top:0%;'>ပိတ်မည်</button>		 -->
+            </section>
+            <!-- Section: sayar_about_section -->
+
+            <!-------Software About Section-------->
+
+            <!--------All Read Section------------->
+
+            <!-- Section: read_section4 -->
+            <section id="read_section4">
+                <center>
+                    <h3>ထီထိုးမိပြီ ဆိုလျှင်တော့ဖြင့် ယခုကဲ့သို့ အစီရင်လေးလုပ်လျှင် ပိုကောင်းပါသည်။</h3>
+                </center>
+                </br>
+                <p>အစီအရင် (၁)</p>
+                <p>ထီထိုးသောနေ့မှာ ထိုးပြီးထီလက်မှတ်များပေါ်သို့ ပေါက်စီပုဂံကို တင်ပြီး၊ ပေါက်စီ ဘုရားဆွမ်းတော်ကပ်ပါ။ </p>
+                <p>အစီအရင် (၂)</p>
+                <p>ထိုးပြီးသား ထီလက်မှတ်များကို သေတ္တာဖာလေးနှင့်ဖြစ်စေ ဖန်ပုလင်းဗူးတခုခုနဲ့ဖြစ်စေ ထည့်သိမ်းထားပြီး ထီလက်မှတ်များပေါ်သို့ ဆန်ပေါက်ပေါက်များအုပ်ထားပါ။ </p>
+
+                <span><p>မူရင်း ဖော်ပြပေးသူအား Credit ပေးပါသည်။</span></p>
+                <span><p> ကျေးဇူးတင်ပါသည်။</span></p>
+            </section>
+            <!-- Section: read_section4 -->
+
+            <!-- Section: read_section5 -->
+            <section id="read_section5">
+                <center>
+                    <h3>ပညာရှင် ဆရာဟိန်း ပြောတဲ့ ဝင်ငွေမပြတ်စေရန် ပိုက်ဆံ အိတ်ထဲကို အမြဲတမ်း ထည့်ထားသင့်တဲ့ အရာတစ်ခု </h3>
+                </center>
+                </br>
+                <p>တနင်္ဂနွေသားသမီးများအတွက်</p>
+
+                <p>🔷အပြာရောင်ပိုက်ဆံအိပ်ကို အသုံးပြုပါ…။ပိုက်ဆံအိပ်ထဲ ဖာလာစေ့ ၁စေ့ အမြဲတစေထားထားပါ…။ </p>
+                <p>တနလာင်္သားသမီးများအတွက်</p>
+
+                <p></p>⚫ အနက်ရောင်ပိုက်ဆံအိပ်ကို အသုံးပြုပါ…။ပိုက်ဆံအိပ်ထဲ ဖာလာစေ့၁စေ့ အမြဲတစေထားထားပါ…။ </p>
+                <p>အင်္ဂါသားသမီးများအတွက်</p>
+
+                <p></p>🔺အညိုရောင် (သို့) နီညိုရောင်ပိုက်ဆံအိပ်ကို အသုံးပြုပါ…။ပိုက်ဆံအိပ်ထဲ ဖာလာစေ့၁စေ့ အမြဲတစေ ထားထားပါ…။ </p>
+                <p>ဗုဒ္ဓဟူးသားသမီးများအတွက်</p>
+
+                <p></p>⬜အဖြူ ရောင်(သို့)နို့နှစ်ရောင် (သို့)အဖြူ ရောင်များများပါသောအရောင်ပိုက်ဆံအိပ်ကို အသုံးပြုပါ…။ပိုက်ဆံအိပ်ထဲ ဖာလာစေ့၁စေ့ အမြဲတစေထားထားပါ…။ </p>
+                <p>ကြာသပတေးသားသမီးများအတွက်</p>
+
+                <p></p>🎈အနီရောင်ပိုက်ဆံအိပ်ကို အသုံးပြုပေးပါ…။ပိုက်ဆံအိပ်ထဲ ဖာလာစေ့၁စေ့ အမြဲတစေ ထားထားပါ…။ </p>
+                <p>သောကြာသားသမီးများအတွက်</p>
+
+                <p>🍀အစိမ်းရောင်ပိုက်ဆံအိပ်ကို အသုံးပြုပေးပါ…။ပိုက်ဆံအိပ်ထဲ ဖာလာစေ့၁စေ့ အမြဲတစေထားထားပါ…။ </p>
+                <p>စနေသားသမီးများအတွက်</p>
+
+                <p></p>🌟အဝါရောင်ဖျော့ဖျော့ ပိုက်ဆံအိပ်ကို အသုံးပြု ပေးပါ…။ပိုက်ဆံအိပ်ထဲ ဖာလာစေ့၁စေ့ အမြဲတစေထားထားပါ…။ </p>
+
+                <p>မှတ်ချက်>>>ဖာလာစေ့ ကျိုးပဲ့ပျက်စီးလာပါက အသစ်လဲပေးရပါ့မယ်…။ </p>
+
+                <span><p>မူရင်း ဖော်ပြပေးသူအား Credit ပေးပါသည်။</span></p>
+                <span><p> ကျေးဇူးတင်ပါသည်။</span></p>
+
+            </section>
+            <!-- Section: read_section5 -->
+
+            <!-- Section: read_section6 -->
+            <section id="read_section6">
+                <center>
+                    <h3>🙏🏻အဖိုးထိုက်တန်သော ထီပေါက်ဂါထာ🙏🏻</h3>
+                </center>
+                </br>
+                <p><span> </span> </p>
+                <p><img src="images/img.jpg" width="80%" height="50%"></p>
+                <p><span> </span> </p>
+                <p><span>	မည်သူမဆို ထီပေါက်စေတဲ့ ကံကြမ္မာ ကံအကြောင်းတရားဟာ ဆိုရင်ဖြင့် တစ်နှစ်မှာသုံးကြိမ် ကံဇာတာတက်နိုင် ကံကောင်းစေနိုင်ပါတယ်။</span> </p>
+                <p><span>	ထို့ကြောင့် ထီပေါက်လို ထီကံကောင်းလိုပါက ယခုတင်ပြမည့်အစီအရင်လေးအား ဆောင်ရွက်ကြည့်ကြပါကုန်။</span> </p>
+                <p><span>	မိမိတဦးတယောက်တည်း နေ့စဉ်သောက်သုံးမည့် ရေအိုး အသေးစားတလုံးကို ဘုရားစင်အမြင့်တနေရာတွင် ရေအ့ပြည့်ထည့်သောက်ရန် ခွက်အဖုံးတို့ဖြင့် ရှေးဦးစွာပြင်ဆင်ပါ။</span> </p>
+                <p><span>	ထိုသို့ပြင်ဆင်ပြီးသောအခါ မိ့မိ့မွေးနေ့ နဝင်းချိန်တွင် ယခုဖော်ပြထားသော ’အဖိုးထိုက်တန်သောထီပေါက်ဂါထာ’ အား နှစ်သက်ရာ ၁၀၈ လုံးပုတီးဖြင့်အသံနေအသံထားမှန်ကန်စွာဖြင့် တပတ်ကို၁ရက် တထိုင်တည်းစိတ်ပေးရမှာပါမယ် ။</span> </p>
+
+                <p><span>	ထိုသို့ ပုတီးပတ်စိတ်လှူပြီးတာနဲ့ ရေအိုးထဲမှ ရေတစ်ခွက်အပြည့်ကို သောက်ရပါမယ် မိမိ သောက်သုံးစဉ် အာရုံပြုထားရမည့်အရာမှာ” ငါသည်ထီကံကောင်းတော့မယ့် လူတယောက်ဖြစ်တယ် ။</span> </p>
+
+                <p><span>	ထိုအတူထီဆုကြီးဆွတ်ခူးတော့မယ့်သူတယောက်ဖြစ်တယ်”ဟုစိတ်တွင်မှတ်ယူ၍သောက်သုံးပေးရမယ်” တစ်ပတ်မှာ၁ရက် ၉ပတ်ပြည့်အောင်အဓိဌာန်ပုတီးစိတ်ပေးရမယ် ။</span> </p>
+                <center>
+                    <p><span>	👦တနင်္ဂနွေသားသမီးများ👧</span> </p>
+
+                    <p><span>	တနင်္ဂနွေနံနက်၉နာရီ၄၅မိနစ်အချိန်တွင်အဓိဌာန်စတင်ရမည်။</span> </p>
+
+                    <p><span>	🧑တနင်္လာသားသမီးများ👩</span> </p>
+
+                    <p><span>	တနင်္လာနံနက်၉နာရီ၄၅မိနစ်အချိန်တွင်အဓိဌာန်စတင်ရမည်။</span> </p>
+
+                    <p><span>	👱‍♂️အင်္ဂါသားသမီးများ👱‍♀️</span> </p>
+
+                    <p><span>	အင်္ဂါနံနက်၉နာရီ၄၅မိနစ်အချိန်တွင်အဓိဌာန်စတင်ရမည်။</span> </p>
+
+                    <p><span>	👨‍🦰ဗုဒ္ဓဟူးသားသမီးများ👩‍🦰</span> </p>
+
+                    <p><span>	ဗုဒ္ဓဟူးနံနက်၉နာရီ၄၅မိနစ်တွင်အဓိဌာန်စတင်ရမည်။</span> </p>
+
+                    <p><span>	👨‍🦱ကြာသပတေးသားသမီးများ👩‍🦱</span> </p>
+
+                    <p><span>	ကြသပတေးနံနက်၉နာရီ၄၅မိနစ်တွင်အဓိဌာန်စတင်ရမည်။</span> </p>
+
+                    <p><span>	👨‍🦲သောကြာသားသမီးများ👩‍🦲</span> </p>
+
+                    <p><span>	သောကြာနံနက်၉နာရီ၄၅မိနစ်တွင်စတင်ရမည်။</span> </p>
+
+                    <p><span>	👳‍♀️စနေသားသမီးများ👩‍🦳</span> </p>
+
+                    <p><span>	စနေနံနက်၉နာရီ၄၅မိနစ်တွင်စတင်ရမည်။</span> </p>
+                </center>
+
+                <p><span>	အဓိဌာန် စတင်သည့်နေ့မှ စတင်၍ အဓိဌာန်ပြီးမြောက်သည့်အချိန် အဓိဌာန်ပြီးမြောက်အောင်မြင်သည့်နေ့အတွင်း မိမိတတ်နိုင်သလောက်ပံသကူဒါနငွေလှူပါ။</span> </p>
+
+                <p><span>	ခုနှစ်ရက် သားသမီးအပေါင်း ကံ ဉာဏ် ဝီရိယ သုံးပါးလုံး အားကောင်းအောင် ဆောင်ရွက်နိုင်၍ ကျန်းမာထီပေါက်နိဗ္ဗာန်ရောက်နိုင်ကြပါစေ။ </span> </p>
+
+                <span><p>မူရင်း ဖော်ပြပေးသူအား Credit ပေးပါသည်။</span></p>
+                <span><p> ကျေးဇူးတင်ပါသည်။</span></p>
+
+            </section>
+            <!-- Section: read_section6 -->
+
+            <!-- Section: read_section6 -->
+            <section id="read_section7">
+                <center>
+                    <h3> 🙏🏻ထီပေါက်စေနိုင်သော နည်းလမ်းများ🙏🏻</h3>
+                </center>
+                </br>
+                <p><span>***********************************************************   </span> </p>
+
+                <p><span>** ဗုဒ္ဓဂုဏ်တော်စိတ်ဝယ်ထုံ “ဗုဒ္ဓေါ” ဂုဏ်ပွား ကောင်းကျိုးများ **</span> </p>
+                <br>
+
+                <p><span>(၁) သင့်တင့်လျောက်ပတ်သော ရေအိုးတစ်လုံးအား (မိမိနေအိမ် ဘုရားကျောင်းဆောင်တွင်ထားရှိရန်သင့်တော်မည့်အရွယ်) ရေအပြည့်ဖြည့်ကာ….</span> </p>
+
+                <p><span>(က) အင်္ဂါနေ့ နံနက်/ည ၆-နရီ ၁၀-မိနစ် မှရ-နာရီ ၂၀-မိနစ် အတွင်းဖြစ်စေ</span> </p>
+
+                <p><span>(ခ) စနေနေ့ နံနက်/ည ၉-နရီ ၁၀-မိနစ် မှ ၁၀-နာရီ ၂၀-မိနစ် အတွင်း</span> </p>
+
+                <p><span>တို့အနက် သင့်တင့်ရာ အချိန်၌ မိမိတို့နေထိုင်ရာ အိမ်ဂေဟာ၏ မြတ်စွာဘုရားကျောင်းတော်ကြီးမှာ….</span> </p>
+
+                <p><span>မြတ်စွာဘုရား ရဟန္တာပုဂ္ဂိုလ်အပေါင်းတို့အား ရည်စူး၍ ” ရေအိုး ” ဟု အမည်ပေးလှူပါ။</span> </p>
+
+                <p><span>” ရေစင် ” ဟုဆိုလျက် ပြန်စွန့် သောက်သုံးပေးပါ။</span> </p>
+
+                <p><span>၇-ရက် တစ်ခါဖြစ်စေ….ရေကုန်လျှင်ဖြစ် ပြန်လှူပေးပါ။</span> </p>
+
+                <p><span>( “ထီ” ဓာတ်ဖွင့်သော အစီအရင်ဖြစ်ပါ၏။)</span> </p>
+
+                <p><span>မိသားစုဝင်များ ဓမ္မမိတ်ဆွေများကိုလည်း အထက်ပါ</span> </p>
+
+                <p><span>” ရေအိုး” မှ “ရေစင်” သောက်သုံးခွင့်ပြုပါဟု ခွင့်တောင်းလျှက် သောက်သုံးနိုင်ပါသည်။</span> </p><br><br>
+
+
+                <p><span>(၂) ၁၀၈-လုံး (ပိတောက်သား) ပုတီးနှင့် ဘုရားဂုဏ်တော် (၉)ပါးအနက်</span> </p>
+
+                <p><span>ကြာသပတေးနေ့ နံနက်(၅)နာရီ (ကျီးမနိုးမီ)</span> </p>
+
+                <p><span>ဗုဒ္ဓေါ ဂုဏ်တော်….ပုတီး(၁)လုံးချ….(၁၉)ပတ်</span> </p>
+
+                <p><span>မပျက်မကွက် ဆက်တိုက် (၂၉)ရက် အဓိဋ္ဌာန်ဝင် ပုတီးစိပ် ပူဇော်ရပါမည်။</span> </p>
+
+                <p><span>*(၁၀၈-လုံး ပိတောက်သားပုတီးကုံးဖြစ်ရမည်)</span> </p><br><br>
+
+
+
+
+                <p><span>(၃) ထီပေါက်စေနိုင်သော ပါဠိတော်အား စွမ်းနိုင်သမျှ ရွတ်ဖတ်ပူဇော် သရဇ္ဈာယ်ပေးပါ။</span> </p>
+
+                <center>
+                    <p><span>ထီပေါက်စေနိုင်သော ပါဠိတော်</span> </p>
+                    <p><span>*****************************************</span> </p>
+
+                    <p><span>🙏🏻ဧတဒဂ္ဂံ ဘိက္ခဝေ မမသာဝကာနံ ဘိက္ခူနံ ၊🙏🏻</span> </p>
+
+                    <p><span>🙏🏻ပထမံ သလာကံ ဂဏှန်တာနံ ယဒိတံ ကုဏ်ဍဓာနော ၊🙏🏻</span> </p>
+
+                    <p><span>🙏🏻ဧတေနသစ္စဝဇ္ဇေန တထာ မေ ဟောတု သဗ္ဗဒါ ။🙏🏻</span> </p>
+                </center><br><br>
+
+                <p><span>အနက်</span> </p>
+
+                <center>
+                    <p><span>ရဟန်းတို့ ….ငါဘုရား၏ တပည့်သာဝကာဖြစ်ကုန်သော ပထမတန်း စာရေးတံကို ယူကုန်သော(ပေါက်ကုန်သော) ရဟန်းတို့တွင် အကြင် ကုဏ္ဍဓာန ရဟန်းသည်ရှိ၏။</span> </p>
+
+                    <p><span>ထိုရဟန်းတော်မြတ်သည် ငါဘုရား၏ တပည့်သားသာဝက ဖြစ်ကုန်သော ၊ ပထမတန်းစာရေးတံကို ယူကုန်သော ရဟန်းတို့ထက် အမြတ်ဆုံးရဟန်းတည်း။</span> </p>
+
+                    <p><span>ဤသစ္စာစကားကြောင့် ထို့အတူ ငါ့အား အခါခပ်သိမ်း ဖြစ်ပါစေသတည်း။</span> </p>
+                </center><br><br>
+
+                <p><span>(အနက်ကို အာရုံပြုထားရန်သာဖြစ်သည်။)</span> </p>
+
+                <p><span>*(ဤကျင့်စဉ်ကိုမျှဝေခဲ့သူသည် ထီကံထူးခဲ့သည့်အပြင်အမေရိကန် ဒီဗွီကံစမ်းမဲပေါက်ကာ ယခုအမေရိကန်ပြည်ထောင်စုတွင်အခြေချနေထိုင်လျှက်ရှိနေပါသည်။)</span> </p><br><br>
+
+                <p><span>(အောင်မြင်စိုး)</span> </p>
+
+                <p><span>(လူမှုထူးချွန်ဂုဏ်ထူးဆောင်)</span> </p>
+
+                <p><span>မဂ္ဂဇင်းဆောင်းပါး</span> </p>
+
+                <p><span>{အားလုံးကိုယ်စိတ်နှစ်ဖြာရွှင်လန်းချမ်းမြေ့ကြပါစေ}</span> </p>
+
+                <span><p>မူရင်း ဖော်ပြပေးသူအား Credit ပေးပါသည်။</span></p>
+                <span><p> ကျေးဇူးတင်ပါသည်။</span></p>
+
+            </section>
+            <!-- Section: read_section6 -->
+
+            <!-- Section: read_section6 -->
+            <section id="read_section8">
+                <center>
+                    <h3> အဘမင်းသိင်္ခ ၏ ဓာတ်တူနံတူငွေကိုယူ </h3>
+                    </br>
+                    <p><img src="images/money.jpg" width="80%" height="50%"></p>
+                    </br>
+                    </br>
+                    <p>ဤအစီအရင်ပုံကို တနင်္လာနေ့နံနက် ၉:၄၅ နာရီတွင်ပရင့်ထုတ်ယူကာ ပလပ်စတစ်လောင်း၍လည်းကောင်း၊ </p>
+                    <p>ဗီနိုင်းထုတ်၍လည်းကောင်း မိမိအိမ် ဘုရားခန်း၊ စျေးဆိုင် ၊ ကုမ္ပဏီရုံးခန်း စသည်တို့တွင် ရိုသေ ယုံကြည် သက်ဝင်စွာ ဆောင်ထားပါက </p>
+                    <p>လာဘ်လာဘ ရွှင်လန်းခြင်း၊ အောင်မြင်ခြင်း၊ တိုးတက်ခြင်း စသော အကျိုးတရားများကို ရရှိစေပါလိမ့်မယ်။ </p>
+                </center>
+
+                <span><p>မူရင်း ဖော်ပြပေးသူအား Credit ပေးပါသည်။</span></p>
+                <span><p> ကျေးဇူးတင်ပါသည်။</span></p>
+            </section>
+            <!-- Section: read_section6 -->
+
+            <!-- Section: read_section6 -->
+            <section id="read_section9">
+                <center>
+                    <h3> ငွေဝင်ထီပေါက်ကိန်းကြုံသူများ </h3>
+                </center>
+                </br>
+                <h4>မြန်မာဆန်းကျမ်းဗေဒင်ပညာအရ ယခု (၁၃၇၈) ခုနှစ်အတွင်း ငွေဝင်ထီပေါက်ကံကောင်းသူများ</h4><br>
+
+                <h5>မြန်မာ့ဆန်းကျမ်းဗေဒင်ပညာရပ်၏ ငွေဝင်ထီပေါက်ကိန်းများထဲမှ ဆန်းဗေဒင်ဆရာကြီး ရန်ကုန်ကျော်ရင်၏ငွေဝင်ခြင်း ထီပေါက်ခြင်းနည်းကိုတွက်ချက်ဖော်ပြပေးပါမည်။</h5><br>
+
+                <p><span>ငွေတည်းဟူသောတနင်္လာကိုသက်ရောက်တိုင်၏မည်သည့်နေရာမဆို ကောဇာဇေယျကပ်ပါက ငွေများများဝင်ခြင်း ထီပေါက်နိုင်ခြင်းရှိမည်ဟုဆိုပါသည်။</span> </p>
+
+                <p><span>ထိုငွေဝင်ထီပေါက်ကံရှိသူများကို မြန်မာနှစ်(၁၃၇၈)ခုနှစ်အတွက် အသေးစိတ် တွက်ချက်ပေးလိုက်ပါ၏။</span> </p><br>
+
+                <p><span>#တနင်္လာသားသမီးများ အသက် ( ၁၅ ၂၃ ၃၁ ၃၉ ၄၇ ၅၅ ၆၃ ၇၁ ၇၉ )နှစ်တွင် ငွေနံ တနင်္လာတန်းကပ်တွင်ရပ်တည်၍ ကောဇာနာမက္ခရတိုင်မှဇေယျဂြိုလ်ကြာသပတေးကပ်သဖြင့် ငွေနှင့်ပက်သက်၍ ကံကောင်းသူများဖြစ်ပါသည်။</span> </p>
+                <p><span>မိမိအိမ်နှင့် အနီးဆုံး ထီဆိုင်တွင် ထီထိုးပါ။</span> </p>
+                <p><span>ထီပေါက်လိုပါက ဝက်သား အမဲသားရှောင်၊ အသုဘမပို့ရ၊ ထီပေါက်ပါက အလှူဒါနကြီးကြီးကျယ်ကျယ်လုပ်ပါမည်ဟု သစ္စာပြုပါ။</span> </p>
+                <p><span>အကျိုးပေးဂဏန်းမှာ ( ၃ နှင့် ၅ ) ဖြစ်သည်။</span> </p><br>
+
+                <p><span>#အင်္ဂါသားသမီးများ အသက်( ၁၅ ၂၃ ၃၁ ၃၉ ၄၇ ၅၅ ၆၃ ၇၁ ၇၉ ၈၀ )နှစ်များတွင် ငွေနံမှာသက်ရောက်ဆန်းတိုင်နိစ်လေးတွင်တည်ရှိ၍ကောဇာဇေယျတိုင် ကြာသပတေး ကပ်သဖြင့်မထင်မှတ်ဘဲ ငွေဝင်ထီပေါက်နိုင်သောကာလဖြစ်၏။</span> </p>
+                <p><span>ထီကို ကိုယ်တိုင်မထိုးရ၊ ကြုံရာဆိုင်တွင်ထိုးရမည်။</span> </p>
+                <p><span>(၁)ရွက်ကျန်ထိုးရုံနှင့်တစ်သက်စံနိုင်သူများဖြစ်၏။</span> </p>
+                <p><span>အကျိုးပေးဂဏန်းမှာ ( ၄ , ၈ , ၆ )တို့ဖြစ်သည်။</span> </p><br>
+
+                <p><span>#ဗုဒ္ဓဟူးသားသမီးများ အသက်( ၁၆ ၁၇ ၂၄ ၂၅ ၃၂ ၃၃ ၄၀ ၄၁ ၄၈ ၄၉ ၅၆ ၅၇ ၆၄ ၆၅ ၇၂ ၇၃ )နှစ်များတွင် တနင်္လာမှာ နိစ်ကြီးတွင်ရပ်တည်၍ ကောဇာတိုင်မှဇေယျဂြိုလ်ကပ်ပါသဖြင့် ထူးထူးခြားခြားငွေဝင်နိုင်သလို ထီပေါက်နိုင်တဲ့ ကံဇာတာပါသူများဖြစ်ပါ၏။</span>                    </p>
+                <p><span>ထီကို ကိုယ်တိုင်တွက်ချက်၍ အခြားသူအား နွားနို့နှင့်ပေါင်မုန့်ကျွေး၍ ထိုးရမည်။ </span> </p>
+                <p><span>အကျိုးပေးဂဏန်းမှာ ( ၅ , ၇ , ၀ ) ဖြစ်ပါသည်။</span> </p><br>
+
+                <p><span>#ကြာသပတေးသားသမီးများ အသက်၁၆ ၂၄ ၃၂ ၄၀ ၄၈ ၅၆ ၇၂ ၈၀ နှစ်တွင် ငွေနံတိုင်ခြေတွင်ရှိ၍ ဇေယျကပ်သဖြင့်ငွေနံကောင်းသူများဖြစ်ပါ၏။</span> </p>
+                <p><span>မိမိနေထိုင်ရာမှဝေးသောဆိုင် စက်ဘီး လက်တွန်းလှည်းဖြင့် တွန်းသောဆိုင်များတွင် ထိုးပါ။</span> </p>
+                <p><span>အကျိုးပေးဂဏန်းမှာ ( ၁ နှင့် ၆ ) ဖြစ်သည်။</span> </p><br>
+
+                <p><span>#သောကြာသားသမီးများ အသက် ( ၁၉ ၂၇ ၃၅ ၄၃ ၅၁ ၅၉ ၆၇ ၇၅ )နှစ်များတွင် ငွေနံတိုင်ထိပ်တွင်ရပ်တည်ပြီး ကောဇာနာမက္ခရတိုင်မှဇေယျ ဂြိုလ်ကပ်ပါသဖြင့်လွန်စွာငွေဝင်နိုင်သော ကာလဖြစ်သည်။</span> </p>
+                <p><span>ထီမထိုးဘဲ ထီပေါက်သလို ငွေဝင်နိုင်သောကာလဖြစ်၏။ ထီထိုးပါကကိုယ်တိုင်တွက်ချက်၍ထိုးပါ။ အခြားသူမထိုးခိုင်းရ။</span> </p>
+                <p><span>အကျိုးပေးဂဏန်းရ ( ၂ , ၉ ) ဖြစ်၏။ ငွေနံအထူးကောင်းသူများဖြစ်၏။</span> </p>
+                <p><span>ငွေဝင်ထီပေါက်နိုင်သော်လည်း အရက်သောက်သူများအတွက် ဤကိန်းက တာဝန်မယူပါ။ </span> </p>
+                <p><span>အရက်သောက်သူများဖြစ်ပါက စီးပွားပျက် အမှုဖြစ်၍ထောင်ကျနိုင်ပါသည်။</span> </p><br>
+
+                <p><span>#စနေသားသမီးများ အသက် ( ၁၈ ၂၆ ၃၄ ၄၂ ၅၀ ၅၈ ၆၆ ၇၄ ၈၂ )နှစ်များတွင် ငွေနံပြတွင်ရပ်တည်၍ ကောဇာဇေယျကပ်သဖြင့် ထီကံအလွန်အကျိုးပေးသူများဖြစ်ပြီး ထီထိုးသောအခါတွက်ချက်ထိုးစရာမလို။</span> </p>
+                <p><span>ကြုံရာဆိုင်တွင်ထိုးရပါမည်။ အကျိုးပေးဂဏန်းမှာ ( ၁ နှင့် ၃ )တို့ဖြစ်ပါသည်။</span> </p><br>
+
+                <p><span>#တနင်္ဂနွေသားသမီးများ အသက် ( ၁၅ ၂၃ ၃၁ ၃၉ ၄၇ ၅၅ ၆၃ ၇၁ ၇၉ )နှစ်များတွင် ငွေနံတန်းစီးတွင်ကောဇာဇေယျ ကပ်သဖြသင့်ထီပေါက်ခြင်း ငွေဝင်ခြင်းများဤနှစ်တွင်ကြုံရမည်။</span> </p>
+                <p><span>ထီထိုးသောအခါကိုယ်တိုင်ထိုးရမည်။ (၂၄)ပစ္စည်းရွတ်ခြင်း ခေါင်းလောင်းထိုး၍ ဆုတောင်းခြင်းပြုရမည်။</span> </p>
+                <p><span>အကျိုးပေးဂဏန်းမှာ( ၂ , ၄ , ၈ , ၉ )တို့ဖြစ်ပါသည်။</span> </p><br>
+
+                <p><span>***အထက်ပါငွေဝင်ထီပေါက်စေသော ဟောကွက်များတွင် တနင်္လာကို ဤနှစ်၏ အကောင်းဆုံးသောဇေယျကြာသပတေး ကပ်၍ ဟောခြင်းဖြစ်၏။</span> </p>
+                <p><span>တနလ်ာနံငွေဖြစ်သော်လည်း ကိုယ်ပိုင်ငွေမဟုတ်ဘဲ အခြားသူ၏ ငွေများဝင်ခြင်း ခေတ္တသိမ်းထားခြင်း တနလ်ာသားသမီးများအကူအညီများစွာပေးခြင်း တနလ်ာနံများဝင်လာခြင်းသည် ကိုယ်ပိုင်ငွေဖြစ်သော ထီပေါက်ခြင်းကို ပျက်ပြယ်တတ်သည်ကို သတိပြုရပါမည်။</span> </p><br>
+
+                <p><span>*ကိုးကား-ဆန်းကျမ်းဗေဒင်ပညာအရထီကံငွေကံကောင်းသူများ(ဆရာဒလမင်းခေါင်)</span> </p>
+
+                <span><p>မူရင်း ဖော်ပြပေးသူအား Credit ပေးပါသည်။</span></p>
+                <span><p> ကျေးဇူးတင်ပါသည်။</span></p>
+
+            </section>
+            <!-- Section: read_section6 -->
+            <!--------All Read Section------------->
+
+            <!-- Section: contact_section -->
+            <section id="contact_section">
+                <h3>
+                    <p><span> ဆက်သွယ်ရန် လိပ်စာ </span></p>
+                </h3>
+                <p><span>  </span></p>
+                <p><span> ဤ App နှင့်ပါတ်သက်၍
+						အဆင်မပြေမှုများ၊ အခက်အခဲများ ၊ အကြံပေးလိုသည်များ ရှိပါက အောက်ဖော်ပြပါ လိပ်စာများသို့
+						ဆက်သွယ် အကူအညီတောင်းခံနိုင်ပါသည်။ </span></p>
+                <p><span> ကျေးဇူးတင်ပါသည်။ </span></p>
+                <center>
+                    <p><span> Email : </span><span><a href="https://teamcs16.mm@gmail.com">teamcs16.mm@gmail.com</a></span></p>
+                    <p><span> Facebook : </span><span><a href="https://www.facebook.com/mmsoftware100">www.facebook.com/mmsoftware100</a> </span></p>
+                    <p><span> Google Play : </span><span><a href="https://play.google.com/store/search?q=pub:TEAM%20CS&c=apps">https://play.google.com/teamcs</a> </span></p>
+                </center>
+                </br>
+            </section>
+            <!-- Section: contact_section -->
+
+        </div>
+    </main>
+    <!-- Main layout -->
+
+    <!-- Footer -->
+    <footer class="page-footer pt-0 mt-5 rgba-stylish-light">
+        <!-- Copyright -->
+        <div class="footer-copyright py-3 text-center">
+            <div class="container-fluid">Developed By : <a href="#https://www.facebook.com/mmsoftware100" target="_blank"> MMsoftware 100 </a>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer -->
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+
+    <script src="js/modernizr.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/underscore.min.js"></script>
+    <script src="js/backbone.js"></script>
+
+    <!-- Initializations -->
+    <script>
+        // SideNav Initialization
+        $(".button-collapse").sideNav();
+
+        var container = document.querySelector('.custom-scrollbar');
+        var ps = new PerfectScrollbar(container, {
+            wheelSpeed: 2,
+            wheelPropagation: true,
+            minScrollbarLength: 20
+        });
+
+        // Data Picker Initialization
+        //$('.datepicker').pickadate();
+
+        // Material Select Initialization
+        $(document).ready(function() {
+
+            $('.mdb-select').material_select();
+
+            $('section').hide();
+            $("#intro_section").show();
+            // login section show
+            // all hide
+
+
+            $('.ui_navigation').click(function() {
+                var link = $(this).attr('href');
+                link = link.substring(1);
+                //alert(link);
+                $('section').hide();
+                $("#" + link).show();
+            });
+        });
+
+        // Tooltips Initialization
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+    <!-- Our JavaScript -->
+    <script type="text/javascript" src="js/software_store.js">
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            //////////////////////Way 1///////////////////////////////////////////////////////////////////
+            $(document).on("click", "#calculate", function() {
+                $(".y_or_n").empty();
+                $(".digist").empty();
+                $(".word").empty();
+                $(".conn").empty();
+                $(".same").empty();
+                var inputdata = $('#birthday').val();
+                var data = new Date(inputdata);
+                //alert(data);
+                var day = data.getDay();
+                var date = data.getDate();
+                var month = data.getMonth();
+                var year = data.getFullYear();
+                var dateStr = day + "/" + date + "/" + month + "/" + year;
+                //alert(dateStr);
+                var current_date = new Date();
+                // var diff_date = current_date - data ;
+                // alert(diff_date);
+                var diffTime = Math.abs(current_date - data);
+                var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                console.log(diffDays);
+                //alert(diffDays);
+
+                var calculate_age = parseInt(diffDays / 365);
+                //alert(calculate_age);
+
+                current_age = calculate_age + 1;
+                //alert(current_age);
+
+                if (month == 1 || month == 2 || month == 3) {
+                    var mm_year = (year - 639);
+                } else {
+                    var mm_year = (year - 638);
+                }
+                //alert(mm_year);
+                var ch = 0;
+                $('input[name="yarhu"]:checked').each(function() {
+                    ch++;
+                });
+
+                if (ch > 0) {
+                    //alert("checked");
+                    var planet = mm_year + 12; //ရာဟု
+                } else {
+                    //alert("unchecked");
+                    if (day == 1) {
+                        var planet = mm_year + 15; //တနင်္လာ= ၁၅ 
+                    }
+                    if (day == 2) {
+                        var planet = mm_year + 8; // အင်္ဂါ= ၈
+                    }
+                    if (day == 3) {
+                        var planet = mm_year + 17; //ဗုဒ္ဓဟူး= ၁၇
+                    }
+                    if (day == 4) {
+                        var planet = mm_year + 19; //ကြာသပ‌တေး= ၁၉
+                    }
+                    if (day == 5) {
+                        var planet = mm_year + 21; //သောကြာ= ၂၁
+                    }
+                    if (day == 6) {
+                        var planet = mm_year + 10; // စနေ= ၁၀
+                    }
+                    if (day == 7) {
+                        var planet = mm_year + 6; //တနင်္ဂနွေ= ၆
+                    }
+                }
+
+                //alert(planet); //၁။ မိမိရဲ့ မြန်မာ မွေးခုနှစ်ကို တည်မိမိရဲ့ ဂြိုဟ်သက်နှင့် ပေါင်းပါ။
+
+                var planet_modulo = planet % 43; //၂။ ပေါင်းပြီး ၄၃နဲ့ (÷)ပါ။
+
+
+                var modulo_age = planet_modulo + current_age; //၃။ ရရှိတဲ့ အကြွင်းနဲ့ မိမိရဲ့ အသက်နဲ့ ထပ်ပေါင်းပါ။
+
+                var last_modulo = modulo_age % 7; //၄။ ပေါင်းပြီးလျှှင် ၇နဲ့ ထပ် (÷)စားပါ။
+                //alert("module "+last_modulo);
+
+                if (last_modulo == 0 || last_modulo == 5) {
+                    //alert("You would have to Highest Prizes....");
+                    $(".conn").html("<i class='far fa-smile-beam'></i>ဝမ်းသာပါတယ်!<i class='far fa-smile-beam'></i>")
+                    $(".y_or_n").text("ယခုနှစ်အတွင်း သင် ထီဆု အကြီး ပေါက်နိုင်သည်။");
+                    var pwa = mm_year % 7;
+                    //alert(pwa);
+                    if (pwa == 0) {
+                        //alert("first digist is 6 and Last digist is 4" + "first digist is 5 and Last digist is 4");//၆အစ ၄အဆုံး၊ ၅အစ ၄အဆုံး
+                        $(".digist").text("ထီထိုးလျှင် '၆'အစ '၄'အဆုံး နှင့်  '၅'အစ '၄'အဆုံး ထိုးပါ");
+                    } else if (pwa == 1) {
+                        //alert("first digist is 7 and Last digist is 5" + "first digist is 6 and Last digist is 5");//'၇'အစ '၅'အဆုံး၊ '၆'အစ '၅'အဆုံး
+                        $(".digist").text("ထီထိုးလျှင် '၇'အစ '၅'အဆုံး နှင့် '၆'အစ '၅'အဆုံး ထိုးပါ");
+                    } else if (pwa == 2) {
+                        //alert("first digist is 1 and Last digist is 6" + "first digist is 6 and Last digist is 7");//'၁'အစ '၆'အဆုံး၊ '၆'အစ '၇'အဆုံး
+                        $(".digist").text("ထီထိုးလျှင် '၁'အစ '၆'အဆုံး နှင့် '၆'အစ '၇'အဆုံး ထိုးပါ");
+                    } else if (pwa == 3) {
+                        //alert("first digist is 2 and Last digist is 7" + "first digist is 5 and Last digist is 7");//'၂'အစ '၇'အဆုံး၊ '၅'အစ '၇'အဆုံး
+                        $(".digist").text("ထီထိုးလျှင် '၂'အစ '၇'အဆုံး နှင့် '၅'အစ '၇'အဆုံး ထိုးပါ");
+                    } else if (pwa == 4) {
+                        //alert("first digist is 3 and Last digist is 1" + "first digist is 2 and Last digist is 1");//'၃'အစ '၁'အဆုံး၊ '၂'အစ '၁'အဆုံး
+                        $(".digist").text("ထီထိုးလျှင် '၃'အစ '၁'အဆုံး နှင့် '၂'အစ '၁'အဆုံး ထိုးပါ");
+                    } else if (pwa == 5) {
+                        //alert("first digist is 4 and Last digist is 2" + "first digist is 3 and Last digist is 2");//'၄'အစ '၂'အဆုံး၊ '၃'အစ '၂'အဆုံး
+                        $(".digist").text("ထီထိုးလျှင် '၄'အစ '၂'အဆုံးနှင့် '၃'အစ '၂'အဆုံး ထိုးပါ");
+                    } else if (pwa == 6) {
+                        //alert("first digist is 5 and Last digist is 3" + "first digist is 3 and Last digist is 4");//'၅'အစ '၃'အဆုံး၊ '၃'အစ '၄'အဆုံး
+                        $(".digist").text("ထီထိုးလျှင် '၅'အစ '၃'အဆုံး နှင့် '၃'အစ '၄'အဆုံး ထိုးပါ");
+                    }
+                    $(".same").text("ခုနှစ်ရက် သားသမီးအားလုံး ပျော်ရွှင်ချမ်းမြေ့ပါစေ");
+                } else if (last_modulo == 1 || last_modulo == 6) {
+                    //alert("You would have to Smallest Prizes....");
+                    $(".conn").html("<i class='far fa-smile-beam'></i>ဝမ်းသာပါတယ်!<i class='far fa-smile-beam'></i>")
+                    $(".y_or_n").text("ယခုနှစ်အတွင်း သင် ထီဆု အသေး ပေါက်နိုင်သည်။");
+                    var pwa = mm_year % 7;
+                    //alert(pwa);
+                    if (pwa == 0) {
+                        //alert("first digist is 6 and Last digist is 4" + "first digist is 5 and Last digist is 4");//၆အစ ၄အဆုံး၊ ၅အစ ၄အဆုံး
+                        $(".digist").text("ထီထိုးလျှင် '၆'အစ '၄'အဆုံး နှင့်  '၅'အစ '၄'အဆုံး ထိုးပါ");
+                    } else if (pwa == 1) {
+                        //alert("first digist is 7 and Last digist is 5" + "first digist is 6 and Last digist is 5");//'၇'အစ '၅'အဆုံး၊ '၆'အစ '၅'အဆုံး
+                        $(".digist").text("ထီထိုးလျှင် '၇'အစ '၅'အဆုံး နှင့် '၆'အစ '၅'အဆုံး ထိုးပါ");
+                    } else if (pwa == 2) {
+                        //alert("first digist is 1 and Last digist is 6" + "first digist is 6 and Last digist is 7");//'၁'အစ '၆'အဆုံး၊ '၆'အစ '၇'အဆုံး
+                        $(".digist").text("ထီထိုးလျှင် '၁'အစ '၆'အဆုံး နှင့် '၆'အစ '၇'အဆုံး ထိုးပါ");
+                    } else if (pwa == 3) {
+                        //alert("first digist is 2 and Last digist is 7" + "first digist is 5 and Last digist is 7");//'၂'အစ '၇'အဆုံး၊ '၅'အစ '၇'အဆုံး
+                        $(".digist").text("ထီထိုးလျှင် '၂'အစ '၇'အဆုံး နှင့် '၅'အစ '၇'အဆုံး ထိုးပါ");
+                    } else if (pwa == 4) {
+                        //alert("first digist is 3 and Last digist is 1" + "first digist is 2 and Last digist is 1");//'၃'အစ '၁'အဆုံး၊ '၂'အစ '၁'အဆုံး
+                        $(".digist").text("ထီထိုးလျှင် '၃'အစ '၁'အဆုံး နှင့် '၂'အစ '၁'အဆုံး ထိုးပါ");
+                    } else if (pwa == 5) {
+                        //alert("first digist is 4 and Last digist is 2" + "first digist is 3 and Last digist is 2");//'၄'အစ '၂'အဆုံး၊ '၃'အစ '၂'အဆုံး
+                        $(".digist").text("ထီထိုးလျှင် '၄'အစ '၂'အဆုံးနှင့် '၃'အစ '၂'အဆုံး ထိုးပါ");
+                    } else if (pwa == 6) {
+                        //alert("first digist is 5 and Last digist is 3" + "first digist is 3 and Last digist is 4");//'၅'အစ '၃'အဆုံး၊ '၃'အစ '၄'အဆုံး
+                        $(".digist").text("ထီထိုးလျှင် '၅'အစ '၃'အဆုံး နှင့် '၃'အစ '၄'အဆုံး ထိုးပါ");
+                    }
+                    $(".same").text("(၇)ရက် သားသမီးအားလုံး ပျော်ရွှင်ချမ်းမြေ့ပါစေ");
+                } else {
+                    //alert("Next year Lucky again!");
+                    $(".y_or_n").html("<i class='far fa-sad-cry'></i>ဝမ်းနည်းပါတယ်!<i class='far fa-sad-cry'></i>");
+                    $(".digist").text("ယခုနှစ်အတွင်း သင် ထီပေါက် နိုင်ချေမရှိပါ။");
+                    $(".word").text("နောက်လာမည့်နှစ်တွင် သင် ထီပေါက်နိုင်ပါစေ။");
+                    $(".same").text("(၇)ရက် သားသမီးအားလုံး ပျော်ရွှင်ချမ်းမြေ့ပါစေ");
+                }
+
+
+            });
+            $(document).on("click", "#calculate", function() {
+                $('#popupbox').show();
+            });
+
+            $(document).on("click", "#popup_close", function() {
+                $('#popupbox').hide();
+            });
+            /////////////////Way 2//////////////////////////////////////////////////////////////////
+            $(document).on("click", "#calculate2", function() {
+                $(".digist1").empty();
+                $(".word2").empty();
+                $(".word3").empty();
+                $(".same3").empty();
+                var inputdata = $('#birthday2').val();
+                var data = new Date(inputdata);
+                //alert(data);
+
+                var day = data.getDay();
+                var date = data.getDate();
+                var month = data.getMonth();
+                var year = data.getFullYear();
+                var dateStr = day + "/" + date + "/" + month + "/" + year;
+                //alert(dateStr);
+
+                var current_date = new Date();
+                //alert(current_date);
+
+                var diff_date = current_date - data;
+                //alert(diff_date);
+
+                var diffTime = Math.abs(current_date - data);
+                var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                console.log(diffDays);
+                //alert(diffDays);
+
+                var calculate_age = parseInt(diffDays / 365);
+                //alert(calculate_age);
+
+                current_age = calculate_age + 1;
+                //alert(current_age); 									
+
+                if (month == 1 || month == 2 || month == 3) {
+                    var mm_year = (year - 639);
+                } else {
+                    var mm_year = (year - 638);
+                }
+                //alert(mm_year); 										//၁။မိမိ၏ မြန်မာမွေးသက္ကရာဇ်ကိုတည်ပြီး ၂၁ ဖြင့် ပေါင်းပါ။
+
+                var mm_year_add = (mm_year + 21);
+
+                //alert(mm_year_add);										//၂။ပေါင်း၍ရသော ပေါင်းလာဒ်ကို  ၄၃ ဖြင့်စားပါ။
+
+                var mm_year_add_modulo = (mm_year_add % 43); //၃။စား၍ ကျန်သောအကြွင်းကို ယခု လက်ရှိအသက်နှင့် ထပ်ပေါင်းပါ။
+
+                //alert(mm_year_add_modulo);
+
+                var mm_year_add_modulo_add_age = (mm_year_add_modulo + current_age); //၄။ပေါင်းလဒ်ကို ၇ ဖြင့် ထပ်မံ၍ စားပါ။
+
+                //alert(mm_year_add_modulo_add_age);
+
+                var mm_year_add_modulo_add_age_modulo = (mm_year_add_modulo_add_age % 7); //၅။သုည(၀)ကြွင်းလျှင်အခြားတစ်ဦးနှင့်စပ်ထိုးပါ။
+
+                //alert(mm_year_add_modulo_add_age_modulo);
+
+                if (mm_year_add_modulo_add_age_modulo == 0) { //၆။ငါး( ၅ ) ကြွင်းလျှင် မိမိတစ်ဦးတည်းထိုးပါ။ထီဆုကြီးများ ပေါက်နိုင်ပါသည်။
+                    //alert("အခြားတစ်ဦးနှင့်စပ်ထိုးပါ။");
+                    $(".digist1").html("<i class='far fa-smile-beam'></i>ဝမ်းသာပါတယ်!<i class='far fa-smile-beam'></i>")
+                    $(".word5").text("သင် ဒီနှစ်အတွင်း ထီပေါက်ကံ ရှိပါသည်");
+                    $(".word2").text("အခြားတစ်ဦးနှင့် ထီစပ်ထိုးပါ။");
+                    $(".word3").text("သင် ထီဆု ပေါက်နိုင်သည်။");
+                } else if (mm_year_add_modulo_add_age_modulo == 5) {
+                    //("မိမိတစ်ဦးတည်းထိုးပါ။ထီဆုကြီးများ ပေါက်နိုင်ပါသည်။"); //၇။( ၅ / ၀ ) မကြွင်းလျှင်မူ ထီမပေါက်နိုင်၊မထိုးပါနှင့်ဟုတော့ မဆိုလိုပါ။ဆုကြီးပေါက်နိုင်ခြေနည်းပြီး ဆုငယ်များလောက်သာ ရရှိနိုင်မည်ဟု ဆိုလိုပါသည်။
+                    $(".digist1").html("<i class='far fa-smile-beam'></i>ဝမ်းသာပါတယ်!<i class='far fa-smile-beam'></i>")
+                    $(".word5").text("သင် ဒီနှစ်အတွင်း ထီပေါက်ကံ ရှိပါသည်");
+                    $(".word2").text("မိမိတစ်ဦးတည်းထိုးပါ။");
+                    $(".word3").text("ထီဆုကြီးများ ပေါက်နိုင်ပါသည်။");
+                } else {
+                    //("ထီမပေါက်နိုင်၊မထိုးပါနှင့်ဟုတော့ မဆိုလိုပါ။ဆုကြီးပေါက်နိုင်ခြေနည်းပြီး ဆုငယ်များလောက်သာ ရရှိနိုင်မည်ဟု ဆိုလိုပါသည်။");
+                    $(".digist1").html("<i class='far fa-sad-cry'></i>ဝမ်းနည်းပါတယ်!<i class='far fa-sad-cry'></i>");
+                    $(".word2").text("ထီမပေါက်နိုင်၊ မထိုးပါနှင့်ဟုတော့ မဆိုလိုပါ။");
+                    $(".word3").text("ဆုကြီးပေါက်နိုင်ခြေနည်းပြီး ဆုငယ်များလောက်သာ ရရှိနိုင်မည်ဟု ဆိုလိုပါသည်။");
+                    $(".same3").text("ခုနှစ်ရက် သားသမီးအားလုံး ပျော်ရွှင်ချမ်းမြေ့ပါစေ");
+                }
+
+
+            });
+            $(document).on("click", "#calculate2", function() {
+                $('#popupbox2').show();
+            });
+            $(document).on("click", "#popup_close2", function() {
+                $('#popupbox2').hide();
+            });
+            //////////////////Way 3///////////////////////////////////////////////////////////////////
+            $(document).on("click", "#calculate3", function() {
+                $(".lottery0").empty();
+                $(".lottery").empty();
+                $(".lottery1").empty();
+                $(".lottery2").empty();
+                $(".lottery3").empty();
+                $(".lottery4").empty();
+                $(".lottery5").empty();
+                $(".lottery6").empty();
+                $(".lottery7").empty();
+
+                var date = $('#select_date').val();
+
+                if (date == 1) {
+                    $(".lottery0").html("<i class='far fa-smile-beam'></i> မင်္ဂလာပါ...!<i class='far fa-smile-beam'></i>");
+                    $(".lottery").text(" မှတ်ချက်။ ။ သင်ထီပေါက်ကံ ရှိမှ အောက်ဖော်ပြပါ အကြောင်းအရာများကို ပြုလုပ်ပါ.... ");
+                    $(".lottery1").text(" ထီထိုးရာတွင်  ( ၁ , ၅ , ၇ ) ဂဏာန်း ပါသည့် ထီစောင်အား ရွေးချယ်ထိုးပေးပါ ။");
+                    $(".lottery2").text(" ထီထိုးရာတွင်  ( ၃ , ၆ , ၉ ) ဂဏာန်း ပါသော ထီစောင်အား မထိုးမိအောင် သတိပြုပါ ။ ");
+                    $(".lottery3").text(" ထီထိုးရမည့် နေ့နံတွေကတော့ - တနင်္ဂနွေ၊ ဗုဒ္ဓဟူး၊ တနင်္လာ တို့ဖြစ်လျှင် ပိုကောင်းသည် ။");
+                    $(".lottery4").text(" ထီထိုးရမည့် ရက်တွေကတော့ - ( ၁, ၅, ၇, ၁၀, ၁၄, ၁၆, ၂၃, ၂၅, ၂၈ ) ရက် တွေမှာထိုးပါ။ ");
+                    $(".lottery8").text(" ဥပမာ။ ။ ထီထိုးရမည့် ရက် ၁ , ၅ , ၇ အစရှိသော ရက်တို့သည် တနင်္ဂနွေ၊ ဗုဒ္ဓဟူး၊ တနင်္လာနေ့ တို့နှင့် တိုက်ဆိုင်လျှင် ပိုကောင်းပါသည်။ ");
+                    $(".lottery5").text(" အဆောင် အနေနဲ့ကတော့ ထီသွားထိုးကာနီးသွားမယ့် အရပ်ကို မျက်နှာမူကာ- ");
+                    $(".lottery6").text(" *တာဗနိုး* ဆိုတဲ့အသံကို အခေါက် (၃၀) ရွတ် သွားပါ။");
+                    $(".lottery7").text(" (၇)ရက် သားသမီးအပေါင်း ကိုယ်စိတ်နှဖြာ ရွှင်လန်းချမ်းမြေ့ပါစေ....  ");
+                }
+                if (date == 5) {
+                    $(".lottery0").html("<i class='far fa-smile-beam'></i> မင်္ဂလာပါ...!<i class='far fa-smile-beam'></i>");
+                    $(".lottery").text(" မှတ်ချက်။ ။ သင်ထီပေါက်ကံ ရှိမှ အောက်ဖော်ပြပါ အကြောင်းအရာများကို ပြုလုပ်ပါ.... ");
+                    $(".lottery1").text(" ထီထိုးရာတွင်  ( ၁ , ၅ , ၇ ) ဂဏာန်း ပါသည့် ထီစောင်အား ရွေးချယ်ထိုးပေးပါ ။");
+                    $(".lottery2").text(" ထီထိုးရာတွင်  ( ၂ , ၄ , ၈ ) ဂဏာန်း ပါသော ထီစောင်အား မထိုးမိအောင် သတိပြုပါ ။");
+                    $(".lottery3").text(" ထီထိုးရမည့် နေ့နံတွေကတော့ - တနင်္ဂနွေ၊ ဗုဒ္ဓဟူး၊ တနင်္လာ တို့ဖြစ်လျှင် ပိုကောင်းသည် ။");
+                    $(".lottery4").text(" ထီထိုးရမည့် ရက်တွေကတော့ - ( ၁, ၅, ၇, ၁၀, ၁၄, ၁၆, ၂၃, ၂၅, ၂၈ ) ရက် တွေမှာထိုးပါ။ ");
+                    $(".lottery8").text(" ဥပမာ။ ။ ထီထိုးရမည့် ရက် ၁ , ၅ , ၇ အစရှိသော ရက်တို့သည် တနင်္ဂနွေ၊ ဗုဒ္ဓဟူး၊ တနင်္လာနေ့ တို့နှင့် တိုက်ဆိုင်လျှင် ပိုကောင်းပါသည်။");
+                    $(".lottery5").text(" အဆောင် အနေနဲ့ကတော့ ထီသွားထိုးကာနီးသွားမယ့် အရပ်ကို မျက်နှာမူကာ- ");
+                    $(".lottery6").text(" *တာဗနိုး* ဆိုတဲ့အသံကို အခေါက် (၃၀) ရွတ် သွားပါ။");
+                    $(".lottery7").text(" (၇)ရက် သားသမီးအပေါင်း ကိုယ်စိတ်နှဖြာ ရွှင်လန်းချမ်းမြေ့ပါစေ....  ");
+                }
+                if (date == 7) {
+                    $(".lottery0").html("<i class='far fa-smile-beam'></i> မင်္ဂလာပါ...!<i class='far fa-smile-beam'></i>");
+                    $(".lottery").text(" မှတ်ချက်။ ။ သင်ထီပေါက်ကံ ရှိမှ အောက်ဖော်ပြပါ အကြောင်းအရာများကို ပြုလုပ်ပါ.... ");
+                    $(".lottery1").text(" ထီထိုးရာတွင်  ( ၁ , ၅ , ၇ ) ဂဏာန်း ပါသည့် ထီစောင်အား ရွေးချယ်ထိုးပေးပါ ။");
+                    $(".lottery2").text(" ထီထိုးရာတွင်  ( ၃ , ၆ , ၉ ) ဂဏာန်း ပါသော ထီစောင်အား မထိုးမိအောင် သတိပြုပါ။ ");
+                    $(".lottery3").text(" ထီထိုးရမည့် နေ့နံတွေကတော့ - တနင်္ဂနွေ၊ ဗုဒ္ဓဟူး၊ တနင်္လာ တို့ဖြစ်လျှင် ပိုကောင်းသည် ။");
+                    $(".lottery4").text(" ထီထိုးရမည့် ရက်တွေကတော့ - ( ၁, ၅, ၇, ၁၀, ၁၄, ၁၆, ၂၃, ၂၅, ၂၈ ) ရက် တွေမှာထိုးပါ။ ");
+                    $(".lottery8").text(" ဥပမာ။ ။ ထီထိုးရမည့် ရက် ၁ , ၅ , ၇ အစရှိသော ရက်တို့သည် တနင်္ဂနွေ၊ ဗုဒ္ဓဟူး၊ တနင်္လာနေ့ တို့နှင့် တိုက်ဆိုင်လျှင် ပိုကောင်းပါသည်။ ");
+                    $(".lottery5").text(" အဆောင် အနေနဲ့ကတော့ ထီသွားထိုးကာနီးသွားမယ့် အရပ်ကို မျက်နှာမူကာ- ");
+                    $(".lottery6").text(" *တာဗနိုး* ဆိုတဲ့အသံကို အခေါက် (၃၀) ရွတ် သွားပါ။");
+                    $(".lottery7").text(" (၇)ရက် သားသမီးအပေါင်း ကိုယ်စိတ်နှဖြာ ရွှင်လန်းချမ်းမြေ့ပါစေ....  ");
+                }
+                if (date == 2) {
+                    $(".lottery0").html("<i class='far fa-smile-beam'></i> မင်္ဂလာပါ...!<i class='far fa-smile-beam'></i>");
+                    $(".lottery").text(" မှတ်ချက်။ ။ သင်ထီပေါက်ကံ ရှိမှ အောက်ဖော်ပြပါ အကြောင်းအရာများကို ပြုလုပ်ပါ.... ");
+                    $(".lottery1").text(" ထီထိုးရာတွင်  ( ၂ , ၄ , ၈ ) ဂဏာန်း ပါသည့် ထီစောင်အား ရွေးချယ်ထိုးပေးပါ ။");
+                    $(".lottery2").text(" ထီထိုးရာတွင်  ( ၁ , ၅ , ၇ ) ဂဏာန်း ပါသော ထီစောင်အား မထိုးမိအောင် သတိပြုပါ။");
+                    $(".lottery3").text(" ထီထိုးရမည့် နေ့နံတွေကတော့ - တနင်္လာ၊ တနင်္ဂနွေ၊ စနေ တို့ဖြစ်လျှင် ပိုကောင်းသည် ။");
+                    $(".lottery4").text(" ထီထိုးရမည့် ရက်တွေကတော့ - ( ၂, ၄, ၈, ၁၁, ၁၃, ၁၇, ၂၀, ၂၂, ၂၆, ၂၉, ၃၁ ) ရက် တွေမှာထိုးပါ။ ");
+                    $(".lottery8").text(" ဥပမာ။ ။ ထီထိုးရမည့် ရက် ၂ , ၄ , ၈ အစရှိသော ရက်တို့သည် တနင်္လာ၊ တနင်္ဂနွေ၊ စနေနေ့ တို့နှင့် တိုက်ဆိုင်လျှင် ပိုကောင်းပါသည်။ ");
+                    $(".lottery5").text(" အဆောင် အနေနဲ့ကတော့ ထီသွားထိုးကာနီးသွားမယ့် အရပ်ကို မျက်နှာမူကာ- ");
+                    $(".lottery6").text(" *တာဗနိုး* ဆိုတဲ့အသံကို အခေါက် (၃၀) ရွတ် သွားပါ။");
+                    $(".lottery7").text(" (၇)ရက် သားသမီးအပေါင်း ကိုယ်စိတ်နှဖြာ ရွှင်လန်းချမ်းမြေ့ပါစေ....  ");
+                }
+                if (date == 4) {
+                    $(".lottery0").html("<i class='far fa-smile-beam'></i> မင်္ဂလာပါ...!<i class='far fa-smile-beam'></i>");
+                    $(".lottery").text(" မှတ်ချက်။ ။ သင်ထီပေါက်ကံ ရှိမှ အောက်ဖော်ပြပါ အကြောင်းအရာများကို ပြုလုပ်ပါ.... ");
+                    $(".lottery1").text(" ထီထိုးရာတွင်  ( ၂ , ၄ , ၈ ) ဂဏာန်း ပါသည့် ထီစောင်အား ရွေးချယ်ထိုးပေးပါ ။");
+                    $(".lottery2").text(" ထီထိုးရာတွင်  ( ၃ , ၆ , ၉ ) ဂဏာန်း ပါသော ထီစောင်အား မထိုးမိအောင် သတိပြုပါ။ ");
+                    $(".lottery3").text(" ထီထိုးရမည့် နေ့နံတွေကတော့ - တနင်္လာ၊ တနင်္ဂနွေ၊ စနေ တို့ဖြစ်လျှင် ပိုကောင်းသည် ။");
+                    $(".lottery4").text(" ထီထိုးရမည့် ရက်တွေကတော့ - ( ၂, ၄, ၈, ၁၁, ၁၃, ၁၇, ၂၀, ၂၂, ၂၆, ၂၉, ၃၁ ) ရက် တွေမှာထိုးပါ။ ");
+                    $(".lottery8").text(" ဥပမာ။ ။ ထီထိုးရမည့် ရက် ၂ , ၄ , ၈ အစရှိသော ရက်တို့သည် တနင်္လာ၊ တနင်္ဂနွေ၊ စနေနေ့ တို့နှင့် တိုက်ဆိုင်လျှင် ပိုကောင်းပါသည်။ ");
+                    $(".lottery5").text(" အဆောင် အနေနဲ့ကတော့ ထီသွားထိုးကာနီးသွားမယ့် အရပ်ကို မျက်နှာမူကာ- ");
+                    $(".lottery6").text(" *တာဗနိုး* ဆိုတဲ့အသံကို အခေါက် (၃၀) ရွတ် သွားပါ။");
+                    $(".lottery7").text(" (၇)ရက် သားသမီးအပေါင်း ကိုယ်စိတ်နှဖြာ ရွှင်လန်းချမ်းမြေ့ပါစေ....  ");
+                }
+                if (date == 8) {
+                    $(".lottery0").html("<i class='far fa-smile-beam'></i> မင်္ဂလာပါ...!<i class='far fa-smile-beam'></i>");
+                    $(".lottery").text(" မှတ်ချက်။ ။ သင်ထီပေါက်ကံ ရှိမှ အောက်ဖော်ပြပါ အကြောင်းအရာများကို ပြုလုပ်ပါ.... ");
+                    $(".lottery1").text(" ထီထိုးရာတွင်  ( ၂ , ၄ , ၈ ) ဂဏာန်း ပါသည့် ထီစောင်အား ရွေးချယ်ထိုးပေးပါ ။");
+                    $(".lottery2").text(" ထီထိုးရာတွင်  ( ၁ , ၅ , ၇ ) ဂဏာန်း ပါသော ထီစောင်အား မထိုးမိအောင် သတိပြုပါ။ ");
+                    $(".lottery3").text(" ထီထိုးရမည့် နေ့နံတွေကတော့ - တနင်္လာ၊ တနင်္ဂနွေ၊ စနေ တို့ဖြစ်လျှင် ပိုကောင်းသည် ။");
+                    $(".lottery4").text(" ထီထိုးရမည့် ရက်တွေကတော့ - ( ၂, ၄, ၈, ၁၁, ၁၃, ၁၇, ၂၀, ၂၂, ၂၆, ၂၉, ၃၁ ) ရက် တွေမှာထိုးပါ။ ");
+                    $(".lottery8").text(" ဥပမာ။ ။ ထီထိုးရမည့် ရက် ၂ , ၄ , ၈ အစရှိသော ရက်တို့သည် တနင်္လာ၊ တနင်္ဂနွေ၊ စနေနေ့ တို့နှင့် တိုက်ဆိုင်လျှင် ပိုကောင်းပါသည်။ ");
+                    $(".lottery5").text(" အဆောင် အနေနဲ့ကတော့ ထီသွားထိုးကာနီးသွားမယ့် အရပ်ကို မျက်နှာမူကာ- ");
+                    $(".lottery6").text(" *တာဗနိုး* ဆိုတဲ့အသံကို အခေါက် (၃၀) ရွတ် သွားပါ။");
+                    $(".lottery7").text(" (၇)ရက် သားသမီးအပေါင်း ကိုယ်စိတ်နှဖြာ ရွှင်လန်းချမ်းမြေ့ပါစေ....  ");
+                }
+                if (date == 3) {
+                    $(".lottery0").html("<i class='far fa-smile-beam'></i> မင်္ဂလာပါ...!<i class='far fa-smile-beam'></i>");
+                    $(".lottery").text(" မှတ်ချက်။ ။ သင်ထီပေါက်ကံ ရှိမှ အောက်ဖော်ပြပါ အကြောင်းအရာများကို ပြုလုပ်ပါ.... ");
+                    $(".lottery1").text(" ထီထိုးရာတွင်  ( ၃ , ၆ , ၉ ) ဂဏာန်း ပါသည့် ထီစောင်အား ရွေးချယ်ထိုးပေးပါ ။");
+                    $(".lottery2").text(" ထီထိုးရာတွင်  ( ၁ , ၅ , ၇ ) ဂဏာန်း ပါသော ထီစောင်အား မထိုးမိအောင် သတိပြုပါ။ ");
+                    $(".lottery3").text(" ထီထိုးရမည့် နေ့နံတွေကတော့ - အင်္ဂါ၊ သောကြာ၊ ကြာသပတေး တို့ဖြစ်လျှင် ပိုကောင်းသည် ။");
+                    $(".lottery4").text(" ထီထိုးရမည့် ရက်တွေကတော့ - ( ၃, ၆, ၉, ၁၂, ၁၅, ၁၈, ၂၁, ၂၄, ၂၇, ၃၀ ) ရက် တွေမှာထိုးပါ။ ");
+                    $(".lottery8").text(" ဥပမာ။ ။ ထီထိုးရမည့် ရက် ၃ , ၆ , ၉ အစရှိသော ရက်တို့သည် အင်္ဂါ၊ သောကြာ၊ ကြာသပတေးနေ့ တို့နှင့် တိုက်ဆိုင်လျှင် ပိုကောင်းပါသည်။ ");
+                    $(".lottery5").text(" အဆောင် အနေနဲ့ကတော့ ထီသွားထိုးကာနီးသွားမယ့် အရပ်ကို မျက်နှာမူကာ- ");
+                    $(".lottery6").text(" *တာဗနိုး* ဆိုတဲ့အသံကို အခေါက် (၃၀) ရွတ် သွားပါ။");
+                    $(".lottery7").text(" (၇)ရက် သားသမီးအပေါင်း ကိုယ်စိတ်နှဖြာ ရွှင်လန်းချမ်းမြေ့ပါစေ....  ");
+                }
+                if (date == 6) {
+                    $(".lottery0").html("<i class='far fa-smile-beam'></i> မင်္ဂလာပါ...!<i class='far fa-smile-beam'></i>");
+                    $(".lottery").text(" မှတ်ချက်။ ။ သင်ထီပေါက်ကံ ရှိမှ အောက်ဖော်ပြပါ အကြောင်းအရာများကို ပြုလုပ်ပါ.... ");
+                    $(".lottery1").text(" ထီထိုးရာတွင်  ( ၃ , ၆ , ၉ ) ဂဏာန်း ပါသည့် ထီစောင်အား ရွေးချယ်ထိုးပေးပါ ။");
+                    $(".lottery2").text(" ထီထိုးရာတွင်  ( ၂ , ၄ , ၈ ) ဂဏာန်း ပါသော ထီစောင်အား မထိုးမိအောင် သတိပြုပါ။ ");
+                    $(".lottery3").text(" ထီထိုးရမည့် နေ့နံတွေကတော့ - အင်္ဂါ၊ သောကြာ၊ ကြာသပတေး တို့ဖြစ်လျှင် ပိုကောင်းသည် ။");
+                    $(".lottery4").text(" ထီထိုးရမည့် ရက်တွေကတော့ - ( ၃, ၆, ၉, ၁၂, ၁၅, ၁၈, ၂၁, ၂၄, ၂၇, ၃၀ ) ရက် တွေမှာထိုးပါ။ ");
+                    $(".lottery8").text(" ဥပမာ။ ။ ထီထိုးရမည့် ရက် ၃ , ၆ , ၉ အစရှိသော ရက်တို့သည် အင်္ဂါ၊ သောကြာ၊ ကြာသပတေးနေ့ တို့နှင့် တိုက်ဆိုင်လျှင် ပိုကောင်းပါသည်။ ");
+                    $(".lottery5").text(" အဆောင် အနေနဲ့ကတော့ ထီသွားထိုးကာနီးသွားမယ့် အရပ်ကို မျက်နှာမူကာ- ");
+                    $(".lottery6").text(" *တာဗနိုး* ဆိုတဲ့အသံကို အခေါက် (၃၀) ရွတ် သွားပါ။");
+                    $(".lottery7").text(" (၇)ရက် သားသမီးအပေါင်း ကိုယ်စိတ်နှဖြာ ရွှင်လန်းချမ်းမြေ့ပါစေ....  ");
+                }
+                if (date == 9) {
+                    $(".lottery0").html("<i class='far fa-smile-beam'></i> မင်္ဂလာပါ...!<i class='far fa-smile-beam'></i>");
+                    $(".lottery").text(" မှတ်ချက်။ ။ သင်ထီပေါက်ကံ ရှိမှ အောက်ဖော်ပြပါ အကြောင်းအရာများကို ပြုလုပ်ပါ.... ");
+                    $(".lottery1").text(" ထီထိုးရာတွင်  ( ၃ , ၆ , ၉ ) ဂဏာန်း ပါသည့် ထီစောင်အား ရွေးချယ်ထိုးပေးပါ ။");
+                    $(".lottery2").text(" ထီထိုးရာတွင်  ( ၂ , ၄ , ၈ ) ဂဏာန်း ပါသော ထီစောင်အား မထိုးမိအောင် သတိပြုပါ ။");
+                    $(".lottery3").text(" ထီထိုးရမည့် နေ့နံတွေကတော့ - အင်္ဂါ၊ သောကြာ၊ ကြာသပတေး တို့ဖြစ်လျှင် ပိုကောင်းသည် ။");
+                    $(".lottery4").text(" ထီထိုးရမည့် ရက်တွေကတော့ - ( ၃, ၆, ၉, ၁၂, ၁၅, ၁၈, ၂၁, ၂၄, ၂၇, ၃၀ ) ရက် တွေမှာထိုးပါ။ ");
+                    $(".lottery8").text(" ဥပမာ။ ။ ထီထိုးရမည့် ရက် ၃ , ၆ , ၉ အစရှိသော ရက်တို့သည် အင်္ဂါ၊ သောကြာ၊ ကြာသပတေးနေ့ တို့နှင့် တိုက်ဆိုင်လျှင် ပိုကောင်းပါသည်။ ");
+                    $(".lottery5").text(" အဆောင် အနေနဲ့ကတော့ ထီသွားထိုးကာနီးသွားမယ့် အရပ်ကို မျက်နှာမူကာ- ");
+                    $(".lottery6").text(" *တာဗနိုး* ဆိုတဲ့အသံကို အခေါက် (၃၀) ရွတ် သွားပါ။");
+                    $(".lottery7").text(" (၇)ရက် သားသမီးအပေါင်း ကိုယ်စိတ်နှဖြာ ရွှင်လန်းချမ်းမြေ့ပါစေ....  ");
+                }
+
+            });
+            $(document).on("click", "#calculate3", function() {
+                $('#popupbox3').show();
+            });
+            $(document).on("click", "#popup_close3", function() {
+                $('#popupbox3').hide();
+            });
+            /////////////////////////////Lucky Number Way//////////////////////////////////////////////////////////////
+            $(document).on("click", "#luckyBtn", function() {
+                $(".lucky_word").empty();
+                $(".lucky_num").empty();
+                // $(".word3").empty();
+                // $(".same3").empty();
+                // var inputdata = $('#birthday2').val();
+                // var data = new Date(inputdata); 
+                //alert(data);
+
+                // var day = data.getDay();
+                // var date = data.getDate();
+                // var month = data.getMonth();
+                // var year = data.getFullYear();
+                // var dateStr = day +"/"+ date +"/"+ month + "/" + year; 
+                //alert(dateStr);
+
+                var current_date = new Date();
+                //alert(current_date);
+
+                //var day = data.getDay();
+                var date = current_date.getDate();
+                var month = current_date.getMonth();
+
+                // alert(date);
+                // alert(month);
+                //var year = data.getFullYear();
+
+                if (month == 0) {
+                    if (date == 1 || date == 2 || date == 3 || date == 4 || date == 5 || date == 6 || date == 7 || date == 8 || date == 9 || date == 10 || date == 11 || date == 12 || date == 13 || date == 14 || date == 15) {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၁ / ၃ / ၅ ဖြစ်သည် ");
+
+                    } else {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၂ / ၃ / ၆ ဖြစ်သည် ");
+                    }
+                } else if (month == 1) {
+                    if (date == 1 || date == 2 || date == 3 || date == 4 || date == 5 || date == 6 || date == 7 || date == 8 || date == 9 || date == 10 || date == 11 || date == 12 || date == 13 || date == 14 || date == 15) {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၂ / ၆ / ၈ ဖြစ်သည်");
+                    } else {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၃ / ၅ / ၆ ဖြစ်သည်");
+                    }
+                } else if (month == 2) {
+                    if (date == 1 || date == 2 || date == 3 || date == 4 || date == 5 || date == 6 || date == 7 || date == 8 || date == 9 || date == 10 || date == 11 || date == 12 || date == 13 || date == 14 || date == 15) {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၂ / ၇ / ၆  ဖြစ်သည်");
+                    } else {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၃ / ၅ / ၈ ဖြစ်သည်");
+                    }
+                } else if (month == 3) {
+                    if (date == 1 || date == 2 || date == 3 || date == 4 || date == 5 || date == 6 || date == 7 || date == 8 || date == 9 || date == 10 || date == 11 || date == 12 || date == 13 || date == 14 || date == 15) {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၅ / ၆ / ၇ ဖြစ်သည်");
+                    } else {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၃ / ၄ / ၉ ဖြစ်သည်");
+                    }
+                } else if (month == 4) {
+                    if (date == 1 || date == 2 || date == 3 || date == 4 || date == 5 || date == 6 || date == 7 || date == 8 || date == 9 || date == 10 || date == 11 || date == 12 || date == 13 || date == 14 || date == 15) {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၁ / ၄ / ၆ ဖြစ်သည်");
+                    } else {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၁ / ၂ / ၅ ဖြစ်သည်");
+                    }
+                } else if (month == 5) {
+                    if (date == 1 || date == 2 || date == 3 || date == 4 || date == 5 || date == 6 || date == 7 || date == 8 || date == 9 || date == 10 || date == 11 || date == 12 || date == 13 || date == 14 || date == 15) {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၄ / ၅ / ၆ ဖြစ်သည်");
+                    } else {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၂ / ၅ / ၇ ဖြစ်သည်");
+                    }
+                } else if (month == 6) {
+                    if (date == 1 || date == 2 || date == 3 || date == 4 || date == 5 || date == 6 || date == 7 || date == 8 || date == 9 || date == 10 || date == 11 || date == 12 || date == 13 || date == 14 || date == 15) {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၁ / ၅/ ၇ ဖြစ်သည်");
+                    } else {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၂ / ၃ / ၄ ဖြစ်သည်");
+                    }
+                } else if (month == 7) {
+                    if (date == 1 || date == 2 || date == 3 || date == 4 || date == 5 || date == 6 || date == 7 || date == 8 || date == 9 || date == 10 || date == 11 || date == 12 || date == 13 || date == 14 || date == 15) {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၄ / ၆ / ၇ ဖြစ်သည်");
+                    } else {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၃ / ၅ / ၆ ဖြစ်သည်");
+                    }
+                } else if (month == 8) {
+                    if (date == 1 || date == 2 || date == 3 || date == 4 || date == 5 || date == 6 || date == 7 || date == 8 || date == 9 || date == 10 || date == 11 || date == 12 || date == 13 || date == 14 || date == 15) {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၁ / ၆ / ၇ ဖြစ်သည်");
+                    } else {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၁ / ၂ / ၅ ဖြစ်သည်");
+                    }
+                } else if (month == 9) {
+                    if (date == 1 || date == 2 || date == 3 || date == 4 || date == 5 || date == 6 || date == 7 || date == 8 || date == 9 || date == 10 || date == 11 || date == 12 || date == 13 || date == 14 || date == 15) {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၃ / ၆ / ၇ ဖြစ်သည်");
+                    } else {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၁ / ၃ / ၄ ဖြစ်သည်");
+                    }
+                } else if (month == 10) {
+                    if (date == 1 || date == 2 || date == 3 || date == 4 || date == 5 || date == 6 || date == 7 || date == 8 || date == 9 || date == 10 || date == 11 || date == 12 || date == 13 || date == 14 || date == 15) {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၅ / ၇ / ၉ ဖြစ်သည်");
+                    } else {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၁ / ၄ / ၉ ဖြစ်သည်");
+                    }
+                } else if (month == 11) {
+                    if (date == 1 || date == 2 || date == 3 || date == 4 || date == 5 || date == 6 || date == 7 || date == 8 || date == 9 || date == 10 || date == 11 || date == 12 || date == 13 || date == 14 || date == 15) {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၁ / ၅ / ၇ ဖြစ်သည်");
+                    } else {
+                        $(".lucky_word").html("<i class='far fa-smile-beam'></i>ယခုလ အတွင်း ကံကောင်းစေသော ဂဏာန်းမှာ!<i class='far fa-smile-beam'></i>")
+                        $(".lucky_num").text(" ၁ / ၂ / ၆ ဖြစ်သည်");
+                    }
+                }
+            });
+            $(document).on("click", "#luckyBtn", function() {
+                $('#popupbox4').show();
+            });
+            $(document).on("click", "#popup_close4", function() {
+                $('#popupbox4').hide();
+            });
+            //////////////////////////////////////////////////////////////////////////////////////////
+        });
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    </script>
+</body>
+
+</html>
