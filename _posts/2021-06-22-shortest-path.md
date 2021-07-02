@@ -1,6 +1,6 @@
 ---
 layout: post
-title: The Joel Test - 12 Steps to Better Code
+title: Shortest Path
 ---
 
 ဆရာ အိမောင်ရဲ့ Rock Star Developer ဖတ်ရင်းနဲ့ အဲ့မှာ The Joel Test ဆိုတာကို သွားတွေ့တယ်။ ဒီမှာ ရှာဖွေဖတ်ကြည့်ရင်းနဲ့ နားလည်သလောက် ပြန်လည်မျှဝေခြင်း ဖြစ်ပါတယ်။
