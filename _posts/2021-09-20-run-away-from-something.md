@@ -1,13 +1,12 @@
 ---
 layout: post
 title: တစ်စုံတစ်ရာစီမှ ထွက်ပြေးခြင်း
-image: https://aungkoman.github.io/images/fcc/me.jpeg
+description: ကျွန်တော်တို့ဟာ တစ်ခုခုစီကနေတော့ ထွက်ပြေးနေကြတာပဲလို့ ထင်တယ်
+image: ../images/fcc/me.jpeg
 ---
 
-![]({{ page.image | relative_url }})
+![]({{ page.image }})
 
-
-![](../images/fcc/me.jpeg)
 
 
 ကျွန်တော်တို့ဟာ တစ်ခုခုစီကနေတော့ ထွက်ပြေးနေကြတာပဲလို့ ထင်တယ်။
