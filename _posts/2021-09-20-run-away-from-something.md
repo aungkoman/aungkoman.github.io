@@ -7,6 +7,9 @@ image: https://aungkoman.github.io/images/fcc/me.jpeg
 ![]({{ page.image | relative_url }})
 
 
+![](../images/fcc/me.jpeg)
+
+
 ကျွန်တော်တို့ဟာ တစ်ခုခုစီကနေတော့ ထွက်ပြေးနေကြတာပဲလို့ ထင်တယ်။
 ဉပမာ ကျွန်‌တော်ပေါ့။
 
