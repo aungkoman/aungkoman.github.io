@@ -1,7 +1,7 @@
 ---
 layout: post
 title: တစ်စုံတစ်ရာစီမှ ထွက်ပြေးခြင်း
-image: ../images/fcc/me.jpeg
+image: https://aungkoman.github.io/images/fcc/me.jpeg
 ---
 
 ![]({{ page.image | relative_url }})
