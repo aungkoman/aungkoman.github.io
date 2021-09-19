@@ -4,7 +4,7 @@ title: တစ်စုံတစ်ရာစီမှ ထွက်ပြေးခ
 image: ../images/fcc/me.jpeg
 ---
 
-{{ page.image }}
+![]({{ page.image | relative_url }})
 
 
 ကျွန်တော်တို့ဟာ တစ်ခုခုစီကနေတော့ ထွက်ပြေးနေကြတာပဲလို့ ထင်တယ်။
