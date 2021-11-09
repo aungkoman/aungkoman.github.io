@@ -17,9 +17,10 @@ image: ../images/auto_reply_sms.png
 
 အောက်မှာ အခမဲ့ download လုပ်နိုင်ပါပြီ။
 
-https://bit.ly/autoReplySms
+[https://bit.ly/autoReplySms](https://bit.ly/autoReplySms)
+
 
 File Name : SmS Auto Reply.apk
 File Size : 17 Mb
-Download : https://bit.ly/autoReplySms
+Download : [https://bit.ly/autoReplySms](https://bit.ly/autoReplySms)
 
