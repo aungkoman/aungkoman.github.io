@@ -1,7 +1,7 @@
 ---
 layout: post
-title: SMS Auto Reply
-description: SMS Auto Reply Android App
+title: Thanks Book
+description: ကျေးဇူးသိတက်တဲ့သူတွေအတွက် Thanks Book
 image: ../images/auto_reply_sms.png
 ---
 ကျေးဇူးသိတက်တဲ့သူတွေအတွက် Thanks Book
