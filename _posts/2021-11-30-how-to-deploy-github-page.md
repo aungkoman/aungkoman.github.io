@@ -22,3 +22,6 @@ HTML, CSS နဲ့ JS ကို စတင်လေ့လာသူတွေအ�
 
 Video
 https://youtu.be/j1cpY_Vg8sU
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/j1cpY_Vg8sU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
