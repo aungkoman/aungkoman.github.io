@@ -1,0 +1,27 @@
+---
+layout: post
+title: Leisure
+description: What's this life if full of care?
+image: ../images/fcc/kfc.jpg
+---
+### Leisure
+WHAT is this life if, full of care,
+We have no time to stand and stare?—
+
+No time to stand beneath the boughs,
+And stare as long as sheep and cows:
+
+No time to see, when woods we pass,
+Where squirrels hide their nuts in grass:
+
+No time to see, in broad daylight,
+Streams full of stars, like skies at night:
+
+No time to turn at Beauty's glance,
+And watch her feet, how they can dance:
+
+No time to wait till her mouth can
+Enrich that smile her eyes began?
+
+A poor life this if, full of care,
+We have no time to stand and stare.
