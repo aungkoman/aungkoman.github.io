@@ -33,7 +33,22 @@ sudo tar -chvzf certs.tar.gz /etc/letsencrypt/archive/divbyte.com /etc/letsencry
 Ngix က ဒီ certificate တွေကို ယူသုံးအောင် configuration လုပ်ဖို့ပဲ ကျန်တယ်။
 
 
+ရလာတဲ့ zip file ကို new server ရဲ့ root directory မှာ သွားပြီး extract လုပ်။ ပြီးရင် link ချိတ် အောက်ကလို။
+
+
+sudo ln -s /etc/letsencrypt/archive/mmkey.org/cert.pem /etc/letsencrypt/live/mmkey.org/cert.pem
+sudo ln -s /etc/letsencrypt/archive/mmkey.org/chain.pem /etc/letsencrypt/live/mmkey.org/chain.pem
+sudo ln -s /etc/letsencrypt/archive/mmkey.org/fullchain.pem /etc/letsencrypt/live/mmkey.org/fullchain.pem
+sudo ln -s /etc/letsencrypt/archive/mmkey.org/privkey.pem /etc/letsencrypt/live/mmkey.org/privkey.pem
+
+
+မရှိရင် သွားဆောက်ပါ။
+
+
+
+
 avalable site မှာ သွားပြင်ရတယ်။
 
 
+ပြီးရင် restart ချပါ။
 
