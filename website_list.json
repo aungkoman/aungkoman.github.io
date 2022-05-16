@@ -2,7 +2,7 @@
         "id": 1,
         "name": "Kwee",
         "image": "https://kwee.co/wp-content/uploads/2020/02/KWEE-Logo-300x90-Black-2.png",
-        "url": "https://kwee.co",
+        "url": "https://kwee.co/",
         "website_category_id": 1,
         "website_category": {
             "id": 1,
@@ -14,7 +14,7 @@
         "id": 2,
         "name": "Shwe Mom",
         "image": "https://www.shwemom.com/wp-content/uploads/2016/03/logo.png",
-        "url": "https://www.shwemom.com",
+        "url": "https://www.shwemom.com/",
         "website_category_id": 1,
         "website_category": {
             "id": 2,
