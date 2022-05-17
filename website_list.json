@@ -13,12 +13,36 @@
     {
         "id": 2,
         "name": "Shwe Mom",
-        "image": "https://www.shwemom.com/wp-content/uploads/2016/03/logo.png",
+        "image": "https://images.wallpaperscraft.com/image/single/mother_child_silhouettes_motherhood_family_sunset_horizon_120308_2560x1440.jpg",
         "url": "https://www.shwemom.com/",
-        "website_category_id": 1,
+        "website_category_id": 2,
         "website_category": {
             "id": 2,
             "name": "အမျိုးသမီးတို့ တိုးပွားဖို့",
+            "image": "https://www.shwemom.com/wp-content/uploads/2016/03/logo.png"
+        }
+    },
+    {
+        "id": 3,
+        "name": "Tech Gadget MM",
+        "image": "https://i0.wp.com/techgadgetmm.com/wp-content/uploads/2021/09/cropped-Artboard-1.png?w=373&ssl=1",
+        "url": "https://techgadgetmm.com/",
+        "website_category_id": 3,
+        "website_category": {
+            "id": 3,
+            "name": "နည်းပညာ",
+            "image": "https://www.shwemom.com/wp-content/uploads/2016/03/logo.png"
+        }
+    },
+    {
+        "id": 4,
+        "name": "My Tech Myanmar",
+        "image": "https://mytechmyanmar.com/wp-content/uploads/2019/01/MyTech-460x100_7e0263aa7f1743a26b9079e6ca3b21f5.png",
+        "url": "https://mytechmyanmar.com/",
+        "website_category_id": 3,
+        "website_category": {
+            "id": 3,
+            "name": "နည်းပညာ",
             "image": "https://www.shwemom.com/wp-content/uploads/2016/03/logo.png"
         }
     }
