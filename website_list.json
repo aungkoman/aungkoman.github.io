@@ -45,5 +45,42 @@
             "name": "နည်းပညာ",
             "image": "https://www.shwemom.com/wp-content/uploads/2016/03/logo.png"
         }
+    },
+    {
+        "id": 5,
+        "name": "Knowledge Worms",
+        "image": "https://knowledgeworms.com/wp-content/uploads/2020/12/cropped-default-monochrome-black.jpg",
+        "url": "https://knowledgeworms.com/",
+        "website_category_id": 4,
+        "website_category": {
+            "id": 4,
+            "name": "ဗဟုသုတ",
+            "image": "https://www.shwemom.com/wp-content/uploads/2016/03/logo.png"
+        }
+    },
+    {
+        "id": 5,
+        "name": "ကား သတင်းစုံ",
+        "image": "https://carthadinsone.info/wp-content/uploads/2021/08/226593433_1002389077245814_3970817087602898536_n-765x372.jpg",
+        "url": "https://carthadinsone.info/",
+        "website_category_id": 4,
+        "website_category": {
+            "id": 4,
+            "name": "ဗဟုသုတ",
+            "image": "https://www.shwemom.com/wp-content/uploads/2016/03/logo.png"
+        }
+    },
+    {
+        "id": 5,
+        "name": "လူပျို ဖတ်စာ",
+        "image": "https://7days.xyz/wp-content/uploads/2021/08/FB_IMG_1630162121110-326x245.jpg",
+        "url": "https://7days.xyz/",
+        "website_category_id": 4,
+        "website_category": {
+            "id": 5,
+            "name": "လိင်မှုဘဝ",
+            "image": "https://www.shwemom.com/wp-content/uploads/2016/03/logo.png"
+        }
     }
+    
 ]
