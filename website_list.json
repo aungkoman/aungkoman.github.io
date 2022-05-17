@@ -59,7 +59,7 @@
         }
     },
     {
-        "id": 5,
+        "id": 6,
         "name": "ကား သတင်းစုံ",
         "image": "https://carthadinsone.info/wp-content/uploads/2021/08/226593433_1002389077245814_3970817087602898536_n-765x372.jpg",
         "url": "https://carthadinsone.info/",
@@ -71,7 +71,19 @@
         }
     },
     {
-        "id": 5,
+        "id": 7,
+        "name": "ဗေဒင် ဟောစာတမ်းများ",
+        "image": "https://www.baydin.info/wp-content/uploads/2022/04/numberyears-768x350.jpg",
+        "url": "https://www.baydin.info/",
+        "website_category_id": 4,
+        "website_category": {
+            "id": 4,
+            "name": "ဗဟုသုတ",
+            "image": "https://www.shwemom.com/wp-content/uploads/2016/03/logo.png"
+        }
+    },
+    {
+        "id": 8,
         "name": "လူပျို ဖတ်စာ",
         "image": "https://7days.xyz/wp-content/uploads/2021/08/FB_IMG_1630162121110-326x245.jpg",
         "url": "https://7days.xyz/",
