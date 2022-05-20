@@ -11,18 +11,6 @@
         }
     },
     {
-        "id": 2,
-        "name": "Shwe Mom",
-        "image": "https://images.wallpaperscraft.com/image/single/mother_child_silhouettes_motherhood_family_sunset_horizon_120308_2560x1440.jpg",
-        "url": "https://www.shwemom.com/",
-        "website_category_id": 2,
-        "website_category": {
-            "id": 2,
-            "name": "အမျိုးသမီးတို့ တိုးပွားဖို့",
-            "image": "https://www.shwemom.com/wp-content/uploads/2016/03/logo.png"
-        }
-    },
-    {
         "id": 3,
         "name": "Tech Gadget MM",
         "image": "https://i0.wp.com/techgadgetmm.com/wp-content/uploads/2021/09/cropped-Artboard-1.png?w=373&ssl=1",
