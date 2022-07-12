@@ -11,18 +11,6 @@
         }
     },
     {
-        "id": 2,
-        "name": "Shwe Mom",
-        "image": "https://images.wallpaperscraft.com/image/single/mother_child_silhouettes_motherhood_family_sunset_horizon_120308_2560x1440.jpg",
-        "url": "https://www.shwemom.com/",
-        "website_category_id": 2,
-        "website_category": {
-            "id": 2,
-            "name": "အမျိုးသမီးတို့ တိုးပွားဖို့",
-            "image": "https://www.shwemom.com/wp-content/uploads/2016/03/logo.png"
-        }
-    },
-    {
         "id": 3,
         "name": "Tech Gadget MM",
         "image": "https://i0.wp.com/techgadgetmm.com/wp-content/uploads/2021/09/cropped-Artboard-1.png?w=373&ssl=1",
@@ -63,18 +51,6 @@
         "name": "ကား သတင်းစုံ",
         "image": "https://carthadinsone.info/wp-content/uploads/2021/08/226593433_1002389077245814_3970817087602898536_n-765x372.jpg",
         "url": "https://carthadinsone.info/",
-        "website_category_id": 4,
-        "website_category": {
-            "id": 4,
-            "name": "ဗဟုသုတ",
-            "image": "https://www.shwemom.com/wp-content/uploads/2016/03/logo.png"
-        }
-    },
-    {
-        "id": 7,
-        "name": "ဗေဒင် ဟောစာတမ်းများ",
-        "image": "https://www.baydin.info/wp-content/uploads/2022/04/numberyears-768x350.jpg",
-        "url": "https://www.baydin.info/",
         "website_category_id": 4,
         "website_category": {
             "id": 4,
