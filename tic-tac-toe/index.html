@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+
+    <style>
+        table tr td{
+            width: 100px;
+            height: 100px;
+            background-color: gray;
+            cursor: pointer;
+        }
+        td:hover{
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <h2><span id="currentPlayer"></span> Turn</h2>
+    <h2><span id="resultText"></span></h2>
+    <button id="resetButton">Reset</button>
+    <table>
+        <tr>
+            <td data-x="0" data-y="0"></td>
+            <td data-x="1" data-y="0"></td>
+            <td data-x="2" data-y="0"></td>
+        </tr>
+        <tr>
+            <td data-x="0" data-y="1"></td>
+            <td data-x="1" data-y="1"></td>
+            <td data-x="2" data-y="1"></td>
+        </tr>
+        <tr>
+            <td data-x="0" data-y="2"></td>
+            <td data-x="1" data-y="2"></td>
+            <td data-x="2" data-y="2"></td>
+        </tr>
+    </table>
+    <script>
+        var playerA = 0;
+        var playerAColor = "blue";
+        var playerAName = "Blue Team";
+        var playerB = 1;
+        var playerBColor = "red";
+        var playerBName = "Red Team";
+        var currentPlayer = playerA;
+        var playGround = [];
+        var defaultValue = 2;
+        var defaultColor = "gray";
+        var result = false;
+        
+        var currentPlayerDom = document.getElementById('currentPlayer');
+        var resultTextDom = document.getElementById('resultText');
+        var resetButtonDom = document.getElementById('resetButton');
+
+        
+        reset();
+
+
+        function reset(){
+            // play ground reset
+            playGround = [
+                [defaultValue, defaultValue, defaultValue],
+                [defaultValue, defaultValue, defaultValue],
+                [defaultValue, defaultValue, defaultValue]
+            ];
+            // result
+            result = false;
+            // result text
+            resultTextDom.innerHTML = "";
+        }
+
+        function assignAt(x,y,player){
+            if(playGround[y][x] != defaultValue){
+                console.log("already assigned");
+                return false;
+            }
+            if(result){
+                console.log("Match END");
+                return false;
+            }
+            playGround[y][x] = player;
+            console.log(playGround);
+            return true;
+        }
+
+        function checkStatus(player){
+            console.log("checkStatus for player "+player);
+            /* should return true / false for x,y value */
+            // rule 1
+            let rules = [
+                [
+                    [0,0],[1,0],[2,0]
+                ],
+                [
+                    [0,0],[1,1],[2,2]
+                ],
+                [
+                    [0,0],[0,1],[0,2]
+                ],
+                [
+                    [1,0],[1,1],[1,2]
+                ],
+                [
+                    [2,0],[1,1],[0,2]
+                ],
+                [
+                    [0,1],[1,1],[2,1]
+                ],
+                [
+                    [0,2],[1,2],[2,2]
+                ],
+                [
+                    [2,0],[2,1],[2,2]
+                ],
+            ];
+
+            // let result = false;
+            for(let i=0; i < rules.length; i++){
+                console.log("rule "+i);
+                console.log(playGround[rules[i][0][0]][rules[i][0][1]]);
+                console.log(playGround[rules[i][1][0]][rules[i][1][1]]);
+                console.log(playGround[rules[i][2][0]][rules[i][2][1]]);
+
+                if(playGround[rules[i][0][0]][rules[i][0][1]] == player &&  playGround[rules[i][1][0]][rules[i][1][1]] == player && playGround[rules[i][2][0]][rules[i][2][1]] == player){
+                    console.log("Player "+player+" WIN");
+                    let name = player == playerA ? playerAName : playerBName ;
+                    resultTextDom.innerHTML = name + " WIN";
+                    result = true;
+                    break;
+                }
+            }
+
+            console.log("final result is");
+            console.log(result);
+            /*
+            if(playGround[0][0] == playGround[1][0] == playGround[2][0] == player){
+                console.log("Player A WIN");
+            }
+            */
+
+            let draw = true;
+            for(let i =0; i < playGround.length; i++){
+                for(let j=0; j < playGround[i].length; j++){
+                    if(playGround[i][j] == defaultValue){
+                        draw = false;
+                    }
+                }
+            }
+
+            if(draw){
+                result = true;
+                resultTextDom.innerHTML = "DRAW";
+
+            }
+        }
+
+        //assignAt(1,1,playerA);
+        //assignAt(0,0,playerA);
+        //assignAt(2,2,playerA);
+
+
+        resetButtonDom.addEventListener('click',event =>{
+            reset();
+            document.querySelectorAll('td').forEach(item => {
+                item.style.backgroundColor = defaultColor;
+            });
+        });
+
+
+        currentPlayerDom.innerHTML = playerAName;
+
+        document.querySelectorAll('td').forEach(item => {
+            item.addEventListener('click', event => {
+                let x = item.getAttribute('data-x');
+                let y = item.getAttribute('data-y');
+                if(assignAt(x,y,currentPlayer)){
+                    if(currentPlayer == playerA){
+                        item.style.backgroundColor = playerAColor;
+                    }
+                    else{
+                        item.style.backgroundColor = playerBColor;
+                    }
+                    checkStatus(currentPlayer);
+                    currentPlayer = currentPlayer == playerA ? playerB : playerA ;
+                    currentPlayerDom.innerHTML = currentPlayer == playerA ? playerAName : playerBName ;
+                }
+                //item.addEventListner('click',assignAt(x,y,currentPlayer));
+            })
+        })
+
+        /*
+        const collection = document.getElementsByTagName("td");
+        console.log(collection);
+        for(let i =0; i< collection.length; i++){
+            let element = collection[i];
+            let x = element.getAttribute('data-x');
+            let y = element.getAttribute('data-y');
+            element.addEventListner('click',assignAt(x,y,currentPlayer));
+        }
+        */
+        /*
+        collection.forEach(element => {
+            let x = element.getAttribute('data-x');
+            let y = element.getAttribute('data-y');
+            element.addEventListner('click',assignAt(x,y,currentPlayer));
+        });
+        */
+        
+    </script>
+</body>
+</html>
