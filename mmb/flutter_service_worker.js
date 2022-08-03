@@ -6,15 +6,14 @@ const RESOURCES = {
   "assets/AssetManifest.json": "d73cf33f63c950e7e057c0cfc071cf9d",
 "assets/assets/images/dolors.jpg": "35788ca01ed67d705fbe0e3920c7aee8",
 "assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
-"assets/fonts/MaterialIcons-Regular.otf": "95db9098c58fd6db106f1116bae85a0b",
-"assets/NOTICES": "cca021e2772daa4bdd25a20b5fa9c4e3",
+"assets/fonts/MaterialIcons-Regular.otf": "7e7a6cccddf6d7b20012a548461d5d81",
+"assets/NOTICES": "1def4ceeefe8b678d520045838fc067d",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
 "canvaskit/canvaskit.js": "c2b4e5f3d7a3d82aed024e7249a78487",
 "canvaskit/canvaskit.wasm": "4b83d89d9fecbea8ca46f2f760c5a9ba",
 "canvaskit/profiling/canvaskit.js": "ae2949af4efc61d28a4a80fffa1db900",
 "canvaskit/profiling/canvaskit.wasm": "95e736ab31147d1b2c7b25f11d4c32cd",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
-"flutter.js": "eb2682e33f25cd8f1fc59011497c35f8",
 "icons/apple-touch-icon.png": "5ec7f228a69bfce8c13c3753b1d28314",
 "icons/favicon.ico": "d38f1d4b88bf635495fd3aadbe5beeea",
 "icons/icon-192-maskable.png": "de97071ba8837569fb0970a097bbbf40",
@@ -24,9 +23,9 @@ const RESOURCES = {
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
 "icons/README.txt": "75a4b40628d621e7140600213104e158",
-"index.html": "84e3a069cbd7052604c029725e664631",
-"/": "84e3a069cbd7052604c029725e664631",
-"main.dart.js": "b452dd2019c27fe12e93fb0ade9fec74",
+"index.html": "e0b9cc9f5cefe85ba61d91ffb5a34173",
+"/": "e0b9cc9f5cefe85ba61d91ffb5a34173",
+"main.dart.js": "76ada817eed726e51f4857a4ddba3f36",
 "manifest.json": "04db0ca028e303fe45a68682cec11311",
 "version.json": "318ac69f9690cdcde35e8e06e5cdc4a5"
 };
@@ -34,7 +33,8 @@ const RESOURCES = {
 // The application shell files that are downloaded before a service worker can
 // start.
 const CORE = [
-  "main.dart.js",
+  "/",
+"main.dart.js",
 "index.html",
 "assets/NOTICES",
 "assets/AssetManifest.json",
