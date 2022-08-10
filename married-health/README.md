@@ -1,5 +1,18 @@
-
+```js
+let title = document.querySelectorAll("div.post-header > h1")[0].innerText;
+let body = document.querySelector("div.entry.clear").innerText;
+let comments = [];
+for(let i=0; i < document.querySelectorAll("div.c-body").length; i++){
+    let comment = document.querySelectorAll("div.c-body")[i].innerText;
+    comment = comment.replace("PERMALINK", "");
+    comment = comment.replace("REPLY", "");
+    comments.push(comment);
+}
+console.log({title, body, comments});
+```
 https://nookycontent.wordpress.com/
+https://atkbooks.wordpress.com/2011/08/16/on-homosexuality/
+
 
 document.querySelector("#content > h1").innerText;
 ```json
