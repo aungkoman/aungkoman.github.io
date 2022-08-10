@@ -1,0 +1,22 @@
+[{
+        "id": 1,
+        "title": "Test Tile",
+        "description": "Test description paragraph",
+        "photo_id": 1,
+        "category_id": 1
+    },
+    {
+        "id": 1,
+        "title": "Test Tile",
+        "description": "Test description paragraph",
+        "photo_id": 1,
+        "category_id": 1
+    },
+    {
+        "id": 1,
+        "title": "Test Tile",
+        "description": "Test description paragraph",
+        "photo_id": 1,
+        "category_id": 1
+    }
+]
