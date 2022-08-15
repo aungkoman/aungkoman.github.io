@@ -3,7 +3,23 @@
         "name": "Category One"
     },
     {
-        "id": 1,
-        "name": "Category Two"
+        "id": 2,
+        "name": "Category Two",
+        "count": 5
+    },
+    {
+        "id": 3,
+        "name": "Category Two",
+        "count": 5
+    },
+    {
+        "id": 4,
+        "name": "Category Two",
+        "count": 5
+    },
+    {
+        "id": 5,
+        "name": "Category Two",
+        "count": 5
     }
 ]
