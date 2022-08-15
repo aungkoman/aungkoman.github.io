@@ -1,25 +1,25 @@
 [{
         "id": 1,
-        "name": "Category One"
+        "name": "အမျိုးသား ကျန်းမာရေး"
     },
     {
         "id": 2,
-        "name": "Category Two",
+        "name": "အမျိုးသမီး ကျန်းမာရေး",
         "count": 5
     },
     {
         "id": 3,
-        "name": "Category Two",
+        "name": "အိမ်ထောင်သည် ကျန်းမာရေး",
         "count": 5
     },
     {
         "id": 4,
-        "name": "Category Two",
+        "name": "လူပျို ဖတ်စာ",
         "count": 5
     },
     {
         "id": 5,
-        "name": "Category Two",
+        "name": "အပျို ဖတ်စာ",
         "count": 5
     }
 ]
