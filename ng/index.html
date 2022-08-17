@@ -7,12 +7,10 @@
  	<link rel='shortcut icon' type='image/x-icon' sizes='16x16 32x32 48x48 64x64' href= "logo/North Gate Engineering Logo.png" >
  	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
- 	<link rel= "stylesheet"  href= "css/style.css" /> 
- 	<link rel= "stylesheet"  type= "text/css"  href= "css/lightslider.css" /> 
+	<link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
  	<style type= "text/css">
  	  /*standard color :0071FB */ 
- 	   html ,body{ margin:0; padding: 0; box-sizing: border-box; font-family:  font/CrimsonText-BoldItalic.ttf ;  }  
+ 	   html ,body{ margin:0; padding: 0; box-sizing: border-box;}  
  	   *{ box-sizing: border-box;  }  
  	   .containermta{
  	   		 width:100vw;height:100vh;background-color: #F6F7FB;position: relative;overflow-x:hidden;overflow-y: scroll;
@@ -32,7 +30,8 @@
  	   		justify-content: flex-start;
  	   		align-items: center;
  	   		font-size: 14px;
- 	   		font-family: 'Abril Fatface', cursive;
+ 	   		font-family: 'EB Garamond', serif;/* Bodoni Moda Font */
+ 	   		font-weight: bold;
  	   	}
  	   	.logoarea div{
  	   		width: max-content;
@@ -48,7 +47,8 @@
  	   		display: flex;
  	   		justify-content: space-around;
  	   		align-items: center;
- 	   		font-family: 'Abril Fatface', cursive;
+ 	   		font-family: 'EB Garamond', serif;
+ 	   		font-weight: bold;
  	   	}
  	   	.catefunarea div{
  	   		width: 20%;
@@ -101,7 +101,7 @@
  	   		justify-content: center;
  	   		align-items: center;
  	   		flex-direction: column;
- 	   		font-family: 'Abril Fatface', cursive;
+ 	   		font-family: 'EB Garamond', serif;
  	   		position: relative;
  	   	}
  	   	.coverdesInfo div{
@@ -133,8 +133,8 @@
  	   		padding-left: 30px;
  	   	}
  	   	.aboutusDesc div:nth-child(1){
- 	   		font-size: 18px;
- 	   		font-family: 'Abril Fatface', cursive;
+ 	   		font-size: 14px;
+ 	   		font-family: 'EB Garamond', serif;
  	 		font-weight: bold;
  	   	}
  	   	.aboutusDesc div:nth-child(2){
@@ -168,7 +168,7 @@
  	   		align-items: center;
  	   		font-weight: bold;
  	   		font-size: 18px;
- 	   		font-family: 'Abril Fatface', cursive;
+ 	   		font-family: 'EB Garamond', serif;
  	   		flex-direction: column;
  	   	}
  	   	.serviceHeader div:nth-child(2){
@@ -219,7 +219,7 @@
  	   	}
  	   	.serviceOddDes div:nth-child(1){
  	   		font-size: 18px;
- 	   		font-family: 'Abril Fatface', cursive;
+ 	   		font-family: 'EB Garamond', serif;
  	 		font-weight: bold;
  	   	}
  	   	.serviceOddDes div:nth-child(2){
@@ -308,7 +308,7 @@
  	   		justify-content: center;
  	   		align-items: center;
  	   		flex-direction: column;
- 	   		font-family: 'Abril Fatface', cursive;
+ 	   		font-family: 'EB Garamond', serif;
  	   	}
  	   	.aboutusTitle div{
  	   		width: 60px;
@@ -467,7 +467,28 @@
 			  transform: none;
 		  }
 	 	 } 
- 	   	
+ 	   	 @-webkit-keyframes slideInLeft {
+			0% {
+				-webkit-transform: translateX(-100%);
+				transform: translateX(-100%);
+				visibility: visible;
+			}
+			100% {
+				-webkit-transform: translateX(0);
+				transform: translateX(0);
+			}
+		}
+		@keyframes slideInLeft {
+		  0% {
+			  -webkit-transform: translateX(-100%);
+			  transform: translateX(-100%);
+			  visibility: visible;
+		  }
+		  100% {
+			  -webkit-transform: translateX(0);
+			  transform: translateX(0);
+		  }
+ 		 } 
  	   	.exitDiv{
  	   		width: 40px;
  	   		height: 40px;
@@ -504,7 +525,107 @@
  	   		background-position: center;
  	   		cursor: pointer;
  	   	}
- 	   	@media only screen and (max-width:900px){
+ 	   	.gototop{
+ 	   		width: 50px;
+ 	   		height: 50px;
+ 	   		border-radius: 50%;
+ 	   		border: 4px solid rgba(22, 72, 210, 0.7);
+ 	   		backdrop-filter: blur(5px);
+ 	   		position: fixed;
+ 	   		display: none;
+ 	   		right: 10px;
+ 	   		bottom: 10px;
+ 	   		background: rgba(0, 0, 0, 0.7);
+ 	   		cursor: pointer;
+ 	   		background-image: url('logo/up.png');
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: 40px 40px;
+ 	   		background-position: center;
+ 	   		z-index: 5;
+ 	   	}
+ 	   	.mobileContainer{
+ 	   		width: 100vw;
+ 	   		height: 100vh;
+ 	   		position: fixed;
+ 	   		display: none;
+ 	   		z-index: 6;
+ 	   		background-image: url(CATEGO/MayaHTT_image.jpg);
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: cover;
+ 	   		background-attachment: fixed;
+ 	   		background-position: center;
+ 	   		overflow: none;
+ 	   		 -webkit-animation-name: slideInLeft;
+			  animation-name: slideInLeft;
+			  -webkit-animation-duration: 1s;
+			  animation-duration: 1s;
+			  -webkit-animation-fill-mode: both;
+			  animation-fill-mode: both;
+ 	   	}
+ 	   	.mobileContainerCover{
+ 	   		width: 100%;
+ 	   		height: 100%;
+ 	   		background: rgba(0, 0, 0, 0.7);
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items:center;
+ 	   		flex-direction: column;
+ 	   		position: relative;
+ 	   	}
+ 	   	.mobileContainerHeader{
+ 	   		width: 100%;
+ 	   		height: 70px;
+ 	   		background-color: #fff;
+ 	   		display: flex;
+ 	   		justify-content: space-around;
+ 	   		align-items: center;
+ 	   		font-size: 14px;	
+ 	   	}
+ 	   	.mobileContainerDiv{
+ 	   		width: 90%;
+ 	   		height: 60px;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   		font-family: 'EB Garamond', serif;
+ 	   	}
+ 	   	.closeMobileMenu{
+ 	   		width: 40px;
+ 	   		height: 40px;
+ 	   		border-radius: 50%;
+ 	   		border: 2px solid rgba(223, 225, 229, 0.7);
+ 	   		background-image: url('logo/FontAwesome_f00d(0)_48.png');
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: 32px 32px;
+ 	   		background-position: center;
+ 	   		cursor: pointer;
+ 	   	}
+ 	   	.mobileContainerSearchDiv{
+ 	   		width: 95%;
+ 	   		height: 70px;
+ 	   		margin-top: 20px;
+ 	   		border-radius: 5px;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.mobileContainerMenuDiv{
+ 	   		width: 95%;
+ 	   		height: 50px;
+ 	   		background-color: #fff;
+ 	   		border-radius: 5px;
+ 	   		margin-top: 15px;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		cursor: pointer;
+ 	   		font-size: 13px;
+ 	   	}
+ 	   	.mobileContainerMenuDiv a{
+ 	   		text-decoration: none;
+ 	   		color: black;
+ 	   	}
+ 	   	@media only screen and (max-width:1400px){
  	   		.headingmtaContainer{
  	   			width: 90%;
  	   		}
@@ -514,6 +635,9 @@
  	   		.catefunarea{
  	   			width: 55%;
  	   			font-size: 14px;
+ 	   		}
+ 	   		.catefunarea div{
+ 	   			width: 25%;
  	   		}
  	   		.coverdesInfo{
  	   			width: 80%;
@@ -527,13 +651,77 @@
  	   		.subscribecover{
  	   			width: 70%;
  	   		}
-		 } 
-		@media only screen and (max-width: 500px){
+ 	   	}
+ 	   	@media only screen and (max-width: 1011px) and (min-width: 901px){
+ 	   		.catefunarea div{
+ 	   			width: 25%;
+ 	   		}
+ 	   	}
+ 	   	@media only screen and (max-width:900px){
+ 	   		.headingmtaContainer{
+ 	   			width: 100%;
+ 	   		}
+ 	   		.logoarea{
+ 	   			width: 40%;
+ 	   		}
+ 	   		.catefunarea{
+ 	   			width: 60%;
+ 	   			font-size: 14px;
+ 	   		}
+ 	   		.catefunarea div:nth-child(2) , .catefunarea div:nth-child(3){
+ 	   			width: 25%;
+ 	   			font-size: 13px;
+
+ 	   		}
+ 	   		.aboutusCover{
+ 	   			background-size: contain;
+ 	   			background-repeat: no-repeat;
+ 	   		}
+ 	   		.coverdesInfo{
+ 	   			width: 80%;
+ 	   		}
+ 	   		.footerHeader{
+ 	   			height: 90px;
+ 	   		}
+ 	   		div.infoFooter:nth-child(1){
+ 	   			width: 50%;
+ 	   		}
+ 	   		.subscribecover{
+ 	   			width: 70%;
+ 	   		}
+		}
+		@media only screen and (max-width: 749px) and (min-width: 701px){
+			.headingmtaContainer{
+ 	   			width: 100%;
+ 	   		}
+ 	   		.logoarea{
+ 	   			width: 40%;
+ 	   			font-size: 14px;
+ 	   		}
+ 	   		.catefunarea{
+ 	   			width: 60%;
+ 	   			font-size: 13px;
+ 	   		}
+ 	   		.catefunarea div:nth-child(2) , .catefunarea div:nth-child(3) , .catefunarea div:nth-child(4){
+ 	   			width: 25%;
+ 	   			font-size: 13px;
+ 	   		}
+ 	   		.coverdesInfo{
+ 	   			width: 100%;
+ 	   		}
+ 	   		.aboutusDesc div:nth-child(4) , .cateListing{
+ 	   			font-size: 13px;
+ 	   		}
+ 	   		.serviceOddDes div:nth-child(1) , .aboutusDesc div:nth-child(1){
+ 	   			font-size: 14px;
+ 	   		}
+		}
+		@media only screen and (max-width: 700px){
 			.headingmtaContainer{
 				width: 100%;
 			}
 			.logoarea{
-				width: 80%;
+				width: 90%;
 			}
 			.logoarea div{
 				width: 80%;
@@ -609,14 +797,36 @@
  	   </style>
  	   </head>
 <body>
+<div class="mobileContainer">
+	<div class="mobileContainerCover">
+		<div class="mobileContainerHeader">
+			<div class="mobileContainerDiv">
+				<img src="logo/North Gate Engineering Logo.png" class="logoNG">
+				<div style="display:flex;justify-content: flex-start;align-items: left;flex-direction: column;">
+					<span>NORTH GATE</span>
+					<span>ENGINNERING & THECHNOLOGY</span>
+				</div>
+			</div>
+			<div class="closeMobileMenu"></div>
+		</div>
+		<div class="mobileContainerSearchDiv">
+			<input type="text" name="" class="searchcls" placeholder="search for ..." style="width: 70%;">
+			<input type="button" name="" class="submitcls" style="width: 30%;" >
+		</div>
+		<div class="mobileContainerMenuDiv"><a href='#desAboutUsContainer'>WHO WE ARE?</a></div>
+		<div class="mobileContainerMenuDiv"><a href='#serviceDataContainer'>OUR SERVICES</a></div>
+		<div class="mobileContainerMenuDiv"><a href='#footerHeader'>CONTACT US</a></div>
+	</div>
+</div>
 <div class="searchContainer">
 	<div class="searchDiv">
-		<input type="text" name="" class="searchcls" placeholder="search for ...">
-		<input type="button" name="" class="submitcls" >
+		<input type="text"  class="searchcls" placeholder="search for ...">
+		<input type="button"  class="submitcls" >
 	</div>
 	<div class="exitDiv"></div>
 </div>
-<div class='containermta'>
+<div class="gototop" id="gototop" onclick="topFunction()"></div>
+<div class='containermta' id='containermta'>
     <div class='headingmta' > 
     	<div class="headingmtaContainer">
     		<div class="logoarea">
@@ -630,7 +840,7 @@
     			<div>HOME</div>
     			<div><a href='#desAboutUsContainer'>WHO WE ARE?</a></div>
     			<div><a href='#serviceDataContainer'>OUR SERVICES</a></div>
-    			<div>CONTACT US</div>
+    			<div><a href='#footerHeader'>CONTACT US</a></div>
     		</div>
     		<div class="searcharea" id='searchBtn'>
     			<img src="logo/modermSearch.png" style="max-width: 40px;max-height: 40px;cursor: pointer;">
@@ -652,7 +862,7 @@
     <div class="desAboutUsContainer" id='desAboutUsContainer'>
     	<div class="aboutusCover"></div>
     	<div class="aboutusDesc">
-    		<div>WHO WE ARE</div>
+    		<div>WHO WE ARE?</div>
     		<div></div>
     		<div>
     			Make your business shine online with a custom engineering website designed just for you by a professional designer. Need ideas? We’ve collected some amazing examples of engineering websites from our global community of designers. Get inspired and start planning the perfect engineering web design today.
@@ -691,7 +901,7 @@
     </div>
     <div class="footerContainer">
     	<div class="footerContainerMTACover">
-    		<div class="footerHeader">
+    		<div class="footerHeader" id='footerHeader'>
     			<div class="infoFooter">
     				<img src="logo/location.png">
     				<p>91 1-2 Sri Poom Rd, Tambon Si Phum, Mueang Chiang Mai District, Chiang Mai 50200, Thailand</p>
@@ -735,8 +945,7 @@
     	</div>
     </div>
 </div>
- 	<script type="text/javascript"  src="js/jquery.js"></script> 
-    <script type= "text/javascript"  src="js/slide.js"></script> 
+ 	<script type="text/javascript"  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
 	<script type='text/javascript'>
 	  (function($) {
 	  	$(".searchContainer").hide();
@@ -750,7 +959,23 @@
 		$(document).on("click",".exitDiv",function(){
 			$(".searchContainer").hide();
 		});
+		$(document).on("click",".menuarea",function(){
+			$(".mobileContainer").show();
+		});
+		$(document).on("click",".closeMobileMenu",function(){
+			$(".mobileContainer").hide();
+		});
+		$(document).on("click",".mobileContainerMenuDiv a",function(){
+			$(".mobileContainer").hide();
+		});
 	  }(jQuery));
 	</script>
- </body> 
+	<script type="text/javascript">
+		const scrollhandle = document.getElementById('containermta');
+		scrollhandle.addEventListener('scroll', function() {
+		  var scrollTop = scrollhandle.scrollTop;scrollTop > 30 ? document.getElementById("gototop").style.display = "block" : document.getElementById("gototop").style.display = "none";
+		});
+		function topFunction() { scrollhandle.scrollTop = 0;}
+	</script>
+ </body>
 </html>

@@ -7,9 +7,9 @@
  	<link rel='shortcut icon' type='image/x-icon' sizes='16x16 32x32 48x48 64x64' href= "logo/North Gate Engineering Logo.png" >
  	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
  	<style type= "text/css">
- 	   html ,body{ margin:0; padding: 0; box-sizing: border-box; font-family:  font/CrimsonText-BoldItalic.ttf ;  }  
+ 	   html ,body{ margin:0; padding: 0; box-sizing: border-box;}  
  	   *{ box-sizing: border-box;  }  
  	   *{ box-sizing: border-box;  }  
  	   .containermta{
@@ -30,7 +30,7 @@
  	   		justify-content: flex-start;
  	   		align-items: center;
  	   		font-size: 14px;
- 	   		font-family: 'Abril Fatface', cursive;
+ 	   		font-family: 'EB Garamond', serif;font-weight:bold;/* Bodoni Moda Font */
  	   	}
  	   	.logoarea div{
  	   		width: max-content;
@@ -46,7 +46,7 @@
  	   		display: flex;
  	   		justify-content: space-around;
  	   		align-items: center;
- 	   		font-family: 'Abril Fatface', cursive;
+ 	   		font-family: 'EB Garamond', serif;font-weight:bold;
  	   	}
  	   	.catefunarea div{
  	   		width: 20%;
@@ -58,7 +58,7 @@
  	   		cursor: pointer;
  	   		font-size: 14px;
  	   	}
- 	   	.catefunarea div:nth-child(1){
+ 	   	.catefunarea div:nth-child(3){
  	   		border-bottom:3px solid #0071FB;
  	   	}
  	   	.catefunarea a{
@@ -99,7 +99,7 @@
  	   		justify-content: center;
  	   		align-items: center;
  	   		flex-direction: column;
- 	   		font-family: 'Abril Fatface', cursive;
+ 	   		font-family: 'EB Garamond', serif;font-weight:bold;
  	   		position: relative;
  	   	}
  	   	.coverdesInfo div{
@@ -132,7 +132,7 @@
  	   	}
  	   	.aboutusDesc div:nth-child(1){
  	   		font-size: 18px;
- 	   		font-family: 'Abril Fatface', cursive;
+ 	   		font-family: 'EB Garamond', serif;font-weight:bold;
  	 		font-weight: bold;
  	   	}
  	   	.aboutusDesc div:nth-child(2){
@@ -166,7 +166,7 @@
  	   		align-items: center;
  	   		font-weight: bold;
  	   		font-size: 18px;
- 	   		font-family: 'Abril Fatface', cursive;
+ 	   		font-family: 'EB Garamond', serif;font-weight:bold;
  	   		flex-direction: column;
  	   	}
  	   	.serviceHeader div:nth-child(2){
@@ -217,7 +217,7 @@
  	   	}
  	   	.serviceOddDes div:nth-child(1){
  	   		font-size: 18px;
- 	   		font-family: 'Abril Fatface', cursive;
+ 	   		font-family: 'EB Garamond', serif;font-weight:bold;
  	 		font-weight: bold;
  	   	}
  	   	.serviceOddDes div:nth-child(2){
@@ -305,7 +305,7 @@
  	   		justify-content: center;
  	   		align-items: center;
  	   		flex-direction: column;
- 	   		font-family: 'Abril Fatface', cursive;
+ 	   		font-family: 'EB Garamond', serif;font-weight:bold;
  	   	}
  	   	.aboutusTitle div{
  	   		width: 60px;
@@ -474,7 +474,274 @@
  	   		justify-content: center;
  	   		align-items: center;
  	   	}
- 	   	@media only screen and (max-width:900px){
+ 	   	.searchContainer{
+ 	   		width: 100%;
+ 	   		height: 70px;
+ 	   		top: 70px;
+ 	   		position: fixed;
+ 	   		z-index: 4;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		-webkit-animation-name: bounceInDown;
+		  animation-name: bounceInDown;
+		  -webkit-animation-duration: 1s;
+		  animation-duration: 1s;
+		  -webkit-animation-fill-mode: both;
+		  animation-fill-mode: both;
+ 	   	}
+ 	   	.searchDiv{
+ 	   		width: 550px;
+ 	   		height: 60px;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		background: rgba(0, 0, 0, 0.6);
+	 	}
+	 	@-webkit-keyframes bounceInDown {
+	 	 0%, 60%, 75%, 90%, 100% {
+		  -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+		  transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+	 	 }
+		  0% {
+			  opacity: 0;
+			  -webkit-transform: translate3d(0, -3000px, 0);
+			  transform: translate3d(0, -3000px, 0);
+		  } 
+		  60% {
+			  opacity: 1;
+			  -webkit-transform: translate3d(0, 25px, 0);
+			  transform: translate3d(0, 25px, 0);
+		  }
+		  75% {
+			  -webkit-transform: translate3d(0, -10px, 0);
+			  transform: translate3d(0, -10px, 0);
+		  }
+		  90% {
+			  -webkit-transform: translate3d(0, 5px, 0);
+			  transform: translate3d(0, 5px, 0);
+		  }
+		  100% {
+			  -webkit-transform: none;
+			  transform: none;
+		  }
+	  }
+	  @keyframes bounceInDown {
+		  0%, 60%, 75%, 90%, 100% {
+			  -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+			  transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+		  }
+		  
+		  0% {
+		  opacity: 0;
+			  -webkit-transform: translate3d(0, -3000px, 0);
+			  transform: translate3d(0, -3000px, 0);
+		  }
+		  
+		  60% {
+		  opacity: 1;
+			  -webkit-transform: translate3d(0, 25px, 0);
+			  transform: translate3d(0, 25px, 0);
+		  }
+		  
+		  75% {
+			  -webkit-transform: translate3d(0, -10px, 0);
+			  transform: translate3d(0, -10px, 0);
+		  }
+		  
+		  90% {
+			  -webkit-transform: translate3d(0, 5px, 0);
+			  transform: translate3d(0, 5px, 0);
+		  }
+		  
+		  100% {
+			  -webkit-transform: none;
+			  transform: none;
+		  }
+	 	 } 
+ 	   	 @-webkit-keyframes slideInLeft {
+			0% {
+				-webkit-transform: translateX(-100%);
+				transform: translateX(-100%);
+				visibility: visible;
+			}
+			100% {
+				-webkit-transform: translateX(0);
+				transform: translateX(0);
+			}
+		}
+		@keyframes slideInLeft {
+		  0% {
+			  -webkit-transform: translateX(-100%);
+			  transform: translateX(-100%);
+			  visibility: visible;
+		  }
+		  100% {
+			  -webkit-transform: translateX(0);
+			  transform: translateX(0);
+		  }
+ 		 } 
+ 	   	.gototop{
+ 	   		width: 50px;
+ 	   		height: 50px;
+ 	   		border-radius: 50%;
+ 	   		border: 4px solid rgba(22, 72, 210, 0.7);
+ 	   		backdrop-filter: blur(5px);
+ 	   		position: fixed;
+ 	   		display: none;
+ 	   		right: 10px;
+ 	   		bottom: 10px;
+ 	   		background: rgba(0, 0, 0, 0.7);
+ 	   		cursor: pointer;
+ 	   		background-image: url('logo/up.png');
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: 40px 40px;
+ 	   		background-position: center;
+ 	   		z-index: 5;
+ 	   	}
+ 	   	.mobileContainer{
+ 	   		width: 100vw;
+ 	   		height: 100vh;
+ 	   		position: fixed;
+ 	   		display: none;
+ 	   		z-index: 6;
+ 	   		background-image: url(CATEGO/MayaHTT_image.jpg);
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: cover;
+ 	   		background-attachment: fixed;
+ 	   		background-position: center;
+ 	   		overflow: none;
+ 	   		 -webkit-animation-name: slideInLeft;
+			  animation-name: slideInLeft;
+			  -webkit-animation-duration: 1s;
+			  animation-duration: 1s;
+			  -webkit-animation-fill-mode: both;
+			  animation-fill-mode: both;
+ 	   	}
+ 	   	.mobileContainerCover{
+ 	   		width: 100%;
+ 	   		height: 100%;
+ 	   		background: rgba(0, 0, 0, 0.7);
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items:center;
+ 	   		flex-direction: column;
+ 	   		position: relative;
+ 	   	}
+ 	   	.mobileContainerHeader{
+ 	   		width: 100%;
+ 	   		height: 70px;
+ 	   		background-color: #fff;
+ 	   		display: flex;
+ 	   		justify-content: space-around;
+ 	   		align-items: center;
+ 	   		font-size: 14px;	
+ 	   	}
+ 	   	.mobileContainerDiv{
+ 	   		width: 90%;
+ 	   		height: 60px;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   		font-family: 'EB Garamond', serif;
+ 	   	}
+ 	   	.closeMobileMenu{
+ 	   		width: 40px;
+ 	   		height: 40px;
+ 	   		border-radius: 50%;
+ 	   		border: 2px solid rgba(223, 225, 229, 0.7);
+ 	   		background-image: url('logo/FontAwesome_f00d(0)_48.png');
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: 32px 32px;
+ 	   		background-position: center;
+ 	   		cursor: pointer;
+ 	   	}
+ 	   	.mobileContainerSearchDiv{
+ 	   		width: 95%;
+ 	   		height: 70px;
+ 	   		margin-top: 20px;
+ 	   		border-radius: 5px;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.mobileContainerMenuDiv{
+ 	   		width: 95%;
+ 	   		height: 50px;
+ 	   		background-color: #fff;
+ 	   		border-radius: 5px;
+ 	   		margin-top: 15px;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		cursor: pointer;
+ 	   		font-size: 13px;
+ 	   	}
+ 	   	.mobileContainerMenuDiv a{
+ 	   		text-decoration: none;
+ 	   		color: black;
+ 	   	}
+ 	   	.exitDiv{
+ 	   		width: 40px;
+ 	   		height: 40px;
+ 	   		background-color: #fff;
+ 	   		border-radius: 50%;
+ 	   		cursor: pointer;
+ 	   		margin-left: 50px;
+ 	   		background-image: url('logo/FontAwesome_f00d(0)_48.png');
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: 45px 45px;
+ 	   		background-position: center;
+ 	   		cursor: pointer;
+ 	   	}
+ 	   	.searchcls{
+ 	   		width: 70%;
+ 	   		height: 50px;
+ 	   		border: none;
+ 	   		outline: none;
+ 	   		padding-left: 10px;
+ 	   		border-top-left-radius: 5px;
+ 	   		border-bottom-left-radius: 5px;
+ 	   	}
+ 	   	.submitcls{
+ 	   		width: 100px;
+ 	   		height: 50px;
+ 	   		border: none;
+ 	   		outline: none;
+ 	   		background: rgba(0, 0, 0, 0.8);
+ 	   		border-top-right-radius: 5px;
+ 	   		border-bottom-right-radius: 5px;
+ 	   		background-image: url('logo/modermSearch.png');
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: 40px 40px;
+ 	   		background-position: center;
+ 	   		cursor: pointer;
+ 	   	}
+ 	   	@media only screen and (max-width:1400px){
+ 	   		.headingmtaContainer{
+ 	   			width: 90%;
+ 	   		}
+ 	   		.logoarea{
+ 	   			width: 40%;
+ 	   		}
+ 	   		.catefunarea{
+ 	   			width: 65%;
+ 	   			font-size: 14px;
+ 	   		}
+ 	   		.coverdesInfo{
+ 	   			width: 80%;
+ 	   		}
+ 	   		.footerHeader{
+ 	   			height: 90px;
+ 	   		}
+ 	   		div.infoFooter:nth-child(1){
+ 	   			width: 50%;
+ 	   		}
+ 	   		.subscribecover{
+ 	   			width: 70%;
+ 	   		}
+ 	   	}
+ 	   	@media only screen and (max-width:1400px){
  	   		.headingmtaContainer{
  	   			width: 90%;
  	   		}
@@ -484,6 +751,43 @@
  	   		.catefunarea{
  	   			width: 55%;
  	   			font-size: 14px;
+ 	   		}
+ 	   		.catefunarea div{
+ 	   			width: 25%;
+ 	   		}
+ 	   		.coverdesInfo{
+ 	   			width: 80%;
+ 	   		}
+ 	   		.footerHeader{
+ 	   			height: 90px;
+ 	   		}
+ 	   		div.infoFooter:nth-child(1){
+ 	   			width: 50%;
+ 	   		}
+ 	   		.subscribecover{
+ 	   			width: 70%;
+ 	   		}
+ 	   	}
+ 	   	@media only screen and (max-width: 1011px) and (min-width: 901px){
+ 	   		.catefunarea div{
+ 	   			width: 25%;
+ 	   		}
+ 	   	}
+ 	   	@media only screen and (max-width:900px){
+ 	   		.headingmtaContainer{
+ 	   			width: 100%;
+ 	   		}
+ 	   		.logoarea{
+ 	   			width: 40%;
+ 	   		}
+ 	   		.catefunarea{
+ 	   			width: 60%;
+ 	   			font-size: 14px;
+ 	   		}
+ 	   		.catefunarea div:nth-child(2) , .catefunarea div:nth-child(3){
+ 	   			width: 25%;
+ 	   			font-size: 13px;
+
  	   		}
  	   		.coverdesInfo{
  	   			width: 80%;
@@ -500,13 +804,71 @@
  	   		.listingResult{
 		 		width: 90%;
 		 	}
-		 } 
-		@media only screen and (max-width: 500px){
+		 }
+		 @media only screen and (max-width: 770px) and (min-width: 701px){
+			.headingmtaContainer{
+ 	   			width: 100%;
+ 	   		}
+ 	   		.logoarea{
+ 	   			width: 40%;
+ 	   			font-size: 14px;
+ 	   		}
+ 	   		.catefunarea{
+ 	   			width: 60%;
+ 	   			font-size: 13px;
+ 	   		}
+ 	   		.catefunarea div:nth-child(2) , .catefunarea div:nth-child(3) , .catefunarea div:nth-child(4){
+ 	   			width: 25%;
+ 	   			font-size: 13px;
+ 	   		}
+ 	   		.coverdesInfo{
+ 	   			width: 100%;
+ 	   		}
+ 	   		.aboutusDesc div:nth-child(4) , .cateListing{
+ 	   			font-size: 13px;
+ 	   		}
+ 	   		.serviceOddDes div:nth-child(1) , .aboutusDesc div:nth-child(1){
+ 	   			font-size: 14px;
+ 	   		}
+ 	   		.amazingCard{
+ 	   			width: 45%;
+ 	   		}
+		}
+		@media only screen and (max-width: 701px) and (min-width: 688px){
+			.headingmtaContainer{
+ 	   			width: 100%;
+ 	   		}
+ 	   		.logoarea{
+ 	   			width: 43%;
+ 	   			font-size: 14px;
+ 	   		}
+ 	   		.catefunarea{
+ 	   			width: 60%;
+ 	   			font-size: 13px;
+ 	   		}
+ 	   		.catefunarea div:nth-child(2) , .catefunarea div:nth-child(3) , .catefunarea div:nth-child(4){
+ 	   			width: 25%;
+ 	   			font-size: 13px;
+ 	   		}
+ 	   		.coverdesInfo{
+ 	   			width: 100%;
+ 	   		}
+ 	   		.aboutusDesc div:nth-child(4) , .cateListing{
+ 	   			font-size: 13px;
+ 	   		}
+ 	   		.serviceOddDes div:nth-child(1) , .aboutusDesc div:nth-child(1){
+ 	   			font-size: 14px;
+ 	   		}
+ 	   		.amazingCard{
+		 		width: 45%;
+		 	}
+		}
+		@media only screen and (max-width: 687px){
 			.headingmtaContainer{
 				width: 100%;
 			}
 			.logoarea{
-				width: 80%;
+				width: 90%;
 			}
 			.logoarea div{
 				width: 80%;
@@ -587,14 +949,43 @@
 		 	}
 		}
  	   </style> 
- 	    </head> 
+ 	</head> 
 <body>
+<div class="mobileContainer">
+	<div class="mobileContainerCover">
+		<div class="mobileContainerHeader">
+			<div class="mobileContainerDiv">
+				<img src="logo/North Gate Engineering Logo.png" class="logoNG">
+				<div style="display:flex;justify-content: flex-start;align-items: left;flex-direction: column;">
+					<span>NORTH GATE</span>
+					<span>ENGINNERING & THECHNOLOGY</span>
+				</div>
+			</div>
+			<div class="closeMobileMenu"></div>
+		</div>
+		<div class="mobileContainerSearchDiv">
+			<input type="text" name="" class="searchcls" placeholder="search for ..." style="width: 70%;">
+			<input type="button" name="" class="submitcls" style="width: 30%;" >
+		</div>
+		<div class="mobileContainerMenuDiv"><a href='#desAboutUsContainer'>WHO WE ARE?</a></div>
+		<div class="mobileContainerMenuDiv"><a href='#serviceDataContainer'>OUR SERVICES</a></div>
+		<div class="mobileContainerMenuDiv"><a href='#footerHeader'>CONTACT US</a></div>
+	</div>
+</div>
+<div class="searchContainer">
+	<div class="searchDiv">
+		<input type="text"  class="searchcls" placeholder="search for ...">
+		<input type="button"  class="submitcls" >
+	</div>
+	<div class="exitDiv"></div>
+</div>
+<div class="gototop" id="gototop" ></div>	
 <div class="loading">
 	<div class="loaderDiv">
 		<img src="logo/loader.gif">
 	</div>
 </div>
-<div class='containermta'>
+<div class='containermta' id='containermta'>
     <div class='headingmta' > 
     	<div class="headingmtaContainer">
     		<div class="logoarea">
@@ -605,12 +996,12 @@
 				</div>
     		</div>
     		<div class="catefunarea">
-    			<div>HOME</div>
-    			<div><a href='#desAboutUsContainer'>WHO WE ARE?</a></div>
-    			<div><a href='#serviceDataContainer'>OUR SERVICES</a></div>
-    			<div>CONTACT US</div>
+    			<div><a href='index.html'>HOME</a></div>
+    			<div><a href='index.html'>WHO WE ARE?<a href='#'></div>
+    			<div><a href='#amazingContainer'>OUR SERVICES</a></div>
+    			<div><a href='#footerContainer'>CONTACT US</a></div>
     		</div>
-    		<div class="searcharea">
+    		<div class="searcharea" id='searchBtn'>
     			<img src="logo/modermSearch.png" style="max-width: 40px;max-height: 40px;cursor: pointer;">
     		</div>
     		<div class="menuarea">
@@ -636,7 +1027,7 @@
     </div>
     <div class="serviceHeader" id='serviceHeader'><div>AMAZING FEATURES</div><div></div></div>
     <br>
-    <div class="amazingContainer">
+    <div class="amazingContainer" id='amazingContainer'>
     	<div class="amazingCard">
     		<div class="amazingText">LAMP DESIGN</div>
     		<div class="amazingCover" style="background-image: url('LED_LIGHTING_PHILIPS/For_Design/6a675079ecae24e2629ed3fc1cd276c4.jpg');">
@@ -675,7 +1066,7 @@
     	</div>
     </div>
     <br>
-    <div class="footerContainer">
+    <div class="footerContainer" id="footerContainer">
     	<div class="footerContainerMTACover">
     		<div class="footerHeader">
     			<div class="infoFooter">
@@ -721,10 +1112,32 @@
     	</div>
     </div>
 </div>
- 	<script type="text/javascript"  src="js/jquery.js"></script> 
+ 	<script type="text/javascript"  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
 	<script type='text/javascript'>
 	  (function($) {
+	  	$(".searchContainer").hide();
+	  	$(document).on("click","#searchBtn",function(){
+			$(".searchContainer").show();
+		});
+		$(document).on("click",".exitDiv",function(){
+			$(".searchContainer").hide();
+		});
+		$(document).on("click",".menuarea",function(){
+			$(".mobileContainer").show();
+		});
+		$(document).on("click",".closeMobileMenu",function(){
+			$(".mobileContainer").hide();
+		});
+		$(document).on("click",".mobileContainerMenuDiv a",function(){
+			$(".mobileContainer").hide();
+		});
 	  	const api_url = "https://northgate/my/api/path";
+	  	const scrollhandle = document.getElementById('containermta');
+	  	const layoutHandle = document.getElementById('gototop');
+		scrollhandle.addEventListener('scroll', function() {
+		  var scrollTop = scrollhandle.scrollTop;scrollTop > 30 ? document.getElementById("gototop").style.display = "block" : document.getElementById("gototop").style.display = "none";
+		});
+		layoutHandle.addEventListener("click" , ()=>{scrollhandle.scrollTop = 0;});
 	  	async function goListiningDataByCate(cate){
 	  		const response = await fetch(url);
 			var data = await response.json();
