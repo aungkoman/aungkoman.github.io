@@ -1,0 +1,732 @@
+<!DOCTYPE html> 
+<html>
+ <head> 
+ 	<title>NORTH GATE ENERGY</title>
+ 	<meta charset="utf-8" http-equiv="X-UA-Compatible" content="IE=edge">
+ 	<meta name= "viewport"  content= "width=device-width,initial-scale=1.0">
+ 	<link rel='shortcut icon' type='image/x-icon' sizes='16x16 32x32 48x48 64x64' href= "img/logo/NG-Energy.png" >
+ 	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
+ 	<style type= "text/css">
+ 	  /*standard color :0071FB */ 
+ 	   html ,body{ margin:0; padding: 0; box-sizing: border-box;}
+ 	   *{box-sizing: border-box;box-sizing: content-box;}  
+ 	   .containermta{
+ 	   		 width:100vw;height:100vh;background-color: #fff;position: relative;overflow-x:hidden;overflow-y: scroll;
+ 	   		 scroll-behavior: smooth;-ms-overflow-style: none; scrollbar-width: none;
+ 	   	}
+ 	   	.containermta::-webkit-scrollbar {width: 7px; height:1px;transition:all .5s}
+		.containermta::-webkit-scrollbar-track {
+			background: -webkit-gradient(linear, center top, center bottom, from(#ededed), to(#fff));
+			background-image: linear-gradient(#ededed, #fff);
+			box-shadow: inset 0px 0px 3px 3px rgba(0,0,0,0.1)
+			border-radius:15px;
+		}
+		.containermta::-webkit-scrollbar-thumb {
+			background-color:#a3abb1;
+			border-radius:15px;
+		}
+ 	   	.headingmtaContainer{
+ 	   		width: 100%;
+ 	   		height: 100%;
+ 	   		background-image: linear-gradient(55deg, rgba(0, 0, 0, 0.5), transparent), linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent), url('img/product/VIRAAT.jpeg');
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: cover;
+ 	   		background-attachment: fixed;
+ 	   		background-position: center center;
+ 	   		position: relative;
+ 	   		overflow: none;
+ 	   		box-sizing: border-box;
+ 	   	}
+ 	   	.headingmtaContainerHolder{
+ 	   		width: 100%;
+ 	   		height: 80px;
+ 	   		transition: 1.5s;
+ 	   		display: flex;
+ 	   		justify-content: space-around;
+ 	   		align-items: center;
+ 	   		flex-wrap: wrap;
+ 	   	}
+ 	   	.fade-in{
+ 	   		transition: 1.5s;
+ 	   		background: rgba(0, 0, 0, 0.9);
+ 	   		z-index: 3;
+ 	   		position: fixed;
+ 	   		top: 0;
+ 	   	}
+ 	   	.logoDiv{
+ 	   		width: 20%;
+ 	   		height: 100%;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.logoDiv img{
+ 	   		margin-left: 30px;
+ 	   		max-width: 50px;
+ 	   		max-height: 50px;
+ 	   	}
+ 	   	.logoDiv div{
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   		font-family: 'EB Garamond', serif;
+ 	   	}
+ 	   	.logoDiv div span:nth-child(1){
+ 	   		font-size: 15px;
+ 	   		color: #fff;
+ 	   	}
+ 	   	.logoDiv div span:nth-child(2){
+ 	   		font-size: 15px;
+ 	   		color: #F6A323;
+ 	   		margin-top: -4px;
+ 	   	}
+ 	   	.menuContainer{
+ 	   		width: 65%;
+ 	   		height: 100%;
+ 	   		display: flex;
+ 	   		justify-content: space-around;
+ 	   		align-items: center;
+ 	   		flex-wrap: wrap;
+ 	   	}
+ 	   	.menuContainer div{
+ 	   		width: 15%;
+ 	   		height: 100%;
+ 	   		color: #fff;
+ 	   		cursor: pointer;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		font-family: 'EB Garamond', serif;
+ 	   	}
+ 	   	.ourinfoContainer{
+ 	   		margin-left: 90px;
+ 	   		width: 80%;
+ 	   		height: 300px;
+ 	   		position: absolute;
+ 	   		bottom: 20%;
+ 	   	}
+ 	   	.ourinfoContainer div{
+ 	   		width: 50%;
+ 	   		height: auto;
+ 	   		font-size: 36px;
+ 	   		color: #efefef;
+ 	   		word-break: break-word;
+ 	   		font-weight: bold;
+ 	   		line-height: 70px;
+ 	   		font-family: 'EB Garamond', serif;
+ 	   		-webkit-animation-name: slideInLeft;
+			  animation-name: slideInLeft;
+			  -webkit-animation-fill-mode: both;
+			  animation-fill-mode: both;
+ 	   	}
+ 	   	.ourinfoContainer div:nth-child(1){
+ 	   		transition: 1s;
+ 	   		-webkit-animation-duration: 1s;
+			  animation-duration: 1s;
+ 	   	}
+ 	   	.ourinfoContainer div:nth-child(2){
+ 	   		transition: 1.8s;
+ 	   		-webkit-animation-duration: 1.8s;
+			  animation-duration: 1.8s;
+ 	   	}
+ 	   	 @-webkit-keyframes slideInLeft {
+			0% {
+				-webkit-transform: translateX(-100%);
+				transform: translateX(-100%);
+				visibility: visible;
+			}
+			100% {
+				-webkit-transform: translateX(0);
+				transform: translateX(0);
+			}
+		}
+		@keyframes slideInLeft {
+		  0% {
+			  -webkit-transform: translateX(-100%);
+			  transform: translateX(-100%);
+			  visibility: visible;
+		  }
+		  100% {
+			  -webkit-transform: translateX(0);
+			  transform: translateX(0);
+		  }
+ 		 }
+ 	   	.ourservicesContainer{
+ 	   		width: 100%;
+ 	   		height: 400px;
+ 	   		background-color: #fff;
+ 	   		font-family: 'EB Garamond', serif;
+ 	   		position: relative;
+ 	   	}
+ 	   	.ourservicesTransContainer{
+ 	   		width: 100%;
+ 	   		height: 850px;
+ 	   		background-color: #fff;
+ 	   		font-family: 'EB Garamond', serif;
+ 	   		position: relative;
+ 	   	}
+ 	   	.ourPrtnerContainer , .ourcompanystaffContainer{
+ 	   		width: 100%;
+ 	   		height: auto;
+ 	   		margin-top: 15px;
+ 	   		background-color: #fff;
+ 	   		display: flex;
+ 	   		justify-content: space-around;
+ 	   		align-items: center;
+ 	   		flex-wrap: wrap;
+ 	   		position: relative;
+ 	   	}
+ 	   	.ourPrtnerContainer div{
+ 	   		width: 25%;
+ 	   		height: 130px;
+ 	   		margin: 10px;
+ 	   		background-color: #F6F6F6;
+ 	   		border-radius: 5px;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		cursor: pointer;
+ 	   		font-size: 20px;
+ 	   		color:gray;font-weight: blod;
+ 	   	}
+ 	   	.ourcompanystaffContainer{
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.staffcontainer{
+ 	   		width: 28%;
+ 	   		height: 350px;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   		margin: 10px;
+ 	   		background-color: #fefefe;
+ 	   		border-radius: 5px;
+ 	   		box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+ 	   		background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='400' height='359' preserveAspectRatio='none' viewBox='0 0 400 359'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1017%26quot%3b)' fill='none'%3e%3crect width='400' height='359' x='0' y='0' fill='rgba(30%2c 43%2c 122%2c 1)'%3e%3c/rect%3e%3cpath d='M0%2c152.32C28.234%2c147.958%2c54.366%2c137.432%2c78.158%2c121.616C101.653%2c105.998%2c122.019%2c86.632%2c135.827%2c62.03C150.499%2c35.89%2c160.487%2c7.051%2c159.271%2c-22.9C157.976%2c-54.781%2c151.598%2c-89.286%2c128.776%2c-111.585C106.356%2c-133.491%2c70.925%2c-130.302%2c40.732%2c-138.722C11.041%2c-147.002%2c-16.823%2c-166.046%2c-47.172%2c-160.655C-78.7%2c-155.055%2c-107.916%2c-135.593%2c-125.93%2c-109.119C-143.188%2c-83.757%2c-135.249%2c-50.292%2c-142.543%2c-20.495C-150.894%2c13.618%2c-181.296%2c44.656%2c-171.853%2c78.483C-162.373%2c112.442%2c-127.781%2c134.507%2c-95.387%2c148.425C-65.545%2c161.247%2c-32.099%2c157.279%2c0%2c152.32' fill='%23182262'%3e%3c/path%3e%3cpath d='M400 540.154C433.963 539.365 467.712 526.355 492.908 503.568 516.356 482.36199999999997 521.024 449.002 533.094 419.782 544.657 391.788 568.784 365.248 562.259 335.671 555.7529999999999 306.18 520.602 294.453 500.476 271.937 480.769 249.89 471.209 219.012 445.278 204.798 416.569 189.061 382.646 184.812 350.258 189.594 314.89 194.816 277.086 205.212 254.541 232.959 232.157 260.508 228.027 299.627 232.214 334.876 235.901 365.917 264.21000000000004 386.669 276.225 415.526 288.856 445.86199999999997 281.121 484.632 304.277 507.948 328.49 532.328 365.648 540.952 400 540.154' fill='%23243492'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1017'%3e%3crect width='400' height='359' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+ 	   		background-size: 100% 100%;
+ 	   		background-position: center center;
+ 	   	}
+ 	   	.staffcontainer div:nth-child(1){ /*U Nyan Lwin Aung (CEO)*/
+ 	   		width: 100%;
+ 	   		height: 70%;
+ 	   		background-color: #F4F5F5;
+ 	   		clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 99% 73%, 49% 100%, 0 75%, 0% 75%);
+ 	   		/*background-image: url(img/profile/CEO.jpg);
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: 100% 100%;
+ 	   		background-position: center center;*/
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.staffcontainer div:nth-child(1) img{
+ 	   		width: 200px;
+ 	   		height: 200px;
+ 	   		border-radius: 50%;
+ 	   	}
+ 	   	.staffcontainer div:nth-child(2){
+ 	   		width: 100%;
+ 	   		height: 30%;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   		color: #fefefe;
+ 	   		font-size: 14px;
+ 	   		font-weight: bold;
+ 	   	}
+ 	   	/* #06B; */
+ 	   	.infoTitle{
+ 	   		width: 100%;
+ 	   		height: 50px;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		font-size: 16px;
+ 	   		font-weight: bold;
+ 	   		color: #000;
+ 	   		margin: 0 0 20px;
+ 	   		line-height: 1.15;
+ 	   		font-weight: bold;
+ 	   	}
+ 	   	.showTitleContainer{
+ 	   		width: 100%;
+ 	   		height: auto;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		text-align: left;
+ 	   		font-size: 13px;
+ 	   	}
+ 	   	.showTitleResult{
+ 	   		width: 60%;
+ 	   		height: auto;
+ 	   	}
+ 	   	.readMoreDiv{
+ 	   		width: 150px;
+ 	   		height: 50px;
+ 	   		margin-top: 30px;
+ 	   		cursor: pointer;
+ 	   		background-image: url(img/logo/readmoreTwo.png);
+ 	   		background-repeat: no-repeat;
+ 	   		background-position: left;
+ 	   		background-size: 35px 35px;
+ 	   		text-align: center;
+ 	   		box-sizing: border-box;
+ 	   		padding-top: 16px;
+ 	   		padding-left: 10px;
+ 	   		color: #172362;font-size: 13px;font-weight: 600;
+ 	   	}
+ 	   	.transLayoutContainer{
+ 	   		width: 100%;
+ 	   		height: 400px;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-wrap: wrap;
+ 	   	}
+ 	   	.transLayout{
+ 	   		width: 90%;
+ 	   		height: 400px;
+ 	   		background-color: #1F2B7A;
+ 	   		display: flex;
+ 	   		justify-content: space-around;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.trasImgLeft , .trasImgRight{
+ 	   		width: 70%;
+ 	   		height: 400px;
+ 	   		background-color: #f6f6f6;
+ 	   	}
+ 	   	.trasImgLeft{
+ 	   		background-image:url(img/product/299-2992500_kflt2-fuel-lube-truck-on-a-peterbilt-mine.png);
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: cover;
+ 	   		background-position: left;
+ 	   		background-color: #1F2B7A;
+ 	   	}
+ 	   	.trasImgRight{
+ 	   		background-image:url(img/product/217-2176722_truck-hd-png-download.png);
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: contain;
+ 	   		background-position: right;
+ 	   	}
+ 	   	.transImgInfo{
+ 	   		width: 30%;
+ 	   		height: 400px;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   		color: #efefef;
+ 	   		text-align: left;
+ 	   	}
+ 	   	.trasImgLeft{
+ 	   		clip-path: polygon(0 0, 83% 0, 100% 100%, 0% 100%);
+ 	   	}
+ 	   	.trasImgRight{
+ 	   		clip-path: polygon(0 0, 100% 0, 100% 100%, 18% 100%);
+ 	   	}
+ 	   	.companyFooterContainer{
+ 	   		width: 100%;
+ 	   		height: auto;
+ 	   		background-color: #fff;
+ 	   		display: flex;
+ 	   		justify-content: space-between;
+ 	   		flex-wrap: wrap;
+ 	   		align-items: center;
+ 	   		box-sizing: border-box;
+ 	   	}
+ 	   	.footerInfoContainer{
+ 	   		width: 65%;
+ 	   		height: 300px;
+ 	   		background-color: #fff;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   	}
+ 	   	.contactlogo{
+ 	   		width: 100%;
+ 	   		height: 100px;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.contactlogo img{
+ 	   		max-width: 50px;
+ 	   		max-height: 50px;
+ 	   		margin-left: 10px;
+ 	   	}
+ 	   	.contactlogo div{
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   		font-family: 'EB Garamond', serif;
+ 	   	}
+ 	   	.contactlogo div span:nth-child(1){
+ 	   		font-size: 15px;
+ 	   		color: #000;
+ 	   	}
+ 	   	.contactlogo div span:nth-child(2){
+ 	   		font-size: 15px;
+ 	   		color: #F6A323;
+ 	   		margin-top: -2px;
+ 	   	}
+ 	   	.contactContainer{
+ 	   		width: 100%;
+ 	   		height: 100px;
+ 	   		display: flex;
+ 	   		justify-content: space-between;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.contactContainer div{
+ 	   		width: 32%;
+ 	   		height: 90%;
+ 	   		border-radius: 5px;
+ 	   		background-color: #F6F6F6;
+ 	   		margin-left: 1%;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   	}
+ 	   	.contactContainer div span:nth-child(1){
+ 	   		color: gray;font-size: 12px;
+ 	   	}
+ 	   	.contactContainer div span:nth-child(2){
+ 	   		color: #4F5457;font-size: 12px;
+ 	   	}
+ 	   	.addressContainer{
+ 	   		width: 100%;
+ 	   		height: 60px;
+ 	   		margin-left: 10px;
+ 	   		background-color: #F6F6F6;
+ 	   		border-radius: 5px;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   	}
+ 	   	.addressContainer span:nth-child(1){
+ 	   		color: gray;font-size: 12px;
+ 	   	}.addressContainer span:nth-child(2){
+ 	   		color: #4F5457;
+ 	   		font-size: 12px;
+ 	   	}
+ 	   	.subFooterContainer{
+ 	   		width: 35%;
+ 	   		height: 300px;
+ 	   		background-image: linear-gradient(55deg, rgba(30, 43, 122, 0.5), transparent), linear-gradient(180deg, rgba(30, 43, 122, 0.6), transparent), url('img/product/solar-and-wind-turbine.jpeg');
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: cover;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		position: relative;
+ 	   		clip-path: polygon(0 0, 100% 0%, 100% 100%, 20% 100%);
+ 	   	}
+ 	   	.subscripberDiv{
+ 	   		width: 400px;
+ 	   		height: 50px;
+ 	   		margin-left: 20px;
+ 	   		background: rgba(0,0,0,0.7);
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.subscripberDiv input[type=text]{
+ 	   		width: 70%;
+ 	   		height: 100%;
+ 	   		border: none;
+ 	   		outline: none;
+ 	   		padding-left: 15px;
+ 	   		box-sizing: border-box;
+ 	   	}
+ 	   	.subscripberDiv input[type=button]{
+ 	   		width: 30%;
+ 	   		height: 100%;
+ 	   		box-sizing: border-box;
+ 	   		color: #efefef;
+ 	   		padding: 6px;
+ 	   		text-align: center;
+ 	   		background-color: #1E2B7A;
+ 	   		border: none;
+ 	   		outline: none;
+ 	   		cursor: pointer;
+ 	   	}
+ 	   	.copyRightContainer{
+ 	   		width: 100%;
+ 	   		height: 20px;
+ 	   		border-radius: 5px;
+ 	   		background-color: #F6F6F6;
+ 	   		color: #4F5457;
+ 	   		font-size: 12px;
+ 	   		font-weight: bold;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	@media only screen and (max-width:1400px){
+ 	   		
+ 	   	}
+ 	   	@media only screen and (max-width: 1011px) and (min-width: 901px){
+ 	   		
+ 	   	}
+ 	   	@media only screen and (max-width:900px){
+ 	   		.ourinfoContainer div{
+ 	   			width: 70%;
+ 	   		}
+ 	   		.menuContainer div{
+ 	   			width: 15%;
+ 	   		}
+ 	   		.subscripberDiv{
+ 	   			width: 300px;
+ 	   			margin-left: 30px;
+ 	   		}
+		}
+		@media only screen and (max-width: 749px) and (min-width: 700px){
+			.headingmtaContainerHolder{
+				justify-content: flex-start;
+				flex-direction: column;
+				height: auto;
+			}
+			.logoDiv{
+				width: 100%;
+				height: 40px;
+			}
+			.menuContainer{
+				width: 100%;
+				height: auto;
+				margin-top: 15px;
+			}
+			.menuContainer div{
+				width: 10%;
+				margin-top: 20px;
+			}
+			.logoDiv img{
+				margin-left: 5px;
+			}
+		}
+		@media only screen and (max-width: 699px) and (min-width: 451px){
+			.headingmtaContainerHolder{
+				flex-direction: column;
+				height: auto;
+			}
+			.logoDiv{
+				width: 100%;
+				height: 40px;
+			}
+			.menuContainer{
+				width: 100%;
+				height: 40px;
+			}
+			.ourinfoContainer{
+				margin-left: 20px;
+			}
+			.ourinfoContainer div{
+				font-size: 20px;
+				line-height: 50px;
+			}
+		}
+		@media only screen and (max-width: 449px){
+			.headingmtaContainerHolder{
+				flex-direction: column;
+				height: auto;
+			}
+			.logoDiv{
+				width: 100%;
+			}
+			.logoDiv img{
+				margin-left: 0px;
+			}
+			.menuContainer{
+				width: 99%;
+				justify-content: flex-start;
+			}
+			.menuContainer div{
+				width: 30%;
+				margin-top: 15px;
+			}
+			.ourinfoContainer{
+				margin-left: 10px;
+			}
+			.ourinfoContainer div:nth-child(1){
+				width: 100%;
+			}
+			.ourinfoContainer div{
+				width: 90%;
+				font-size: 20px;
+				line-height: 40px;
+			}
+			.transLayout{
+				flex-direction: column;
+			}
+			.trasImgLeft , .trasImgRight{
+				width: 100%;
+			}
+			.transImgInfo{
+				width: 100%;
+			}
+			.transLayoutContainer{
+				margin-top: 15px;
+			}
+			.ourPrtnerContainer div{
+				font-size: 11px;
+			}
+			.ourcompanystaffContainer , .companyFooterContainer{
+				flex-direction: column;
+			}
+			.staffcontainer , .footerInfoContainer , .subFooterContainer{
+				width: 100%;
+			}
+		}
+ 	   </style>
+ 	   </head>
+	<body>
+		<div class="containermta" id="containermta">
+			<div class="headingmtaContainer">
+				<div class="headingmtaContainerHolder" id='headingmtaContainerHolder'>
+					<div class="logoDiv">
+						<img src="img/logo/NG-Energy-2.png">
+						<div>
+							<span>NORTHGATE</span>
+							<span>ENERGY</span>
+						</div>
+					</div>
+					<div class="menuContainer">
+						<div>OurCompany</div>
+						<div>Products</div>
+						<div>Sustainability</div>
+						<div>Investors</div>
+						<div>Jobseekers</div>
+						<div>Contact</div>
+					</div>
+				</div>
+				<div class="ourinfoContainer">
+					<div>We Buy , Transports , Store, </div>
+					<div> Blend and Delivers Oil around Country.</div>
+				</div>
+			</div>
+			<div class="ourservicesContainer">
+				<div class="infoTitle"><span style="width:30px;height:4px;background-color:#172362;border-radius: 5px;"></span><h2>PRODUCTS</h2><span style="width:30px;height:4px;background-color:#172362;border-radius: 5px;"></span></div>
+				<div class="showTitleContainer">
+					<div class="showTitleResult">
+					Fuels and fuel products include gasoline, diesel oil, coal, fossil fuels, biofuels, natural gases such as butane and propane, and other combustible fluids or materials. They are used mainly in the aviation, marine, and automotive industries. Most fuels and fuel products are supplied, refined and distributed by different organizations. In the United States, trade organizations such as the Independent Petroleum Association of America (IPAA) represent independent crude oil and natural gas exploration and production companies. Regulatory agencies include the U.S. Environmental Protection Agency (EPA), the Federal Energy Regulatory Commission (FERC), the Department of Transportation (DOT) and the Occupational Safety and Health Administration (OSHA). <br> 
+					<div class="readMoreDiv"> READ MORE</div></div>
+				</div>
+			</div>
+			<div class="ourservicesTransContainer">
+				<div class="infoTitle"><span style="width:30px;height:4px;background-color:#172362;border-radius: 5px;"></span><h2>FUEL TRANSPORT SERVICES</h2><span style="width:30px;height:4px;background-color:#172362;border-radius: 5px;"></span></div>
+				<div class="transLayoutContainer">
+					<div class="transLayout">
+						<div class="trasImgLeft"></div>
+						<div class="transImgInfo">
+							<h3 style="border-bottom: 2px solid rgba(255,255,255,0.7);padding: 6px;">Transport Trucks</h3>
+							<p>Waring Oil provides large and small fuel load delivery services by transport and bobtail trucks across Mississippi, Louisiana, Alabama, and the Florida Panhandle.</p>
+							<p>Our fuel transport trucks deliver up to 8800 gallons.</p>
+						</div>
+					</div>
+				</div>
+				<div class="transLayoutContainer">
+					<div class="transLayout">
+						<div class="transImgInfo">
+							<h3 style="border-bottom: 2px solid rgba(255,255,255,0.7);padding: 6px;">Bobtail Trucks</h3>
+							<p>For a fuel sales or a quote on fuel transportation services, please contact your nearest sales representative.</p>
+							<p>Our bobtail fuel transport trucks delivery up to 4500 gallons.</p>
+						</div>
+						<div class="trasImgRight"></div>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="infoTitle" style="font-family: 'EB Garamond', serif;"><span style="width:30px;height:4px;background-color:#172362;border-radius: 5px;"></span><h2>OUR PARTNERS</h2><span style="width:30px;height:4px;background-color:#172362;border-radius: 5px;"></span></div>
+			<div class="ourPrtnerContainer">
+				<div>PARTNER LOGO</div>
+				<div>PARTNER LOGO</div>
+				<div>PARTNER LOGO</div>
+				<div>PARTNER LOGO</div>
+				<div>PARTNER LOGO</div>
+				<div>PARTNER LOGO</div>
+			</div>
+			<br>
+			<div class="infoTitle" style="font-family: 'EB Garamond', serif;"><span style="width:30px;height:4px;background-color:#172362;border-radius: 5px;"></span><h2>BOARD OF DIRECTORS</h2><br><span style="width:30px;height:4px;background-color:#172362;border-radius: 5px;"></span></div>
+			<div class="ourcompanystaffContainer">
+				<div class="staffcontainer">
+					<div>
+						<img src="img/profile/U_Nyan_Lwin_Aung__CEO_-removebg.png">
+					</div>
+					<div><span>U NYAN LWIN AUNG</span><span>CEO</span></div>
+				</div>
+				<div class="staffcontainer">
+					<div><img src="img/profile/Daw_Lei_Lei_Khine__Director_-removebg-preview.png"></div>
+					<div>
+						<span>DAW LEI LEI KHINE</span>
+						<span>Director</span>
+					</div>
+				</div>
+				<div class="staffcontainer">
+					<div><img src="img/profile/U_Nyo_Tun_Aung__Managing_Director_-removebg-preview.png"></div>
+					<div>
+						<span>U NYO TUN AUNG</span>
+						<span>Managing Director</span>
+					</div>
+				</div>
+			</div>
+			<div class="companyFooterContainer">
+				<div class="footerInfoContainer">
+					<div class="contactlogo">
+						<img src="img/logo/NG-Energy-2.png">
+						<div>
+							<span>NORTHGATE</span>
+							<span>ENERGY</span>
+						</div>
+					</div>
+					<span style="text-align: left;">CONTACT US</span>
+					<div class="contactContainer">
+						<div>
+							<span>Telephone Number</span>
+							<span>+95-9 428 263 77</span>
+						</div>
+						<div>
+							<span>FAX Number</span>
+							<span>+95954O08</span>
+						</div>
+						<div>
+							<span>email</span>
+							<span>info@norgate-energy.com</span>
+						</div>
+					</div>
+					<div class="addressContainer">
+						<span>Address</span>
+						<span>
+								NO. 17› KYAUK MYAUNG STREET, TAMWE TOWNSHIP,
+								YANGON, REPUBLIC OF THE UNION OF MYANMAR
+						</span>
+					</div>
+				</div>
+				<div class="subFooterContainer">
+					<div class="subscripberDiv">
+						<input type="text" name="email" placeholder="your email address">
+						<input type="button" name="submit" value="SUBSCRIBE">
+					</div>
+				</div>
+			</div>
+			<div class="copyRightContainer">2022@copyright NORTHGATE ENERGY All rights reserved.</div>
+		</div>
+	<script type="text/javascript">
+		const scrollhandle = document.getElementById('containermta');
+		const headerStyle = document.getElementById('headingmtaContainerHolder');
+		scrollhandle.addEventListener('scroll', function() {
+		  var scrollTop = scrollhandle.scrollTop;scrollTop > 20 ? headerStyle.classList.add("fade-in") : headerStyle.classList.remove("fade-in");;
+		});
+		function topFunction() { scrollhandle.scrollTop = 0;}
+	</script>
+ </body>
+</html>
