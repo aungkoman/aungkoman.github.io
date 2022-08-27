@@ -16,6 +16,17 @@
  	   		 width:100vw;height:100vh;background-color: #F6F7FB;position: relative;overflow-x:hidden;overflow-y: scroll;
  	   		 scroll-behavior: smooth;-ms-overflow-style: none; scrollbar-width: none;
  	   	}
+ 	   	.containermta::-webkit-scrollbar {width: 7px; height:1px;transition:all .5s}
+		.containermta::-webkit-scrollbar-track {
+			background: -webkit-gradient(linear, center top, center bottom, from(#ededed), to(#fff));
+			background-image: linear-gradient(#ededed, #fff);
+			box-shadow: inset 0px 0px 3px 3px rgba(0,0,0,0.1)
+			border-radius:15px;
+		}
+		.containermta::-webkit-scrollbar-thumb {
+			background-color:#a3abb1;
+			border-radius:15px;
+		}
  	   .headingmta{
  	   		width:100vw; height: 60px; background-color:#fff; border:1px solid rgba(150,151,160,0.2); 
  	   		display: flex;justify-content: center; flex-direction: row; position: sticky; top: 0; z-index: 3;  
@@ -91,6 +102,15 @@
  	   		display: flex;
  	   		justify-content: center;
  	   		align-items: center;
+ 	   	}
+ 	   	.covercontainervideomta{
+ 	   		width: 100%;
+ 	   		height: 500px;
+ 	   	}
+ 	   	.covercontainervideomta video{
+ 	   		width: 100%;
+ 	   		height: 100%;
+ 	   		object-fit: cover;
  	   	}
  	   	.coverdesInfo{
  	   		width: 50%;
@@ -858,6 +878,9 @@
     		</div>
     		<div>ENGINEERING & TECHNOLOGY</div>
     	</div>
+    </div>
+    <div class="covercontainervideomta">
+    	<video src="CATEGO/Banner_Video.mp4" id='myVideoOne' autoplay muted ></video>
     </div> 
     <div class="desAboutUsContainer" id='desAboutUsContainer'>
     	<div class="aboutusCover"></div>
@@ -972,6 +995,10 @@
 	</script>
 	<script type="text/javascript">
 		const scrollhandle = document.getElementById('containermta');
+		const videoSlide = document.getElementById('myVideoOne');
+		videoSlide.onended = function(){
+			videoSlide.play();
+		}
 		scrollhandle.addEventListener('scroll', function() {
 		  var scrollTop = scrollhandle.scrollTop;scrollTop > 30 ? document.getElementById("gototop").style.display = "block" : document.getElementById("gototop").style.display = "none";
 		});
