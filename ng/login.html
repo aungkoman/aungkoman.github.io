@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>NG Login Page</title>
+	<meta charset="utf-8" http-equiv="X-UA-Compatible" content="IE=edge">
+ 	<meta name= "viewport"  content= "width=device-width,initial-scale=1.0">
+ 	<link rel='shortcut icon' type='image/x-icon' sizes='16x16 32x32 48x48 64x64' href= "logo/North Gate Engineering Logo.png" >
+ 	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<style type= "text/css">
+ 	   html ,body{ margin:0; padding: 0; box-sizing: border-box;}  
+ 	   *{ box-sizing: border-box;}   
+ 	   .containermta{
+ 	   		 width:100vw;height:100vh;background-color: #F6F7FB;position: relative;
+ 	   		 background-image: url(CATEGO/MayaHTT_image.jpg);
+		    background-repeat: no-repeat;
+		    background-size: cover;
+		    background-attachment: fixed;
+		    background-position: center;
+ 	   	}
+ 	   	.containerheader{
+ 	   		width: 100%;
+ 	   		height: 80px;
+ 	   		background-color: rgba(0, 0, 0, 0.9);
+ 	   		font-size: 14px;
+ 	   		font-family: 'Roboto', sans-serif;font-weight:bold;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   		/*border-bottom: 2px solid rgba(255,255,255,0.7);*/
+ 	   	}
+ 	   	.containerheader div{
+ 	   		width: max-content;
+ 	   		height: max-content;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   		color: #efefef;font-weight: bold;
+ 	   		margin-left: 15px;
+ 	   	}
+ 	   	.logoNG{
+ 	   		max-width: 60px;
+ 	   		max-height: 60px;
+ 	   		margin-left: 20px;
+ 	   	}
+ 	   	.containerloginimage{
+ 	   		background-color: rgba(0,0,0,0.8);
+ 	   		width: 100%;
+ 	   		height: calc(100% - 80px);
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.loginformDiv{
+ 	   		width: 500px;
+ 	   		height: 550px;
+ 	   		margin-left: 40px;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   	}
+ 	   	.loader{
+ 	   		width: 25px;height: 25px;display: none;
+ 	   	}
+ 	   	h2{
+ 	   		color: #efefef;
+ 	   		font-weight: bold;
+ 	   	}
+ 	   	.inputClsMTA{
+ 	   		width: 300px;
+ 	   		height: 45px;
+ 	   		border: 1px solid rgba(255, 255, 255, 0.7);
+ 	   		outline: none;
+ 	   		color: #efefef;
+ 	   		border-radius: 5px;
+ 	   		background: inherit;
+ 	   		padding-left: 45px;
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: 38px 38px;
+ 	   		background-position: left;
+ 	   	}
+ 	   	.inputBtnMTA{
+ 	   		width: 300px;
+ 	   		height: 45px;
+ 	   		margin-top: 15px;
+ 	   		border: none;
+ 	   		outline: none;
+ 	   		background-color: rgba(22, 72, 210, 0.7);
+ 	   		color: #efefef;
+ 	   		cursor: pointer;
+ 	   		border-radius: 5px;
+ 	   	}
+ 	   	.copyright{
+ 	   		width: 100%;
+ 	   		height: 20px;
+ 	   		background: rgba(0, 0, 0, 0.7);
+ 	   		position: absolute;
+ 	   		bottom: 0;
+ 	   		font-size: 12px;
+ 	   		color:#efefef;
+ 	   		box-sizing: border-box;
+ 	   		padding-left: 20px;
+ 	   	}
+ 	</style>
+</head>
+<body>
+	<div class="containermta">
+		<div class="containerheader">
+			<img src="logo/North Gate Engineering Logo.png" class="logoNG">
+			<div>
+				<span>NORTH GATE</span>
+				<span>ENGINNERING & THECHNOLOGY</span>
+			</div>
+		</div>
+		<div class="containerloginimage">
+			<form class="loginformDiv" id='loginForm' autocomplete="off">
+				<h2>SIGNIN FORM</h2>
+				<input type="text" name="email" placeholder="username" class="inputClsMTA" style="background-image: url('logo/user.png');" required >
+				<br>
+				<input type="password" name="password" placeholder="password" class="inputClsMTA" style="background-image: url('logo/password.png');" required >
+				<br>
+				<img src="logo/loader.gif" class="loader" id='loader'>
+				<input type="submit" name="username" value="LOGIN" class="inputBtnMTA">
+			</form>
+		</div>
+		<div class="copyright">2022@copyright NORTHGATE All rights reserved.</div>
+	</div>
+	<script type="text/javascript">
+		const formData = document.getElementById('loginForm');const api = "https://mmsoftware100.com/nge/public/api/v1/login";var result="INITIALIZED";const loadHandle = document.getElementById('loader');
+		formData.addEventListener("submit" , function(e){
+			e.preventDefault();
+			loadHandle.style.display = 'block';
+			var requestData  = new FormData(formData);
+			requestAuthApiFun(api , requestData);
+		});
+		async function requestAuthApiFun(api , requestData){
+			const req = await fetch(api , {
+				method:"POST",
+				body : requestData
+			});
+			const extRes = await req.json();
+			if(extRes.status=="success"){window.location.replace("ngpanel.html?xxruysc="+extRes.data.access_token);
+			}else{loadHandle.style.display = 'none' ; window.alert("PERMISION DENIED!!");}
+		}
+	</script>
+</body>
+</html>
