@@ -1018,16 +1018,11 @@
     	</div>
     </div>
     <div class="listingContainer" id='listingContainer'></div>
-    <div class="serviceHeader" id='serviceHeader'><div>LED LIGHTING</div><div></div></div>
+    <div class="serviceHeader" id='serviceHeader'><div></div><div></div></div>
     <div class="listingCover">
     	<div class="listingResult" id="listingResult">
     		
     	</div>
-    </div>
-    <div class="serviceHeader" id='serviceHeader'><div>RELATED FEATURES</div><div></div></div>
-    <br>
-    <div class="amazingContainer" id='amazingContainer'>
-    	<div class="loadAmazContainer"><img src="logo/loader.gif"></div>
     </div>
     <br>
     <div class="footerContainer" id="footerContainer">
@@ -1076,66 +1071,49 @@
     	</div>
     </div>
 </div>
- 	<script type="text/javascript"  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
+	<script type="text/javascript"  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
 	<script type='text/javascript'>
-	  (function($) {
-	  	$(".searchContainer").hide();
-	  	$(document).on("click","#searchBtn",function(){
-			$(".searchContainer").show();
-		});
-		$(document).on("click",".exitDiv",function(){
-			$(".searchContainer").hide();
-		});
-		$(document).on("click",".menuarea",function(){
-			$(".mobileContainer").show();
-		});
-		$(document).on("click",".closeMobileMenu",function(){
-			$(".mobileContainer").hide();
-		});
-		$(document).on("click",".mobileContainerMenuDiv a",function(){
-			$(".mobileContainer").hide();
-		});
-		$(document).on("click" , ".readAmazing" ,function(){
-			var listingId = $(this).attr('id');
-			var title = $(this).parent().parent().find(".amazingText").text();
-			var brief = $(this).parent().find('#hidAmazBrief').val();
-			var detail = $(this).parent().find("#hidAmaze").val();
-			var src = $(this).parent().css('background-image').replace('url(','').replace(')','').replace(/\"/gi, "");
-			window.location.replace('detailinfo.html?id='+listingId+'&title='+title+'&brief='+brief+'&detail='+detail+'&src='+src+'');
-		});
-	  	const api_url = "https://mmsoftware100.com/nge/public/api/v1/nge_post";
-	  	const scrollhandle = document.getElementById('containermta');
-	  	const layoutHandle = document.getElementById('gototop');
-	  	const listContainerBg = document.getElementById('listingContainer');
-	  	const listTitle = document.getElementById('serviceHeader');
-	  	const listDetail = document.getElementById('listingResult');
-	  	const amazContainer = document.getElementById('amazingContainer');
-	  	const chekAccess = new URLSearchParams(window.location.search);
-		if(chekAccess.has('id')){
-			if(chekAccess.get('id')!=""){
-				listContainerBg.style.backgroundImage = "url("+chekAccess.get('src')+")";
-				listTitle.innerText = chekAccess.get('title');
-				listDetail.innerText = chekAccess.get('detail');
-				goListiningDataByCate(api_url+"?nge_category_id="+chekAccess.get('id'));				
+		(function($) {
+		  	$(".searchContainer").hide();
+		  	$(document).on("click","#searchBtn",function(){
+				$(".searchContainer").show();
+			});
+			$(document).on("click",".exitDiv",function(){
+				$(".searchContainer").hide();
+			});
+			$(document).on("click",".menuarea",function(){
+				$(".mobileContainer").show();
+			});
+			$(document).on("click",".closeMobileMenu",function(){
+				$(".mobileContainer").hide();
+			});
+			$(document).on("click",".mobileContainerMenuDiv a",function(){
+				$(".mobileContainer").hide();
+			});
+		  	const api_url = "https://mmsoftware100.com/nge/public/api/v1/nge_post";
+		  	const scrollhandle = document.getElementById('containermta');
+		  	const layoutHandle = document.getElementById('gototop');
+		  	const listContainerBg = document.getElementById('listingContainer');
+		  	const listTitle = document.getElementById('serviceHeader');
+		  	const listDetail = document.getElementById('listingResult');
+		  	const amazContainer = document.getElementById('amazingContainer');
+		  	const chekAccess = new URLSearchParams(window.location.search);
+			if(chekAccess.has('id')){
+				if(chekAccess.get('id')!=""){
+					listContainerBg.style.backgroundImage = "url("+chekAccess.get('src')+")";
+					listTitle.innerText = chekAccess.get('title');
+					listDetail.innerHTML = chekAccess.get('brief')+"<br>"+chekAccess.get('detail');				
+				}else{
+					window.location.replace('login.html')
+				}
 			}else{
 				window.location.replace('login.html')
 			}
-		}else{
-			window.location.replace('login.html')
-		}
-		scrollhandle.addEventListener('scroll', function() {
-		  var scrollTop = scrollhandle.scrollTop;scrollTop > 30 ? document.getElementById("gototop").style.display = "block" : document.getElementById("gototop").style.display = "none";
-		});
-		layoutHandle.addEventListener("click" , ()=>{scrollhandle.scrollTop = 0;});
-	  	async function goListiningDataByCate(cate){
-	  		const response = await fetch(cate);
-			var rtData = await response.json();var combStr="";var imgUrl="";
-			for(var i=0 ; i < rtData.data.length ; i++){
-				combStr+="<div class='amazingCard'><div class='amazingText'>"+rtData.data[i].title+"</div><div class='amazingCover' style='background-image: url(https://mmsoftware100.com/nge/public/"+rtData.data[i].photo_url+" ')'><input type='hidden' id='hidAmazBrief' value='"+rtData.data[i].brief+"' /><input type='hidden' id='hidAmaze' value='"+rtData.data[i].description+"' /><div class='readAmazing' id='"+rtData.data[i].id+"'>LEARN MORE</div></div></div>";
-			}
-			amazContainer.innerHTML = combStr;
-	  	}
-	  }(jQuery));
+			scrollhandle.addEventListener('scroll', function() {
+			  var scrollTop = scrollhandle.scrollTop;scrollTop > 30 ? document.getElementById("gototop").style.display = "block" : document.getElementById("gototop").style.display = "none";
+			});
+			layoutHandle.addEventListener("click" , ()=>{scrollhandle.scrollTop = 0;});
+	    }(jQuery));
 	</script>
  </body> 
 </html>
