@@ -7,7 +7,7 @@
  	<link rel='shortcut icon' type='image/x-icon' sizes='16x16 32x32 48x48 64x64' href= "img/logo/NG-Energy.png" >
  	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
  	<style type= "text/css">
  	  /*standard color :0071FB */ 
  	   html ,body{ margin:0; padding: 0; box-sizing: border-box;}
@@ -72,7 +72,7 @@
  	   		justify-content: flex-start;
  	   		align-items: center;
  	   		flex-direction: column;
- 	   		font-family: 'EB Garamond', serif;
+ 	   		font-family: 'Roboto', sans-serif;
  	   	}
  	   	.logoDiv div span:nth-child(1){
  	   		font-size: 15px;
@@ -94,12 +94,17 @@
  	   	.menuContainer div{
  	   		width: 15%;
  	   		height: 100%;
+ 	   		font-size: 14px;
  	   		color: #fff;
  	   		cursor: pointer;
  	   		display: flex;
  	   		justify-content: center;
  	   		align-items: center;
- 	   		font-family: 'EB Garamond', serif;
+ 	   		font-family: 'Roboto', sans-serif;
+ 	   	}
+ 	   	.menuContainer div a{
+ 	   		text-decoration: none;
+ 	   		color: #fff;
  	   	}
  	   	.ourinfoContainer{
  	   		margin-left: 90px;
@@ -116,7 +121,7 @@
  	   		word-break: break-word;
  	   		font-weight: bold;
  	   		line-height: 70px;
- 	   		font-family: 'EB Garamond', serif;
+ 	   		font-family: 'Roboto', sans-serif;
  	   		-webkit-animation-name: slideInLeft;
 			  animation-name: slideInLeft;
 			  -webkit-animation-fill-mode: both;
@@ -158,14 +163,14 @@
  	   		width: 100%;
  	   		height: auto;
  	   		background-color: #fff;
- 	   		font-family: 'EB Garamond', serif;
+ 	   		font-family: 'Roboto', sans-serif;
  	   		position: relative;
  	   	}
  	   	.ourservicesTransContainer{
  	   		width: 100%;
  	   		height: auto;
  	   		background-color: #fff;
- 	   		font-family: 'EB Garamond', serif;
+ 	   		font-family: 'Roboto', sans-serif;
  	   		position: relative;
  	   	}
  	   	.ourPrtnerContainer , .ourcompanystaffContainer{
@@ -235,13 +240,16 @@
  	   		font-size: 18px;
  	   		color: #1900FF;
  	   	}
- 	   	.showTitleContainer{
+ 	   	.showTitleContainer , .showTitleContainerTwo{
  	   		width: 100%;
  	   		height: auto;
  	   		display: flex;
  	   		justify-content: center;
  	   		align-items: center;
  	   		flex-wrap: wrap-reverse;
+ 	   	}
+ 	   	.showTitleContainerTwo{
+ 	   		flex-wrap: wrap;
  	   	}
  	   	.companyInfo{
  	   		width: 40%;
@@ -256,11 +264,18 @@
  	   	}
  	   	.companyInfo p{
  	   		max-width: 80%;
+ 	   		font-size: 14px;
+ 	   		color: #4F5457;
+ 	   	}
+ 	   	#mission{
+ 	   		background-image: url('container/Our_Mission/Our_Mission.jpg');
+ 	   	}
+ 	   	#values{
+ 	   		background-image: url('container/Our_Values/Our_Values.jpg');
  	   	}
  	   	.companyInfoImg{
  	   		width: 40%;
  	   		height: 300px;
- 	   		background-image: url('img/cover/company-image1.jpeg');
  	   		background-repeat: no-repeat;
  	   		background-size: cover;
  	   		background-position: center;
@@ -369,26 +384,26 @@
  	   		justify-content: center;
  	   		align-items: center;
  	   		flex-direction: column;
- 	   		background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='400' height='359' preserveAspectRatio='none' viewBox='0 0 400 359'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1017%26quot%3b)' fill='none'%3e%3crect width='400' height='359' x='0' y='0' fill='rgba(30%2c 43%2c 122%2c 1)'%3e%3c/rect%3e%3cpath d='M0%2c152.32C28.234%2c147.958%2c54.366%2c137.432%2c78.158%2c121.616C101.653%2c105.998%2c122.019%2c86.632%2c135.827%2c62.03C150.499%2c35.89%2c160.487%2c7.051%2c159.271%2c-22.9C157.976%2c-54.781%2c151.598%2c-89.286%2c128.776%2c-111.585C106.356%2c-133.491%2c70.925%2c-130.302%2c40.732%2c-138.722C11.041%2c-147.002%2c-16.823%2c-166.046%2c-47.172%2c-160.655C-78.7%2c-155.055%2c-107.916%2c-135.593%2c-125.93%2c-109.119C-143.188%2c-83.757%2c-135.249%2c-50.292%2c-142.543%2c-20.495C-150.894%2c13.618%2c-181.296%2c44.656%2c-171.853%2c78.483C-162.373%2c112.442%2c-127.781%2c134.507%2c-95.387%2c148.425C-65.545%2c161.247%2c-32.099%2c157.279%2c0%2c152.32' fill='%23182262'%3e%3c/path%3e%3cpath d='M400 540.154C433.963 539.365 467.712 526.355 492.908 503.568 516.356 482.36199999999997 521.024 449.002 533.094 419.782 544.657 391.788 568.784 365.248 562.259 335.671 555.7529999999999 306.18 520.602 294.453 500.476 271.937 480.769 249.89 471.209 219.012 445.278 204.798 416.569 189.061 382.646 184.812 350.258 189.594 314.89 194.816 277.086 205.212 254.541 232.959 232.157 260.508 228.027 299.627 232.214 334.876 235.901 365.917 264.21000000000004 386.669 276.225 415.526 288.856 445.86199999999997 281.121 484.632 304.277 507.948 328.49 532.328 365.648 540.952 400 540.154' fill='%23243492'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1017'%3e%3crect width='400' height='359' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+ 	   		/*background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='400' height='359' preserveAspectRatio='none' viewBox='0 0 400 359'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1017%26quot%3b)' fill='none'%3e%3crect width='400' height='359' x='0' y='0' fill='rgba(30%2c 43%2c 122%2c 1)'%3e%3c/rect%3e%3cpath d='M0%2c152.32C28.234%2c147.958%2c54.366%2c137.432%2c78.158%2c121.616C101.653%2c105.998%2c122.019%2c86.632%2c135.827%2c62.03C150.499%2c35.89%2c160.487%2c7.051%2c159.271%2c-22.9C157.976%2c-54.781%2c151.598%2c-89.286%2c128.776%2c-111.585C106.356%2c-133.491%2c70.925%2c-130.302%2c40.732%2c-138.722C11.041%2c-147.002%2c-16.823%2c-166.046%2c-47.172%2c-160.655C-78.7%2c-155.055%2c-107.916%2c-135.593%2c-125.93%2c-109.119C-143.188%2c-83.757%2c-135.249%2c-50.292%2c-142.543%2c-20.495C-150.894%2c13.618%2c-181.296%2c44.656%2c-171.853%2c78.483C-162.373%2c112.442%2c-127.781%2c134.507%2c-95.387%2c148.425C-65.545%2c161.247%2c-32.099%2c157.279%2c0%2c152.32' fill='%23182262'%3e%3c/path%3e%3cpath d='M400 540.154C433.963 539.365 467.712 526.355 492.908 503.568 516.356 482.36199999999997 521.024 449.002 533.094 419.782 544.657 391.788 568.784 365.248 562.259 335.671 555.7529999999999 306.18 520.602 294.453 500.476 271.937 480.769 249.89 471.209 219.012 445.278 204.798 416.569 189.061 382.646 184.812 350.258 189.594 314.89 194.816 277.086 205.212 254.541 232.959 232.157 260.508 228.027 299.627 232.214 334.876 235.901 365.917 264.21000000000004 386.669 276.225 415.526 288.856 445.86199999999997 281.121 484.632 304.277 507.948 328.49 532.328 365.648 540.952 400 540.154' fill='%23243492'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1017'%3e%3crect width='400' height='359' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
  	   		background-size: 100% 100%;
- 	   		background-position: center center;
+ 	   		background-position: center center;*/
  	   	}
  	   	.serviceContainerInfoContainer div:nth-child(1){
  	   		width: 90%;
  	   		height: 40px;
  	   		text-align: center;
- 	   		color: #fff;
+ 	   		color: blue;
  	   		font-size: 21px;
  	   		font-weight: 800;
- 	   		font-family: 'EB Garamond', serif;
+ 	   		font-family: 'Roboto', sans-serif;
  	   	}
  	   	.serviceContainerInfoContainer div:nth-child(2) , .serviceContainerInfoContainer div:nth-child(3) ,.serviceContainerInfoContainer div:nth-child(4){
  	   		width: 70%;
  	   		height: auto;
  	   		margin: 15px;
  	   		line-height: 40px;
- 	   		color: #efefef;
- 	   		font-size: 13px;
+ 	   		color: #4F5457;
+ 	   		font-size: 14px;
  	   	}
  	   	.companyFooterContainer{
  	   		width: 100%;
@@ -426,7 +441,7 @@
  	   		justify-content: flex-start;
  	   		align-items: center;
  	   		flex-direction: column;
- 	   		font-family: 'EB Garamond', serif;
+ 	   		font-family: 'Roboto', sans-serif;
  	   	}
  	   	.contactlogo div span:nth-child(1){
  	   		font-size: 15px;
@@ -530,6 +545,15 @@
  	   		display: flex;
  	   		justify-content: center;
  	   		align-items: center;
+ 	   	}
+ 	   	.covercontainervideomta{
+ 	   		width: 100%;
+ 	   		height: 500px;
+ 	   	}
+ 	   	.covercontainervideomta video{
+ 	   		width: 100%;
+ 	   		height: 100%;
+ 	   		object-fit: cover;
  	   	}
  	   	@media only screen and (max-width:1400px){
  	   		
@@ -692,10 +716,10 @@
 						</div>
 					</div>
 					<div class="menuContainer">
-						<div>COMPANY</div>
-						<div>SERVICES</div>
-						<div>TECHNOLOGY</div>
-						<div>CONTACT</div>
+						<div><a href="index.html">COMPANY</a></div>
+						<div><a href="#serviceContainerInfoContainer">SERVICES</a></div>
+						<div><a href="#ourservicesTransContainer">TECHNOLOGY</a></div>
+						<div><a href="#contactUs">CONTACT</a></div>
 					</div>
 				</div>
 				<div class="ourinfoContainer">
@@ -703,19 +727,31 @@
 					<div> Blend and Delivers Oil around Country.</div>
 				</div>
 			</div>
+			<div class="covercontainervideomta">
+		    	<video src="../CATEGO/Banner_Video.mp4" id='myVideoOne' autoplay muted ></video>
+		    </div>
 			<div class="ourservicesContainer">
-				<div class="infoTitle"><!--<span style="width:30px;height:2px;background-color:#172362;border-radius: 5px;margin-right: 5px;"></span><h3>OUR COMPANY</h3><span style="width:30px;height:2px;margin-left: 5px;background-color:#172362;border-radius: 5px;"></span><--></div>
+				<div class="infoTitle"></div>
 				<div class="showTitleContainer">
 					<div class="companyInfo">
-						<h3>Interactively empower diverse imperatives after prospective convergence.</h3>
-						<p>Assertively productize efficient partnerships through customer directed supply chains. Continually maintain process-centric catalysts for change via backward compatible value.</p>
+						<h3 style="letter-spacing:6px;">OUR MISSION</h3>
+						<p>To be a better energy company by providing excellent services and solutions to our customers. As a responsible company, complying with corporate social responsibilities and focusing on delivering sustainable energy products that are more powerful on organization for the future growth</p>
 					</div>
-					<div class="companyInfoImg"></div>
+					<div class="companyInfoImg" id='mission'></div>
+				</div>
+				<br>
+				<div class="showTitleContainerTwo">
+					<div class="companyInfoImg" id='values'></div>
+					<div class="companyInfo" style='margin-left: 15px;'>
+						<h3 style="letter-spacing:6px;">OUR VALUES</h3>
+						<p>Our core values are with respect, integrity and honesty to our customers. As an innovation and growing energy company, operating in a challenging world, providing international standard of our services and highly appreciate in customer satisfaction.</p>
+					</div>
 				</div>
 			</div>
 			<br>
-			<div class="serviceContainerInfoContainer">
-				<div>OUR SERVICES</div>
+			<center><h3 style="color:blue;letter-spacing:6px;">OUR SERVICES</h3></center>
+			<div class="serviceContainerInfoContainer" id='serviceContainerInfoContainer'>
+				<div></div>
 				<div>Our Services
                      Our trading business unit commercially operates a strategically located global network of major infrastructure assets, including some of the newest, most efficient and best-in-class terminals in service today. We can do for our customers to supply, import, export and trade energy products. We are well providing and enhancing services for existing customers and new customers- maximizing use of the assets while operating to the highest standards, safely and responsibly.
 			    </div>
@@ -723,8 +759,8 @@
 			    <div>Our network of import, trading and transshipment terminals plays a critical role for our customers - from being a key part of the value chain supplying high growth energy markets, to providing storage capacity to facilitate global trade flows.</div>
 			</div>
 			<br>
-			<div class="ourservicesTransContainer">
-				<div class="infoTitle"><!--<span style="width:30px;height:2px;background-color:#172362;border-radius: 5px;margin-right: 5px;"></span><h3>OUR SERVICES</h3><span style="width:30px;height:2px;margin-left: 5px;background-color:#172362;border-radius: 5px;"></span>--></div>
+			<div class="ourservicesTransContainer" id='ourservicesTransContainer'>
+				<div class="infoTitle"></div>
 				<div class="transLayoutContainer">
 					<div class="serviceContainer">
 						<img src="img/cover/company-image1.jpeg">
@@ -745,16 +781,6 @@
 						<div>READ MORE</div>
 					</div>
 				</div>
-			</div>
-			<br>
-			<div class="infoTitle" style="font-family: 'EB Garamond', serif;"><h3>OUR PARTNERS</h3></div>
-			<div class="ourPrtnerContainer">
-				<div>PARTNER LOGO</div>
-				<div>PARTNER LOGO</div>
-				<div>PARTNER LOGO</div>
-				<div>PARTNER LOGO</div>
-				<div>PARTNER LOGO</div>
-				<div>PARTNER LOGO</div>
 			</div>
 			<br>
 			<div class="companyStatusContainer">
@@ -788,7 +814,7 @@
 				</div>
 			</div>
 			<br>
-			<div class="infoTitle" style="font-family: 'EB Garamond', serif;"><h3>OUR STRATEGIES & VALUES</h3></div>
+			<div class="infoTitle" style="font-family: 'Roboto', sans-serif;letter-spacing:6px;"><h3>OUR STRATEGIES</h3></div>
 			<div class="ourcompanystaffContainer">
 				<div class="staffcontainer">
 					<p>“ We focus on achieving operational excellence improving the management and control of existing assets; streamlining costs; and improving our value proposition to customers ”</p>
@@ -801,7 +827,13 @@
 				</div>
 			</div>
 			<br>
-			<div class="companyFooterContainer">
+			<center><h2 style="color:blue;letter-spacing:6px;">About Us</h2></center>
+			<div class="serviceContainerInfoContainer">
+				<div></div>
+				<div style='text-align: center;'>We, one of a leading group of energy companies, trade energy products from direct refineries and distribute wholesale and retail throughout the world. We have a highly trained and experienced team to provide new opportunities and highest value of quality services to our customers and intensive achievements to our communities.
+			    </div>
+			</div>
+			<div class="companyFooterContainer" id='contactUs'>
 				<div class="footerInfoContainer">
 					<div class="contactlogo">
 						<img src="img/logo/NG-Energy-2.png">
@@ -841,15 +873,18 @@
 				</div>
 			</div>
 			<div class="copyRightContainer">2022@copyright NORTHGATE ENERGY All rights reserved.</div>
-			<!--<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d875.6362816421147!2d96.17713382814675!3d16.798938736604313!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c1ed1a87bc7cf9%3A0x354af4334a34e602!2sNorth%20Gate%20Engineering%20%26%20Technology%20CO.%20Ltd!5e0!3m2!1sen!2ssg!4v1661400967920!5m2!1sen!2ssg" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>-->
 		</div>
 	<script type="text/javascript">
-		/*const scrollhandle = document.getElementById('containermta');
+		const scrollhandle = document.getElementById('containermta');
 		const headerStyle = document.getElementById('headingmtaContainerHolder');
+		const videoSlide = document.getElementById('myVideoOne');
+		videoSlide.onended = function(){
+			videoSlide.play();
+		}
 		scrollhandle.addEventListener('scroll', function() {
 		  var scrollTop = scrollhandle.scrollTop;scrollTop > 20 ? headerStyle.classList.add("fade-in") : headerStyle.classList.remove("fade-in");;
 		});
-		function topFunction() { scrollhandle.scrollTop = 0;}*/
+		function topFunction() { scrollhandle.scrollTop = 0;}
 	</script>
  </body>
 </html>
