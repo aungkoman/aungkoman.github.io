@@ -9,15 +9,46 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
  	<style type= "text/css">
- 	   html ,body{ margin:0; padding: 0; box-sizing: border-box;}  
- 	   *{ box-sizing: border-box;  }  
- 	   *{ box-sizing: border-box;  }  
- 	   .containermta{
- 	   		 width:100vw;height:100vh;background-color: #F6F7FB;position: relative;overflow-x:hidden;overflow-y: scroll;
- 	   		 scroll-behavior: smooth;-ms-overflow-style: none; scrollbar-width: none;
+ 	   *{ box-sizing: border-box;}
+ 	   html ,body{ margin:0; padding: 0; box-sizing: border-box;}
+ 	   	body{
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   }
+ 	   input,
+		textarea,
+		button,
+		select, .cateListing ,
+		a , .menuarea {
+		  -webkit-tap-highlight-color: rgba(0,0,0,0);
+		}
+		.containermta{
+ 	   		max-width: 1700px;height:100vh;background-color: #F6F7FB;overflow: none;display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;margin: auto;
  	   	}
+		.containerHandler{
+			width: 100%;
+			height: 100%;
+			overflow-x:hidden;overflow-y: scroll;
+ 	   		scroll-behavior: smooth;-ms-overflow-style: none; scrollbar-width: none;
+		}
+		.containerHandler::-webkit-scrollbar {width: 7px; height:1px;transition:all .5s}
+		.containerHandler::-webkit-scrollbar-track {
+			background: -webkit-gradient(linear, center top, center bottom, from(#ededed), to(#fff));
+			background-image: linear-gradient(#ededed, #fff);
+			box-shadow: inset 0px 0px 3px 3px rgba(0,0,0,0.1)
+			border-radius:15px;
+		}
+		.containerHandler::-webkit-scrollbar-thumb {
+			background-color:#a3abb1;
+			border-radius:15px;
+		}
  	   .headingmta{
- 	   		width:100vw; height: 60px; background-color:#fff; border:1px solid rgba(150,151,160,0.2); 
+ 	   		width:100vw; max-width: 1700px;xheight: 60px; background-color:#fff; border:1px solid rgba(150,151,160,0.2); 
  	   		display: flex;justify-content: center; flex-direction: row; position: sticky; top: 0; z-index: 3;  
  	   	}
  	   .headingmtaContainer{
@@ -80,6 +111,7 @@
  	   	}
  	   	.covercontainermta{
  	   		width: 100%;
+ 	   		max-width: 1700px;
  	   		height: 500px;
  	   		background-image: url(CATEGO/architect-technical-office-engineer-for-an-engineering-consulting-office-628018d08df38.jpg);
  	   		background-repeat: no-repeat;
@@ -379,13 +411,13 @@
  	   	    font-size: 12px;
  	   	    margin-top: 15px;
  	   	}
+ 	   	.coverContainerSlideMTA{
+ 	   		width: 100vw;
+ 	   	}
  	   	.listingContainer{
  	   		width: 100%;
- 	   		height: 300px;
- 	   		background-image: url('LED_LIGHTING_PHILIPS/Untitled-1.jpg');
- 	   		background-repeat: no-repeat;
- 	   		background-size: cover;
- 	   		background-position: center;
+ 	   		max-width: 1700px;
+ 	   		max-height: 60vh;
  	   	}
  	   	.listingCover{
  	   		width: 100%;
@@ -466,6 +498,7 @@
  	   		height: 100%;
  	   		position: fixed;
  	   		background: rgba(0,0,0,0.6);
+ 	   		display: none;
  	   	}
  	   	.loaderDiv{
  	   		width: 100%;
@@ -725,63 +758,18 @@
  	   		justify-content: center;
  	   		align-items: center;
  	   	}
- 	   	@media only screen and (max-width:1400px){
+ 	   	@media only screen and (max-width: 1500px) and (min-width: 901px){
  	   		.headingmtaContainer{
- 	   			width: 90%;
- 	   		}
- 	   		.logoarea{
- 	   			width: 40%;
- 	   		}
- 	   		.catefunarea{
- 	   			width: 65%;
- 	   			font-size: 14px;
- 	   		}
- 	   		.coverdesInfo{
- 	   			width: 80%;
- 	   		}
- 	   		.footerHeader{
- 	   			height: 90px;
- 	   		}
- 	   		div.infoFooter:nth-child(1){
- 	   			width: 50%;
- 	   		}
- 	   		.subscribecover{
- 	   			width: 70%;
- 	   		}
- 	   	}
- 	   	@media only screen and (max-width:1400px){
- 	   		.headingmtaContainer{
- 	   			width: 90%;
- 	   		}
- 	   		.logoarea{
- 	   			width: 40%;
- 	   		}
- 	   		.catefunarea{
- 	   			width: 55%;
- 	   			font-size: 14px;
+ 	   			width: 96%;
  	   		}
  	   		.catefunarea div{
  	   			width: 25%;
  	   		}
- 	   		.coverdesInfo{
- 	   			width: 80%;
- 	   		}
- 	   		.footerHeader{
- 	   			height: 90px;
- 	   		}
- 	   		div.infoFooter:nth-child(1){
- 	   			width: 50%;
- 	   		}
- 	   		.subscribecover{
- 	   			width: 70%;
- 	   		}
  	   	}
- 	   	@media only screen and (max-width: 1011px) and (min-width: 901px){
- 	   		.catefunarea div{
- 	   			width: 25%;
- 	   		}
- 	   	}
- 	   	@media only screen and (max-width:900px){
+ 	   	@media only screen and (max-width:900px) and (min-width: 780px){
+ 	   		.coverContainerSlideMTA{
+  				height: 40vh;
+  			}
  	   		.headingmtaContainer{
  	   			width: 100%;
  	   		}
@@ -843,6 +831,10 @@
  	   		}
 		}
 		@media only screen and (max-width: 701px) and (min-width: 688px){
+			.coverContainerSlideMTA{
+ 	   			width: 100vw;
+ 	   			height: 30vh;
+ 	   		}
 			.headingmtaContainer{
  	   			width: 100%;
  	   		}
@@ -872,6 +864,10 @@
 		 	}
 		}
 		@media only screen and (max-width: 687px){
+			.coverContainerSlideMTA{
+ 	   			width: 100vw;
+ 	   			height: 30vh;
+ 	   		}
 			.headingmtaContainer{
 				width: 100%;
 			}
@@ -963,11 +959,11 @@
 	<div class="mobileContainerCover">
 		<div class="mobileContainerHeader">
 			<div class="mobileContainerDiv">
-				<img src="logo/North Gate Engineering Logo.png" class="logoNG">
-				<div style="display:flex;justify-content: flex-start;align-items: left;flex-direction: column;">
+				<img src="logo/ngetLogo.png" class="logoNG">
+				<!--<div style="display:flex;justify-content: flex-start;align-items: left;flex-direction: column;">
 					<span>NORTH GATE</span>
 					<span>ENGINNERING & THECHNOLOGY</span>
-				</div>
+				</div>-->
 			</div>
 			<div class="closeMobileMenu"></div>
 		</div>
@@ -994,87 +990,86 @@
 	</div>
 </div>
 <div class='containermta' id='containermta'>
-    <div class='headingmta' > 
-    	<div class="headingmtaContainer">
-    		<div class="logoarea">
-    			<img src="logo/North Gate Engineering Logo.png" class="logoNG">
-    			<div>
-					<span>NORTH GATE</span>
-					<span>ENGINNERING & THECHNOLOGY</span>
-				</div>
-    		</div>
-    		<div class="catefunarea">
-    			<div><a href='index.html'>HOME</a></div>
-    			<div><a href='index.html'>WHO WE ARE?<a href='#'></div>
-    			<div><a href='index.html'>OUR SERVICES</a></div>
-    			<div><a href='index.html'>CONTACT US</a></div>
-    		</div>
-    		<div class="searcharea" id='searchBtn'>
-    			<img src="logo/modermSearch.png" style="max-width: 40px;max-height: 40px;cursor: pointer;">
-    		</div>
-    		<div class="menuarea">
-    			<img src="logo/Entypo_2630(0)_48.png" style="max-width: 50px;max-height: 50px;cursor: pointer;">
-    		</div>
-    	</div>
-    </div>
-    <div class="listingContainer" id='listingContainer'></div>
-    <div class="serviceHeader" id='serviceHeader'><div>LED LIGHTING</div><div></div></div>
-    <div class="listingCover">
-    	<div class="listingResult" id="listingResult">
-    		
-    	</div>
-    </div>
-    <div class="serviceHeader" id='serviceHeader'><div>RELATED FEATURES</div><div></div></div>
-    <br>
-    <div class="amazingContainer" id='amazingContainer'>
-    	<div class="loadAmazContainer"><img src="logo/loader.gif"></div>
-    </div>
-    <br>
-    <div class="footerContainer" id="footerContainer">
-    	<div class="footerContainerMTACover">
-    		<div class="footerHeader">
-    			<div class="infoFooter">
-    				<img src="logo/location.png">
-    				<p>91 1-2 Sri Poom Rd, Tambon Si Phum, Mueang Chiang Mai District, Chiang Mai 50200, Thailand</p>
-    			</div>
-    			<div class="infoFooter">
-    				<img src="logo/phone.png">
-    				<p>(+959)43100878 <br>info@northgate.com</p>
-    			</div>
-    			<div class="infoFooter">
-    				<img src="logo/facebook.png">
-    				<img src="logo/twitter.png">
-    				<img src="logo/instragram.png">
-    				<img src="logo/google.png">
-    			</div>
-    			<div class="infoFooter">
-    				<div>CONTACT US</div>
-    			</div>
-    		</div>
-    		<div class="aboutusContainer">
-    			<div class="aboutusTitle">
-    				<p>ABOUT US</p>
-    				<div></div>
-    			</div>
-    			<div class="aboutusDescription">
-    				<h4>NORTHGATE Engineering & Technology , we provide services & Enginerring </h4>
-    				<p>
-    					Engineering is the Digital Transformation Company, leader in Italy and expanding its global footprint, with around 12,000 associates, with over 60 offices spread across Europe, the United States, and South America and global delivery.
-						The Engineering Group, consisting of over 20 companies in 12 countries, has been supporting the continuous evolution of companies and organizations for more than 40 years, thanks to a deep understanding of business processes in all market segments, fully leveraging the opportunities offered by advanced digital technologies and proprietary solutions.
-					</p>
-    			</div>
-    			<div class="subscribeContainer">
-    				<div class="subscribecover">
-    					<input type="text" name="" id="subemail" placeholder="your email address">
-    					<input type="button" name="" id="submitSub" value="SUBSCRIBE">
-    				</div>
-    			</div>
-    			<div class="copyRightContainer">
-    				2022@copyright NORTHGATE All rights reserved.
-    			</div>
-    		</div>
-    	</div>
-    </div>
+	<div class="containerHandler">
+	    <div class='headingmta' > 
+	    	<div class="headingmtaContainer">
+	    		<div class="logoarea">
+	    			<img src="logo/ngetLogo.png" class="logoNG">
+	    		</div>
+	    		<div class="catefunarea">
+	    			<div><a href='index.html'>HOME</a></div>
+	    			<div><a href='index.html'>WHO WE ARE?<a href='#'></div>
+	    			<div><a href='index.html'>OUR SERVICES</a></div>
+	    			<div><a href='index.html'>CONTACT US</a></div>
+	    		</div>
+	    		<div class="searcharea" id='searchBtn'>
+	    			<img src="logo/modermSearch.png" style="max-width: 40px;max-height: 40px;cursor: pointer;">
+	    		</div>
+	    		<div class="menuarea">
+	    			<img src="logo/Entypo_2630(0)_48.png" style="max-width: 50px;max-height: 50px;cursor: pointer;">
+	    		</div>
+	    	</div>
+	    </div>
+	    <img src="" id='listingContainer' class="listingContainer" />
+	    <br>
+	    <div class="serviceHeader" id='serviceHeader'><div>LED LIGHTING</div><div></div></div>
+	    <div class="listingCover">
+	    	<div class="listingResult" id="listingResult">
+	    		
+	    	</div>
+	    </div>
+	    <div class="serviceHeader" id='serviceHeader'><div>RELATED FEATURES</div><div></div></div>
+	    <br>
+	    <div class="amazingContainer" id='amazingContainer'>
+	    	<div class="loadAmazContainer"><img src="logo/loader.gif"></div>
+	    </div>
+	    <br>
+	    <div class="footerContainer" id="footerContainer">
+	    	<div class="footerContainerMTACover">
+	    		<div class="footerHeader">
+	    			<div class="infoFooter">
+	    				<img src="logo/location.png">
+	    				<p>91 1-2 Sri Poom Rd, Tambon Si Phum, Mueang Chiang Mai District, Chiang Mai 50200, Thailand</p>
+	    			</div>
+	    			<div class="infoFooter">
+	    				<img src="logo/phone.png">
+	    				<p>(+959)43100878 <br>info@northgate.com</p>
+	    			</div>
+	    			<div class="infoFooter">
+	    				<img src="logo/facebook.png">
+	    				<img src="logo/twitter.png">
+	    				<img src="logo/instragram.png">
+	    				<img src="logo/google.png">
+	    			</div>
+	    			<div class="infoFooter">
+	    				<div>CONTACT US</div>
+	    			</div>
+	    		</div>
+	    		<div class="aboutusContainer">
+	    			<div class="aboutusTitle">
+	    				<p>ABOUT US</p>
+	    				<div></div>
+	    			</div>
+	    			<div class="aboutusDescription">
+	    				<h4>NORTHGATE Engineering & Technology , we provide services & Enginerring </h4>
+	    				<p>
+	    					Engineering is the Digital Transformation Company, leader in Italy and expanding its global footprint, with around 12,000 associates, with over 60 offices spread across Europe, the United States, and South America and global delivery.
+							The Engineering Group, consisting of over 20 companies in 12 countries, has been supporting the continuous evolution of companies and organizations for more than 40 years, thanks to a deep understanding of business processes in all market segments, fully leveraging the opportunities offered by advanced digital technologies and proprietary solutions.
+						</p>
+	    			</div>
+	    			<div class="subscribeContainer">
+	    				<div class="subscribecover">
+	    					<input type="text" name="" id="subemail" placeholder="your email address">
+	    					<input type="button" name="" id="submitSub" value="SUBSCRIBE">
+	    				</div>
+	    			</div>
+	    			<div class="copyRightContainer">
+	    				2022@copyright NORTHGATE All rights reserved.
+	    			</div>
+	    		</div>
+	    	</div>
+	    </div>
+	</div>
 </div>
  	<script type="text/javascript"  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
 	<script type='text/javascript'>
@@ -1095,6 +1090,9 @@
 		$(document).on("click",".mobileContainerMenuDiv a",function(){
 			$(".mobileContainer").hide();
 		});
+		$(document).on("click" , ".mobileContainerDiv , .logoarea" , function(){
+			window.location.replace('index.html');
+		});
 		$(document).on("click" , ".readAmazing" ,function(){
 			var listingId = $(this).attr('id');
 			var title = $(this).parent().parent().find(".amazingText").text();
@@ -1113,7 +1111,7 @@
 	  	const chekAccess = new URLSearchParams(window.location.search);
 		if(chekAccess.has('id')){
 			if(chekAccess.get('id')!=""){
-				listContainerBg.style.backgroundImage = "url("+chekAccess.get('src')+")";
+				listContainerBg.src = chekAccess.get('src');//"url("++")";
 				listTitle.innerText = chekAccess.get('title');
 				listDetail.innerText = chekAccess.get('detail');
 				goListiningDataByCate(api_url+"?nge_category_id="+chekAccess.get('id'));				
