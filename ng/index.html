@@ -35,7 +35,7 @@
 			width: 100%;
 			height: 100%;
 			overflow-x:hidden;overflow-y: scroll;
- 	   		scroll-behavior: smooth;-ms-overflow-style: none; scrollbar-width: none;
+ 	   		scroll-behavior: smooth;-ms-overflow-style: none; scrollbar-width: none;position: relative;
 		}
 		.containerHandler::-webkit-scrollbar {width: 7px; height:1px;transition:all .5s}
 		.containerHandler::-webkit-scrollbar-track {
@@ -114,9 +114,47 @@
  	   	}
  	   	.coverContainerSlideMTA{
  	   		width: 100vw;
- 	   		height: 55vh;
+ 	   		height: 57vh;
  	   		clear: both;
  	   		position: relative;
+ 	   	}
+ 	   	.slideHandleLayout{
+ 	   		width: 100%;
+ 	   		max-width: 1700px;
+ 	   		height: 60px;
+ 	   		top: 42%;
+ 	   		position: absolute;
+ 	   		display: flex;
+ 	   		justify-content: space-between;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.slideNext{
+ 	   		width: 50px;
+ 	   		height: 50px;
+ 	   		border-radius: 50%;
+ 	   		background: rgba(255, 255, 255, 0.5);
+ 	   		border: 4px solid rgba(22, 72, 210, 0.8);
+ 	   		z-index: 5;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		cursor: pointer;
+ 	   		font-size: 50px;
+ 	   		margin-right: 10px;
+ 	   	}
+ 	   	.slidePre{
+ 	   		width: 50px;
+ 	   		height: 50px;
+ 	   		border-radius: 50%;
+ 	   		background: rgba(255, 255, 255, 0.5);
+ 	   		border: 4px solid rgba(22, 72, 210, 0.8);
+ 	   		backdrop-filter: blur(5px);
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		cursor: pointer;
+ 	   		font-size: 50px;
+ 	   		margin-left: 10px;
  	   	}
  	   	.covercontainermta{
  	   		width: 100%;
@@ -125,7 +163,7 @@
  	   		position: absolute;
  	   		background-image: url(CATEGO/architect-technical-office-engineer-for-an-engineering-consulting-office-628018d08df38.jpg);
  	   		background-repeat: no-repeat;
- 	   		background-size:100% 600px;
+ 	   		background-size:100% 600px ; /* 70px 70px */
  	   		background-position: center center;
  	   		display: none;
  	   		justify-content: center;
@@ -614,8 +652,8 @@
  	   		border-radius: 50%;
  	   		border: 4px solid rgba(22, 72, 210, 0.7);
  	   		backdrop-filter: blur(5px);
- 	   		position: fixed;
  	   		display: none;
+ 	   		float: right;
  	   		right: 10px;
  	   		bottom: 10px;
  	   		background: rgba(0, 0, 0, 0.7);
@@ -969,7 +1007,7 @@
 </div>
 <div class="gototop" id="gototop" onclick="topFunction()"></div>
 <div class='containermta' id='containermta'>
-	<div class="containerHandler">
+	<div class="containerHandler" id='containerHandler'>
 	    <div class='headingmta' > 
 	    	<div class="headingmtaContainer">
 	    		<div class="logoarea">
@@ -1053,6 +1091,10 @@
 		    		<div>Toli</div>
 		    	</div>
 	   		</div>
+	   		<div class="slideHandleLayout">
+	   			<span class="slidePre" id='slidePre'>&#8249;</span>
+	   			<span class="slideNext" id='slideNext'>&#8250;</span>
+	   		</div>
 	    </div>
 	    <div class="indicatorContainer">
 	   			<div class="indicator"></div>
@@ -1080,11 +1122,11 @@
 	    		<div class="footerHeader" id='footerHeader'>
 	    			<div class="infoFooter">
 	    				<img src="logo/location.png">
-	    				<p>91 1-2 Sri Poom Rd, Tambon Si Phum, Mueang Chiang Mai District, Chiang Mai 50200, Thailand</p>
+	    				<p>NO. 17› KYAUK MYAUNG STREET, TAMWE TOWNSHIP, YANGON, REPUBLIC OF THE UNION OF MYANMAR</p>
 	    			</div>
 	    			<div class="infoFooter">
 	    				<img src="logo/phone.png">
-	    				<p>(+959)43100878 <br>info@northgate.com</p>
+	    				<p>+95-9 428 263 77<br>info@northgate.com</p>
 	    			</div>
 	    			<div class="infoFooter">
 	    				<img src="logo/facebook.png">
@@ -1093,7 +1135,7 @@
 	    				<img src="logo/google.png">
 	    			</div>
 	    			<div class="infoFooter">
-	    				<div>CONTACT US</div>
+	    				<!--<div>CONTACT US</div>-->
 	    			</div>
 	    		</div>
 	    		<div class="aboutusContainer">
@@ -1108,12 +1150,12 @@
 							The Engineering Group, consisting of over 20 companies in 12 countries, has been supporting the continuous evolution of companies and organizations for more than 40 years, thanks to a deep understanding of business processes in all market segments, fully leveraging the opportunities offered by advanced digital technologies and proprietary solutions.
 						</p>
 	    			</div>
-	    			<div class="subscribeContainer">
+	    			<!--<div class="subscribeContainer">
 	    				<div class="subscribecover">
 	    					<input type="text" name="" id="subemail" placeholder="your email address">
 	    					<input type="button" name="" id="submitSub" value="SUBSCRIBE">
 	    				</div>
-	    			</div>
+	    			</div>-->
 	    			<div class="copyRightContainer">
 	    				2022@copyright NORTHGATE All rights reserved.
 	    			</div>
@@ -1132,7 +1174,7 @@
 			var brief = $(this).closest('center').find("div:nth-child(3)").text();
 			var detail = $(this).closest('center').find("input[type=hidden]").val();
 			var src = $(this).parent().parent().parent().find('.serviceOddImg').css('background-image').replace('url(','').replace(')','').replace(/\"/gi, "");
-			window.location.replace('listining.html?id='+listingId+'&title='+title+'&detail='+detail+'&src='+src+'' , '_blank');
+			window.location.assign('listining.html?id='+listingId+'&title='+title+'&detail='+detail+'&src='+src+'' , '_blank');
 		});
 		$(document).on("click" , ".mobileContainerDiv" , function(){
 			window.location.replace('index.html');
@@ -1155,32 +1197,31 @@
 	  }(jQuery));
 	</script>
 	<script type="text/javascript">
-		let slideLocate = 0;let apiUrl = "https://mmsoftware100.com/nge/public/api/v1/nge_category";
+		var slideLocate = 0;let apiUrl = "https://mmsoftware100.com/nge/public/api/v1/nge_category";
 		var imgUrl="https://mmsoftware100.com/nge/public/";
-		goSlideMTA();
 		const servicemaindiv = document.getElementById('serviceContainerMTA');
-		const scrollhandle = document.getElementById('containermta');
+		const scrollhandle = document.getElementById('covercontainermta');
+		const slideNext = document.getElementById('slideNext');
+		const slidePre = document.getElementById('slidePre');
 		var loader = document.getElementById('loadAmazContainer');
-		scrollhandle.addEventListener('scroll', function() {
-		  var scrollTop = scrollhandle.scrollTop;scrollTop > 30 ? document.getElementById("gototop").style.display = "block" : document.getElementById("gototop").style.display = "none";
-		});
+		goSlideMTA(1);
 		function topFunction() { scrollhandle.scrollTop = 0;}
-		function goSlideMTA(){
+		function goSlideMTA(para){
 			  let i;
 			  let mtaSlide = document.getElementsByClassName("covercontainermta");
 			  let indicate = document.getElementsByClassName("indicator");
 			  for (i = 0; i < mtaSlide.length; i++) {
 			    mtaSlide[i].style.display = "none";
 			  }
-			  slideLocate++;
-			  if (slideLocate > mtaSlide.length) {slideLocate = 1}    
+			  slideLocate = slideLocate + para;
+			  if (slideLocate > mtaSlide.length) {slideLocate = 1}
+			  if(slideLocate==0){slideLocate = 1;}
 			  for (i = 0; i < indicate.length; i++) {
 			    indicate[i].className = indicate[i].className.replace("current", "");
 			  }
 			  mtaSlide[slideLocate-1].style.display = "block";
 			  mtaSlide[slideLocate-1].style.display = "flex";
 			  indicate[slideLocate-1].className += " current";
-			  setTimeout(goSlideMTA, 5000);
 		}
 		async function goApiData(para){
 			const response = await fetch(para);
@@ -1193,6 +1234,8 @@
 				}
 			}
 		}
+		slideNext.addEventListener('click' , ()=>{ goSlideMTA(1);});
+		slidePre.addEventListener('click' , ()=>{goSlideMTA(-1);});
 		goApiData(apiUrl);
 	</script>
  </body>
