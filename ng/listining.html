@@ -1013,9 +1013,7 @@
 	    <br>
 	    <div class="serviceHeader" id='serviceHeader'><div>LED LIGHTING</div><div></div></div>
 	    <div class="listingCover">
-	    	<div class="listingResult" id="listingResult">
-	    		
-	    	</div>
+	    	<div class="listingResult" id="listingResult"></div>
 	    </div>
 	    <div class="serviceHeader" id='serviceHeader'><div>RELATED FEATURES</div><div></div></div>
 	    <br>
@@ -1097,22 +1095,29 @@
 	  	const api_url = "https://mmsoftware100.com/nge/public/api/v1/nge_post";
 	  	const scrollhandle = document.getElementById('containermta');
 	  	const layoutHandle = document.getElementById('gototop');
+	  	const serviceHeader = document.getElementById('serviceHeader');
+	  	const amazingContainer = document.getElementById('amazingContainer');
 	  	const listContainerBg = document.getElementById('listingContainer');
 	  	const listTitle = document.getElementById('serviceHeader');
 	  	const listDetail = document.getElementById('listingResult');
 	  	const amazContainer = document.getElementById('amazingContainer');
 	  	const chekAccess = new URLSearchParams(window.location.search);
 		if(chekAccess.has('id')){
-			if(chekAccess.get('id')!=""){
+			if(chekAccess.get('id')!="" && chekAccess.get('id')!="mta"){
 				listContainerBg.src = chekAccess.get('src');//"url("++")";
 				listTitle.innerText = chekAccess.get('title');
 				listDetail.innerText = chekAccess.get('detail');
 				goListiningDataByCate(api_url+"?nge_category_id="+chekAccess.get('id'));				
+			}else if(chekAccess.get('id')!="" && chekAccess.get('id')=="mta"){
+				listContainerBg.src = chekAccess.get('src');
+				listTitle.innerText = chekAccess.get('title');
+				listDetail.innerHTML = "North Gate Engineering & Technology Co.,Ltd Offers professional, innovative and comprehensive engineering turnkey solutions with high quality standards at reasonable rates and customer  orientation services. Our motivated and experienced engineers and  technicians  bring  the maximum  satisfaction to our customers ensure our success according to our strategic guideline: Best Solutions Inspire &  Customer First.<br>Northgate Engineering & Technology Co. Ltd established in 2014 as an  engineering  and infrastructure company. The company has undertaken many challenging projects and  accumulated Hi-Tech skills, know-how experiences, in earthworks, construction,  infrastructure, transportation engineering, traffic safety, ITS, ICT Solutions, LED lighting,  M&E and related engineering works. Furthermore, the company has  extended  its  knowledge and vision towards access control systems and Homeland security solutions.<br>Today, Northgate Engineering & Technology Co., Ltd takes on the role of main  contractor and developer for medium to large scale projects and perform the project  management services to coordinate professionally for industrial, commercial and  goverment projects.We also provide the design planning inputs and engineering solutions  as value-added services to our private and government clients.Our objective is to provide  our clients with an 'Innovation Aspire & Quality Assurance' experience when we are  chosen to execute their projects. Our emphasis on clear communication, high-quality,  warranty and after-sales services, and follow-through procedures ensure that client's  objectives are top priority in the planning and execution of all our processes.Our project management and execution philosophy is:<br><ul><li>Create detail schedule and resources plan to meet client's project objective</li><li>Communicate clearly with all project stakeholders</li><li>Track project progress and fine-tune deviations</li><li>Supervise closely on quality of work done</li><li>Complete and commission the project on time</li></ul><br>We take pride in our professional construction and infrastructure projects, thus our clients  can always be assured that only the most experienced and qualified technicians, engineers  and professionals are serving them, all the time";
+				amazContainer.innerHTML = "";
 			}else{
-				window.location.replace('login.html')
+				window.location.replace('login.html');
 			}
 		}else{
-			window.location.replace('login.html')
+			window.location.replace('login.html');
 		}
 		scrollhandle.addEventListener('scroll', function() {
 		  var scrollTop = scrollhandle.scrollTop;scrollTop > 30 ? document.getElementById("gototop").style.display = "block" : document.getElementById("gototop").style.display = "none";

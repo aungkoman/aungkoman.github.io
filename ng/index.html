@@ -261,18 +261,6 @@
  	   		width: 80%;
  	   		margin-top: 15px;
  	   	}
- 	   	.aboutusDesc div:nth-child(4){
- 	   		width: 200px;
- 	   		height: 40px;
- 	   		border-radius: 20px;
- 	   		background-color: #0071FB;
- 	   		color: #efefef;
- 	   		cursor: pointer;
- 	   		box-sizing: border-box;
- 	   		padding: 8px;
- 	   		text-align: center;
- 	   		margin-top: 15px;
- 	   	}
  	   	.serviceHeader{
  	   		width: 100%;
  	   		height: 30px;
@@ -351,7 +339,8 @@
  	   		width: 80%;
  	   		margin-top: 15px;
  	   	}
- 	   	.serviceOddDes div:nth-child(4) , .loadmoreCate{
+
+ 	   	.serviceOddDes div:nth-child(4) , .loadmoreCate , .aboutusDesc div:nth-child(4){
  	   		width: 200px;
  	   		height: 40px;
  	   		border-radius: 20px;
@@ -364,6 +353,15 @@
  	   		display: flex;
  	   		justify-content: center;
  	   		align-items: center;
+ 	   		moz-transition: all .4s ease-in-out;
+		    transition: 0.4s;
+ 	   	}
+ 	   	.serviceOddDes div:nth-child(4):hover, .aboutusDesc div:nth-child(4):hover{
+ 	   		/*background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);*/
+ 	   		box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+ 	   		background-color: #fff;
+ 	   		border: 2px solid gray;
+ 	   		color: #131311;
  	   	}
  	   	.footerContainer{
  	   		width: 100%;
@@ -505,13 +503,15 @@
  	   	}
  	   	.searchContainer{
  	   		width: 100%;
- 	   		height: 70px;
+ 	   		max-width: 1700px;
+ 	   		height: 300px;
  	   		top: 70px;
  	   		position: fixed;
  	   		z-index: 4;
  	   		display: flex;
  	   		justify-content: center;
  	   		align-items: center;
+ 	   		flex-direction: column;
  	   		-webkit-animation-name: bounceInDown;
 		  animation-name: bounceInDown;
 		  -webkit-animation-duration: 1s;
@@ -520,13 +520,59 @@
 		  animation-fill-mode: both;
  	   	}
  	   	.searchDiv{
- 	   		width: 550px;
- 	   		height: 60px;
+ 	   		width: 70%;
+ 	   		height: 200px;
+ 	   		overflow: auto;
  	   		display: flex;
- 	   		justify-content: center;
+ 	   		justify-content: flex-start;
  	   		align-items: center;
+ 	   		flex-wrap: wrap;
  	   		background: rgba(0, 0, 0, 0.6);
-	  }
+	  	}
+	  	.searchDiv a{
+	  		text-decoration: none;
+	  		width: max-content;
+	  		height: 45px;
+	  		padding: 12px;
+	  		background-color: #fff;
+	  		color: gray;
+	  		font-size: 12px;
+	  		border-radius: 5px;
+	  		cursor: pointer;
+	  		box-sizing: border-box;
+	  		margin: 8px;
+	  	}
+	  	.animateLeft , .animateRight{
+			width: 45%;
+			height: 300px;
+			border-radius: 20px;
+			background-color: blue;
+			color: #efefef;
+			font-size: 20px;
+			font-weight: bold;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin: 15px;
+		}
+		.reveal{
+		  transform: translateX(-450px);
+		  opacity: 0;
+		  transition: 1s all ease;
+		}
+		.reveal.active{
+		  transform: translateX(0);
+		  opacity: 1;
+		}
+		.crystal{
+		  transform: translateY(150px);
+		  opacity: 0;
+		  transition: 1.5s all ease;
+		}
+		.crystal.active{
+		  transform: translateX(0);
+		  opacity: 1;
+		}
 	  @-webkit-keyframes bounceInDown {
 	 	 0%, 60%, 75%, 90%, 100% {
 		  -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
@@ -609,10 +655,18 @@
 			  -webkit-transform: translateX(0);
 			  transform: translateX(0);
 		  }
- 		 } 
+ 		 }
+ 		 .exitDivContainer{
+ 		 	width: 70%;
+ 		 	height: 50px;
+ 		 	display: flex;
+ 		 	justify-content: flex-end;
+ 		 	align-items: center;
+ 		 }
  	   	.exitDiv{
  	   		width: 40px;
  	   		height: 40px;
+ 	   		float: right;
  	   		background-color: #fff;
  	   		border-radius: 50%;
  	   		cursor: pointer;
@@ -723,12 +777,7 @@
  	   	}
  	   	.mobileContainerSearchDiv{
  	   		width: 95%;
- 	   		height: 70px;
- 	   		margin-top: 20px;
- 	   		border-radius: 5px;
- 	   		display: flex;
- 	   		justify-content: flex-start;
- 	   		align-items: center;
+ 	   		height: auto;
  	   	}
  	   	.mobileContainerMenuDiv{
  	   		width: 95%;
@@ -982,28 +1031,15 @@
 		<div class="mobileContainerHeader">
 			<div class="mobileContainerDiv">
 				<img src="logo/ngetLogo.png" class="logoNG">
-				<!--<div style="display:flex;justify-content: flex-start;align-items: left;flex-direction: column;">
-					<span>NORTH GATE</span>
-					<span>ENGINNERING & THECHNOLOGY</span>
-				</div>-->
 			</div>
 			<div class="closeMobileMenu"></div>
 		</div>
-		<div class="mobileContainerSearchDiv">
-			<input type="text" name="" class="searchcls" placeholder="search for ..." style="width: 70%;">
-			<input type="button" name="" class="submitcls" style="width: 30%;" >
-		</div>
-		<div class="mobileContainerMenuDiv"><a href='#desAboutUsContainer'>WHO WE ARE?</a></div>
-		<div class="mobileContainerMenuDiv"><a href='#serviceDataContainer'>OUR SERVICES</a></div>
-		<div class="mobileContainerMenuDiv"><a href='#footerHeader'>CONTACT US</a></div>
+		<div class="mobileContainerSearchDiv" id='mobileContainerSearchDiv'></div>
 	</div>
 </div>
 <div class="searchContainer">
-	<div class="searchDiv">
-		<input type="text"  class="searchcls" placeholder="search for ...">
-		<input type="button"  class="submitcls" >
-	</div>
-	<div class="exitDiv"></div>
+	<div class="exitDivContainer"><div class="exitDiv"></div></div>
+	<div class="searchDiv" id='searchDiv'></div>
 </div>
 <div class="gototop" id="gototop" onclick="topFunction()"></div>
 <div class='containermta' id='containermta'>
@@ -1016,7 +1052,7 @@
 	    		<div class="catefunarea">
 	    			<div>HOME</div>
 	    			<div><a href='#desAboutUsContainer'>WHO WE ARE?</a></div>
-	    			<div><a href='#serviceDataContainer'>OUR SERVICES</a></div>
+	    			<div><a href='#serviceDataContainer'>OUR SOLUTION</a></div>
 	    			<div><a href='#footerHeader'>CONTACT US</a></div>
 	    		</div>
 	    		<div class="searcharea" id='searchBtn'>
@@ -1106,16 +1142,18 @@
 	   			<div class="indicator"></div>
 	   		</div>
 	    <div class="desAboutUsContainer" id='desAboutUsContainer'>
-	    	<div class="aboutusCover"></div>
 	    	<div class="aboutusDesc">
-	    		<div>WHO WE ARE?</div>
+	    		<div id='title'>WHO WE ARE?</div>
 	    		<div></div>
-	    		<div>
-	    			Make your business shine online with a custom engineering website designed just for you by a professional designer. Need ideas? We’ve collected some amazing examples of engineering websites from our global community of designers. Get inspired and start planning the perfect engineering web design today.
+	    		<div id='desc'>
+	    			North Gate Engineering & Technology Co.,Ltd is a professional HiTech engineering corporation  specializes inconstruction, infrastructure projects, M&E projects, ICT projects and ITS projects  for both  private and public institutions.The driving force behind the success of the Group is its capacity for offering  interdisciplinary turnkey engineering solutions and services. The Group is able to provide comprehensive  design and planning, project development and execution through experienced technical and engineering  consultants .project  management services to coordinate professionally for industrial, commercial and  goverment projects....
+
 	    		</div>
+	    		<div class="cateListing" id="mta">LEARN MORE</div>
 	    	</div>
+	    	<div class="aboutusCover"></div>
 	    </div>
-	    <div class="serviceHeader" id='serviceHeader'><div>OUR SERVICES</div><div></div></div>
+	    <div class="serviceHeader" id='serviceHeader'><div>OUR SOLUTION</div><div></div></div>
 	    <div class="serviceContainerMTA" id="serviceContainerMTA"></div>
 	    <div class="footerContainer">
 	    	<div class="footerContainerMTACover">
@@ -1129,7 +1167,7 @@
 	    				<p>+95-9 428 263 77<br>info@northgate.com</p>
 	    			</div>
 	    			<div class="infoFooter">
-	    				<img src="logo/facebook.png">
+	    				<a href="https://www.facebook.com/northgate.engineering"><img src="logo/facebook.png"></a>
 	    				<img src="logo/twitter.png">
 	    				<img src="logo/instragram.png">
 	    				<img src="logo/google.png">
@@ -1144,18 +1182,13 @@
 	    				<div></div>
 	    			</div>
 	    			<div class="aboutusDescription">
-	    				<h4>NORTHGATE Engineering & Technology , we provide services & Enginerring </h4>
+	    				<h4>NORTHGATE Engineering & Technology</h4>
 	    				<p>
-	    					Engineering is the Digital Transformation Company, leader in Italy and expanding its global footprint, with around 12,000 associates, with over 60 offices spread across Europe, the United States, and South America and global delivery.
-							The Engineering Group, consisting of over 20 companies in 12 countries, has been supporting the continuous evolution of companies and organizations for more than 40 years, thanks to a deep understanding of business processes in all market segments, fully leveraging the opportunities offered by advanced digital technologies and proprietary solutions.
+	    					North Gate office, registered in Myanmar, is a privately owned Company, and started domestic projects with national and international clientele have opened new areas of developments like energy sector.
+							We, one of the energy companies in Myanmar, trade energy products from direct refineries and distribute wholesale and retail throughout Myanmar. We have a highly trained and experienced team to provide new opportunities and the highest value of quality services to our customers and intensive achievements to our communities.
+							We believe that we can provide a more individualized approach to contracting which in turn provides the consumer with a quick response and high-quality service in a reduced cost.
 						</p>
 	    			</div>
-	    			<!--<div class="subscribeContainer">
-	    				<div class="subscribecover">
-	    					<input type="text" name="" id="subemail" placeholder="your email address">
-	    					<input type="button" name="" id="submitSub" value="SUBSCRIBE">
-	    				</div>
-	    			</div>-->
 	    			<div class="copyRightContainer">
 	    				2022@copyright NORTHGATE All rights reserved.
 	    			</div>
@@ -1164,17 +1197,24 @@
 	    </div>
 	</div>
 </div>
- 	<script type="text/javascript"  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
+ 	<script type="text/javascript"  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script type='text/javascript'>
 	  (function($) {
 	  	$(".searchContainer").hide();
 		$(document).on("click" , ".cateListing" ,function(){
 			var listingId = $(this).attr('id');
-			var title = $(this).closest('center').find("div:nth-child(1)").text();
-			var brief = $(this).closest('center').find("div:nth-child(3)").text();
-			var detail = $(this).closest('center').find("input[type=hidden]").val();
-			var src = $(this).parent().parent().parent().find('.serviceOddImg').css('background-image').replace('url(','').replace(')','').replace(/\"/gi, "");
-			window.location.assign('listining.html?id='+listingId+'&title='+title+'&detail='+detail+'&src='+src+'' , '_blank');
+			if(listingId=="mta"){
+				var title = $('#title').text();
+				var detail = "";
+				var src = $(".aboutusCover").css('background-image').replace('url(','').replace(')','').replace(/\"/gi, "");
+				window.location.assign('listining.html?id='+listingId+'&title='+title+'&detail='+detail+'&src='+src+'' , '_blank');
+			}else{
+				var title = $(this).closest('center').find("div:nth-child(1)").text();
+				var brief = $(this).closest('center').find("div:nth-child(3)").text();
+				var detail = $(this).closest('center').find("input[type=hidden]").val();
+				var src = $(this).parent().parent().parent().find('.serviceOddImg').css('background-image').replace('url(','').replace(')','').replace(/\"/gi, "");
+				window.location.assign('listining.html?id='+listingId+'&title='+title+'&detail='+detail+'&src='+src+'' , '_blank');
+			}
 		});
 		$(document).on("click" , ".mobileContainerDiv" , function(){
 			window.location.replace('index.html');
@@ -1194,18 +1234,22 @@
 		$(document).on("click",".mobileContainerMenuDiv a",function(){
 			$(".mobileContainer").hide();
 		});
+		$(document).on("click",".searchDiv a",function(){
+			$(".searchContainer").hide();
+		});
 	  }(jQuery));
 	</script>
 	<script type="text/javascript">
 		var slideLocate = 0;let apiUrl = "https://mmsoftware100.com/nge/public/api/v1/nge_category";
-		var imgUrl="https://mmsoftware100.com/nge/public/";
+		var imgUrl="https://mmsoftware100.com/nge/public/";var searchLayout="";var mobileLayout="";
 		const servicemaindiv = document.getElementById('serviceContainerMTA');
-		const scrollhandle = document.getElementById('covercontainermta');
+		const searchLayoutDiv = document.getElementById('searchDiv');
+		const mobileContainer = document.getElementById('mobileContainerSearchDiv')
+		var scrollFun = document.getElementById('containerHandler');
 		const slideNext = document.getElementById('slideNext');
 		const slidePre = document.getElementById('slidePre');
 		var loader = document.getElementById('loadAmazContainer');
 		goSlideMTA(1);
-		function topFunction() { scrollhandle.scrollTop = 0;}
 		function goSlideMTA(para){
 			  let i;
 			  let mtaSlide = document.getElementsByClassName("covercontainermta");
@@ -1227,16 +1271,37 @@
 			const response = await fetch(para);
 			var rtData = await response.json();
 			for(var i=0 ; i < rtData.data.length ; i++){
+				searchLayout+="<a href='#"+rtData.data[i].title+"' >"+rtData.data[i].title+"</a>";
+				mobileLayout+="<div class='mobileContainerMenuDiv'><a href='#"+rtData.data[i].title+"'>"+rtData.data[i].title+"</a></div>";
 				if(i % 2 === 0){
-					servicemaindiv.innerHTML+="<div class='serviceDataContainerOdd' id='serviceDataContainer'><div class='serviceOddImg' style='background-image: url("+imgUrl+""+rtData.data[i].photo_url+")'></div><div class='serviceOddDes'><center><div>"+rtData.data[i].title+"</div><div></div><div>"+rtData.data[i].brief+"</div><div class='cateListing' id='"+rtData.data[i].id+"'>LEARN MORE</div><input type='hidden' id='hideDetail' value='"+rtData.data[i].description+"'></center></div></div>";
+					servicemaindiv.innerHTML+="<div class='serviceDataContainerOdd' id='serviceDataContainer'><div class='serviceOddImg  reveal' id='"+rtData.data[i].title+"' style='background-image: url("+imgUrl+""+rtData.data[i].photo_url+")'></div><div class='serviceOddDes  crystal'><center><div>"+rtData.data[i].title+"</div><div></div><div>"+rtData.data[i].brief+"</div><div class='cateListing' id='"+rtData.data[i].id+"'>LEARN MORE</div><input type='hidden' id='hideDetail' value='"+rtData.data[i].description+"'></center></div></div>";
 				}else{
-					servicemaindiv.innerHTML+="<div class='serviceDataContainerOdd' id='serviceDataContainer'><div class='serviceOddDes'><center><div>"+rtData.data[i].title+"</div><div></div><div>"+rtData.data[i].brief+"</div><div class='cateListing' id='"+rtData.data[i].id+"'>LEARN MORE</div><input type='hidden' id='hideDetail' value='"+rtData.data[i].description+"'></center></div><div class='serviceOddImg' style='background-image: url("+imgUrl+""+rtData.data[i].photo_url+")'></div></div>";
+					servicemaindiv.innerHTML+="<div class='serviceDataContainerOdd' id='serviceDataContainer'><div class='serviceOddDes  crystal'><center><div id='"+rtData.data[i].title+"'>"+rtData.data[i].title+"</div><div></div><div>"+rtData.data[i].brief+"</div><div class='cateListing' id='"+rtData.data[i].id+"'>LEARN MORE</div><input type='hidden' id='hideDetail' value='"+rtData.data[i].description+"'></center></div><div class='serviceOddImg reveal' style='background-image: url("+imgUrl+""+rtData.data[i].photo_url+")'></div></div>";
 				}
 			}
+			searchLayoutDiv.innerHTML = searchLayout;
+			mobileContainer.innerHTML = mobileLayout+"<div class='mobileContainerMenuDiv'><a href='#desAboutUsContainer'>WHO WE ARE?</a></div><div class='mobileContainerMenuDiv'><a href='#serviceDataContainer'>OUR SOLUTION</a></div><div class='mobileContainerMenuDiv'><a href='#footerHeader'>CONTACT US</a></div>";
 		}
 		slideNext.addEventListener('click' , ()=>{ goSlideMTA(1);});
 		slidePre.addEventListener('click' , ()=>{goSlideMTA(-1);});
 		goApiData(apiUrl);
+		scrollFun.addEventListener("scroll", ()=>{
+		  	var reveals = document.querySelectorAll(".reveal");
+		  	var crystal = document.querySelectorAll(".crystal");
+		  	for (var i = 0; i < reveals.length; i++) {
+			    var windowHeight = window.innerHeight;
+			    var elementTop = reveals[i].getBoundingClientRect().top;
+			    var elementVisible = 50;
+			    if (elementTop < windowHeight - elementVisible) {
+			      reveals[i].classList.add("active");
+			      reveals[i].style.fontSize = "32px";
+			      crystal[i].classList.add("active");
+			    } else {
+			      reveals[i].classList.remove("active");
+			      crystal[i].classList.remove("active");
+			    }
+		  	}
+		});
 	</script>
  </body>
 </html>
