@@ -26,7 +26,7 @@
 		  -webkit-tap-highlight-color: rgba(0,0,0,0);
 		}
  	   .containermta{
- 	   		max-width: 1700px;height:100vh;background-color: #F6F7FB;overflow: none;display: flex;
+ 	   		max-width: 1700px;height:100vh;background-color: #fff;overflow: none;display: flex;
 			justify-content: center;
 			align-items: center;
 			flex-direction: column;margin: auto;
@@ -41,7 +41,7 @@
 		.containerHandler::-webkit-scrollbar-track {
 			background: -webkit-gradient(linear, center top, center bottom, from(#ededed), to(#fff));
 			background-image: linear-gradient(#ededed, #fff);
-			box-shadow: inset 0px 0px 3px 3px rgba(0,0,0,0.1)
+			box-shadow: inset 0px 0px 3px 3px rgba(0,0,0,0.1);
 			border-radius:15px;
 		}
 		.containerHandler::-webkit-scrollbar-thumb {
@@ -175,7 +175,7 @@
  	   		background-image: url(COVER/Architecture_Interior_Design/960x400.jpg);
  	   	}
  	   	#coverThree{
- 	   		background-image: url(COVER/CIVIL/1024X500_Home_Banner.jpg);
+ 	   		background-image: url(COVER/Civil/1024X500_Home_Banner.jpg);
  	   	}
  	   	#coverFour{
  	   		background-image: url(COVER/M_E/detail_Banner.jpg);
@@ -372,6 +372,74 @@
  	   		background-size: cover;
  	   		background-attachment: fixed;
  	   		background-position: center;
+ 	   	}
+ 	   	.contactUsMTAcontainer{
+ 	   		width: 100%;
+ 	   		max-width: 1700px;
+ 	   		height: 650px;
+ 	   		margin-top: 20px;
+ 	   		background-color: #F7F8FC;
+ 	   		display: flex;
+ 	   		justify-content: space-around;
+ 	   		flex-wrap: wrap-reverse;
+ 	   		clip-path: polygon(0 5%, 100% 0, 100% 100%, 0% 100%);
+ 	   		align-items: center;
+ 	   	}
+ 	   	.contactFormContainer{
+ 	   		width: 35%;
+ 	   		height: 550px;
+ 	   		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+ 	   		background-color: #fff;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   	}
+ 	   	.contactFormContainer input[type=text] , .contactFormContainer textarea{
+ 	   		width: 90%;
+ 	   		height: 40px;
+ 	   		border-radius: 5px;
+ 	   		border: none;
+ 	   		outline: none;
+ 	   		border: 1px solid gray;
+ 	   		margin-top: 15px;
+ 	   		box-sizing: border-box;
+ 	   		padding-left: 10px;
+ 	   	}
+ 	   	.contactFormContainer textarea{
+ 	   		min-width: 90%;
+ 	   		max-width: 90%;
+ 	   		min-height: 120px;
+ 	   		max-height: 180px;
+ 	   	}
+ 	   	.contactFormContainer input[type=submit]{
+ 	   		width: 90%;
+ 	   		height: 45px;
+ 	   		border-radius: 5px;
+ 	   		margin-top: 15px;
+ 	   		background-color: #0071FB;
+ 	   		color: #efefef;
+ 	   		text-align: center;
+ 	   		cursor: pointer;
+ 	   		border: none;
+ 	   		outline: none;
+ 	   	}
+ 	   	.contatctInfoContainer{
+ 	   		width: 55%;
+ 	   		height: 550px;
+ 	   		border-radius: 5px;
+ 	   	}
+ 	   	.contatctInfoContainer h4{
+ 	   		color:#4F647A;
+ 	   	}
+ 	   	.contatctInfoContainer h2{
+ 	   		color: #112C45;
+ 	   		font-weight: bold;
+ 	   	}
+ 	   	.contatctInfoContainer table tr td{
+ 	   		font-size: 13px;
+ 	   		color: #4F647A;
+ 	   		font-weight: bold;
  	   	}
  	   	.footerContainerMTACover{
  	   		width: 100%;
@@ -798,6 +866,14 @@
  	   	.current{
 			background: rgba(22, 113, 251, 0.8);
 		}
+		.slideStyleTwo{
+			-webkit-animation-name: slideInLeft;
+			  animation-name: slideInLeft;
+			  -webkit-animation-duration: 0.8s;
+			  animation-duration: 0.8s;
+			  -webkit-animation-fill-mode: both;
+			  animation-fill-mode: both;
+		}
 		.slideStyle{
 			 -webkit-animation-name: slideInRight;
 			  animation-name: slideInRight;
@@ -828,6 +904,28 @@
 			  transform: translateX(0);
 		  }
   		}
+  		 @-webkit-keyframes slideInLeft {
+			  0% {
+				  -webkit-transform: translateX(-100%);
+				  transform: translateX(-100%);
+				  visibility: visible;
+			  }
+			  100% {
+			  	-webkit-transform: translateX(0);
+			 	 transform: translateX(0);
+			  }
+		}
+		@keyframes slideInLeft {
+			  0% {
+				  -webkit-transform: translateX(-100%);
+				  transform: translateX(-100%);
+				  visibility: visible;
+			  }
+			  100% {
+				  -webkit-transform: translateX(0);
+				  transform: translateX(0);
+			  }
+  		} 
   		.loadAmazContainer{
  	   		width: 100%;
  	   		height: 30px;
@@ -909,6 +1007,17 @@
  	   		}
  	   		.subscribecover{
  	   			width: 70%;
+ 	   		}
+ 	   		.contactUsMTAcontainer{
+ 	   			height: auto;
+ 	   		}
+ 	   		.contactFormContainer , .contatctInfoContainer{
+ 	   			margin-top: 15px;
+ 	   			width: 80%;
+ 	   			height: auto;
+ 	   		}
+ 	   		.contactFormContainer{
+ 	   			height: 450px;
  	   		}
 		}
 		@media only screen and (max-width: 749px) and (min-width: 701px){
@@ -1052,7 +1161,7 @@
 	    		<div class="catefunarea">
 	    			<div>HOME</div>
 	    			<div><a href='#desAboutUsContainer'>WHO WE ARE?</a></div>
-	    			<div><a href='#serviceDataContainer'>OUR SOLUTIONS</a></div>
+	    			<div><a href='#serviceDataContainer'>OUR SOLUTION</a></div>
 	    			<div><a href='#footerHeader'>CONTACT US</a></div>
 	    		</div>
 	    		<div class="searcharea" id='searchBtn'>
@@ -1153,11 +1262,57 @@
 	    	</div>
 	    	<div class="aboutusCover"></div>
 	    </div>
-	    <div class="serviceHeader" id='serviceHeader'><div>OUR SOLUTIONS</div><div></div></div>
+	    <div class="serviceHeader" id='serviceHeader'><div>OUR SOLUTION</div><div></div></div>
 	    <div class="serviceContainerMTA" id="serviceContainerMTA"></div>
+	    <div class="contactUsMTAcontainer" id='footerHeader'>
+	    	<div class="contactFormContainer">
+	    		<input type="text" name="" placeholder="Name"  required />
+	    		<input type="text" name="" placeholder="Mobile" required />
+	    		<input type="text" name="" placeholder="Subject" required />
+	    		<input type="text" name="" placeholder="Email" required />
+	    		<textarea type="text" name="" placeholder="Message" required></textarea>
+	    		<input type="submit"  value="SENT" />
+	    	</div>
+	    	<div class="contatctInfoContainer">
+	    		<h2 style="padding-top:15px;">Please Where Applicable?</h2>
+	    		<h4>Please sent me some information about the follwing project segments:</h4>
+	    		<table style="width:100%;height: auto;">
+	    			<tr>
+	    				<td><input type="checkbox" name="segment" value='1'></td><td>Engineering & Technology</td><td><input type="checkbox" name="segment" value='2'></td><td>Architecture & Interior Design</td><td><input type="checkbox" name="segment" value='3'></td><td>Construction</td>
+	    			</tr>
+	    			<tr>
+	    				<td><input type="checkbox" name="segment" value='4'></td><td>M & E Lighting & Solution</td><td><input type="checkbox" name="segment" value='5'></td><td>Security Solutions</td><td><input type="checkbox" name="segment" value='6'></td><td>Cleaning & Municipal Technology</td>
+	    			</tr>
+	    		</table>
+	    		<div style="width:100%;height: max-content;margin-top: 10px;display: flex;justify-content: flex-start;
+	    				align-items: center;border-bottom:2px solid rgba(130,144,166,0.6);">
+	    			<img src="logo/location.png">
+    				<p>
+    					<span style="color:#243D55;font-size:14px;font-weight: bold;">Yangon Head Office </span> <br>
+    					<span style="color:#4F647A;font-size:13px;font-weight: bold;">North Gate Engineering And Technology Company Limited (Reg: 102090969) No.17 , Kyauk Myaung Street , Tamwe Township , 11211 , Yangon , Myanmar</span>
+    				</p>
+	    		</div>
+	    		<div style="width:100%;height: max-content;margin-top: 10px;display: flex;justify-content: flex-start;
+	    				align-items: center;border-bottom:2px solid rgba(130,144,166,0.6);">
+	    			<img src="logo/location.png">
+    				<p>
+    					<span style="color:#243D55;font-size:14px;font-weight: bold;">Singapore Office </span> <br>
+    					<span style="color:#4F647A;font-size:13px;font-weight: bold;">North Gate Engineering And Technology Pte. Ltd (Reg: 201933030W) 14 Robinson Road #08-01A , Far East Finance Building , Singapore (048545)</span>
+    				</p>
+	    		</div>
+	    		<div style="width:100%;height: max-content;margin-top: 10px;display: flex;justify-content: flex-start;
+	    				align-items: center;border-bottom:2px solid rgba(130,144,166,0.6);">
+	    			<img src="logo/location.png">
+    				<p>
+    					<span style="color:#243D55;font-size:14px;font-weight: bold;">Thailand Office </span> <br>
+    					<span style="color:#4F647A;font-size:13px;font-weight: bold;">No. 486/63 Soi Wat Phai Ngoen , Bang Khlo Subdistrict , Bang Kho Laem District , Bangkok 10120 , Thailand</span>
+    				</p>
+	    		</div>
+	    	</div>
+	    </div>
 	    <div class="footerContainer">
 	    	<div class="footerContainerMTACover">
-	    		<div class="footerHeader" id='footerHeader'>
+	    		<div class="footerHeader" >
 	    			<div class="infoFooter">
 	    				<img src="logo/location.png">
 	    				<p>NO. 17› KYAUK MYAUNG STREET, TAMWE TOWNSHIP, YANGON, REPUBLIC OF THE UNION OF MYANMAR</p>
@@ -1249,8 +1404,8 @@
 		const slideNext = document.getElementById('slideNext');
 		const slidePre = document.getElementById('slidePre');
 		var loader = document.getElementById('loadAmazContainer');
-		goSlideMTA(1);
-		function goSlideMTA(para){
+		goSlideMTA(1 , 'slideStyle');
+		function goSlideMTA(para , ui){
 			  let i;
 			  let mtaSlide = document.getElementsByClassName("covercontainermta");
 			  let indicate = document.getElementsByClassName("indicator");
@@ -1263,6 +1418,8 @@
 			  for (i = 0; i < indicate.length; i++) {
 			    indicate[i].className = indicate[i].className.replace("current", "");
 			  }
+			  mtaSlide[slideLocate-1].classList.remove("slideStyle");
+			  mtaSlide[slideLocate-1].classList.add(ui);
 			  mtaSlide[slideLocate-1].style.display = "block";
 			  mtaSlide[slideLocate-1].style.display = "flex";
 			  indicate[slideLocate-1].className += " current";
@@ -1280,10 +1437,10 @@
 				}
 			}
 			searchLayoutDiv.innerHTML = searchLayout;
-			mobileContainer.innerHTML = mobileLayout+"<div class='mobileContainerMenuDiv'><a href='#desAboutUsContainer'>WHO WE ARE?</a></div><div class='mobileContainerMenuDiv'><a href='#serviceDataContainer'>OUR SOLUTIONS</a></div><div class='mobileContainerMenuDiv'><a href='#footerHeader'>CONTACT US</a></div>";
+			mobileContainer.innerHTML = mobileLayout+"<div class='mobileContainerMenuDiv'><a href='#desAboutUsContainer'>WHO WE ARE?</a></div><div class='mobileContainerMenuDiv'><a href='#serviceDataContainer'>OUR SOLUTION</a></div><div class='mobileContainerMenuDiv'><a href='#footerHeader'>CONTACT US</a></div>";
 		}
-		slideNext.addEventListener('click' , ()=>{ goSlideMTA(1);});
-		slidePre.addEventListener('click' , ()=>{goSlideMTA(-1);});
+		slideNext.addEventListener('click' , ()=>{ goSlideMTA(1 , 'slideStyleTwo');});
+		slidePre.addEventListener('click' , ()=>{goSlideMTA(-1 , 'slideStyle');});
 		goApiData(apiUrl);
 		scrollFun.addEventListener("scroll", ()=>{
 		  	var reveals = document.querySelectorAll(".reveal");
