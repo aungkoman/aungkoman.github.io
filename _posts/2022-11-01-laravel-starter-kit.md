@@ -234,3 +234,82 @@ Route::prefix('v1')->group(function () {
 ```
 
 အိုကေ Select API တော့ အိုကေသွားပြီဆိုရမယ်။ လောလောဆယ် API အပိုင်းကို ခန နားပြီး Admin Panel အပိုင်းကို ဆက်မယ်။
+
+ထုံးစံအတိုင်း News Admin Panel အတွက် Controller တစ်ခု ဆောက်မယ်။
+
+```bash
+php artisan make:controller NewsController --model=News
+```
+
+#### Model Generation Result
+
+```bash
+aungkoman@AungnoMBookpuro ecommerce % php artisan make:controller NewsController --model=News
+Controller created successfully.
+aungkoman@AungnoMBookpuro ecommerce % 
+```
+
+```app/Http/Controllers/``` folder ထဲမှာ ```NewsController``` ဆိုပြီး ဖိုင်တစ်ဖိုင်ရောက်လာမယ်။ လိုအပ်တဲ့ method တွေလည်း ရေးထားပြီးသား။
+
+ဒီ methods တွေထဲကမှာ သက်ဆိုင်ရာ View ကို render လုပ်ပေးဖို့ လိုမယ်။ ဒီတော့ ```resources/views/``` folder မှာ ```news``` ဆိုပြီး folder တစ်ခုဆောက်ပြီး news နဲ့ ပတ်သက်တဲ့ view ( blade template file ) တွေ စုရေးထားမယ်။ အဓိကတော့ Form နဲ့ Table ပါပဲ။
+
+data တွေ တန်းစီပြဖို့အတွက် ```index.blade.php``` ဆိုပြီး တစ်ဖိုင်ဆောက်မယ်။ သူ့က List News လိုမယ်။ ဒါတွေကို table ပုံစံနဲ့ ပြမယ်။
+
+```html
+<table>
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>January</td>
+      <td>$100</td>
+    </tr>
+    <tr>
+      <td>February</td>
+      <td>$80</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td>Sum</td>
+      <td>$180</td>
+    </tr>
+  </tfoot>
+</table>
+```
+
+ဒီထဲကို model တွေ inject လုပ်မယ်။
+
+```php
+@foreach ($newsList as $news)
+    <tr>
+            <td>{{ $news->id }}</td>
+            <td>{{ $news->title }}</td>
+    </tr>
+@endforeach
+```
+
+data ကို ပြပေးမယ့် view လည်း ရေးပြိးသွာပြီ။ controller က data ယူပြီး view ကို pass ပေးဖို့ပဲ ကျန်မယ်။ ဒါမျိုး index method ကို သွားပြင်လိုက်မယ်။
+
+```php
+public function index()
+{
+    $newsList = News::all();
+    //return view('news.index', compact('newsList'));
+    return view('news.index', ['newsList' => $newsList]);
+}
+```
+
+controller နဲ့ view အပိုင်းကတော့ အိုကေသွားပြီ ဒီ controller method ကို ခေါ်မယ့် routing အပိုင်း ဆက်ထည့်လိုက်မယ်။ ```routes/web.php``` မှာ routing တစ်ခု သွားတိုးမယ်။
+
+```php
+Route::get('/news', [NewsController::class, 'index']);
+// for complete routing
+// Route::resource('news', NewsController::class);
+```
+
+အခုချိန် ```/news``` endpoint ကို brower မှာ ကြည့်ရင် နမူနာ ထည့်ထားတဲ့ သတင်း (၅) ခုကို တွေ့နေရပါပြီ။
