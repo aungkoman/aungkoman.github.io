@@ -430,6 +430,46 @@ class News extends Model
 
 အိုကေ Create အထိ အိုကေသွားပြီ။ Update နဲ့ Delete ကျန်မယ်။
 
+တစ်ခုခု လုပ်တော့မယ် ဆိုရင်
+ဘယ်ကစလဲ
+
+Model ကတော့ ရေးရမယ်။
+
+ပြီးရင် controller မှာ methods တွေ ထည့်မယ်။
+
+ဒါပြီးရင် router တွေ ရေးမယ်။
+
+နောက်ဆုံးတော့ view ပေါ့။
+
+အဲ့မှာ view ကို ပေးရမယ့် data တွေ အတွက် controller method ကို implement လုပ်။
+
+နောက် view က နေ ရမယ့် data တွေအတွက် router နဲ့ controller တွေကို ပြန်ညိှ။
+
+အိုကေ အခု Update Form လုပ်ရမယ်။ ဘယ်က စကြမလဲ?
+
+လောလောဆယ် edit form ကို သွားမယ့် edit route အရင် စသတ်မှတ်မယ်။
+
+### Side Note about Roure::Resource
+
+A RESTful resource controller sets up some default routes for you and even names them.
+
+```php
+Route::resource('users', 'UsersController');
+```
+
+Gives you these named routes:
+
+Verb          Path                        Action  Route Name
+GET           /users                      index   users.index
+GET           /users/create               create  users.create
+POST          /users                      store   users.store
+GET           /users/{user}               show    users.show
+GET           /users/{user}/edit          edit    users.edit
+PUT|PATCH     /users/{user}               update  users.update
+DELETE        /users/{user}               destroy users.destroy
+
+view အရင်ရေးလိုက်ကြရအောင်။
+
 ### Refrence List
 
 <https://techvblogs.com/blog/laravel-9-crud-application-tutorial-with-example>
