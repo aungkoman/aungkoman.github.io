@@ -313,3 +313,123 @@ Route::get('/news', [NewsController::class, 'index']);
 ```
 
 အခုချိန် ```/news``` endpoint ကို brower မှာ ကြည့်ရင် နမူနာ ထည့်ထားတဲ့ သတင်း (၅) ခုကို တွေ့နေရပါပြီ။
+
+### Create , Update and Delete
+
+အသစ်ထည့်တာ၊ ပြင်တာ ဖျတ်တာ တွေ လုပ်နိုင်ဖို့ အခု UI မှာ ဆက်ထည့်မယ်။ လောလောဆယ် ဒီအတွက် View တွေ အရင် ဖန်တီးလိုက်ကြအောင်။
+
+#### New Form
+
+news view folder ထဲမှာ ```create.blade.php`` ဆိုပြီး ဖိုင်အသစ်ဆောက်ပြီး ဖောင်တစ်ခု ရေးမယ်။
+
+```html
+<form action="/action_page.php">
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname" value="John"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname" value="Doe"><br><br>
+  <input type="submit" value="Submit">
+</form> 
+```
+
+လိုမှာက Route Name , Method , CSRF
+Router မှာ create route သွားထည့်မယ်။
+
+```php
+Route::get('/news', [NewsController::class, 'index'])->name('news');
+Route::get('/news/create', [NewsController::class, 'create'])->name('news_create');
+Route::post('/news', [NewsController::class, 'store'])->name('news_store');
+```
+
+ဖောင်အတွက် route တစ်ခုပါ ထည့်ပြီးသွားပြီ။ index မှာ ဒါမျိုး Link သွားထည့်ထားမယ်။
+
+```php
+<a href="{{ route('news_create') }}"> Create News</a>
+                
+```
+
+router ကိုရောက်ရင် ခေါ်မယ့် controller method မှာလည်း သွားပြင်ထားမယ်။
+
+```php
+public function create()
+{
+    return view('news.create');
+}
+```
+
+ဒီတော့ ```/news/create``` endpoint ကို broswer က ဝင်ကြည့်ရင် ဖောင် စမြင်ရပြီ။
+ဖောင်ထဲမှာ လိုအပ်တဲ့ ဟာတွေကို
+ဒီလို ပြန်ပြင်ရေးလိုက်မယ်။
+
+```html
+    <form action="{{ route('news_store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <label for="title">Title:</label><br>
+            <input type="text" id="title" name="title" value="title" placeholder="Enter Title" required><br>
+
+            <label for="featured_photo_url">Featured Photo URL:</label><br>
+            <input type="text" id="featured_photo_url" name="featured_photo_url" value="featured_photo_url"><br>
+
+            <label for="short_description">Short Description</label><br>
+            <input type="text" id="short_description" name="short_description" value="short_description"><br>
+
+            <label for="description">Description</label><br>
+            <input type="text" id="description" name="description" value="description"><br>
+
+            <label for="url">Description</label><br>
+            <input type="text" id="url" name="url" value="url"><br>
+            
+            
+            <br>
+
+            <input type="submit" value="Submit">
+    </form> 
+```
+
+အိုကေ ဖောင်ကတော့ data အပြည့်နဲံ ထည့်ဖို့ အဆင်သင့်ဖြစ်နေပြီ။ router မှာလည်း controller ကို ခေါ်ထားပြီးပြီ။ controller မှာပဲ request က data ကိုယူပြီး db ထဲကို ထည့်ဖို့ ကျန်တော့မယ်။
+
+news controller ရဲ့ store method မှာ validation နဲ့ model create method တွေ ခေါ်မယ်။
+
+```php
+public function store(Request $request)
+{
+        $request->validate([
+            'title' => 'required',
+            'featured_photo_url' => 'required',
+            'short_description' => 'required',
+            'description' => 'required',
+            'url' => 'required',
+        ]);
+
+        $data = $request->post();
+        $data["user_id"] = 1; // TODO: get auth user id
+        
+        News::create($data);
+        // Company::create($request->post());
+
+        return redirect()->route('news')->with('success','Company has been created successfully.');
+}
+```
+
+ဒီမှာ ပြဿနာ တက်တယ်။
+
+```logs
+Add [_token] to fillable property to allow mass assignment on [App\Models\News].
+```
+
+Model ရဲ့ fields တွေကို တိုက်ရိုက် အဖြည့်မခံတဲ့ သဘော။ ဒီတော့ model မှာ ဒါမျိုး သွားပြင်မယ်။
+
+```php
+class News extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ['title', 'featured_photo_url', 'short_description', 'description', 'url', 'user_id'];
+}
+```
+
+အိုကေ Create အထိ အိုကေသွားပြီ။ Update နဲ့ Delete ကျန်မယ်။
+
+### Refrence List
+
+<https://techvblogs.com/blog/laravel-9-crud-application-tutorial-with-example>
