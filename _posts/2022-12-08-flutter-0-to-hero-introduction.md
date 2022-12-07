@@ -2,6 +2,8 @@
 layout: post
 title: Flutter - From Zero To Hero - Introduction
 ---
+<iframe width="560" height="315" src="https://www.youtube.com/embed/NuyIz3mveQI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 - Zero to Hero  
   - ဒီ Series မှာ ကွန်ပျူတာ ပရို ၐရမ်အကြောင်း ဘာတစ်ခုမှ မသိတဲ့ သူကို မိုဘိိုင်း Application တစ်ခု ကိုယ်တိုင်ရေးပြီး ပလေးစတိုး နဲ့ Apple Appstore မှာ တင်နိုင်တဲ့ သူဖြစ်အောင် လမ်းညွှန်ပေးသွားမှာ ဖြစ်ပါတယ်။  
     - ဘယ်အရာမှ လွယ်ကူမနေသလို ဘယ်အရာမှလည်း ခက်ခဲနေတယ်ဆိုတာ မရှိပါဘူး။ အဆက်မပြတ် ကြိုးစားအားထုတ်နေဖို့နဲ့ နည်းမှန် လမ်းမှန် လျှောက်လှမ်းနေမယ်ဆိုရင် ကိုယ်လိုချင်တဲ့ ပန်းတိုင်ကို ရောက်ရှိနိုင်မှာပဲ ဖြစ်ပါတယ်။  
