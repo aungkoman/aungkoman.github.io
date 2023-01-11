@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Life : What are we looking for?
+title: Life - What are we looking for?
 ---
 # Life : What are we looking for?
 
