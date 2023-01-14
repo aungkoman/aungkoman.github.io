@@ -101,7 +101,61 @@
                 // for one second , increase 6 
                 // for one mili second , how ma
                 // တိုးမယ့် unit ဒီမှာတော့ ဘယ်လောက် ဒီဂရီ ရွေ့သွားမယ်ပေါ့။ 
-                runningCircle.degree += runningCircle.velocity;
+
+                // ဒါက အတိုးချည်းပဲ
+
+                // နောက်ပြန် သွားစေချင်ရင် ပြန်နှုတ်ပေးလိုက်လို့ရမယ်။ 
+                // direction ထည့်မယ်။
+                if(runningCircle.direction == true){
+                    let oldDegree = runningCircle.degree;
+
+                    runningCircle.degree += runningCircle.velocity;
+                    if(runningCircle.degree > 360){
+                        runningCircle.degree -= 360;
+                    }
+                    //console.log(runningCircle.id +  " direction is true "+oldDegree+" to "+ runningCircle.degree);
+                    
+                    // လိုင်းကို ဖြတ်သွားသလားဆိုတာကို ဘယ်လို detect မလဲ?
+                    // အရင်လို degree တစ်ခုတည်းမှာ အကြာကြီး ရောက်လာမှ မဟုတ်ဘူး။
+                    // 85 -> 90 ဒါမျိုး ဖြစ်သွားနိုင်တယ်။
+                    if(oldDegree <= 89 && runningCircle.degree > 89){
+                        // that's means croos line
+                        //console.log(runningCircle.id +  " change direction to false");
+                        runningCircle.direction = false;
+                        runningCircle.degree = oldDegree;
+
+                    }
+                    /*
+                    if(runningCircle.degree >= 89 && runningCircle.degree < 360){
+                        
+                    }
+                    */
+                }
+                else{
+                    //console.log(runningCircle.id +  " direction is false "+ runningCircle.degree); 
+                    let oldDegree = runningCircle.degree;
+                    runningCircle.degree -= runningCircle.velocity;
+                    if(runningCircle.degree < 0){
+                        runningCircle.degree += 360;
+                    }
+                    if(oldDegree >= 90 && runningCircle.degree < 90){
+                        // that's means croos line
+                        //console.log("change direction to true");
+                        runningCircle.direction = true;
+                        runningCircle.degree = oldDegree;
+
+                    }
+                    /*
+                    if(runningCircle.degree < 91 && runningCircle.degree > 90){
+                        runningCircle.direction = true;
+                    }
+                    */
+                }
+
+                // ဘယ်ချိန်မှာ direction ပြောင်းမလဲ? 
+                // degree က ၉၀ က နေ စမှာ ဒီတော့ 
+                // direction == true, degree > 89 ဒါဆို နောက်ပြန်လှည့် 
+                // direction == false, degree >90 ဒါဆို ရှေ့ပြန်သွား
                 runningCircle.last = now;
             }
         }
@@ -116,6 +170,7 @@
             last: 0,
             fps: 30,
             velocity : 1800 / (360 * 20 ) , // တစ်စက္ကန့်ရဲ့ (၃၀) ပုံ ပုံရင်တစ်ပုံမှာ ဘယ်လောက် degree တိုးချင်လဲ?
+            direction: true,
         };
         /*
             တစ်မိနစ်မှာ ဘယ် နှစ်ပတ် ပတ်စေချင်လဲ?
@@ -150,6 +205,7 @@
             last: 0,
             fps: 60,
             velocity :1800 / (360 / 2 ) ,
+            direction: true,
         };
 
         
@@ -164,6 +220,7 @@
             last: 0,
             fps: 90,
             velocity : 1800 / (360 / 3 ) ,
+            direction: true,
         };
 
         var circleList = [
@@ -173,7 +230,7 @@
         ];
 
         
-        const numberOfCircle = 20;
+        const numberOfCircle = 21;
         for(let i =1; i < numberOfCircle; i++){
             circleList.push({
                 id : i,
@@ -185,7 +242,8 @@
                 radius: 150 - (i *  (150 / numberOfCircle)), // Origin ကနေ ဘယ်လောက် အကွာအဝေးမှာ ရောက်နေသလဲ?
                 last: 0,
                 fps: 30 *  i ,
-                velocity : 1800 / (360 / (1 * 0.1) ), // seconds
+                velocity : 1800 / (360 / (i * 0.1) ), // seconds
+                direction: true,
             });
         }
 
