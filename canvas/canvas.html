@@ -106,6 +106,8 @@
 
                 // နောက်ပြန် သွားစေချင်ရင် ပြန်နှုတ်ပေးလိုက်လို့ရမယ်။ 
                 // direction ထည့်မယ်။
+                
+
                 if(runningCircle.direction == true){
                     let oldDegree = runningCircle.degree;
 
@@ -230,19 +232,19 @@
         ];
 
         
-        const numberOfCircle = 21;
+        const numberOfCircle = 100;
         for(let i =1; i < numberOfCircle; i++){
             circleList.push({
                 id : i,
                 dx: 100,
                 dy: 0,
                 color: "green",
-                dsize : 10,
+                dsize : 2,
                 degree : 90,
                 radius: 150 - (i *  (150 / numberOfCircle)), // Origin ကနေ ဘယ်လောက် အကွာအဝေးမှာ ရောက်နေသလဲ?
                 last: 0,
                 fps: 30 *  i ,
-                velocity : 1800 / (360 / (i * 0.1) ), // seconds
+                velocity : 1800 / (360 / (i * 0.01) ), // seconds
                 direction: true,
             });
         }
