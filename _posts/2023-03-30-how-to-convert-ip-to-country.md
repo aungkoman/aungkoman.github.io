@@ -3,6 +3,12 @@ layout: post
 title: How to convert ip to country
 ---
 
+### Download SQL
+
+https://github.com/mmsoftware100/ip-to-country/releases/tag/databases
+
+
+
 သူတို့ ေပးထားတဲ့ Solution က အေတာ်ေလး ရှင်းပါတယ်။
 ခက်ကတာက load data infile ကလည်း မရ
 mac မှာ တိုင်ပတ်ေနတာနဲ့ 
