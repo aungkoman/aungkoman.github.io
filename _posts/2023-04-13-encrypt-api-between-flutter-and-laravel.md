@@ -32,6 +32,7 @@ in Flutter
 
 ### dart
 
+```dart
 import 'package:encrypt/encrypt.dart';
 
 class OurApiEncrypt{
@@ -50,9 +51,11 @@ class OurApiEncrypt{
     return encrypted.base64;
   }
 }
+```
 
 ### php
 
+```php
 <?php
 
 namespace App\Http\Controllers;
@@ -87,3 +90,4 @@ class Controller extends BaseController
         return $decryptedString;
     }
 }
+```
