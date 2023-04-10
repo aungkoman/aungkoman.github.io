@@ -1,6 +1,6 @@
 ---
 layout: post
-title: How to be better at Laravel
+title: How to add path in Mac
 ---
 
 If you need to have php@8.1 first in your PATH, run:
