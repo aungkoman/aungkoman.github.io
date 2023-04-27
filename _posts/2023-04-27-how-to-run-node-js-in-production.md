@@ -25,6 +25,11 @@ pm2 stop app_name / process index
 
 pm2 stop 0
 
+## Restart on file changes
+
+pm2 start app.js --watch
+
+## Logs
 
 root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# ls
 Procfile   app.json    index.js      package-lock.json  public   views
@@ -166,3 +171,14 @@ root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket#
 https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-20-04
 
 https://www.codespeedy.com/remove-node-js-app-from-pm2-process-list/#:~:text=In%20order%20to%20delete%20a,Doing%20this%20is%20quite%20easy.&text=We%20can%20clearly%20see%20the,or%20remove%20the%20specific%20Node.
+
+
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 start index.js --watch
+[PM2] Starting /var/www/html/socket/index.js in fork_mode (1 instance)
+[PM2] Done.
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ index              │ fork     │ 0    │ online    │ 0%       │ 44.1mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type 'pm2 save' to synchronize.
