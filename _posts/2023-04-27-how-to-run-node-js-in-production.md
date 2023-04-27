@@ -172,6 +172,10 @@ https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-applica
 
 https://www.codespeedy.com/remove-node-js-app-from-pm2-process-list/#:~:text=In%20order%20to%20delete%20a,Doing%20this%20is%20quite%20easy.&text=We%20can%20clearly%20see%20the,or%20remove%20the%20specific%20Node.
 
+https://pm2.keymetrics.io/docs/usage/watch-and-restart/
+
+
+
 
 root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 start index.js --watch
 [PM2] Starting /var/www/html/socket/index.js in fork_mode (1 instance)
