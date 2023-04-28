@@ -3,6 +3,9 @@ layout: post
 title: See live demo of github pages on Mac
 ---
 
+
+layout တေွပါ ပြောင်းကုန်ပြီ။
+
 ## Command List
 
 ```bash
