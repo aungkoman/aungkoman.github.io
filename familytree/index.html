@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Tree</title>
+    <script src="./familytree.js"></script>
+</head>
+<body>
+    <div style="width:100%; height:100%;" id="tree"></div>
+
+    <script>
+        var family = new FamilyTree(document.getElementById("tree"), {
+            nodeBinding: {
+                field_0: "name"
+            },
+            nodes: [
+                { id: 1, pids: [2], name: "Aung" },
+                { id: 2, pids: [1], name: "Aye" },
+                { id: 3, mid: 1, fid: 2, name: "Peter Stevens" }  
+            ]
+        });
+    </script> 
+
+</body>
+</html>
