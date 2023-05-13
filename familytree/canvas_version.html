@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Family Tree</title>
+	<style>
+		canvas {
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="myCanvas" width="600" height="400"></canvas>
+
+	<script>
+		// Get the canvas element
+		var canvas = document.getElementById("myCanvas");
+		var ctx = canvas.getContext("2d");
+
+		// Define the tree structure
+		var tree = {
+			name: "Grandfather",
+			children: [
+				{
+					name: "Father",
+					children: [
+						{
+							name: "Me"
+						},
+						{
+							name: "Sister"
+						}
+					]
+				},
+				{
+					name: "Aunt",
+					children: [
+						{
+							name: "Cousin"
+						}
+					]
+				}
+			]
+		};
+
+		// Draw the tree recursively
+		function drawTreeV1(x, y, node) {
+			// Draw the node
+			ctx.fillStyle = "white";
+			ctx.fillRect(x-50, y-25, 100, 50);
+			ctx.strokeStyle = "black";
+			ctx.strokeRect(x-50, y-25, 100, 50);
+			ctx.fillStyle = "black";
+			ctx.font = "14px Arial";
+			ctx.textAlign = "center";
+			ctx.fillText(node.name, x, y);
+
+			// Draw the children
+			if (node.children) {
+				var numChildren = node.children.length;
+				var childX = x - (numChildren-1) * 60;
+				var childY = y + 80;
+				for (var i=0; i<numChildren; i++) {
+					ctx.beginPath();
+					ctx.moveTo(x, y+25);
+					ctx.lineTo(childX+50, childY-25);
+					ctx.stroke();
+					drawTree(childX, childY, node.children[i]);
+					childX += 120;
+				}
+			}
+		}
+
+        function drawTree(x, y, node) {
+    // Draw the node
+    ctx.fillStyle = "white";
+    ctx.fillRect(x-50, y-25, 100, 50);
+    ctx.strokeStyle = "black";
+    ctx.strokeRect(x-50, y-25, 100, 50);
+    ctx.fillStyle = "black";
+    ctx.font = "14px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText(node.name, x, y);
+
+    // Draw the children
+    if (node.children) {
+        var numChildren = node.children.length;
+        var childrenWidth = numChildren * 120; // total width of all child nodes
+        var childX = x - childrenWidth/2 + 60; // center the child nodes under the parent node
+        var childY = y + 80;
+        for (var i=0; i<numChildren; i++) {
+            ctx.beginPath();
+            ctx.moveTo(x, y+25);
+            ctx.lineTo(childX, childY-25);
+            ctx.stroke();
+            drawTree(childX, childY, node.children[i]);
+            childX += 120;
+        }
+    }
+}
+
+
+
+		// Draw the tree starting from the top-center of the canvas
+		var startX = canvas.width/2;
+		var startY = 50;
+		drawTree(startX, startY, tree);
+	</script>
+</body>
+</html>

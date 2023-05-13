@@ -6,3 +6,5 @@ categories: how to
 ---
 
 https://balkan.app/FamilyTreeJS/Docs/GettingStarted
+
+Not FREE Bro.
