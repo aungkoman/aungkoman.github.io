@@ -36,7 +36,7 @@ https://edu.gcfglobal.org/en/internetbasics/what-can-you-do-online/1/
 လိုချင်တဲ့ အချက်အလက်အကြောင်းအရာတွေ ရှာလို့ရမယ်။
 မိုးလေဝသ အခြေအနေကစပြီး လက်တလော သတင်းတွေ၊ သမိုင်းကြောင်းတွေ အစုံအလင် သိနိုင်မယ်။
 စျေးဝယ်ဉီးမလား ရမယ်။
-နောက် ဖျော်ဖြေရေးအတွက် ရုပ်ရှင်၊​သီချင်း၊ဗီဒီယို။
+နောက် ဖျော်ဖြေရေးအတွက် ရုပ်ရှင်၊​သီချင်း၊ဗီဒီယို။ စာအုပ်။
 ပညာရေးအတွက် သုတေသနစာတမ်းတွေ။
 ပြောရင်ရင် ဒီနေ့ခေတ်မှာ အကုန်လုံးလိုလို အင်တာနက်ပေါ်ရောက်ကုန်လို့ အလွယ်တကူ ရယူနိုင်ပါပြီ။
 
@@ -101,6 +101,10 @@ Website လိပ်စာလည်း သိပြီ
 https://www.pannsattlann.com/
 ဘဏ်စာရင်းကြည့် https://ibanking.kbzbank.com
 https://www.ayaibanking.com/
+
+Business Card https://www.bizcardmaker.com/#/?theme=theme-half--blue
+
+
 
 
 ### Basic Navigation
@@ -212,6 +216,15 @@ Pdf
 ဆိုတာ့ကာ ကျွန်တော်တို့ အင်တာနက်ပေါ်မှာ ကိုယ်ပိုင် စာတိုက်ပုံးတစ်ခု ဖန်တီးလိုက်ကြရေအာင်။
 
 gmail.com ကို သွားပါ။
+
+- [ ] Account Registration
+- [ ] Login
+- [ ] Inbox
+- [ ] Compose Email (to , title , body )
+- [ ] Sent
+
+
+### 
 
 
 
