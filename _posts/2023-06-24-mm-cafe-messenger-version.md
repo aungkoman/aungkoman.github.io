@@ -24,3 +24,12 @@ Botman.io က ကောင်းမလား မသိ။
 Node, Express နဲ့ ကိုယ်ပိုင်ကိုယ်နိုင်လည်း စမ်းကြည့်ချင်ရဲ့
 အာရုံတွေများပါဘိ။
 
+
+## Botman.io Installation
+
+composer global require "botman/installer"
+
+composer create-project --prefer-dist botman/studio <directory>
+
+
+composer install --ignore-platform-reqs
