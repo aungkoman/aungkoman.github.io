@@ -33,3 +33,6 @@ Test တွေပါ ချရေးထား။
 
 ကိုယ်တိုင် လုပ်စရာမလိုဘူး။
 
+If you say that someone has taken the moral high ground, you mean that they consider that their policies and actions are morally superior to the policies and actions of their rivals.
+
+
