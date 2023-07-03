@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MYANMAR LINK</title>
+    <link rel="stylesheet" href="Style/mdb.min.css" />
+    <link rel="stylesheet" href="Style/leaflet.css" />
+    <script src="Script/leaflet.js"></script>
+
+</head>
+
+<body style="background-color: black;">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+            <!-- Toggle button -->
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Navbar brand -->
+                <a class="navbar-brand mt-2 mt-lg-0" href="#">
+                    MYANMAR LINK
+                </a>
+            </div>
+            <!-- Collapsible wrapper -->
+
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+    <main id="main">
+        <div id="map"
+            style="height:55vh;margin:10px;border: 1px white solid;box-shadow: rgba(255, 255, 255, 0.24) 0px 3px 8px;">
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer class="text-center text-lg-start bg-dark text-white">
+        <!-- Section: Social media -->
+        <section class="justify-content-center p-4 border-top border-bottom">
+            <div class="justify-content-between row">
+                <!-- <div class="col-2 border card bg-dark" id="load_location">
+                    <h4>Special View</h4>
+                    <div class="form-group">
+                        <label for="user_list">Choose User</label>
+                        <select class="form-control cursor-pointer" id="user_list"></select>
+                    </div>
+                </div> -->
+                <div class="col-7 border card bg-dark" style="height: 350px;overflow-y: scroll;overflow-x: hidden;">
+                    <h4>User List</h4>
+                    <table id="user_table" class="table border text-white">
+                        <thead class=" text-center">
+                            <th>No</th>
+                            <th>UserName</th>
+                            <th>Name</th>
+                            <th>Phone Number</th>
+                            <th>Latitude</th>
+                            <th>Longitude</th>
+                            <th>View</th>
+                            <th>Delete</th>
+                        </thead>
+                        <tbody class="text-end">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-2 border card bg-dark" id="load_location">
+                    <h4>New User</h4>
+                    <div class="form-group m-1">
+                        <label for="user_name">UserName</label>
+                        <input type="text" class="form-control" id="user_name" />
+                    </div>
+                    <div class="form-group m-1">
+                        <label for="phone_number">Phone Number</label>
+                        <input type="text" class="form-control" id="phone_number" />
+                    </div>
+                    <div class="form-group m-1">
+                        <label for="lat">Latitude</label>
+                        <input type="text" class="form-control" id="lat" />
+                    </div>
+                    <div class="form-group m-1">
+                        <label for="lng">Longitude</label>
+                        <input type="text" class="form-control" id="lng" />
+                    </div>
+                    <div class="form-group m-2 text-end">
+                        <input type="button" class="btn btn-success" value="Add" id="new_user" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Section: Links  -->
+
+        <!-- Copyright -->
+        <!-- <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+            © 2021 Copyright:
+            <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        </div> -->
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+    <!-- <script type="text/javascript" src="Script/mdb.min.js"></script>
+    <script type="text/javascript" src="Script/jquery-3.3.1.min.js"></script> -->
+    <script src="Script/firebase-app.js"></script>
+    <script src="Script/firebase-database.js"></script>   
+    <script>
+
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBFuQI4JTm04WVUPeJzIqm1eCIQzc3kF04",
+            authDomain: "my-place-1a38a.firebaseapp.com",
+            databaseURL: "https://my-place-1a38a-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "my-place-1a38a",
+            storageBucket: "my-place-1a38a.appspot.com",
+            messagingSenderId: "634843586019",
+            appId: "1:634843586019:web:a048f635da31894ae054d6",
+            measurementId: "G-F95ZSSL42T"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+
+        // firebase.analytics();
+        // Creating map options
+
+        var mapOptions = {
+            center: [16.810539, 96.176570],
+            zoom: 13
+        }
+
+        // Creating a map object
+        var map = new L.map('map', mapOptions);
+
+        // Creating a Layer object 
+        var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+
+        // Adding layer to the map
+        map.addLayer(layer);
+
+        //userIcon
+        var userIcon = L.icon({
+            iconUrl: 'Images/usericon.png',
+            iconSize: [90, 95], // size of the icon
+            shadowSize: [50, 64], // size of the shadow
+            iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+            shadowAnchor: [4, 62],  // the same for the shadow
+            popupAnchor: [20, -60] // point from which the popup should open relative to the iconAnchor
+        });
+
+        //stationIcon
+        var stationIcon = L.icon({
+            iconUrl: 'Images/station.png',
+            iconSize: [110, 95], // size of the icon
+            shadowSize: [50, 64], // size of the shadow
+            iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+            shadowAnchor: [4, 62],  // the same for the shadow
+            popupAnchor: [20, -60] // point from which the popup should open relative to the iconAnchor
+        });
+
+        // marker array
+        var marker_list = [];
+
+        //get data from firebase
+        firebase.database().ref('users').on('value', function (snapshot) {
+            for (let i = 0; i < marker_list.length; i++) {
+                document.getElementById('user_list').innerHTML = "";
+                map.removeLayer(marker_list[i]);
+            }
+            let no = 1;
+            snapshot.forEach(
+                function (ChildSnapshot) {
+                    let marker = L.marker([parseFloat(ChildSnapshot.val().lat), parseFloat(ChildSnapshot.val().lng)], { icon: userIcon }).addTo(map).bindPopup(ChildSnapshot.val().name + '<br/>' + ChildSnapshot.val().phone);
+                    marker_list.push(marker);
+
+                    // let node = document.createElement('option');
+                    // node.value = marker_list.length - 1;;
+                    // node.textContent = ChildSnapshot.val().name;
+                    // document.getElementById('user_list').appendChild(node);
+
+                    let tr = document.createElement('tr');
+                    let num = document.createElement('td');
+                    num.innerHTML = no;;
+                    tr.appendChild(num);
+
+                    let user_name = document.createElement('td');
+                    user_name.innerHTML = ChildSnapshot.key;
+                    tr.appendChild(user_name);
+
+                    let name = document.createElement('td');
+                    name.innerHTML = ChildSnapshot.val().name;
+                    tr.appendChild(name);
+
+                    let phone = document.createElement('td');
+                    phone.innerHTML = ChildSnapshot.val().phone;
+                    tr.appendChild(phone);
+
+                    let lat = document.createElement('td');
+                    lat.innerHTML = ChildSnapshot.val().lat;
+                    tr.appendChild(lat);
+
+                    let lng = document.createElement('td');
+                    lng.innerHTML = ChildSnapshot.val().lng;
+                    tr.appendChild(lng);
+
+                    let locate = document.createElement('td');
+                    locate.innerHTML = "<input type='button' class='btn btn-info' value='View' onclick=SpecialViewUser('" + (no-1) + "') />";
+                    tr.appendChild(locate);
+
+                    let btn = document.createElement('td');
+                    btn.innerHTML = "<input type='button' class='btn btn-danger' value='Delete' onclick=DeleteUser('" + ChildSnapshot.key + "') />";
+                    tr.appendChild(btn);
+
+                    document.getElementById('user_table').children[1].appendChild(tr);
+                    no++;
+                }
+            )
+        })
+
+        //choose special user
+        // document.getElementById('user_list').onchange = function () {
+        //     map.panTo(marker_list[this.options[this.selectedIndex].value].getLatLng());
+        //     marker_list[this.options[this.selectedIndex].value].openPopup();
+        // };
+
+        //Create New User
+        document.getElementById('new_user').onclick = function () {
+            let name = document.getElementById('user_name').value;
+            let phone = document.getElementById('phone_number').value;
+            let lat = document.getElementById('lat').value;
+            let lng = document.getElementById('lng').value;
+
+            let obj = {
+                "name": name,
+                "phone": phone,
+                "lat": lat,
+                "lng": lng,
+                "updatedate": Date()
+            }
+
+            firebase.database().ref('users/user' + marker_list.length).set(obj);
+            map.panTo([lat, lng]);
+            marker_list[marker_list.length - 1].openPopup();
+            document.getElementById('user_name').value = "";
+            document.getElementById('phone_number').value = "";
+            document.getElementById('lat').value = "";
+            document.getElementById('lng').value = "";
+        }
+
+        //Choose One User 
+        function SpecialViewUser(i){
+            map.panTo(marker_list[i].getLatLng());
+            marker_list[i].openPopup();
+        }
+
+
+        //Delete User
+        function DeleteUser(user) {
+            if (confirm("Are You Delete User ---'"+user+"'") == true) {
+                firebase.database().ref('users/' + user).remove();
+            }
+
+        }
+    
+    </script>
+</body>
+
+</html>
