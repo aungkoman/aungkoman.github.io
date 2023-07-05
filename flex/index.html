@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex</title>
+    <style>
+        div.main{
+            background-color: red;
+            padding: 24px;
+            margin: 8px;
+            display: flex;
+        }
+        div.bio{
+            background-color: wheat;
+            padding: 24px;
+            margin: 8px;
+            flex: 1;
+        }
+        div.profile{
+            background-color: black;
+            padding: 24px;
+            margin: 8px;
+            flex: 2;
+        }
+
+        div.active-title{
+            background-color: teal;
+            color: white;
+            padding: 4px;
+        }
+        div.active-title a{
+            text-decoration: none;
+            color: white;
+        }
+
+
+        div.under-active-title{
+            background-color: beige;
+            padding: 4px;
+            margin-left: 20px;
+            margin-top: 4px;
+        }
+        div.under-active-title a{
+            text-decoration: none;
+            color: black;
+        }
+
+        div.inactive-title{
+            background-color: transparent;
+            margin-top: 8px;
+            padding-bottom: 4px;
+            border-bottom: 2px solid gray;
+        }
+        div.inactive-title a{
+            text-decoration: none;
+            color: teal;
+        }
+        div.login-button{
+            margin-top: 24px;
+            padding: 8px;
+            border-radius: 10px;
+            border: 2px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        div.login-button a{
+            text-decoration: none;
+            color: brown;
+        }
+
+        div.profile-detail{
+            background-color: teal;
+            padding: 24px;
+            display: flex;
+        }
+
+        div.profile-picture{
+            flex: 1;
+            background-color: blue;
+        }
+        div.profile-picture img{
+            width: 100%;
+        }
+
+        div.personal-file{
+            flex: 3;
+            background-color: red;
+        }
+
+        div.biography{
+            background-color: blanchedalmond;
+            padding: 24px;
+            margin-top: 16px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="bio">
+            <div class="active-title"><a href="#">Biography</a></div>
+            <div class="under-active-title"><a href="#">Education</a></div>
+            <div class="under-active-title"><a href="#">Geographical Regions of Interest</a></div>
+            <div class="under-active-title"><a href="#">Other (Biology)</a></div>
+            <div class="inactive-title"><a href="#">Teaching</a></div>
+            <div class="inactive-title"><a href="#">Research</a></div>
+            <div class="inactive-title"><a href="#">Publications</a></div>
+            <div class="inactive-title"><a href="#">Presentations</a></div>
+            <div class="inactive-title"><a href="#">Faculty Practice</a></div>
+            <div class="inactive-title"><a href="#">Graduate Students</a></div>
+            <div class="inactive-title"><a href="#">Service</a></div>
+            <div class="login-button"><a href="#">Login to Profile</a></div>
+        </div>
+        <div class="profile">
+            <div class="profile-detail">
+                <div class="profile-picture">
+                    <img src="https://image.lexica.art/full_jpg/7515495b-982d-44d2-9931-5a8bbbf27532" />
+                </div>
+                <div class="personal-file">
+                    <div>Vice Dean, Research</div>
+                    <div>Chair, Department of Medicine</div>
+                    <div>Adjunct Community Assistanct Professor, Depatment of Medicine</div>
+                    <div>Research Assistant Professor, Department of Anesthesiology</div>
+                </div>
+            </div>
+            <div class="biography"></div>
+        </div>
+    </div>
+</body>
+</html>
