@@ -102,10 +102,12 @@
                 <thead class="text-center">
                     <th>No</th>
                     <th>UserName</th>
+                    <!--
                     <th>Name</th>
                     <th>PhoneNumber</th>
                     <th>Latitude</th>
                     <th>Longitude</th>
+                    -->
                     <th>Options</th>
                 </thead>
                 <tbody class="text-center">
@@ -295,9 +297,9 @@
                                 '<td>' + num + '</td>' +
                                 '<td>' + ChildSnapshot.key + '</td>' +
                                 '<td>' + ChildSnapshot.val().name + '</td>' +
-                                '<td>' + ChildSnapshot.val().phone + '</td>' +
-                                '<td>' + ChildSnapshot.val().lat + '</td>' +
-                                '<td>' + ChildSnapshot.val().lng + '</td>' +
+                                //'<td>' + ChildSnapshot.val().phone + '</td>' +
+                                //'<td>' + ChildSnapshot.val().lat + '</td>' +
+                                //'<td>' + ChildSnapshot.val().lng + '</td>' +
                                 '<td>' +
                                 '<span class="btn btn-info fa fa-eye" onclick=SpecialViewUser("' + $('#user_table tbody tr').length + '")></span>' +
                                 '<span class="btn btn-danger fa fa-trash" onclick=DeleteUser("' + $('#user_table tbody tr').length + '")></span>' +
