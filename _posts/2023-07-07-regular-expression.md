@@ -28,6 +28,9 @@ console.log(outArray); // ['', 'အ', 'အာ', 'အိ', 'အီ', 'အု', '�
 
 ?! ဆိုတာ ပါရင်ပါမယ် မပါရင် မပါဘူးလို့ ဆိုလိုတာလား?
 
+```
+In regular expressions, ?! is a negative lookahead assertion. It is used to specify a pattern that should not be present immediately after the current position in the string.
+```
 
 
 
