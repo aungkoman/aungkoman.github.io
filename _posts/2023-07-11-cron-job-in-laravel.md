@@ -69,5 +69,7 @@ php artisan schedule:run: This is the Laravel command that triggers the Laravel 
 
 Putting it all together, the cron job executes the php artisan schedule:run command every minute, within the context of your Laravel project, discarding any output or error messages. This ensures that the Laravel task scheduler runs your scheduled tasks without generating unnecessary output.
 ```
+### Ref
+https://laravel.com/docs/10.x/scheduling
 
 ## Music Heal Me
