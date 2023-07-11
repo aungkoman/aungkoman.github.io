@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Cron Job in Laravel"
-date:   2023-07-10 12:50:00 +0630
+date:   2023-07-11 12:00:00 +0630
 categories: howto
 ---
 တစ်မိနစ်တိုင်းမှာ Run စရာလိုတဲ့ Task တစ်ခု ရှိလာတယ်။
