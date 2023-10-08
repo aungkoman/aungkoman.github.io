@@ -5,6 +5,105 @@ date:   2023-10-14 16:00:00 +0630
 categories: howto
 ---
 
+
+ကျွန်တော် ပရိုဂရမ်ရေးတဲ့အခါ ဘာလို့ Architecture Patterns တွေ သုံးဖြစ်တာလဲ?
+
+ပရိုဂရမ်ရေးတယ်ဆိုတာ ကွန်ပျူတာ စကရင်မှာ ဖိုင် သုံးလေးခု တစ်ပြိုင်တည်းဖွင့်ထားရင်း စိတ်ထဲမှာလည်း ဒီဖိုင်တွေရဲ့ ဆက်သွယ်ချက်တွေကို Mental Model တစ်ခုတည်ဆောက်ပြီး အလုပ်လုပ်ရတာမျိုး။ 
+
+ပရောဂျက်တစ်ခုကနေ တစ်ခု အကူးအပြောင်းမှာ ဒီ Mental Model ကိုအစကနေအဆုံး ပြန်တည်ဆောက်ရတာက အတော်လေး စိတ်ပင်ပန်းရတယ်။ အစောပိုင်းကာလာတွေမှာ ပရောဂျက်တစ်ခုစပြီဆိုရင် ကိုယ့်သဘောနဲ့ကိုယ် စိတ်ထဲထင်ရာ Directory Structure ချတယ်။ တစ်ဖိုင်ထဲမှာပဲ UI, Business Logic နဲ့ Database Query တွေ ပေါင်းရေးလို့ရေး ။ အတော်လေးကို စိတ်ထင်တိုင်း လုပ်ခဲ့တာ။ ဒီလိုစိတ်ထင်ရာတွေ Structure ချခဲ့တော့ နောက်ပိုင်း ပရောဂျက်တစ်ခု နဲ့ တစ်ခု အကူးအပြောင်း Mental Model ကို ပြန်တည်ဆောက်ရတဲ့အချိန်မှာ ဝန်ပိလာတယ်။
+
+ဒါနဲ့ မဖြစ်ချေဘူး၊ တစ်ခြား Professional တွေကရော ဒီလိုပဲ တစ်ခုနဲ့တစ်ခု အကူးအပြောင်းမှာ တိုင်ပတ်နေကြတာလား လိုက်ဖတ်ကြည့်တော့ Architecture Pattern ဆိုတာ ရှိမှန်းသိလာတယ်။ Web မှာဆိုရင် MVC, Android မှာဆိုရင် MVVC , API ဘက်ကမှာဆိုရင်လည်း Restful စသည်ဖြင့် ကိုယ့်လုပ်နေတဲ့ နယ်ပယ်အလိုက် အများစု လက်ခံကျင့်သုံးနေတဲ့ Architecture Pattern တွေ ရှိကြတယ်။ 
+
+Frontend မှာ MVC ရဖို့အတွက် Backbone.js ပြောင်းသုံးလိုက်တယ်။ ကုတ်က အတော်လေး စနစ်ကြပြီး ကိုယ်ကိုယ်ကိုလည်း ယုံကြည်မှုရှိလာတယ်။ Backend API အတွက်က Restful ပေါ့။ ဘွဲ့ယူစာတမ်းက Webservice အထူးပြုဆိုတော့ Restful နဲ့ အပြိုင် SOAP တို့ဘာတို့လည်း လိုက်ကြည့်ပေမယ့် အကုန်လုံးလိုလိုက Restful မှ Restful ဆိုတော့လည်း နောက်ပိုင်း Rest ပဲ​ ဆက် ful လိုက်ရတယ်။ Android ရဲ့ MVVM ကတော့ ကိုယ်မရင်းနှီးတဲ့ Architecture Pattern ဆိုတော့ အတော်လေး ရွာတွေလည်ခဲ့တာ။ 
+
+Pattern တစ်ခုနဲ့ အသားကျသွားပြီး ဆိုရင် ပရောဂျက် အကူးအပြောင်းမှာ အရင်ကလို Mental Model ဆောက်ဖို့ မပင်ပန်းရတော့ဘူး။ ကိုယ့် code base တစ်ခုလုံးကို အစအဆုံးလိုက်မကြည့်ရပဲ တစ်ခုနဲ့ တစ်ခု ဘယ်လိုချိတ်ဆက်ထားတယ်ဆိုတာကို ခေါင်းထဲမှာ cache ဖမ်းထားသလို လွယ်လွယ်ကူကူ ပြန်ဆွဲထုတ်ကြည့်လို့ရလာတယ်။
+
+Flutter ဘက်ကို ကူးလာတော့ Flutter မှာ အများစုလက်ခံကျင့်သုံးကြတဲ့ Architecture Pattern ဆိုပြီး မတွေ့ရဘူး။ ဒါနဲ့ ရှာရင်းဖွေရင်းစမ်းရေးရင်းနဲ့ Clean Architecture ကို သွားတွေ့တယ်။ Web ဘက်ကမှာလည်း အရင်က PHP နဲ့ ရေးတာကနေ Laravel ကို ကူးလာခဲ့တယ်။ Frontend မှာ Backbone.js က ခေတ်မရှိတော့ React ကို မဖြစ်မနေ ကူးလာခဲ့တယ်။ ဘယ်ကိုပဲ ကူးကူး ပြောင်းသွားတဲ့ Architecture Pattern ကို အရင်နားလည်အောင်လုပ်ပြီးမှ Syntax တွေ လိုက်လေ့လာဖြစ်တယ်။ Redux Pattern ကို နားမလည်ပဲ React တို့ Vue တို့ရဲ့ ရေးထုံးတွေ ကြည့်မယ်ဆိုရင် ငရဲခံရသလိုပဲ​ဖြစ်မယ် ထင်ရဲ့။
+
+နောက်ပိုင်းမှာ Project တွေက ကိုယ်တစ်ယောက်တည်းနဲ့ ထင်ရာဆိုင်းရေးလို့မရတော့ပဲ Team နဲ့ ရေးဖို့ဖြစ်လာတဲ့အခါ Architecture Pattern တစ်ခုခုကို လိုက်နာပြီး ရေးရတာက ကိုယ့်အတွက် အားသာချက်လို ဖြစ်လာတယ်။ ကိုယ့် code base ကို တစ်ဖိုင်ချင်းစီ ဖွင့်ပြီးရှင်းပြစရာမလိုတော့ပဲ MVC ကို ဖတ်လိုက်ကွာ၊ Clean Architecture ကို နားလည်အောင်အရင်လုပ်ပြီးမှ ကုတ်လာဖတ်လို့ ဘာတို့ ပြောဖို့ လွယ်လာတယ်။ 
+
+Bug ပေါင်း သောင်းခြောက်ထောင်နဲ့ Production မှာ ခနခန အကွဲအပြဲတွေ ဖြစ်တဲ့အခါ Testing ဘက်ကိုပါ အာရုံစိုက်ဖို့ ဖြစ်လာတယ်။ အရင်က Testing က လူနဲ့ပဲ တောစစ်တောင်စစ်ပေါ့။ Tester တောင် သက်သက်မှတ်မှတ်မရှိတော့လည်း ခက်သား။ ကောင်းမည် ကောင်းရက်နဲ့ Production ပေါ် တက်သွားမှာ လူအများကြီးက ဝိုင်းသုံးပြီး Bug တွေ တစ်သီကြီး ထွက်လာတာမျိုး။ ဒါနဲ့ Testing ကို လိုတယ်ဆိုပြီး Unit Testing , Integration Testing စသည်ဖြင့်ပေါ့ Software Engineering စာအုပ်ထဲက ခေါင်းစဉ်တွေ အတန်းလိုက်ကြီး ခေါင်းထဲပြန်ရောက်လာတယ်။ ကံကောင်းတာ တစ်ခုက ကိုယ်သုံးနေတဲ့ Architecture Pattern တွေက Test လုပ်ဖို့ အဆင်သင့်ဖြစ်အောင် ရေးထားပြီးဖြစ်နေတာပဲ။ နောက်ပိုင်းကျတော့ Test Driven Development တွေ ဘာတွေတောင် စိတ်ကူးယဉ်လာဖြစ်တယ်။ ဆိုရရင် Architecture Pattern တွေရဲ့ အားသာချက်တွေထဲက တစ်ခုပေါ့။
+
+
+ခြုံပြီးပြောရရင် Architecture Pattern တစ်ခုခုကို လိုက်နာကျင့်သုံးတဲ့အတွက်
+
+- ကုတ်ရေးတဲ့အချိန်မှာ Metal Model အလွယ်တကူ တည်ဆောက်လာနိုင်မယ်။
+- Language တွေ Framework တွေ ဘယ်လိုပဲ ပြောင်းပြောင်း Architecture Pattern ကိုနားလည်မယ်ဆိုရင် လေ့လာရတာ ပိုလွယ်လာမယ်။
+- Team နဲ့ရေးတဲ့အခါ Collaboration ပိုကောင်းလာမယ်။
+- အလွယ်တကူ Test လုပ်နိုင်တဲ့ ကုတ်တွေ ရေးဖြစ်လာမယ်။ 
+
+ဒါကတော့ ကိုယ်ကြုံနေရတဲ့ ကောင်းကျိုးတွေပေါ့။ အမှန်တော့ ကောင်းကျိုးတွေက ဒီထက်မက အများကြီးရှိပါတယ်။​ Google မှာသာ ရှာကြည့်ပါတော့။ 
+
+ဟ ဒါဆိုရင် အကုန်ကောင်းနေတာလားဆိုတော့လည်း မဟုတ်ပြန်ဘူး။ ဘယ်အရာမဆို အကောင်းနဲ့အဆိုး ဒွန်တွဲနေတာမို့လား။ ဒီမှာ မကောင်းတာကတော့ အခြေခံ CRUD လောက်လုပ်ပြီး Syntax လောက် သိတာနဲ့ အလုပ်မဖြစ်တော့ဘူး။ OOP နဲ့ဆိုင်တဲ့ Concept တွေ သိဖို့လိုမယ်၊​ Functional ဘက်က ဆိုရင်လည်း သူ့ရဲ့ Concept တွေကို နားလည်ဖို့ လိုလာလိမ့်မယ်။ ဒါတွေက w3 school မှာလေ့လာရသလိုတော့ လွယ်ကူနေမှာ မဟုတ်ဘူး။ မြန်မာလို ရေးထားတဲ့ Resource တွေလည်း ရှားပါးတော့ English စာလည်း သေစာရှင်စာလောက် ဖတ်တက်ဖို့ လိုလိမ့်မယ်။ တစ််ချို့စာတွေကြတော့လည်း Background Knowledge ရှိဖို့ လိုတာဆိုတော့ ကွန်ပျူတာသိပ္ပံနယ်ပယ်က မဟုတ်ပဲ အခြားနယ်ပယ်ကနေ အခုမှ ဝင်မယ့်သူတွေအတွက်လည်း နားလည်ရခက်နိုင်တယ်။ 
+
+နောက်ထပ် မကောင်းတာတစ်ခုကတော့ ကုတ်တွေက ပုံမှန်ရေးနေကြထက် ပိုရေးရတာမျိုးတွေ ရှိတယ်။ ဆိုပါဆို့ Authentication အတွက် အရင်က တစ်ဖိုင်တည်းမှာ အကုန်စုရေးလိုက်လို့ ရပေမယ့် ကိုယ်က Architecture Pattern တစ်ခုကို လိုက်နာပြီးရေးမယ်ဆို ဖိုင် လေးငါးခုမှာ ကုတ်တွေ အလီလီ ခွဲပြီး ချိတ်ဆက်ရေးရတာမျိုးတွေ ကြုံရမယ်။
+
+ဆိုတော့ ဒါကတော့ ကျွန်တော် Architecture Pattern တွေ ဘာလို့ သုံးဖြစ်နေတာလဲ ဆိုတာပါပဲ။ ကိုယ့်အတွက် ကိုယ့်အသင်းအဖွဲ့အတွက် အကျိုးအမြတ်ပိုများတဲ့ လမ်းကို ရွေးခဲ့တယ်ပဲ​ဆိုပါတော့။ And I would like to say every penny is worth it.
+
+
+
+
+
+Why I used architecture patterns in software development?
+
+ဘာလို့ Architecture Patterns တွေကို သုံးဖြစ်တာလဲ?
+ဒီလိုနဲ့ Pattern တွေနဲ့ ပျော်ပါးနေရင်းမှ နောက်ပိုင်းမှာ ကိုယ်လမ်းမှန်ကို လျှောက်ခဲ့တာကို 
+
+
+
+UI နဲ့ ပက်သတ်တာတွေကို Folder တစ်ခုဆောက်ရင်ဆောက် 
+
+Programming work be like this we need to build mental model in our mind about the connection between several code file.
+
+
+Absolutely, building a mental model of the connections between various code files and components is a crucial aspect of effective programming. This mental model helps you understand and navigate your codebase, make informed design decisions, and troubleshoot issues more efficiently. Here are some tips on how to build and maintain a strong mental model of your codebase:
+
+1. **Understand the Architecture**:
+   - Start by understanding the high-level architecture of your application or system. Identify the major components, their responsibilities, and how they interact with each other.
+
+2. **Read Documentation and Comments**:
+   - Carefully read documentation, comments, and code comments within the codebase. Well-written documentation and comments can provide valuable insights into the code's purpose and usage.
+
+3. **Visualize the Structure**:
+   - Create visual representations of your codebase, such as flowcharts, diagrams, or mind maps. Visual aids can help you see the relationships between different parts of the code.
+
+4. **Follow Naming Conventions**:
+   - Consistent naming conventions for variables, functions, classes, and files can make it easier to understand the purpose and usage of code elements.
+
+5. **Use Version Control**:
+   - Version control systems like Git can help you track changes to the codebase over time. You can review commit histories and branch structures to gain insights into how the code has evolved.
+
+6. **Write Modular Code**:
+   - Break your code into smaller, modular components with well-defined responsibilities. Each module should have a clear interface and purpose, making it easier to reason about.
+
+7. **Practice Code Reviews**:
+   - Engage in code reviews with your peers. Reviewing other people's code and having your code reviewed can help you gain a deeper understanding of different parts of the codebase.
+
+8. **Use Development Tools**:
+   - Utilize development tools, such as integrated development environments (IDEs), code editors, and linters, that provide features like code navigation, auto-completion, and code analysis.
+
+9. **Draw on Past Experience**:
+   - Draw on your previous experiences with similar technologies or frameworks. Often, the mental models you build in one context can be applied to others.
+
+10. **Incremental Learning**:
+    - Take an incremental approach to learning the codebase. Start with a small section and gradually expand your knowledge as you become more comfortable with each part.
+
+11. **Ask Questions and Seek Clarification**:
+    - Don't hesitate to ask questions when you encounter something you don't understand. Discussing code with colleagues or seeking help on forums can provide valuable insights.
+
+12. **Debug and Experiment**:
+    - Experimentation and debugging can deepen your understanding of code behavior. Use debugging tools to step through code and observe how it executes.
+
+13. **Document Your Mental Model**:
+    - Consider documenting your mental model using tools like diagrams or notes. This can serve as a reference for yourself and others working on the project.
+
+14. **Stay Curious**:
+    - Stay curious and continuously seek to learn and improve your understanding of the codebase. Technology evolves, and your mental model should evolve with it.
+
+Building and maintaining a mental model of a codebase is an ongoing process. It requires patience, practice, and a commitment to learning. As you invest time and effort into understanding your code, you'll become more effective at developing, maintaining, and troubleshooting software.
+
+----- 
+
 Why I used architecture patterns in software development.
 
 - Lack of Structure
