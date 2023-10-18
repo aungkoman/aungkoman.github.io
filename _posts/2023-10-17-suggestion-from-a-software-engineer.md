@@ -30,3 +30,17 @@ Please share this article in Burmese Language if you find this is useful.
 
 Best Regards,
 Software Engineer
+
+--- 
+
+Programming ဆိုတာ  အတွေးအခေါ် အယူအဆတစ်ခုသာဖြစ်ပြီးတော့  ပညာရပ်တစ်ခုမဟုတ်ဘူး။ မြန်မာနိုင်ငံက developer တော်တော်များများက programming အားနည်းကြတယ်။ သူတို့သိတာက web နဲ့ mobile development  လောက်ဘဲသိတာ။ Front-end နဲ့ Back-end  ရဲ့အဓိပ္ပါယ်တောင် မသိကြဘူး။ developer  တစ်ယောက်လောက်ကိုခေါ်ပြီး front-end နဲ့ back-end ရဲ့အဓိပ္ပါယ်ကို သိလားလို့မေးကြည့်လိုက်။ တော်တော်များများရဲ့အဖြေက JavaScript, React  တို့က front-end ဖြစ်ပြီးတော့ PHP,SpringBoot စတာတွေက  back-end ဆိုတဲ့ အသုံးမကျတဲ့ အဖြေဘဲအမြဲဖြေလိမ့်ယ်။
+
+	front-end back-end ဆိုတာ သီအိုရီ တစ််ခုဖြစ်ပြီးတော့ နေရာတိုင်းမှာရှိတယ်။ front-end ဆိုတာ အသုံးပြုသူ user တွေနဲ့ထိတွေ့လုပ်ဆောင်တာ( web ပါလို့ တရားသေဆိုလိုတာမဟုတ်ဘူး)။ ဥပမာ ခင်ဗျားသုံးနေတဲ့ ဖုန်းတွေ ကွန်ပျူတာတွေ မှာပါတဲ့ ခလုပ်၊ ကင်မရာ၊ ကိုယ်ထည်၊ အရောင်နဲ့  OS က front_end ဖြစ်ပြီးတော့ CPU,Memory, Battery စတာတွေက back-end တွေဖြစ်တယ်။
+	ပြောပြောနေကြတဲ့ JavaScript, React တွေဆိုတာက front-end Web Development languages / Framework တွေ။
+	Developer တိုင်းက programmer မဖြစ်နိုင်ဘူး။ Programming ဆိုတာ concept တစ်ခုလို အစပိုင်းမှာ ပြောခဲ့သလို  Programming Language ဆိုတာ လူသားတစ်ယောက်အနေနဲ့ ဖတ်လို့နားလည်ပြီးတော့ Programming concept ကို အကောင်အထည်ဖော်တဲ့ဟာ။
+	မြန်မာနိုင်ငံက developer တော်တော်များများ မသိသေးတဲ့ programming အမျိုးအစားအများကြီးရှိတယ်။ ဘာတွေလဲဆိုတော့ Imperative Programming, Competitive Programming, Functional Programming, Parallel Programming, Object-Oriented Programming အစရှိတဲ့ language တွေဘဲ။ 
+	ဒီ programming တွေရဲ့ ပုံစံကလည်း theory/ concept တွေဘဲ။
+	program တစ်ခုရဲ့ Maintainability, Scalability, Efficiency တွေကိုလည်း မြန်မာနိုင်ငံက developer တော်တော်များများ မသိကြဘူး။ Maintainability, Scalability, Efficiency တွေကောင်းဖို့အတွက် design patterns တွေအများကြီးရှိတယ်။ ဒါတွေက software engineering ကဟာတွေ။
+	ထပ်ပြောချင်တာက engineer တိုင်းက programmer/developer ဖြစ်နိုင်ပေမယ်လို့ programmer/developer တစ်ယောက်က engineer တစ်ယောက်မဖြစ်နိုင်ဘူး။
+	နောက်ဆုံးကျွန်တော်မေးချင်တာက programming ရဲ့အဓိပ္ပါယ်က ဘာလဲဆိုတာသေချာ်လေ့လာပြီး  design patterns တွေကို ဘယ်လိုလေ့လာမလဲလို့မေးချင်တယ်။ React , Laravel, JavaScript စတာတွေက “အတတ်ပညာ”  ဖြစ်ပြီးတော့ Programming theory နဲ့  engineering တွေက “အသိပညာ” တွေဘဲဖြစ်ပါတယ်။
+	“အသိပညာ” မရှိတဲ့ developer တစ်ယောက်ကလည်း ဒါတွေနဲ့ ထူးမခြားနားဘဲ။
