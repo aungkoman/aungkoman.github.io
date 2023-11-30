@@ -11,65 +11,129 @@
             src: URL('MyanmarPhetsot.ttf') format('truetype');
         }
 
-        body{
+        body {
             margin: 0;
             font-family: 'MyanmarPhetsot', sans-serif;
             color: white;
             background: #202731;
         }
 
-        section{
+        section {
             position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 400px;
+            padding: 100px 20vw;
+        }
+
+        .blue {
+            background: #3c31dd;
+        }
+
+        .green {
+            background: #5fdd31;
+        }
+
+        .yellow {
+            background: #dadd31;
+        }
+
+        .red {
+            background: #dd4231;
+        }
+
+        .purple {
+            background: #cf31dd;
+        }
+
+        .lightgreen {
+            background: #8ddd31;
+        }
+
+        .lightred {
+            background: #dd315f;
+        }
+
+        .lightyellow {
+            background: #ddd431;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+        }
+
+        .wave svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 100px;
+        }
+
+        .wave .shape-fill {
+            fill: #5fdd31;
         }
     </style>
 </head>
 
 <body>
-    <section>
+    <section class="blue">
         <h1>ကွေးကွေးကောက်ကောက်</h1>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ipsa ullam dolore voluptatum impedit
             incidunt quae qui obcaecati odio, exercitationem fugiat placeat nisi fugit ipsum dolorem nostrum voluptas,
-            quas quisquam?</p>
+            quas quisquam?
+        </p>
+        <div class="wave">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+                preserveAspectRatio="none">
+                <path
+                    d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+                    class="shape-fill"></path>
+            </svg>
+        </div>
     </section>
-    <section>
+    <section class="green">
         <h1>ကွေးကွေးကောက်ကောက်</h1>
         <p>Tempore quae maiores, veniam possimus rerum, magni aliquid inventore iste recusandae praesentium, adipisci
             consectetur. Esse amet eum dolorum deleniti maiores, quia ullam. Vitae pariatur libero possimus praesentium
             reprehenderit tempora minus?</p>
     </section>
-    <section>
+    <section class="yellow">
         <h1>ကွေးကွေးကောက်ကောက်</h1>
         <p>Recusandae amet officia sunt repudiandae ad reprehenderit quia dolorem aut, sint enim earum voluptates, quam
             odit, necessitatibus maiores. Quas quo totam soluta voluptatum vero enim fuga odio tenetur provident id.</p>
     </section>
-    <section>
+    <section class="red">
         <h1>ကွေးကွေးကောက်ကောက်</h1>
         <p>Expedita numquam quisquam mollitia quam esse modi necessitatibus magni dignissimos earum consequuntur.
             Voluptatum, vero. Soluta odio, quasi accusamus esse id blanditiis necessitatibus inventore nesciunt quae
             eveniet molestias doloribus modi ratione?</p>
     </section>
-    <section>
+    <section class="purple">
         <h1>ကွေးကွေးကောက်ကောက်</h1>
         <p>Aspernatur dolore perferendis, dolorem veritatis adipisci itaque mollitia maiores veniam repellat repellendus
             distinctio sint quia odit nulla repudiandae, ipsum architecto blanditiis deserunt. Quidem id aliquam
             laborum! Sunt accusantium a cupiditate?</p>
     </section>
-    <section>
+    <section class="lightgreen">
         <h1>ကွေးကွေးကောက်ကောက်</h1>
         <p>Cupiditate quam perferendis repudiandae ipsa distinctio earum voluptate expedita, adipisci cum nisi quis,
             repellendus, recusandae vitae laudantium officiis deleniti ab unde fuga minima dolor molestias tenetur eum
             provident. Repellat, molestias.</p>
     </section>
-    <section>
+    <section class="lightred">
         <h1>ကွေးကွေးကောက်ကောက်</h1>
         <p>Omnis, dolorum aspernatur. Autem quod dolorum ipsa dolore sequi nulla, iusto consectetur alias possimus rem
             earum, voluptatibus quos modi laborum quae nam voluptates id natus officia perferendis omnis ducimus eos.
         </p>
     </section>
-    <section>
+    <section class="lightyellow">
         <h1>ကွေးကွေးကောက်ကောက်</h1>
         <p>Sit architecto voluptatem quisquam, quasi quas, voluptatum earum, nobis totam quibusdam tempore quam deleniti
             modi consequuntur! Ullam sint rerum molestias eos soluta aperiam suscipit, doloribus quae repellat rem
