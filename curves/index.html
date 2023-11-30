@@ -15,8 +15,7 @@
 
         body {
             margin: 0;
-            /*// font-family: 'MyanmarPhetsot', sans-serif; */
-            letter-spacing: 100px;
+            font-family: 'MyanmarPhetsot', sans-serif;
             color: white;
             background: #202731;
         }
@@ -30,7 +29,8 @@
             padding: 100px 20vw;
         }
 
-        section h1, p{
+        section h1,
+        p {
             z-index: 1;
         }
 
@@ -120,11 +120,11 @@
             fill: #DD4231;
         }
 
-        .flip{
+        .flip {
             transform: rotate(180deg);
         }
 
-        .blob-motion{
+        .blob-motion {
             position: absolute;
             transform: translateY(-20%);
         }
@@ -138,6 +138,30 @@
             incidunt quae qui obcaecati odio, exercitationem fugiat placeat nisi fugit ipsum dolorem nostrum voluptas,
             quas quisquam?
         </p>
+        <svg class="blob-motion" id="visual" viewBox="0 0 900 450" width="900" height="450"
+            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+            <g transform="translate(436.7045852816673 216.53413726631732)">
+                <path id="blob11"
+                    d="M131.4 -125.6C156.7 -106.1 154.4 -53 142.1 -12.3C129.9 28.5 107.7 57 82.4 88.2C57 119.4 28.5 153.2 1 152.2C-26.5 151.2 -53 115.4 -77 84.2C-101 53 -122.5 26.5 -124.3 -1.8C-126.2 -30.2 -108.3 -60.3 -84.3 -79.8C-60.3 -99.3 -30.2 -108.2 11.4 -119.6C53 -131 106.1 -145.1 131.4 -125.6"
+                    fill="grey"></path>
+            </g>
+            <g transform="translate(473.94980105117327 207.6478518214182)" style="visibility: hidden;">
+                <path id="blob22"
+                    d="M73 -73.7C91.7 -54.2 102.1 -27.1 115.1 13C128 53 143.6 106.1 124.8 129.4C106.1 152.7 53 146.4 9.4 136.9C-34.2 127.5 -68.4 115 -105 91.7C-141.7 68.4 -180.8 34.2 -181.4 -0.6C-182 -35.4 -144 -70.7 -107.4 -90.2C-70.7 -109.7 -35.4 -113.4 -4.1 -109.2C27.1 -105.1 54.2 -93.2 73 -73.7"
+                    fill="#BB004B">
+                </path>
+            </g>
+        </svg>
+        <script>
+            const tween1 = KUTE.fromTo(
+                '#blob11',
+                { path: '#blob11' },
+                { path: '#blob22' },
+                { repeat: 999, duration: 3000, yoyo: true }
+            )
+            tween1.start()
+        </script>
+
         <div class="wave">
             <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
                 preserveAspectRatio="none">
@@ -170,8 +194,8 @@
         <p>Expedita numquam quisquam mollitia quam esse modi necessitatibus magni dignissimos earum consequuntur.
             Voluptatum, vero. Soluta odio, quasi accusamus esse id blanditiis necessitatibus inventore nesciunt quae
             eveniet molestias doloribus modi ratione?</p>
-        <svg class="blob-motion" id="visual" viewBox="0 0 900 450" width="900" height="450" xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+        <svg class="blob-motion" id="visual" viewBox="0 0 900 450" width="900" height="450"
+            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
             <g transform="translate(436.7045852816673 216.53413726631732)">
                 <path id="blob1"
                     d="M131.4 -125.6C156.7 -106.1 154.4 -53 142.1 -12.3C129.9 28.5 107.7 57 82.4 88.2C57 119.4 28.5 153.2 1 152.2C-26.5 151.2 -53 115.4 -77 84.2C-101 53 -122.5 26.5 -124.3 -1.8C-126.2 -30.2 -108.3 -60.3 -84.3 -79.8C-60.3 -99.3 -30.2 -108.2 11.4 -119.6C53 -131 106.1 -145.1 131.4 -125.6"
@@ -186,9 +210,9 @@
         <script>
             const tween = KUTE.fromTo(
                 '#blob1',
-                {path: '#blob1'},
-                {path: '#blob2'},
-                {repeat: 999, duration: 3000, yoyo:true}
+                { path: '#blob1' },
+                { path: '#blob2' },
+                { repeat: 999, duration: 3000, yoyo: true }
             )
             tween.start()
         </script>
