@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ကွေးကွေးကောက်ကောက် 1</title>
+    <script src="https://cdn.jsdelivr.net/npm/kute.js@2.2.4/dist/kute.min.js"></script>
+
+    <style>
+        @font-face {
+            font-family: 'MyanmarPhetsot';
+            src: URL('MyanmarPhetsot.ttf') format('truetype');
+        }
+
+        body {
+            margin: 0;
+            font-family: 'MyanmarPhetsot', sans-serif;
+            color: white;
+            background: #202731;
+        }
+
+        section {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 400px;
+            padding: 100px 20vw;
+        }
+
+        section h1,
+        p {
+            z-index: 1;
+        }
+
+        .blue {
+            background: #001F3F;
+        }
+
+        .green {
+            background: #4CAF50;
+        }
+
+        .yellow {
+            background: #673AB7;
+        }
+
+        .red {
+            background: #dd4231;
+        }
+
+        .purple {
+            background: #cf31dd;
+        }
+
+        .lightgreen {
+            background: #8ddd31;
+        }
+
+        .lightred {
+            background: #dd315f;
+        }
+
+        .lightyellow {
+            background: #ddd431;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+        }
+
+        .wave svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 100px;
+        }
+
+        .wave .shape-fill {
+            fill: #4CAF50;
+        }
+
+        .wave2 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+        }
+        
+        .wave2 svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 100px;
+        }
+
+        .wave2 .shape-fill {
+            fill: #673AB7;
+        }
+
+        .spacer {
+            aspect-ratio: 16/9;
+            width: 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+
+        .layered-waves {
+            background-image: url('./layered-waves-haikei.svg');
+        }
+
+        .curve {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+        }
+
+        .curve svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 150px;
+        }
+
+        .curve .shape-fill {
+            fill: #DD4231;
+        }
+
+        .flip {
+            transform: rotate(180deg);
+        }
+
+        .blob-motion {
+            position: absolute;
+            transform: translateY(-20%);
+        }
+    </style>
+</head>
+
+<body>
+    <section class="blue">
+        <h1>ကွေးကွေးကောက်ကောက်</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ipsa ullam dolore voluptatum impedit
+            incidunt quae qui obcaecati odio, exercitationem fugiat placeat nisi fugit ipsum dolorem nostrum voluptas,
+            quas quisquam?
+        </p>
+        <svg class="blob-motion" id="visual" viewBox="0 0 900 450" width="900" height="450"
+            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+            <g transform="translate(436.7045852816673 216.53413726631732)">
+                <path id="blob11"
+                    d="M131.4 -125.6C156.7 -106.1 154.4 -53 142.1 -12.3C129.9 28.5 107.7 57 82.4 88.2C57 119.4 28.5 153.2 1 152.2C-26.5 151.2 -53 115.4 -77 84.2C-101 53 -122.5 26.5 -124.3 -1.8C-126.2 -30.2 -108.3 -60.3 -84.3 -79.8C-60.3 -99.3 -30.2 -108.2 11.4 -119.6C53 -131 106.1 -145.1 131.4 -125.6"
+                    fill="grey"></path>
+            </g>
+            <g transform="translate(473.94980105117327 207.6478518214182)" style="visibility: hidden;">
+                <path id="blob22"
+                    d="M73 -73.7C91.7 -54.2 102.1 -27.1 115.1 13C128 53 143.6 106.1 124.8 129.4C106.1 152.7 53 146.4 9.4 136.9C-34.2 127.5 -68.4 115 -105 91.7C-141.7 68.4 -180.8 34.2 -181.4 -0.6C-182 -35.4 -144 -70.7 -107.4 -90.2C-70.7 -109.7 -35.4 -113.4 -4.1 -109.2C27.1 -105.1 54.2 -93.2 73 -73.7"
+                    fill="#BB004B">
+                </path>
+            </g>
+        </svg>
+        <script>
+            const tween1 = KUTE.fromTo(
+                '#blob11',
+                { path: '#blob11' },
+                { path: '#blob22' },
+                { repeat: 999, duration: 3000, yoyo: true }
+            )
+            tween1.start()
+        </script>
+
+        <div class="wave">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+                preserveAspectRatio="none">
+                <path
+                    d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+                    class="shape-fill"></path>
+            </svg>
+        </div>
+    </section>
+    <section class="green">
+        <h1>ကွေးကွေးကောက်ကောက် 2</h1>
+        <p>Tempore quae maiores, veniam possimus rerum, magni aliquid inventore iste recusandae praesentium, adipisci
+            consectetur. Esse amet eum dolorum deleniti maiores, quia ullam. Vitae pariatur libero possimus praesentium
+            reprehenderit tempora minus?
+        </p>
+        <div class="wave2">
+            <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+                preserveAspectRatio="none">
+                <path
+                    d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+                    class="shape-fill"></path>
+            </svg>
+        </div>
+       
+    </section>
+    <section class="yellow">
+        <h1>ကွေးကွေးကောက်ကောက်</h1>
+        <p>Recusandae amet officia sunt repudiandae ad reprehenderit quia dolorem aut, sint enim earum voluptates, quam
+            odit, necessitatibus maiores. Quas quo totam soluta voluptatum vero enim fuga odio tenetur provident id.</p>
+        <div class="curve">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+                preserveAspectRatio="none">
+                <path d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" class="shape-fill"></path>
+            </svg>
+        </div>
+    </section>
+    <section class="red">
+        <h1>ကွေးကွေးကောက်ကောက်</h1>
+        <p>Expedita numquam quisquam mollitia quam esse modi necessitatibus magni dignissimos earum consequuntur.
+            Voluptatum, vero. Soluta odio, quasi accusamus esse id blanditiis necessitatibus inventore nesciunt quae
+            eveniet molestias doloribus modi ratione?</p>
+        <svg class="blob-motion" id="visual" viewBox="0 0 900 450" width="900" height="450"
+            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+            <g transform="translate(436.7045852816673 216.53413726631732)">
+                <path id="blob1"
+                    d="M131.4 -125.6C156.7 -106.1 154.4 -53 142.1 -12.3C129.9 28.5 107.7 57 82.4 88.2C57 119.4 28.5 153.2 1 152.2C-26.5 151.2 -53 115.4 -77 84.2C-101 53 -122.5 26.5 -124.3 -1.8C-126.2 -30.2 -108.3 -60.3 -84.3 -79.8C-60.3 -99.3 -30.2 -108.2 11.4 -119.6C53 -131 106.1 -145.1 131.4 -125.6"
+                    fill="#BB004B"></path>
+            </g>
+            <g transform="translate(473.94980105117327 207.6478518214182)" style="visibility: hidden;">
+                <path id="blob2"
+                    d="M73 -73.7C91.7 -54.2 102.1 -27.1 115.1 13C128 53 143.6 106.1 124.8 129.4C106.1 152.7 53 146.4 9.4 136.9C-34.2 127.5 -68.4 115 -105 91.7C-141.7 68.4 -180.8 34.2 -181.4 -0.6C-182 -35.4 -144 -70.7 -107.4 -90.2C-70.7 -109.7 -35.4 -113.4 -4.1 -109.2C27.1 -105.1 54.2 -93.2 73 -73.7"
+                    fill="#BB004B"></path>
+            </g>
+        </svg>
+        <script>
+            const tween = KUTE.fromTo(
+                '#blob1',
+                { path: '#blob1' },
+                { path: '#blob2' },
+                { repeat: 999, duration: 3000, yoyo: true }
+            )
+            tween.start()
+        </script>
+    </section>
+
+</body>
+
+</html>
