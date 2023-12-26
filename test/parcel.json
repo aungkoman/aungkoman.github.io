@@ -1,0 +1,122 @@
+{
+    "id" : 1,
+    "from_user" : {
+        "id" : 1,
+        "name" : "user name",
+        "phone" : "0912345678",
+        "email" : "adsfa@email.com"
+    },
+    "to_user" : {
+        "id" : 1,
+        "name" : "user name",
+        "phone" : "0912345678",
+        "email" : "adsfa@email.com"
+    },
+    "weight" : 1,
+    "width" : 1,
+    "height" : 1,
+    "length" : 1,
+    "items" : [
+        {
+            "id" : 1,
+            "name" : "ဂျပ်ဖာ အသေး",
+            "unit_price" : 1500.0,
+            "quantity" : 1,
+            "total_price" : 1500.0
+        },
+        {
+            "id" : 1,
+            "name" : "ဖန်ပုလင်း အသေး",
+            "unit_price" : 4500.0,
+            "quantity" : 2,
+            "total_price" : 9000.0
+        }
+    ],
+    "charges" : [
+        {
+            "id" : 1,
+            "charges_id" : 1,
+            "priority" : 1,
+            "name" : "ခေါက်တို",
+            "amount" : 1000,
+            "paid" : 0
+        },
+        {
+            "id" : 2,
+            "charges_id" : 2,
+            "priority" : 2,
+            "name" : "ကုန်ကြွေး",
+            "amount" : 1000,
+            "paid" : 0
+        },
+        {
+            "id" : 3,
+            "charges_id" : 3,
+            "priority" : 3,
+            "name" : "စုစုပေါင်း",
+            "amount" : 1000,
+            "paid" : 0
+        }
+    ],
+    "delivery_statues" :[
+        {
+            "id" : 1,
+            "gate" : {
+                "id" : 1,
+                "name" : "Gate One"
+            },
+            "status" : {
+                "id" : 1,
+                "name" : "လက်ခံရရှိ"
+            },
+            "created_at" : "2023-12-26 12:34:56"
+        },
+        {
+            "id" : 2,
+            "gate" : {
+                "id" : 1,
+                "name" : "Gate One"
+            },
+            "status" : {
+                "id" : 1,
+                "name" : "တင်ပို့"
+            },
+            "created_at" : "2023-12-27 05:06:07"
+        }
+    ],
+    "routes" : [
+        {
+            "id" : 1,
+            "gate" :  {
+                "id" : 1,
+                "name" : "Gate One"
+            },
+            "gate_type" :  {
+                "id" : 1,
+                "name" : "ပေးပို့ဂိတ်"
+            }
+        },
+        {
+            "id" : 2,
+            "gate" :  {
+                "id" : 2,
+                "name" : "Gate Two"
+            },
+            "gate_type" :  {
+                "id" : 2,
+                "name" : "Transit"
+            }
+        },
+        {
+            "id" : 3,
+            "gate" :  {
+                "id" : 3,
+                "name" : "Gate Three"
+            },
+            "gate_type" :  {
+                "id" : 3,
+                "name" : "Destination"
+            }
+        }
+    ]
+}
