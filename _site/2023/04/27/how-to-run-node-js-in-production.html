@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Macbook Pro as Power Bank –  – Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="install PM
+
+npm install pm2 -g
+
+run project
+
+pm2 start index.js
+
+List Process
+
+pm2 list
+
+Stop Process
+
+pm2 stop app_name / process index
+
+pm2 stop 0
+
+Restart on file changes
+
+pm2 start app.js –watch
+
+Logs
+
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# ls
+Procfile   app.json    index.js      package-lock.json  public   views
+README.md  backup-gps  node_modules  package.json       test.js
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# sudo npm install pm2@latest -g
+sudo: npm: command not found
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# npm install
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: ‘node-js-getting-started@0.3.0’,
+npm WARN EBADENGINE   required: { node: ‘14.x’ },
+npm WARN EBADENGINE   current: { node: ‘v19.3.0’, npm: ‘9.2.0’ }
+npm WARN EBADENGINE }
+
+up to date, audited 201 packages in 3s
+
+45 packages are looking for funding
+  run npm fund for details
+
+10 vulnerabilities (1 moderate, 7 high, 2 critical)
+
+To address all issues, run:
+  npm audit fix
+
+Run npm audit for details.
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# npm install pm2 -g
+npm WARN deprecated uuid@3.4.0: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
+
+changed 184 packages in 14s
+
+12 packages are looking for funding
+  run npm fund for details
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 start index.js
+
+
+  
+    
+      
+        In-memory PM2 is out-of-date, do:
+$ pm2 update
+In memory PM2 version: 5.2.2
+Local PM2 version: 5.3.0
+      
+    
+  
+
+
+[PM2][ERROR] Script already launched, add -f option to force re-execution
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 start index.js -f
+
+
+  
+    
+      
+        In-memory PM2 is out-of-date, do:
+$ pm2 update
+In memory PM2 version: 5.2.2
+Local PM2 version: 5.3.0
+      
+    
+  
+
+
+[PM2] Starting /var/www/html/socket/index.js in fork_mode (1 instance)
+[PM2] Done.
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ index              │ fork     │ 0    │ stopped   │ 0%       │ 0b       │
+│ 1  │ index              │ fork     │ 12   │ online    │ 0%       │ 48.6mb   │
+│ 2  │ index              │ fork     │ 0    │ online    │ 0%       │ 15.1mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type ‘pm2 save’ to synchronize.
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 stop 1
+
+
+  
+    
+      
+        In-memory PM2 is out-of-date, do:
+$ pm2 update
+In memory PM2 version: 5.2.2
+Local PM2 version: 5.3.0
+      
+    
+  
+
+
+[PM2] Applying action stopProcessId on app [1](ids: [ ‘1’ ])
+[PM2] index ✓
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ index              │ fork     │ 0    │ stopped   │ 0%       │ 0b       │
+│ 1  │ index              │ fork     │ 12   │ stopped   │ 0%       │ 0b       │
+│ 2  │ index              │ fork     │ 0    │ online    │ 0%       │ 56.1mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type ‘pm2 save’ to synchronize.
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 stop 2
+
+
+  
+    
+      
+        In-memory PM2 is out-of-date, do:
+$ pm2 update
+In memory PM2 version: 5.2.2
+Local PM2 version: 5.3.0
+      
+    
+  
+
+
+[PM2] Applying action stopProcessId on app [2](ids: [ ‘2’ ])
+[PM2] index ✓
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ index              │ fork     │ 0    │ stopped   │ 0%       │ 0b       │
+│ 1  │ index              │ fork     │ 12   │ stopped   │ 0%       │ 0b       │
+│ 2  │ index              │ fork     │ 0    │ stopped   │ 0%       │ 0b       │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type ‘pm2 save’ to synchronize.
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 list
+
+
+  
+    
+      
+        In-memory PM2 is out-of-date, do:
+$ pm2 update
+In memory PM2 version: 5.2.2
+Local PM2 version: 5.3.0
+      
+    
+  
+
+
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ index              │ fork     │ 0    │ stopped   │ 0%       │ 0b       │
+│ 1  │ index              │ fork     │ 12   │ stopped   │ 0%       │ 0b       │
+│ 2  │ index              │ fork     │ 0    │ stopped   │ 0%       │ 0b       │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type ‘pm2 save’ to synchronize.
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 kill
+
+
+  
+    
+      
+        In-memory PM2 is out-of-date, do:
+$ pm2 update
+In memory PM2 version: 5.2.2
+Local PM2 version: 5.3.0
+      
+    
+  
+
+
+[PM2] Applying action deleteProcessId on app all
+[PM2] index ✓
+[PM2] index ✓
+[PM2] index ✓
+[PM2] [v] All Applications Stopped
+[PM2] [v] PM2 Daemon Stopped
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 list
+[PM2] Spawning PM2 daemon with pm2_home=/root/.pm2
+[PM2] PM2 Successfully daemonized
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. App index index differs. Type ‘pm2 save’ to synchronize.
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 start index.js
+[PM2] Starting /var/www/html/socket/index.js in fork_mode (1 instance)
+[PM2] Done.
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ index              │ fork     │ 0    │ online    │ 0%       │ 39.7mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type ‘pm2 save’ to synchronize.
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket#
+
+https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-20-04
+
+https://www.codespeedy.com/remove-node-js-app-from-pm2-process-list/#:~:text=In%20order%20to%20delete%20a,Doing%20this%20is%20quite%20easy.&amp;text=We%20can%20clearly%20see%20the,or%20remove%20the%20specific%20Node.
+
+https://pm2.keymetrics.io/docs/usage/watch-and-restart/
+
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 start index.js –watch
+[PM2] Starting /var/www/html/socket/index.js in fork_mode (1 instance)
+[PM2] Done.
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ index              │ fork     │ 0    │ online    │ 0%       │ 44.1mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type ‘pm2 save’ to synchronize.
+" />
+    <meta property="og:description" content="install PM
+
+npm install pm2 -g
+
+run project
+
+pm2 start index.js
+
+List Process
+
+pm2 list
+
+Stop Process
+
+pm2 stop app_name / process index
+
+pm2 stop 0
+
+Restart on file changes
+
+pm2 start app.js –watch
+
+Logs
+
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# ls
+Procfile   app.json    index.js      package-lock.json  public   views
+README.md  backup-gps  node_modules  package.json       test.js
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# sudo npm install pm2@latest -g
+sudo: npm: command not found
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# npm install
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: ‘node-js-getting-started@0.3.0’,
+npm WARN EBADENGINE   required: { node: ‘14.x’ },
+npm WARN EBADENGINE   current: { node: ‘v19.3.0’, npm: ‘9.2.0’ }
+npm WARN EBADENGINE }
+
+up to date, audited 201 packages in 3s
+
+45 packages are looking for funding
+  run npm fund for details
+
+10 vulnerabilities (1 moderate, 7 high, 2 critical)
+
+To address all issues, run:
+  npm audit fix
+
+Run npm audit for details.
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# npm install pm2 -g
+npm WARN deprecated uuid@3.4.0: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
+
+changed 184 packages in 14s
+
+12 packages are looking for funding
+  run npm fund for details
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 start index.js
+
+
+  
+    
+      
+        In-memory PM2 is out-of-date, do:
+$ pm2 update
+In memory PM2 version: 5.2.2
+Local PM2 version: 5.3.0
+      
+    
+  
+
+
+[PM2][ERROR] Script already launched, add -f option to force re-execution
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 start index.js -f
+
+
+  
+    
+      
+        In-memory PM2 is out-of-date, do:
+$ pm2 update
+In memory PM2 version: 5.2.2
+Local PM2 version: 5.3.0
+      
+    
+  
+
+
+[PM2] Starting /var/www/html/socket/index.js in fork_mode (1 instance)
+[PM2] Done.
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ index              │ fork     │ 0    │ stopped   │ 0%       │ 0b       │
+│ 1  │ index              │ fork     │ 12   │ online    │ 0%       │ 48.6mb   │
+│ 2  │ index              │ fork     │ 0    │ online    │ 0%       │ 15.1mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type ‘pm2 save’ to synchronize.
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 stop 1
+
+
+  
+    
+      
+        In-memory PM2 is out-of-date, do:
+$ pm2 update
+In memory PM2 version: 5.2.2
+Local PM2 version: 5.3.0
+      
+    
+  
+
+
+[PM2] Applying action stopProcessId on app [1](ids: [ ‘1’ ])
+[PM2] index ✓
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ index              │ fork     │ 0    │ stopped   │ 0%       │ 0b       │
+│ 1  │ index              │ fork     │ 12   │ stopped   │ 0%       │ 0b       │
+│ 2  │ index              │ fork     │ 0    │ online    │ 0%       │ 56.1mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type ‘pm2 save’ to synchronize.
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 stop 2
+
+
+  
+    
+      
+        In-memory PM2 is out-of-date, do:
+$ pm2 update
+In memory PM2 version: 5.2.2
+Local PM2 version: 5.3.0
+      
+    
+  
+
+
+[PM2] Applying action stopProcessId on app [2](ids: [ ‘2’ ])
+[PM2] index ✓
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ index              │ fork     │ 0    │ stopped   │ 0%       │ 0b       │
+│ 1  │ index              │ fork     │ 12   │ stopped   │ 0%       │ 0b       │
+│ 2  │ index              │ fork     │ 0    │ stopped   │ 0%       │ 0b       │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type ‘pm2 save’ to synchronize.
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 list
+
+
+  
+    
+      
+        In-memory PM2 is out-of-date, do:
+$ pm2 update
+In memory PM2 version: 5.2.2
+Local PM2 version: 5.3.0
+      
+    
+  
+
+
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ index              │ fork     │ 0    │ stopped   │ 0%       │ 0b       │
+│ 1  │ index              │ fork     │ 12   │ stopped   │ 0%       │ 0b       │
+│ 2  │ index              │ fork     │ 0    │ stopped   │ 0%       │ 0b       │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type ‘pm2 save’ to synchronize.
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 kill
+
+
+  
+    
+      
+        In-memory PM2 is out-of-date, do:
+$ pm2 update
+In memory PM2 version: 5.2.2
+Local PM2 version: 5.3.0
+      
+    
+  
+
+
+[PM2] Applying action deleteProcessId on app all
+[PM2] index ✓
+[PM2] index ✓
+[PM2] index ✓
+[PM2] [v] All Applications Stopped
+[PM2] [v] PM2 Daemon Stopped
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 list
+[PM2] Spawning PM2 daemon with pm2_home=/root/.pm2
+[PM2] PM2 Successfully daemonized
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. App index index differs. Type ‘pm2 save’ to synchronize.
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 start index.js
+[PM2] Starting /var/www/html/socket/index.js in fork_mode (1 instance)
+[PM2] Done.
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ index              │ fork     │ 0    │ online    │ 0%       │ 39.7mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type ‘pm2 save’ to synchronize.
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket#
+
+https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-20-04
+
+https://www.codespeedy.com/remove-node-js-app-from-pm2-process-list/#:~:text=In%20order%20to%20delete%20a,Doing%20this%20is%20quite%20easy.&amp;text=We%20can%20clearly%20see%20the,or%20remove%20the%20specific%20Node.
+
+https://pm2.keymetrics.io/docs/usage/watch-and-restart/
+
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 start index.js –watch
+[PM2] Starting /var/www/html/socket/index.js in fork_mode (1 instance)
+[PM2] Done.
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ index              │ fork     │ 0    │ online    │ 0%       │ 44.1mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type ‘pm2 save’ to synchronize.
+" />
+    
+    <meta name="author" content="" />
+
+    
+    <meta property="og:title" content="Macbook Pro as Power Bank" />
+    <meta property="twitter:title" content="Macbook Pro as Power Bank" />
+    
+
+    <!-- facebook Open Graph Metadatas -->
+    <meta content="your_facebook_app_id" property="fb:app_id">
+    <meta content="Your awesome title" property="og:site_name">
+    
+    <meta content="Macbook Pro as Power Bank" property="og:title">
+    
+    
+    <meta content="article" property="og:type">
+    
+    
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." property="og:description">
+    
+    
+    <meta content="http://localhost:4000/2023/04/27/how-to-run-node-js-in-production.html" property="og:url">
+    
+    
+    <meta content="2023-04-27T00:00:00+06:30" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    <meta content="/img/logo-high-resolution.png" property="og:image">
+    
+    
+    
+    
+    
+    
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title=" - Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/"></a></h1>
+            <p class="site-description">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>Macbook Pro as Power Bank</h1>
+
+  <div class="entry">
+    <h2 id="install-pm">install PM</h2>
+
+<p>npm install pm2 -g</p>
+
+<h2 id="run-project">run project</h2>
+
+<p>pm2 start index.js</p>
+
+<h2 id="list-process">List Process</h2>
+
+<p>pm2 list</p>
+
+<h2 id="stop-process">Stop Process</h2>
+
+<p>pm2 stop app_name / process index</p>
+
+<p>pm2 stop 0</p>
+
+<h2 id="restart-on-file-changes">Restart on file changes</h2>
+
+<p>pm2 start app.js –watch</p>
+
+<h2 id="logs">Logs</h2>
+
+<p>root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# ls
+Procfile   app.json    index.js      package-lock.json  public   views
+README.md  backup-gps  node_modules  package.json       test.js
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# sudo npm install pm2@latest -g
+sudo: npm: command not found
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# npm install
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: ‘node-js-getting-started@0.3.0’,
+npm WARN EBADENGINE   required: { node: ‘14.x’ },
+npm WARN EBADENGINE   current: { node: ‘v19.3.0’, npm: ‘9.2.0’ }
+npm WARN EBADENGINE }</p>
+
+<p>up to date, audited 201 packages in 3s</p>
+
+<p>45 packages are looking for funding
+  run <code class="language-plaintext highlighter-rouge">npm fund</code> for details</p>
+
+<p>10 vulnerabilities (1 moderate, 7 high, 2 critical)</p>
+
+<p>To address all issues, run:
+  npm audit fix</p>
+
+<p>Run <code class="language-plaintext highlighter-rouge">npm audit</code> for details.
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# npm install pm2 -g
+npm WARN deprecated uuid@3.4.0: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.</p>
+
+<p>changed 184 packages in 14s</p>
+
+<p>12 packages are looking for funding
+  run <code class="language-plaintext highlighter-rouge">npm fund</code> for details
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 start index.js</p>
+
+<blockquote>
+  <blockquote>
+    <blockquote>
+      <blockquote>
+        <p>In-memory PM2 is out-of-date, do:
+$ pm2 update
+In memory PM2 version: 5.2.2
+Local PM2 version: 5.3.0</p>
+      </blockquote>
+    </blockquote>
+  </blockquote>
+</blockquote>
+
+<p>[PM2][ERROR] Script already launched, add -f option to force re-execution
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 start index.js -f</p>
+
+<blockquote>
+  <blockquote>
+    <blockquote>
+      <blockquote>
+        <p>In-memory PM2 is out-of-date, do:
+$ pm2 update
+In memory PM2 version: 5.2.2
+Local PM2 version: 5.3.0</p>
+      </blockquote>
+    </blockquote>
+  </blockquote>
+</blockquote>
+
+<p>[PM2] Starting /var/www/html/socket/index.js in fork_mode (1 instance)
+[PM2] Done.
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ index              │ fork     │ 0    │ stopped   │ 0%       │ 0b       │
+│ 1  │ index              │ fork     │ 12   │ online    │ 0%       │ 48.6mb   │
+│ 2  │ index              │ fork     │ 0    │ online    │ 0%       │ 15.1mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type ‘pm2 save’ to synchronize.
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 stop 1</p>
+
+<blockquote>
+  <blockquote>
+    <blockquote>
+      <blockquote>
+        <p>In-memory PM2 is out-of-date, do:
+$ pm2 update
+In memory PM2 version: 5.2.2
+Local PM2 version: 5.3.0</p>
+      </blockquote>
+    </blockquote>
+  </blockquote>
+</blockquote>
+
+<p>[PM2] Applying action stopProcessId on app [1](ids: [ ‘1’ ])
+[PM2] <a href="1">index</a> ✓
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ index              │ fork     │ 0    │ stopped   │ 0%       │ 0b       │
+│ 1  │ index              │ fork     │ 12   │ stopped   │ 0%       │ 0b       │
+│ 2  │ index              │ fork     │ 0    │ online    │ 0%       │ 56.1mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type ‘pm2 save’ to synchronize.
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 stop 2</p>
+
+<blockquote>
+  <blockquote>
+    <blockquote>
+      <blockquote>
+        <p>In-memory PM2 is out-of-date, do:
+$ pm2 update
+In memory PM2 version: 5.2.2
+Local PM2 version: 5.3.0</p>
+      </blockquote>
+    </blockquote>
+  </blockquote>
+</blockquote>
+
+<p>[PM2] Applying action stopProcessId on app [2](ids: [ ‘2’ ])
+[PM2] <a href="2">index</a> ✓
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ index              │ fork     │ 0    │ stopped   │ 0%       │ 0b       │
+│ 1  │ index              │ fork     │ 12   │ stopped   │ 0%       │ 0b       │
+│ 2  │ index              │ fork     │ 0    │ stopped   │ 0%       │ 0b       │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type ‘pm2 save’ to synchronize.
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 list</p>
+
+<blockquote>
+  <blockquote>
+    <blockquote>
+      <blockquote>
+        <p>In-memory PM2 is out-of-date, do:
+$ pm2 update
+In memory PM2 version: 5.2.2
+Local PM2 version: 5.3.0</p>
+      </blockquote>
+    </blockquote>
+  </blockquote>
+</blockquote>
+
+<p>┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ index              │ fork     │ 0    │ stopped   │ 0%       │ 0b       │
+│ 1  │ index              │ fork     │ 12   │ stopped   │ 0%       │ 0b       │
+│ 2  │ index              │ fork     │ 0    │ stopped   │ 0%       │ 0b       │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type ‘pm2 save’ to synchronize.
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 kill</p>
+
+<blockquote>
+  <blockquote>
+    <blockquote>
+      <blockquote>
+        <p>In-memory PM2 is out-of-date, do:
+$ pm2 update
+In memory PM2 version: 5.2.2
+Local PM2 version: 5.3.0</p>
+      </blockquote>
+    </blockquote>
+  </blockquote>
+</blockquote>
+
+<p>[PM2] Applying action deleteProcessId on app <a href="ids: [ 0, 1, 2 ]">all</a>
+[PM2] <a href="0">index</a> ✓
+[PM2] <a href="1">index</a> ✓
+[PM2] <a href="2">index</a> ✓
+[PM2] [v] All Applications Stopped
+[PM2] [v] PM2 Daemon Stopped
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 list
+[PM2] Spawning PM2 daemon with pm2_home=/root/.pm2
+[PM2] PM2 Successfully daemonized
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. App index index differs. Type ‘pm2 save’ to synchronize.
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 start index.js
+[PM2] Starting /var/www/html/socket/index.js in fork_mode (1 instance)
+[PM2] Done.
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ index              │ fork     │ 0    │ online    │ 0%       │ 39.7mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type ‘pm2 save’ to synchronize.
+root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket#</p>
+
+<p>https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-20-04</p>
+
+<p>https://www.codespeedy.com/remove-node-js-app-from-pm2-process-list/#:~:text=In%20order%20to%20delete%20a,Doing%20this%20is%20quite%20easy.&amp;text=We%20can%20clearly%20see%20the,or%20remove%20the%20specific%20Node.</p>
+
+<p>https://pm2.keymetrics.io/docs/usage/watch-and-restart/</p>
+
+<p>root@ubuntu-s-1vcpu-2gb-nyc1-01:/var/www/html/socket# pm2 start index.js –watch
+[PM2] Starting /var/www/html/socket/index.js in fork_mode (1 instance)
+[PM2] Done.
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ index              │ fork     │ 0    │ online    │ 0%       │ 44.1mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type ‘pm2 save’ to synchronize.</p>
+
+  </div>
+
+  <div class="date">
+    Written on April 27, 2023
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+    <script>
+	window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '608464966533110',
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v9.0'
+	  });
+		
+	  FB.AppEvents.logPageView();   
+		
+	};
+  
+	(function(d, s, id){
+	   var js, fjs = d.getElementsByTagName(s)[0];
+	   if (d.getElementById(id)) {return;}
+	   js = d.createElement(s); js.id = id;
+	   js.src = "https://connect.facebook.net/en_US/sdk.js";
+	   fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+
+	 
+FB.getLoginStatus(function(response) {
+	console.log("getLoginStatus");
+	console.log(response);
+    statusChangeCallback(response);
+});
+
+function statusChangeCallback(response){
+	console.log('response is');
+	console.log(response);
+	if(response.status == "connected"){
+		console.log("user is logged in ");
+	}
+	else{
+		console.log("user need to login");
+		//FB.login();
+	}
+}
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+  </script>
+
+  
+<fb:login-button 
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
+  </body>
+</html>

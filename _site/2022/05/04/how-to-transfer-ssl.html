@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>How to transfer SSL from production to development stage. –  – Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="Intranet မှာ SSL Certificate ရဖို့
+" />
+    <meta property="og:description" content="Intranet မှာ SSL Certificate ရဖို့
+" />
+    
+    <meta name="author" content="" />
+
+    
+    <meta property="og:title" content="How to transfer SSL from production to development stage." />
+    <meta property="twitter:title" content="How to transfer SSL from production to development stage." />
+    
+
+    <!-- facebook Open Graph Metadatas -->
+    <meta content="your_facebook_app_id" property="fb:app_id">
+    <meta content="Your awesome title" property="og:site_name">
+    
+    <meta content="How to transfer SSL from production to development stage." property="og:title">
+    
+    
+    <meta content="article" property="og:type">
+    
+    
+    <meta content="for local development with real ssl" property="og:description">
+    
+    
+    <meta content="http://localhost:4000/2022/05/04/how-to-transfer-ssl.html" property="og:url">
+    
+    
+    <meta content="2022-05-04T00:00:00+06:30" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    <meta content="/img/posts/../images/fcc/kfc.jpg" property="og:image">
+    
+    
+    
+    
+    
+    
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title=" - Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/"></a></h1>
+            <p class="site-description">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>How to transfer SSL from production to development stage.</h1>
+
+  <div class="entry">
+    <h3 id="intranet-မှာ-ssl-certificate-ရဖို့">Intranet မှာ SSL Certificate ရဖို့</h3>
+
+<p>https://ivanderevianko.com/2019/03/migrate-letsencrypt-certificates-certbot-to-new-server</p>
+
+<p>Archive SSL certificates
+live server က ssl certificate တွေကို zip ချူပ်။</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo ls -l /etc/letsencrypt/live/divbyte.com
+total 0
+lrwxrwxrwx 1 root root 46 Mar 25 13:23 cert.pem -&gt; /etc/letsencrypt/archive/divbyte.com/cert2.pem
+lrwxrwxrwx 1 root root 47 Mar 25 13:24 chain.pem -&gt; /etc/letsencrypt/archive/divbyte.com/chain2.pem
+lrwxrwxrwx 1 root root 51 Mar 25 13:24 fullchain.pem -&gt; /etc/letsencrypt/archive/divbyte.com/fullchain2.pem
+lrwxrwxrwx 1 root root 49 Mar 25 13:24 privkey.pem -&gt; /etc/letsencrypt/archive/divbyte.com/privkey2.pem
+</code></pre></div></div>
+<p>renewal ပါ လိုကောင်းလိုမယ်</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo tar -chvzf certs.tar.gz /etc/letsencrypt/archive/divbyte.com /etc/letsencrypt/renewal/divbyte.com.conf
+</code></pre></div></div>
+
+<p>ရလာတဲ့ cers.tar.gz ကို local server ကို ကူးလာပြီး root မှာ unzip လုပ်၊ ဒါမှ မဟုတ် /etc/letsencrypt/archtve/divbyte.com/ * အစရှိတဲ့ နေရာမှာ manual ကူးထည့်။</p>
+
+<p>အိုကေ certificate တွေတော့ ရလာပြီ။</p>
+
+<p>Ngix က ဒီ certificate တွေကို ယူသုံးအောင် configuration လုပ်ဖို့ပဲ ကျန်တယ်။</p>
+
+<p>ရလာတဲ့ zip file ကို new server ရဲ့ root directory မှာ သွားပြီး extract လုပ်။ ပြီးရင် link ချိတ် အောက်ကလို။</p>
+
+<p>sudo ln -s /etc/letsencrypt/archive/mmkey.org/cert.pem /etc/letsencrypt/live/mmkey.org/cert.pem
+sudo ln -s /etc/letsencrypt/archive/mmkey.org/chain.pem /etc/letsencrypt/live/mmkey.org/chain.pem
+sudo ln -s /etc/letsencrypt/archive/mmkey.org/fullchain.pem /etc/letsencrypt/live/mmkey.org/fullchain.pem
+sudo ln -s /etc/letsencrypt/archive/mmkey.org/privkey.pem /etc/letsencrypt/live/mmkey.org/privkey.pem</p>
+
+<p>မရှိရင် သွားဆောက်ပါ။</p>
+
+<p>avalable site မှာ သွားပြင်ရတယ်။</p>
+
+<p>ပြီးရင် restart ချပါ။</p>
+
+
+  </div>
+
+  <div class="date">
+    Written on May  4, 2022
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+    <script>
+	window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '608464966533110',
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v9.0'
+	  });
+		
+	  FB.AppEvents.logPageView();   
+		
+	};
+  
+	(function(d, s, id){
+	   var js, fjs = d.getElementsByTagName(s)[0];
+	   if (d.getElementById(id)) {return;}
+	   js = d.createElement(s); js.id = id;
+	   js.src = "https://connect.facebook.net/en_US/sdk.js";
+	   fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+
+	 
+FB.getLoginStatus(function(response) {
+	console.log("getLoginStatus");
+	console.log(response);
+    statusChangeCallback(response);
+});
+
+function statusChangeCallback(response){
+	console.log('response is');
+	console.log(response);
+	if(response.status == "connected"){
+		console.log("user is logged in ");
+	}
+	else{
+		console.log("user need to login");
+		//FB.login();
+	}
+}
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+  </script>
+
+  
+<fb:login-button 
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
+  </body>
+</html>

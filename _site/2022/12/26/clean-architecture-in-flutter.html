@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ကိုယ်ရှာတာ ကိုယ်တွေ့ –  – Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="မတူတဲ့ Model လေးခုကို တစ်ခုတည်းနဲ့ အဆင်ပြေမလား?
+
+Video One,
+Video Two,
+Text (HTML ) and
+Text (Imags)
+
+အစုံဆုံး Model တစ်ခု ဆောက်ထားပြီး မလိုတာတွေကို default value / ဒါမှမဟုတ် ဖြုတ်ထားခဲ့လိုက်ရင် အဆင်ပြေမယ်။
+
+ပြဿနာက ဘယ် Endpoint ကို ခေါ်မယ်ဆိုတာကို ဘယ်မှာ ဆုံးဖြတ်ကြမလဲ?
+
+Repository
+Remote Data Source 
+တစ်ခုတည်းကို သုံးပြီး contentTypeId အပေါ် မူတည်ပြီး endpoint တွေကို ပြောင်းကြမလား။
+
+ဒါက ပိုပြီး သက်သာမယ်
+Anti Pattern ဖြစ်နေသလား ပြန်စဉ်စားရမယ်။
+
+Anti ဖြစ်တာမဖြစ်တာ အသာထား တကယ်လို့ ခွဲရေးမယ်ဆိုရင် Duplicate ကုတ်တွေက နည်းမှာ မဟုတ်ဘူး။ ဒီတော့ တစ်ခုတည်းပဲ ထားလိုက်ကြရအောင်။
+
+ဒါဆို Remote Data Source က Method တွေမှာ Our Http Request အတွက် Endpoint ပြင်တဲ့နေရာမှာ content type id အပေါ် မူတည်ပြီး သက်ဆိုင်ရာ endpoint ကို ပြောင်းခေါ်မယ်။
+
+listing ခေါ်တဲ့ နေရာမှာတောင် endpoint က (၄) ခု ဖြစ်သွားမယ်။
+
+1 =&gt; Video One
+2 =&gt; Video Two
+3 =&gt; Text
+4 =&gt; Image
+
+Video အတွက်က 
+Endpoint ဘယ်နှစ်ခု ထုတ်ရမလဲ?
+
+getCategories
+getVideoContentByCategoryId
+getVideoContentByTagId
+getVideoContentBySearch
+
+getVideoContentDetail
+
+အမှန်ကတော့ Categroy Select အတွက် တစ်ကြောင်း
+Video Select အတွက် နှစ်ကြောင်းရေးရင် ရပြီ။
+
+db လည်း download လုပ်ပြီးသားဆိုတော့ local မှာ စမ်းရေးကြည့်ရုံပဲ။
+
+link လုပ်ရမယ့် Table ဘယ်နှစ်ခု ရှိနိုင်မလဲ?
+
+wp_posts table ရှိမယ်။
+ဒါရရင် listing အတွက် ရမလား?
+
+filter လုပ်ရမှာ ဆိုတော့ Category table နဲ့  ချိတ်ရမယ်။ ထုံးစံအတိုင်း
+
+
+  
+    
+      wp_posts
+      category
+      category_wp_posts ဒါမျိုး (၃) ခု ချိတ်ရမယ်။
+    
+  
+
+
+Tag အတွက်လည်း ထိုနည်းလည်းကောင်း
+
+Detail အတွက်ကတော့ ပိုများမယ်။
+
+
+  
+    
+      wp_posts
+      category
+      category_wp_posts
+      tag
+      tag_wp_posts
+      meta_data
+      meta_data_wp_posts ဒါမျိုး အများကြီး ချိတ်ကောင်း ချိတ်ရမယ်။
+    
+  
+
+
+ပုံမှန်အတိုင်း Up and Running တက်လာရင် Encrypt အတွက် စဉ်းစားရမယ်။
+
+accessToken ကိုပဲ runtime မှာ generate ထုတ်ပြီးသုံးတာ ကောင်းမယ်။
+
+intercept လုပ်တောင် နှစ်နာရီလောက်ဆိုရင် expired လုပ်လိုက်။
+ဒီတော့ user account ‌တောင်မရှိသေးတဲ့ public device က ဘာတွေ random ထုတ်မလဲ?
+
+လက်ရှိအချိန် in milisecond 
+အိုကေ ဒါကရလာပြီ
+နောက်တစ်ခုက device id ကို ဘယ်လိုလုပ်မလဲ?
+shared prefrence မှာဖြစ်ဖြစ်ဖြစ်။
+app storage မှာဖြစ်ဖြစ် model_name နဲ့
+
+device_id ကို ဘယ်လို generate လုပ်မလဲ?
+ဒါက သူနောက်ပိုင်းမှာ သုံးသွားမယ့် အချက်အလက်။
+uninstall မလုပ်ခင်အထိပေါ့။
+
+username password အစား ဒီ အချက်အလက်ကို သုံးပြီး login လုပ်မယ်။
+
+first_installed_miliseconds: ဒါက app ကို စဖွင့်ဖွင့်ခြင်း ဒီ key မရှိသေးဘူးဆိုရင် current miliseconds ကို သိမ်းထားမယ့် နေရာ။ ဒါကလည်း တူနိုင်တယ် တစ်ယောက်နဲ့ တစ်ယောက်။ ဒီတော့ နောက်တစ်ခု စဉ်းစားရမယ်။
+current_time_zone: local time zone ဒါလည်း တူနိုင်သေးတယ်။
+phone_model: ဒါက ရနိုင်မလားတော့ မသိဘူး။ စမ်းကြည့်ရမယ်။
+os_version: အခုထိတော့ platform independent ဖြစ်နေတုန်းပဲ။
+unique_id: ဒါကတော့ database ကဖြစ်ဖြစ် လှမ်းတောင်းမှပဲ အဆင်ပြေမယ်။ ဒီတော့ အပေါ်က အချက်အလက်တွေကို ပို့ပြီး db မှာ insert လုပ်။ ရလာတဲ့ inserted id ကို return ပြန်ပေး။ ဒါကို local မှာ ပြန်သိမ်း။
+
+ဒါတွေရလာပြီး ဆိုပါတော့ ဘာလုပ်ကြမလဲ?
+
+first_installed_miliseconds နဲ့ unique_id ကို algorith တစ်ခုနဲ့ encrypt လုပ်။
+လုပ်တဲ့အချိန်မှာ အမြဲတမ်း dynamic ဖြစ်နေဖို့ လိုတယ်။ နီးစပ်ရာ နာရီနဲ့ လုပ်မလား?
+ဒါဆို မဆိုးဘူး။
+
+login call က ဒါမျိုးဖြစ်မယ်။
+
+first_installed_miliseconds နဲ့ unique_id ကို string တစ်ခုအနေနဲ့ပေါင်း။
+unique identifier + လက်ရှိနာရီ သုံးပြီး encrypt လုပ်။
+
+ဟိုဘက်က access Token ပြန်ပေးလိမ့်မယ်။ 
+firebase jwt သုံးပေါ့။
+
+နောက် session တွေအကုန်လုံးကို ဒါသုံးပြီးလုပ်မယ်။
+
+ဒီလောက်ဆို login လိုက်လုပ်လို့မရဘူးလို့ ယူဆရ။ တစ်ခုပဲ encrypt လုပ်မယ့် algorithm နဲ့ timezone difference ကို ကြည့်ရမယ်။ UTC ပြောင်းလိုက်တာက ပိုအဆင်ပြေမယ်။
+
+နောက်တစ်ခု streaming နဲ့ download url တွေကို ဘယ်လို လုပ်မလဲ?
+reverse လုပ်မလား? ရိုးလွန်းတယ်။
+" />
+    <meta property="og:description" content="မတူတဲ့ Model လေးခုကို တစ်ခုတည်းနဲ့ အဆင်ပြေမလား?
+
+Video One,
+Video Two,
+Text (HTML ) and
+Text (Imags)
+
+အစုံဆုံး Model တစ်ခု ဆောက်ထားပြီး မလိုတာတွေကို default value / ဒါမှမဟုတ် ဖြုတ်ထားခဲ့လိုက်ရင် အဆင်ပြေမယ်။
+
+ပြဿနာက ဘယ် Endpoint ကို ခေါ်မယ်ဆိုတာကို ဘယ်မှာ ဆုံးဖြတ်ကြမလဲ?
+
+Repository
+Remote Data Source 
+တစ်ခုတည်းကို သုံးပြီး contentTypeId အပေါ် မူတည်ပြီး endpoint တွေကို ပြောင်းကြမလား။
+
+ဒါက ပိုပြီး သက်သာမယ်
+Anti Pattern ဖြစ်နေသလား ပြန်စဉ်စားရမယ်။
+
+Anti ဖြစ်တာမဖြစ်တာ အသာထား တကယ်လို့ ခွဲရေးမယ်ဆိုရင် Duplicate ကုတ်တွေက နည်းမှာ မဟုတ်ဘူး။ ဒီတော့ တစ်ခုတည်းပဲ ထားလိုက်ကြရအောင်။
+
+ဒါဆို Remote Data Source က Method တွေမှာ Our Http Request အတွက် Endpoint ပြင်တဲ့နေရာမှာ content type id အပေါ် မူတည်ပြီး သက်ဆိုင်ရာ endpoint ကို ပြောင်းခေါ်မယ်။
+
+listing ခေါ်တဲ့ နေရာမှာတောင် endpoint က (၄) ခု ဖြစ်သွားမယ်။
+
+1 =&gt; Video One
+2 =&gt; Video Two
+3 =&gt; Text
+4 =&gt; Image
+
+Video အတွက်က 
+Endpoint ဘယ်နှစ်ခု ထုတ်ရမလဲ?
+
+getCategories
+getVideoContentByCategoryId
+getVideoContentByTagId
+getVideoContentBySearch
+
+getVideoContentDetail
+
+အမှန်ကတော့ Categroy Select အတွက် တစ်ကြောင်း
+Video Select အတွက် နှစ်ကြောင်းရေးရင် ရပြီ။
+
+db လည်း download လုပ်ပြီးသားဆိုတော့ local မှာ စမ်းရေးကြည့်ရုံပဲ။
+
+link လုပ်ရမယ့် Table ဘယ်နှစ်ခု ရှိနိုင်မလဲ?
+
+wp_posts table ရှိမယ်။
+ဒါရရင် listing အတွက် ရမလား?
+
+filter လုပ်ရမှာ ဆိုတော့ Category table နဲ့  ချိတ်ရမယ်။ ထုံးစံအတိုင်း
+
+
+  
+    
+      wp_posts
+      category
+      category_wp_posts ဒါမျိုး (၃) ခု ချိတ်ရမယ်။
+    
+  
+
+
+Tag အတွက်လည်း ထိုနည်းလည်းကောင်း
+
+Detail အတွက်ကတော့ ပိုများမယ်။
+
+
+  
+    
+      wp_posts
+      category
+      category_wp_posts
+      tag
+      tag_wp_posts
+      meta_data
+      meta_data_wp_posts ဒါမျိုး အများကြီး ချိတ်ကောင်း ချိတ်ရမယ်။
+    
+  
+
+
+ပုံမှန်အတိုင်း Up and Running တက်လာရင် Encrypt အတွက် စဉ်းစားရမယ်။
+
+accessToken ကိုပဲ runtime မှာ generate ထုတ်ပြီးသုံးတာ ကောင်းမယ်။
+
+intercept လုပ်တောင် နှစ်နာရီလောက်ဆိုရင် expired လုပ်လိုက်။
+ဒီတော့ user account ‌တောင်မရှိသေးတဲ့ public device က ဘာတွေ random ထုတ်မလဲ?
+
+လက်ရှိအချိန် in milisecond 
+အိုကေ ဒါကရလာပြီ
+နောက်တစ်ခုက device id ကို ဘယ်လိုလုပ်မလဲ?
+shared prefrence မှာဖြစ်ဖြစ်ဖြစ်။
+app storage မှာဖြစ်ဖြစ် model_name နဲ့
+
+device_id ကို ဘယ်လို generate လုပ်မလဲ?
+ဒါက သူနောက်ပိုင်းမှာ သုံးသွားမယ့် အချက်အလက်။
+uninstall မလုပ်ခင်အထိပေါ့။
+
+username password အစား ဒီ အချက်အလက်ကို သုံးပြီး login လုပ်မယ်။
+
+first_installed_miliseconds: ဒါက app ကို စဖွင့်ဖွင့်ခြင်း ဒီ key မရှိသေးဘူးဆိုရင် current miliseconds ကို သိမ်းထားမယ့် နေရာ။ ဒါကလည်း တူနိုင်တယ် တစ်ယောက်နဲ့ တစ်ယောက်။ ဒီတော့ နောက်တစ်ခု စဉ်းစားရမယ်။
+current_time_zone: local time zone ဒါလည်း တူနိုင်သေးတယ်။
+phone_model: ဒါက ရနိုင်မလားတော့ မသိဘူး။ စမ်းကြည့်ရမယ်။
+os_version: အခုထိတော့ platform independent ဖြစ်နေတုန်းပဲ။
+unique_id: ဒါကတော့ database ကဖြစ်ဖြစ် လှမ်းတောင်းမှပဲ အဆင်ပြေမယ်။ ဒီတော့ အပေါ်က အချက်အလက်တွေကို ပို့ပြီး db မှာ insert လုပ်။ ရလာတဲ့ inserted id ကို return ပြန်ပေး။ ဒါကို local မှာ ပြန်သိမ်း။
+
+ဒါတွေရလာပြီး ဆိုပါတော့ ဘာလုပ်ကြမလဲ?
+
+first_installed_miliseconds နဲ့ unique_id ကို algorith တစ်ခုနဲ့ encrypt လုပ်။
+လုပ်တဲ့အချိန်မှာ အမြဲတမ်း dynamic ဖြစ်နေဖို့ လိုတယ်။ နီးစပ်ရာ နာရီနဲ့ လုပ်မလား?
+ဒါဆို မဆိုးဘူး။
+
+login call က ဒါမျိုးဖြစ်မယ်။
+
+first_installed_miliseconds နဲ့ unique_id ကို string တစ်ခုအနေနဲ့ပေါင်း။
+unique identifier + လက်ရှိနာရီ သုံးပြီး encrypt လုပ်။
+
+ဟိုဘက်က access Token ပြန်ပေးလိမ့်မယ်။ 
+firebase jwt သုံးပေါ့။
+
+နောက် session တွေအကုန်လုံးကို ဒါသုံးပြီးလုပ်မယ်။
+
+ဒီလောက်ဆို login လိုက်လုပ်လို့မရဘူးလို့ ယူဆရ။ တစ်ခုပဲ encrypt လုပ်မယ့် algorithm နဲ့ timezone difference ကို ကြည့်ရမယ်။ UTC ပြောင်းလိုက်တာက ပိုအဆင်ပြေမယ်။
+
+နောက်တစ်ခု streaming နဲ့ download url တွေကို ဘယ်လို လုပ်မလဲ?
+reverse လုပ်မလား? ရိုးလွန်းတယ်။
+" />
+    
+    <meta name="author" content="" />
+
+    
+    <meta property="og:title" content="ကိုယ်ရှာတာ ကိုယ်တွေ့" />
+    <meta property="twitter:title" content="ကိုယ်ရှာတာ ကိုယ်တွေ့" />
+    
+
+    <!-- facebook Open Graph Metadatas -->
+    <meta content="your_facebook_app_id" property="fb:app_id">
+    <meta content="Your awesome title" property="og:site_name">
+    
+    <meta content="ကိုယ်ရှာတာ ကိုယ်တွေ့" property="og:title">
+    
+    
+    <meta content="article" property="og:type">
+    
+    
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." property="og:description">
+    
+    
+    <meta content="http://localhost:4000/2022/12/26/clean-architecture-in-flutter.html" property="og:url">
+    
+    
+    <meta content="2022-12-26T00:00:00+06:30" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    <meta content="/img/logo-high-resolution.png" property="og:image">
+    
+    
+    
+    
+    
+    
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title=" - Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/"></a></h1>
+            <p class="site-description">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>ကိုယ်ရှာတာ ကိုယ်တွေ့</h1>
+
+  <div class="entry">
+    <h3 id="မတူတဲ့-model-လေးခုကို-တစ်ခုတည်းနဲ့-အဆင်ပြေမလား">မတူတဲ့ Model လေးခုကို တစ်ခုတည်းနဲ့ အဆင်ပြေမလား?</h3>
+
+<p>Video One,
+Video Two,
+Text (HTML ) and
+Text (Imags)</p>
+
+<p>အစုံဆုံး Model တစ်ခု ဆောက်ထားပြီး မလိုတာတွေကို default value / ဒါမှမဟုတ် ဖြုတ်ထားခဲ့လိုက်ရင် အဆင်ပြေမယ်။</p>
+
+<p>ပြဿနာက ဘယ် Endpoint ကို ခေါ်မယ်ဆိုတာကို ဘယ်မှာ ဆုံးဖြတ်ကြမလဲ?</p>
+
+<p>Repository
+Remote Data Source 
+တစ်ခုတည်းကို သုံးပြီး contentTypeId အပေါ် မူတည်ပြီး endpoint တွေကို ပြောင်းကြမလား။</p>
+
+<p>ဒါက ပိုပြီး သက်သာမယ်
+Anti Pattern ဖြစ်နေသလား ပြန်စဉ်စားရမယ်။</p>
+
+<p>Anti ဖြစ်တာမဖြစ်တာ အသာထား တကယ်လို့ ခွဲရေးမယ်ဆိုရင် Duplicate ကုတ်တွေက နည်းမှာ မဟုတ်ဘူး။ ဒီတော့ တစ်ခုတည်းပဲ ထားလိုက်ကြရအောင်။</p>
+
+<p>ဒါဆို Remote Data Source က Method တွေမှာ Our Http Request အတွက် Endpoint ပြင်တဲ့နေရာမှာ content type id အပေါ် မူတည်ပြီး သက်ဆိုင်ရာ endpoint ကို ပြောင်းခေါ်မယ်။</p>
+
+<p>listing ခေါ်တဲ့ နေရာမှာတောင် endpoint က (၄) ခု ဖြစ်သွားမယ်။</p>
+
+<p>1 =&gt; Video One
+2 =&gt; Video Two
+3 =&gt; Text
+4 =&gt; Image</p>
+
+<p>Video အတွက်က 
+Endpoint ဘယ်နှစ်ခု ထုတ်ရမလဲ?</p>
+
+<p>getCategories
+getVideoContentByCategoryId
+getVideoContentByTagId
+getVideoContentBySearch</p>
+
+<p>getVideoContentDetail</p>
+
+<p>အမှန်ကတော့ Categroy Select အတွက် တစ်ကြောင်း
+Video Select အတွက် နှစ်ကြောင်းရေးရင် ရပြီ။</p>
+
+<p>db လည်း download လုပ်ပြီးသားဆိုတော့ local မှာ စမ်းရေးကြည့်ရုံပဲ။</p>
+
+<p>link လုပ်ရမယ့် Table ဘယ်နှစ်ခု ရှိနိုင်မလဲ?</p>
+
+<p>wp_posts table ရှိမယ်။
+ဒါရရင် listing အတွက် ရမလား?</p>
+
+<p>filter လုပ်ရမှာ ဆိုတော့ Category table နဲ့  ချိတ်ရမယ်။ ထုံးစံအတိုင်း</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>wp_posts</td>
+      <td>category</td>
+      <td>category_wp_posts ဒါမျိုး (၃) ခု ချိတ်ရမယ်။</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Tag အတွက်လည်း ထိုနည်းလည်းကောင်း</p>
+
+<p>Detail အတွက်ကတော့ ပိုများမယ်။</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>wp_posts</td>
+      <td>category</td>
+      <td>category_wp_posts</td>
+      <td>tag</td>
+      <td>tag_wp_posts</td>
+      <td>meta_data</td>
+      <td>meta_data_wp_posts ဒါမျိုး အများကြီး ချိတ်ကောင်း ချိတ်ရမယ်။</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>ပုံမှန်အတိုင်း Up and Running တက်လာရင် Encrypt အတွက် စဉ်းစားရမယ်။</p>
+
+<p>accessToken ကိုပဲ runtime မှာ generate ထုတ်ပြီးသုံးတာ ကောင်းမယ်။</p>
+
+<p>intercept လုပ်တောင် နှစ်နာရီလောက်ဆိုရင် expired လုပ်လိုက်။
+ဒီတော့ user account ‌တောင်မရှိသေးတဲ့ public device က ဘာတွေ random ထုတ်မလဲ?</p>
+
+<p>လက်ရှိအချိန် in milisecond 
+အိုကေ ဒါကရလာပြီ
+နောက်တစ်ခုက device id ကို ဘယ်လိုလုပ်မလဲ?
+shared prefrence မှာဖြစ်ဖြစ်ဖြစ်။
+app storage မှာဖြစ်ဖြစ် model_name နဲ့</p>
+
+<p>device_id ကို ဘယ်လို generate လုပ်မလဲ?
+ဒါက သူနောက်ပိုင်းမှာ သုံးသွားမယ့် အချက်အလက်။
+uninstall မလုပ်ခင်အထိပေါ့။</p>
+
+<p>username password အစား ဒီ အချက်အလက်ကို သုံးပြီး login လုပ်မယ်။</p>
+
+<p>first_installed_miliseconds: ဒါက app ကို စဖွင့်ဖွင့်ခြင်း ဒီ key မရှိသေးဘူးဆိုရင် current miliseconds ကို သိမ်းထားမယ့် နေရာ။ ဒါကလည်း တူနိုင်တယ် တစ်ယောက်နဲ့ တစ်ယောက်။ ဒီတော့ နောက်တစ်ခု စဉ်းစားရမယ်။
+current_time_zone: local time zone ဒါလည်း တူနိုင်သေးတယ်။
+phone_model: ဒါက ရနိုင်မလားတော့ မသိဘူး။ စမ်းကြည့်ရမယ်။
+os_version: အခုထိတော့ platform independent ဖြစ်နေတုန်းပဲ။
+unique_id: ဒါကတော့ database ကဖြစ်ဖြစ် လှမ်းတောင်းမှပဲ အဆင်ပြေမယ်။ ဒီတော့ အပေါ်က အချက်အလက်တွေကို ပို့ပြီး db မှာ insert လုပ်။ ရလာတဲ့ inserted id ကို return ပြန်ပေး။ ဒါကို local မှာ ပြန်သိမ်း။</p>
+
+<p>ဒါတွေရလာပြီး ဆိုပါတော့ ဘာလုပ်ကြမလဲ?</p>
+
+<p>first_installed_miliseconds နဲ့ unique_id ကို algorith တစ်ခုနဲ့ encrypt လုပ်။
+လုပ်တဲ့အချိန်မှာ အမြဲတမ်း dynamic ဖြစ်နေဖို့ လိုတယ်။ နီးစပ်ရာ နာရီနဲ့ လုပ်မလား?
+ဒါဆို မဆိုးဘူး။</p>
+
+<p>login call က ဒါမျိုးဖြစ်မယ်။</p>
+
+<p>first_installed_miliseconds နဲ့ unique_id ကို string တစ်ခုအနေနဲ့ပေါင်း။
+unique identifier + လက်ရှိနာရီ သုံးပြီး encrypt လုပ်။</p>
+
+<p>ဟိုဘက်က access Token ပြန်ပေးလိမ့်မယ်။ 
+firebase jwt သုံးပေါ့။</p>
+
+<p>နောက် session တွေအကုန်လုံးကို ဒါသုံးပြီးလုပ်မယ်။</p>
+
+<p>ဒီလောက်ဆို login လိုက်လုပ်လို့မရဘူးလို့ ယူဆရ။ တစ်ခုပဲ encrypt လုပ်မယ့် algorithm နဲ့ timezone difference ကို ကြည့်ရမယ်။ UTC ပြောင်းလိုက်တာက ပိုအဆင်ပြေမယ်။</p>
+
+<p>နောက်တစ်ခု streaming နဲ့ download url တွေကို ဘယ်လို လုပ်မလဲ?
+reverse လုပ်မလား? ရိုးလွန်းတယ်။</p>
+
+  </div>
+
+  <div class="date">
+    Written on December 26, 2022
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+    <script>
+	window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '608464966533110',
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v9.0'
+	  });
+		
+	  FB.AppEvents.logPageView();   
+		
+	};
+  
+	(function(d, s, id){
+	   var js, fjs = d.getElementsByTagName(s)[0];
+	   if (d.getElementById(id)) {return;}
+	   js = d.createElement(s); js.id = id;
+	   js.src = "https://connect.facebook.net/en_US/sdk.js";
+	   fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+
+	 
+FB.getLoginStatus(function(response) {
+	console.log("getLoginStatus");
+	console.log(response);
+    statusChangeCallback(response);
+});
+
+function statusChangeCallback(response){
+	console.log('response is');
+	console.log(response);
+	if(response.status == "connected"){
+		console.log("user is logged in ");
+	}
+	else{
+		console.log("user need to login");
+		//FB.login();
+	}
+}
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+  </script>
+
+  
+<fb:login-button 
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
+  </body>
+</html>

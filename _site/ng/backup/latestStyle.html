@@ -1,0 +1,886 @@
+<style type= "text/css">
+ 	  /*standard color :0071FB */ 
+ 	   html ,body{ margin:0; padding: 0; box-sizing: border-box;}
+ 	   *{ box-sizing: border-box;  }  
+ 	   .containermta{
+ 	   		 width:100vw;height:100vh;background-color: #F6F7FB;position: relative;overflow-x:hidden;overflow-y: scroll;
+ 	   		 scroll-behavior: smooth;-ms-overflow-style: none; scrollbar-width: none;
+ 	   	}
+ 	   	.containermta::-webkit-scrollbar {width: 7px; height:1px;transition:all .5s}
+		.containermta::-webkit-scrollbar-track {
+			background: -webkit-gradient(linear, center top, center bottom, from(#ededed), to(#fff));
+			background-image: linear-gradient(#ededed, #fff);
+			box-shadow: inset 0px 0px 3px 3px rgba(0,0,0,0.1)
+			border-radius:15px;
+		}
+		.containermta::-webkit-scrollbar-thumb {
+			background-color:#a3abb1;
+			border-radius:15px;
+		}
+ 	   .headingmta{
+ 	   		width:100vw; height: 60px; background-color:#fff; border:1px solid rgba(150,151,160,0.2); 
+ 	   		display: flex;justify-content: center; flex-direction: row; position: sticky; top: 0; z-index: 3;  
+ 	   	}
+ 	   .headingmtaContainer{
+ 	   		width: 70%;height: 100%;display: flex; justify-content: space-between; align-items: center;
+ 	   	}
+ 	   	.logoarea{
+ 	   		width: 30%;
+ 	   		height: 100%;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   		font-size: 14px;
+ 	   		font-family: 'EB Garamond', serif;/* Bodoni Moda Font */
+ 	   		font-weight: bold;
+ 	   	}
+ 	   	.logoarea div{
+ 	   		width: max-content;
+ 	   		height: max-content;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   	}
+ 	   	.catefunarea{
+ 	   		width: 50%;
+ 	   		height: 100%;
+ 	   		display: flex;
+ 	   		justify-content: space-around;
+ 	   		align-items: center;
+ 	   		font-family: 'EB Garamond', serif;
+ 	   		font-weight: bold;
+ 	   	}
+ 	   	.catefunarea div{
+ 	   		width: 20%;
+ 	   		height: 100%;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		color: black;
+ 	   		cursor: pointer;
+ 	   		font-size: 14px;
+ 	   	}
+ 	   	.catefunarea div:nth-child(1){
+ 	   		border-bottom:3px solid #0071FB;
+ 	   	}
+ 	   	.catefunarea a{
+ 	   		text-decoration: none;
+ 	   		color: black;
+ 	   	}
+ 	   	.searcharea , .menuarea{
+ 	   		width: 5%;
+ 	   		height: 100%;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.menuarea{
+ 	   		display: none;
+ 	   	}
+ 	   	.logoNG{
+ 	   		max-height: 60px;
+ 	   	}
+ 	   	.coverContainerSlideMTA{
+ 	   		width: 100vw;
+ 	   		height: 50vh;
+ 	   		clear: both;
+ 	   		position: relative;
+ 	   	}
+ 	   	.covercontainermta{
+ 	   		width: 100%;
+ 	   		height: 100%;
+ 	   		position: absolute;
+ 	   		background-image: url(CATEGO/architect-technical-office-engineer-for-an-engineering-consulting-office-628018d08df38.jpg);
+ 	   		background-repeat: no-repeat;
+ 	   		background-size:1024px 500px;
+ 	   		background-position: center center;
+ 	   		display: none;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		display: none;
+ 	   		transition: 1s;
+ 	   	}
+ 	   	#coverTwo{
+ 	   		background-image: url(COVER/Architecture_Interior_Design/1024X500_Home_Page.jpg);
+ 	   	}
+ 	   	#coverThree{
+ 	   		background-image: url(COVER/CIVIL/1024X500_Home_Banner.jpg);
+ 	   	}
+ 	   	#coverFour{
+ 	   		background-image: url(COVER/M_E/detail_Banner.jpg);
+ 	   	}
+ 	   	#coverFive{
+ 	   		background-image: url(COVER/Schon/Home_Page_Banner.jpg);
+ 	   	}
+ 	   	#coverSix{
+ 	   		background-image: url(COVER/Nikko/1024X500_Detail_Banner.jpg);
+ 	   	}
+ 	   	#coverSeven{
+ 	   		background-image: url(COVER/Toli/Detail_Pagr.jpg);
+ 	   	}
+ 	   	.indicatorContainer{
+ 	   		width: 100%;
+ 	   		height: 50px;
+ 	   		background-color: #fff;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.indicator{
+ 	   		width: 15px;
+ 	   		height: 5px;
+ 	   		border-radius: 15px;
+ 	   		background-color: #F6F7FB;
+ 	   		margin: 0 2px;
+ 	   		cursor: pointer;
+ 	   	}
+ 	   	.coverdesInfo{
+ 	   		width: 50%;
+ 	   		height: 200px;
+ 	   		border-radius: 5px;
+ 	   		border: 3px solid rgba(0, 0, 0, 0.0);
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   		font-family: 'EB Garamond', serif;
+ 	   		position: relative;
+ 	   	}
+ 	   	.coverdesInfo div{
+ 	   		margin-top: 15px;
+ 	   		font-size: 40px;
+ 	   	}
+ 	   	.desAboutUsContainer{
+ 	   		width: 100%;
+ 	   		height: auto;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   		flex-wrap: wrap-reverse;
+ 	   	}
+ 	   	.aboutusCover , .aboutusDesc{
+ 	   		width: 50%;
+ 	   		height: 400px;
+ 	   		box-sizing: border-box;
+ 	   	}
+ 	   	.aboutusCover{
+ 	   		background-image: url(CATEGO/services.jpg);
+ 	   		background-size: cover;
+ 	   		background-position: center;
+ 	   	}
+ 	   	.aboutusDesc{
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: left;
+ 	   		flex-direction: column;
+ 	   		padding-left: 30px;
+ 	   	}
+ 	   	.aboutusDesc div:nth-child(1){
+ 	   		font-size: 14px;
+ 	   		font-family: 'EB Garamond', serif;
+ 	 		font-weight: bold;
+ 	   	}
+ 	   	.aboutusDesc div:nth-child(2){
+ 	   		width: 60px;
+ 	   		height: 4px;
+ 	   		background-color: #0071FB;
+ 	   		border-radius: 7px;
+ 	   	}
+ 	   	.aboutusDesc div:nth-child(3){
+ 	   		width: 80%;
+ 	   		margin-top: 15px;
+ 	   	}
+ 	   	.aboutusDesc div:nth-child(4){
+ 	   		width: 200px;
+ 	   		height: 40px;
+ 	   		border-radius: 20px;
+ 	   		background-color: #0071FB;
+ 	   		color: #efefef;
+ 	   		cursor: pointer;
+ 	   		box-sizing: border-box;
+ 	   		padding: 8px;
+ 	   		text-align: center;
+ 	   		margin-top: 15px;
+ 	   	}
+ 	   	.serviceHeader{
+ 	   		width: 100%;
+ 	   		height: 30px;
+ 	   		margin-top: 15px;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		font-weight: bold;
+ 	   		font-size: 18px;
+ 	   		font-family: 'EB Garamond', serif;
+ 	   		flex-direction: column;
+ 	   	}
+ 	   	.serviceHeader div:nth-child(2){
+ 	   		width: 60px;
+ 	   		height: 4px;
+ 	   		background-color: #0071FB;
+ 	   		border-radius: 7px;
+ 	   	}
+ 	   	.serviceContainerMTA{
+ 	   		width: 100%;
+ 	   		height: auto;
+ 	   	}
+ 	   	.serviceDataContainerOdd{
+ 	   		width: 100%;
+ 	   		height: auto;
+ 	   		margin-top: 25px;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		flex-wrap: wrap-reverse;
+ 	   	}
+ 	   	.serviceOddImg{
+ 	   		width: 50%;
+ 	   		height: 300px;
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: cover;
+ 	   		background-position: center;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.serviceOddImg div{
+ 	   		width: 180px;
+ 	   		height: 150px;
+ 	   		border-radius: 15px;
+ 	   		background: rgba(0,0,0,0.8);
+ 	   		box-sizing: border-box;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   		color: #efefef;
+ 	   	}
+ 	   	.serviceOddDes{
+ 	   		width:50%;
+ 	   		height: 400px;
+ 	   		overflow: auto;
+ 	   	}
+ 	   	.serviceOddDes div{
+ 	   		width: 60%;
+ 	   		height: auto;
+ 	   		margin-top: 10px;
+ 	   	}
+ 	   	.serviceOddDes div:nth-child(1){
+ 	   		font-size: 18px;
+ 	   		font-family: 'EB Garamond', serif;
+ 	 		font-weight: bold;
+ 	   	}
+ 	   	.serviceOddDes div:nth-child(2){
+ 	   		width: 60px;
+ 	   		height: 4px;
+ 	   		background-color: #0071FB;
+ 	   		border-radius: 7px;
+ 	   	}
+ 	    .serviceOddDes div:nth-child(3){
+ 	   		width: 80%;
+ 	   		margin-top: 15px;
+ 	   	}
+ 	   	.serviceOddDes div:nth-child(4) , .loadmoreCate{
+ 	   		width: 200px;
+ 	   		height: 40px;
+ 	   		border-radius: 20px;
+ 	   		background-color: #0071FB;
+ 	   		color: #efefef;
+ 	   		cursor: pointer;
+ 	   		box-sizing: border-box;
+ 	   		padding: 8px;
+ 	   		text-align: center;
+ 	   		margin-top: 15px;
+ 	   	}
+ 	   	.footerContainer{
+ 	   		width: 100%;
+ 	   		height: auto;
+ 	   		margin-top: 10px;
+ 	   		background-image: url(CATEGO/MayaHTT_image.jpg);
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: cover;
+ 	   		background-attachment: fixed;
+ 	   		background-position: center;
+ 	   	}
+ 	   	.footerContainerMTACover{
+ 	   		width: 100%;
+ 	   		height: 100%;
+ 	   		background: rgba(0, 0, 0, 0.6);
+ 	   		position: relative;
+ 	   		overflow: auto;
+ 	   	}
+ 	   	.footerHeader{
+ 	   		width: 100%;
+ 	   		height: 70px;
+ 	   		background: rgba(0, 0, 0, 0.6);
+ 	   		display: flex;justify-content: space-between;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.infoFooter{
+ 	   		width:30%;
+ 	   		height: 100%;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		color: #C8C8CA;
+ 	   	}
+ 	   	.infoFooter p{
+ 	   		font-size: 13px;
+ 	   	}
+ 	   	.infoFooter div{
+ 	   		width: 200px;
+ 	   		height: 45px;
+ 	   		border-radius: 25px;
+ 	   		border: 3px solid rgba(22, 72, 210, 0.7);
+ 	   		display: flex;
+ 	   		font-size: 14px;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		cursor: pointer;
+ 	   	}
+ 	   	.infoFooter img{
+ 	   		max-width: 36px;
+ 	   		max-height: 36px;
+ 	   	}
+ 	   	.aboutusContainer{
+ 	   		width: 100%;
+ 	   		height: calc(100% - 90px);
+ 	   		margin-top: 10px;
+ 	   	}
+ 	   	.aboutusTitle{
+ 	   		width: 100%;
+ 	   		height: auto;
+ 	   		color:#efefef;
+ 	   		font-size: 16px;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   		font-family: 'EB Garamond', serif;
+ 	   	}
+ 	   	.aboutusTitle div{
+ 	   		width: 60px;
+ 	   		height: 9px;
+ 	   		margin-top: -15px;
+ 	   		border-bottom:2px solid  blue;
+ 	   		border-radius: 20px;
+ 	   	}
+ 	   	.aboutusDescription{
+ 	   		width: 100%;
+ 	   		height: 300px;
+ 	   		margin-top: 10px;
+ 	   		overflow: auto;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   	}
+ 	   	.aboutusDescription p , .aboutusDescription h4{
+ 	   		width: 70%;
+ 	   		text-align: center;
+ 	   		color: #C8C8CA;
+ 	   	}
+ 	   	.subscribeContainer{
+ 	   		width: 100%;
+ 	   		height: 70px;
+ 	   		margin-top: 30px;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.subscribecover{
+ 	   		width: 50%;
+ 	   		height: 100%;
+ 	   		background:rgba(22, 72, 210, 0.7);
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	#subemail{
+ 	   		width: 280px;
+ 	   		height: 40px;
+ 	   		border-radius: 5px;
+ 	   		border: none;outline: none;
+ 	   		padding-left: 10px;
+ 	   		background-color: #C8C8CA;
+ 	   	}
+ 	   	#submitSub{
+ 	   		width: 180px;
+ 	   		height: 40px;
+ 	   		margin-left: 20px;
+ 	   		border-radius: 5px;
+ 	   		border: none;
+ 	   		outline: none;
+ 	   		cursor: pointer;
+ 	   		background: rgba(0, 0, 0, 0.8);
+ 	   		box-sizing: border-box;
+ 	   		text-align: center;
+ 	   		padding: 8px;
+ 	   		color: #C8C8CA;
+ 	   	}
+ 	   	.copyRightContainer{
+ 	   		width: 100%;
+ 	   		height: 40px;
+ 	   		background: rgba(0, 0, 0, 0.8);
+ 	   		text-align: center;
+ 	   		box-sizing: border-box;
+ 	   		padding: 6px;
+ 	   		color: #C8C8CA;
+ 	   		bottom: 0;
+ 	   	    font-size: 12px;
+ 	   	    margin-top: 15px;
+ 	   	}
+ 	   	.searchContainer{
+ 	   		width: 100%;
+ 	   		height: 70px;
+ 	   		top: 70px;
+ 	   		position: fixed;
+ 	   		z-index: 4;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		-webkit-animation-name: bounceInDown;
+		  animation-name: bounceInDown;
+		  -webkit-animation-duration: 1s;
+		  animation-duration: 1s;
+		  -webkit-animation-fill-mode: both;
+		  animation-fill-mode: both;
+ 	   	}
+ 	   	.searchDiv{
+ 	   		width: 550px;
+ 	   		height: 60px;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		background: rgba(0, 0, 0, 0.6);
+	  }
+	  @-webkit-keyframes bounceInDown {
+	 	 0%, 60%, 75%, 90%, 100% {
+		  -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+		  transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+	 	 }
+		  0% {
+			  opacity: 0;
+			  -webkit-transform: translate3d(0, -3000px, 0);
+			  transform: translate3d(0, -3000px, 0);
+		  } 
+		  60% {
+			  opacity: 1;
+			  -webkit-transform: translate3d(0, 25px, 0);
+			  transform: translate3d(0, 25px, 0);
+		  }
+		  75% {
+			  -webkit-transform: translate3d(0, -10px, 0);
+			  transform: translate3d(0, -10px, 0);
+		  }
+		  90% {
+			  -webkit-transform: translate3d(0, 5px, 0);
+			  transform: translate3d(0, 5px, 0);
+		  }
+		  100% {
+			  -webkit-transform: none;
+			  transform: none;
+		  }
+	  }
+	  @keyframes bounceInDown {
+		  0%, 60%, 75%, 90%, 100% {
+			  -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+			  transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+		  }
+		  
+		  0% {
+		  opacity: 0;
+			  -webkit-transform: translate3d(0, -3000px, 0);
+			  transform: translate3d(0, -3000px, 0);
+		  }
+		  
+		  60% {
+		  opacity: 1;
+			  -webkit-transform: translate3d(0, 25px, 0);
+			  transform: translate3d(0, 25px, 0);
+		  }
+		  
+		  75% {
+			  -webkit-transform: translate3d(0, -10px, 0);
+			  transform: translate3d(0, -10px, 0);
+		  }
+		  
+		  90% {
+			  -webkit-transform: translate3d(0, 5px, 0);
+			  transform: translate3d(0, 5px, 0);
+		  }
+		  
+		  100% {
+			  -webkit-transform: none;
+			  transform: none;
+		  }
+	 	 } 
+ 	   	 @-webkit-keyframes slideInLeft {
+			0% {
+				-webkit-transform: translateX(-100%);
+				transform: translateX(-100%);
+				visibility: visible;
+			}
+			100% {
+				-webkit-transform: translateX(0);
+				transform: translateX(0);
+			}
+		}
+		@keyframes slideInLeft {
+		  0% {
+			  -webkit-transform: translateX(-100%);
+			  transform: translateX(-100%);
+			  visibility: visible;
+		  }
+		  100% {
+			  -webkit-transform: translateX(0);
+			  transform: translateX(0);
+		  }
+ 		 } 
+ 	   	.exitDiv{
+ 	   		width: 40px;
+ 	   		height: 40px;
+ 	   		background-color: #fff;
+ 	   		border-radius: 50%;
+ 	   		cursor: pointer;
+ 	   		margin-left: 50px;
+ 	   		background-image: url('logo/FontAwesome_f00d(0)_48.png');
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: 45px 45px;
+ 	   		background-position: center;
+ 	   		cursor: pointer;
+ 	   	}
+ 	   	.searchcls{
+ 	   		width: 70%;
+ 	   		height: 50px;
+ 	   		border: none;
+ 	   		outline: none;
+ 	   		padding-left: 10px;
+ 	   		border-top-left-radius: 5px;
+ 	   		border-bottom-left-radius: 5px;
+ 	   	}
+ 	   	.submitcls{
+ 	   		width: 100px;
+ 	   		height: 50px;
+ 	   		border: none;
+ 	   		outline: none;
+ 	   		background: rgba(0, 0, 0, 0.8);
+ 	   		border-top-right-radius: 5px;
+ 	   		border-bottom-right-radius: 5px;
+ 	   		background-image: url('logo/modermSearch.png');
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: 40px 40px;
+ 	   		background-position: center;
+ 	   		cursor: pointer;
+ 	   	}
+ 	   	.gototop{
+ 	   		width: 50px;
+ 	   		height: 50px;
+ 	   		border-radius: 50%;
+ 	   		border: 4px solid rgba(22, 72, 210, 0.7);
+ 	   		backdrop-filter: blur(5px);
+ 	   		position: fixed;
+ 	   		display: none;
+ 	   		right: 10px;
+ 	   		bottom: 10px;
+ 	   		background: rgba(0, 0, 0, 0.7);
+ 	   		cursor: pointer;
+ 	   		background-image: url('logo/up.png');
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: 40px 40px;
+ 	   		background-position: center;
+ 	   		z-index: 5;
+ 	   	}
+ 	   	.mobileContainer{
+ 	   		width: 100vw;
+ 	   		height: 100vh;
+ 	   		position: fixed;
+ 	   		display: none;
+ 	   		z-index: 6;
+ 	   		background-image: url(CATEGO/MayaHTT_image.jpg);
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: cover;
+ 	   		background-attachment: fixed;
+ 	   		background-position: center;
+ 	   		overflow: none;
+ 	   		 -webkit-animation-name: slideInLeft;
+			  animation-name: slideInLeft;
+			  -webkit-animation-duration: 1s;
+			  animation-duration: 1s;
+			  -webkit-animation-fill-mode: both;
+			  animation-fill-mode: both;
+ 	   	}
+ 	   	.mobileContainerCover{
+ 	   		width: 100%;
+ 	   		height: 100%;
+ 	   		background: rgba(0, 0, 0, 0.7);
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items:center;
+ 	   		flex-direction: column;
+ 	   		position: relative;
+ 	   	}
+ 	   	.mobileContainerHeader{
+ 	   		width: 100%;
+ 	   		height: 70px;
+ 	   		background-color: #fff;
+ 	   		display: flex;
+ 	   		justify-content: space-around;
+ 	   		align-items: center;
+ 	   		font-size: 14px;	
+ 	   	}
+ 	   	.mobileContainerDiv{
+ 	   		width: 90%;
+ 	   		height: 60px;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   		font-family: 'EB Garamond', serif;
+ 	   	}
+ 	   	.closeMobileMenu{
+ 	   		width: 40px;
+ 	   		height: 40px;
+ 	   		border-radius: 50%;
+ 	   		border: 2px solid rgba(223, 225, 229, 0.7);
+ 	   		background-image: url('logo/FontAwesome_f00d(0)_48.png');
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: 32px 32px;
+ 	   		background-position: center;
+ 	   		cursor: pointer;
+ 	   	}
+ 	   	.mobileContainerSearchDiv{
+ 	   		width: 95%;
+ 	   		height: 70px;
+ 	   		margin-top: 20px;
+ 	   		border-radius: 5px;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.mobileContainerMenuDiv{
+ 	   		width: 95%;
+ 	   		height: 50px;
+ 	   		background-color: #fff;
+ 	   		border-radius: 5px;
+ 	   		margin-top: 15px;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		cursor: pointer;
+ 	   		font-size: 13px;
+ 	   	}
+ 	   	.mobileContainerMenuDiv a{
+ 	   		text-decoration: none;
+ 	   		color: black;
+ 	   	}
+ 	   	.current{
+			background: rgba(22, 113, 251, 0.8);
+		}
+		.slideStyle{
+			 -webkit-animation-name: slideInRight;
+			  animation-name: slideInRight;
+			  -webkit-animation-duration: 0.8s;
+			  animation-duration: 0.8s;
+			  -webkit-animation-fill-mode: both;
+			  animation-fill-mode: both;
+		}
+		@-webkit-keyframes slideInRight {
+		  0% {
+			  -webkit-transform: translateX(100%);
+			  transform: translateX(100%);
+			  visibility: visible;
+		  }
+		  100% {
+			  -webkit-transform: translateX(0);
+			  transform: translateX(0);
+		  }
+		}
+		@keyframes slideInRight {
+		  0% {
+			  -webkit-transform: translateX(100%);
+			  transform: translateX(100%);
+			  visibility: visible;
+		  }
+		  100% {
+			  -webkit-transform: translateX(0);
+			  transform: translateX(0);
+		  }
+  		} 
+  		@media only screen and (max-width: 3255px) and (min-width: 1501px){
+  			
+  		}
+ 	   	@media only screen and (max-width:1500px){
+ 	   		.headingmtaContainer{
+ 	   			width: 90%;
+ 	   		}
+ 	   		
+ 	   		.logoarea{
+ 	   			width: 40%;
+ 	   		}
+ 	   		.catefunarea{
+ 	   			width: 55%;
+ 	   			font-size: 14px;
+ 	   		}
+ 	   		.catefunarea div{
+ 	   			width: 25%;
+ 	   		}
+ 	   		.coverdesInfo{
+ 	   			width: 80%;
+ 	   		}
+ 	   		.footerHeader{
+ 	   			height: 90px;
+ 	   		}
+ 	   		div.infoFooter:nth-child(1){
+ 	   			width: 50%;
+ 	   		}
+ 	   		.subscribecover{
+ 	   			width: 70%;
+ 	   		}
+ 	   	}
+ 	   	@media only screen and (max-width: 1011px) and (min-width: 901px){
+ 	   		.catefunarea div{
+ 	   			width: 25%;
+ 	   		}
+ 	   	}
+ 	   	@media only screen and (max-width:900px){
+ 	   		.headingmtaContainer{
+ 	   			width: 100%;
+ 	   		}
+ 	   		.logoarea{
+ 	   			width: 40%;
+ 	   		}
+ 	   		.catefunarea{
+ 	   			width: 60%;
+ 	   			font-size: 14px;
+ 	   		}
+ 	   		.catefunarea div:nth-child(2) , .catefunarea div:nth-child(3){
+ 	   			width: 25%;
+ 	   			font-size: 13px;
+
+ 	   		}
+ 	   		.aboutusCover{
+ 	   			background-size: contain;
+ 	   			background-repeat: no-repeat;
+ 	   		}
+ 	   		.coverdesInfo{
+ 	   			width: 80%;
+ 	   		}
+ 	   		.footerHeader{
+ 	   			height: 90px;
+ 	   		}
+ 	   		div.infoFooter:nth-child(1){
+ 	   			width: 50%;
+ 	   		}
+ 	   		.subscribecover{
+ 	   			width: 70%;
+ 	   		}
+		}
+		@media only screen and (max-width: 749px) and (min-width: 701px){
+			.headingmtaContainer{
+ 	   			width: 100%;
+ 	   		}
+ 	   		.logoarea{
+ 	   			width: 40%;
+ 	   			font-size: 14px;
+ 	   		}
+ 	   		.catefunarea{
+ 	   			width: 60%;
+ 	   			font-size: 13px;
+ 	   		}
+ 	   		.catefunarea div:nth-child(2) , .catefunarea div:nth-child(3) , .catefunarea div:nth-child(4){
+ 	   			width: 25%;
+ 	   			font-size: 13px;
+ 	   		}
+ 	   		.coverdesInfo{
+ 	   			width: 100%;
+ 	   		}
+ 	   		.aboutusDesc div:nth-child(4) , .cateListing{
+ 	   			font-size: 13px;
+ 	   		}
+ 	   		.serviceOddDes div:nth-child(1) , .aboutusDesc div:nth-child(1){
+ 	   			font-size: 14px;
+ 	   		}
+		}
+		@media only screen and (max-width: 700px){
+			.headingmtaContainer{
+				width: 100%;
+			}
+			.logoarea{
+				width: 90%;
+			}
+			.logoarea div{
+				width: 80%;
+			}
+			.logoarea div span{
+				width: 90%;
+				font-size: 13px;
+			}
+		 	.catefunarea{
+		 		display: none;
+		 	}
+		 	.searcharea{
+		 		display: none;
+		 	}
+		 	.searchcls{
+		 		width: 65%;
+		 	}
+		 	.menuarea{
+		 		display: block;
+		 		width: 10%;
+		 		display: flex;
+		 	}
+		 	.coverdesInfo div{
+		 		width: 70%;
+		 		font-size: 20px;
+		 	}
+		 	.coverContainerSlideMTA{
+ 	   			width: 100vw;
+ 	   			height: 30vh;
+ 	   		}
+		 	.covercontainermta{
+		 		background-size: 100% auto;
+		 	}
+		 	.aboutusCover , .aboutusDesc , .serviceOddImg , .serviceOddDes{
+		 		width: 100%;
+		 		font-size: 13px;
+		 	}
+		 	.aboutusCover{
+		 		height: 200px;
+		 		background-repeat: no-repeat;
+		 		background-size: contain;
+		 	}
+		 	.serviceHeader{
+		 		font-size: 14px;
+		 	}
+		 	.serviceOddDes div:nth-child(1){
+		 		font-size: 14px;
+		 	}
+		 	.footerHeader{
+		 		height: auto;
+		 		flex-wrap: wrap;
+		 	}
+		 	.infoFooter{
+		 		width: 50%;
+		 		height: 90px;
+		 	}
+		 	.infoFooter div{
+		 		font-size: 12px;
+		 	}
+		 	.aboutusDescription{
+		 		height: 300px;font-size: 13px;
+		 	}
+		 	.subscribecover{
+		 		width: 100%;
+		 	}
+		 	#subemail{
+		 		width: 55%;
+		 	}
+		 	#submitSub{
+		 		width: 35%;
+		 		font-size: 12px;
+		 	}
+		 	.copyRightContainer{
+		 		margin-top: 10px;
+		 	}
+		}
+ 	   </style>

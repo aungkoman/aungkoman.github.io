@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Clean Architecture in Flutter –  – Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="Clean Architecture in Flutter
+Clean Architecture ဘာလို့သုံးလဲ?
+Clean Architecture မှ မဟုတ်ဘူး။ ကုတ်ရေးတဲ့အခါ
+
+  Reusable ဖြစ်စေဖို့
+  ဘယ် အစိတ်အပိုင်းကို မဆို အလွယ်တကူ ဖြုတ်နိုင် တက်နိုင်ဖို့
+  Mainatainable လုပ်ဖို့ နဲ့
+  Test လုပ်လို့ရအောင်
+
+" />
+    <meta property="og:description" content="Clean Architecture in Flutter
+Clean Architecture ဘာလို့သုံးလဲ?
+Clean Architecture မှ မဟုတ်ဘူး။ ကုတ်ရေးတဲ့အခါ
+
+  Reusable ဖြစ်စေဖို့
+  ဘယ် အစိတ်အပိုင်းကို မဆို အလွယ်တကူ ဖြုတ်နိုင် တက်နိုင်ဖို့
+  Mainatainable လုပ်ဖို့ နဲ့
+  Test လုပ်လို့ရအောင်
+
+" />
+    
+    <meta name="author" content="" />
+
+    
+    <meta property="og:title" content="Clean Architecture in Flutter" />
+    <meta property="twitter:title" content="Clean Architecture in Flutter" />
+    
+
+    <!-- facebook Open Graph Metadatas -->
+    <meta content="your_facebook_app_id" property="fb:app_id">
+    <meta content="Your awesome title" property="og:site_name">
+    
+    <meta content="Clean Architecture in Flutter" property="og:title">
+    
+    
+    <meta content="article" property="og:type">
+    
+    
+    <meta content="structure of flutter project." property="og:description">
+    
+    
+    <meta content="http://localhost:4000/2022/01/19/clean-architecture-in-fluter.html" property="og:url">
+    
+    
+    <meta content="2022-01-19T00:00:00+06:30" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    <meta content="/img/posts/../images/fcc/kfc.jpg" property="og:image">
+    
+    
+    
+    
+    
+    
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title=" - Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/"></a></h1>
+            <p class="site-description">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>Clean Architecture in Flutter</h1>
+
+  <div class="entry">
+    <h3 id="clean-architecture-in-flutter">Clean Architecture in Flutter</h3>
+<p>Clean Architecture ဘာလို့သုံးလဲ?
+Clean Architecture မှ မဟုတ်ဘူး။ ကုတ်ရေးတဲ့အခါ</p>
+<ul>
+  <li>Reusable ဖြစ်စေဖို့</li>
+  <li>ဘယ် အစိတ်အပိုင်းကို မဆို အလွယ်တကူ ဖြုတ်နိုင် တက်နိုင်ဖို့</li>
+  <li>Mainatainable လုပ်ဖို့ နဲ့</li>
+  <li>Test လုပ်လို့ရအောင်</li>
+</ul>
+
+<h4 id="reusable-component">Reusable Component</h4>
+<p>UI, Business Logic, Entity, Model, Serialization စတာတွေက App တစ်ခုနဲ့ တစ်ခုမှာ သိပ်အများကြီး ကွာသွားတာ မဟုတ်တော့။ တစ်ခု ကောင်းကောင်းရေးထားပြီး ပြန်သုံးနိုင်ဖို့ လိုတယ်။</p>
+
+<h4 id="plug-and-play">Plug and Play</h4>
+<p>Componet Level တင်မဟုတ်ပဲ Component တွေစုထားတဲ့ Module တွေကိုပါ Plug and Play လုပ်နိုင်အောင်။
+မတူညီတဲ့ Module တွေ ပေါင်းပြီး Product မျိုးစုံ ရနိုင်အောင်။</p>
+
+<h4 id="maintainable">Maintainable</h4>
+<p>requirements ဆိုတာက ပြောင်းနေတက်တဲ့ သဘောရှိတယ်။
+ဒီအခါ ပြောင်းရလွယ်တဲ့ ကုတ်ဖြစ်ဖို့လိုတယ်။
+ဟာ ဘာတွေ ရေးထားမှန်းကိုမသိဘူး - Single Responsibility မရှိတဲ့အခါမျိုး မှာ အတော် တိုင်ပတ်တယ်။</p>
+
+<h4 id="test">Test</h4>
+<p>component တစ်ခုချင်းစီက စပြီး test code ရေးပြီး စစ်နိုင်ဖို့လိုတယ်။
+TDD လိုမျိုးပါပဲ။
+တစ်နေရာ ပြင်လို့ နောက်တစ်နေရာမှာ ပြဿနာတက်ကုန်တာမျိုးတေွ
+နောက် စိတ်အေးချမ်းသာဖို့ပေါ့။
+test code run လို့ pass ဖြစ်ရင် ည ကောင်းကောင်း အိပ်လို့ရမယ်။</p>
+
+<p>အိုကေ အကြောင်းပြချက်တွေ ရပြီဆိုတော့ စလိုက်ကြရအောင်။</p>
+
+<p>အဓိက သုံးရမယ့် အရာတွေက</p>
+
+<p>Entity
+Usecase
+Repository
+Datasource</p>
+
+<p>Entity ဆိုတာကတော့ App ရဲ့ အနှစ်ချူပ် Data လို့ ခေါ်ရမယ်
+Clean Architecture ရဲ့ အလယ်ဗဟိုမှာ ရှိတဲ့ Core ပဲ။</p>
+
+<p>Data Model နဲ့ ဆင်ပေမယ့် Data Model မှာက Serialization ပါမယ်- Raw Data နဲ့ Entity ကြားမှာ Data Model ရှိတယ်လို့ မှတ်ထားနိုင်တယ်။</p>
+
+<p>Entity - Model - Raw Data (JSON / XML)</p>
+
+<p>UI - State Management - Usecase  - Repository - Datasource</p>
+
+<p>ဒါမျိုး အစီအစဉ်အတိုင်း ချိတ်ဆက်နေမယ်။
+တစ်ခု နဲ့ တစ်ခုဟာ Constract (interface class) တွေ သုံးပြီးပဲ ချိတ်ဆက်ကြမယ်။</p>
+
+<p>နောက် Exception နဲ့ Failure ရှိမယ်။</p>
+
+<p>ဘယ်က ဘယ်လို စကြမလဲ?</p>
+
+<p>Big Picture ကို အရင်မြင်ရမယ်။</p>
+
+<p>ဆိုကြပါစို့ CRUD တစ်ခုပဲ အရင် စဉ်းစားကြရအောင်။</p>
+
+<p>CRUD လုပ်မယ့် Entity အရင်သတ်မှတ်မယ်။
+သာမန် Dart Class တစ်ခုပါပဲ။</p>
+
+<p>ပြီးရင် usecase တွေ သတ်မှတ်မယ်။</p>
+
+<p>ဒီမှာဆိုရင် CRUD usecase လေးခု ရှိမှာပေါ့။
+ထည့်ပေးရမယ့် Parameter နဲ့
+ပြန်ရမယ့် Data အမျိုးအစား ( Entity , List<Entity> စသည်ဖြင့်)</Entity></p>
+
+<p>Usecase တွေက Input နဲ့ Output သတ်မှတ်ပေးထားတာမျိုး။
+ဒီမှာ Repository တွေ လိုလာပြီ</p>
+
+<p>Usecase -&gt; Repository</p>
+
+<p>Usecase တစ်ခုချင်းစီက Repository တစ်ခုရဲ့ Method တစ်ခုကို သုံးတာ များတယ်။</p>
+
+<p>တစ်ခုပဲ သုံးနေတဲ့ Repository တွေကလည်း Abstract Class တွေ ဖြစ်နေဖို့ပဲ လိုတာ။</p>
+
+<p>ဆိုတော့ Repository Abstract Class တွေ ရေးပေါ့။</p>
+
+<p>Entity
+Repository
+Usecase</p>
+
+<p>ဒီသုံးခုရပြီ</p>
+
+<p>Presentaiton Logic Holder ( flutter မှာတော့ State Management Library တစ်ခုခု မှာ)
+သုံးနေကျ Provider ပဲ ဆိုပါစို့။</p>
+
+<p>Promotion Provider  မှာ 
+Entity စာရင်း လုပ်ထားမယ်။</p>
+
+<p>ဆိုပါစို့
+Promotion Provider မှာ ဆိုရင်
+Promotion Entity List ရှိမယ်
+နောက် Promotion Entity for detail စသည်ဖြင့် နှစ်ခု လောက် ရှိမယ်ပေါ့။</p>
+
+<p>ပြီးရင် သူက သုံးမယ့် Usecase တွေရှိမယ်။
+ဒီ Usecase တွေက concrete လား abstract လား ?
+Implement တွေဗျ။</p>
+
+<p>Usecase ဆိုတဲ့ input / output ပုံစံလေးပဲ တူတယ်။
+ကျန်တာတွေက concrete class တွေ တိုက်ရိုက် initialize လုပ်ထားတာ။</p>
+
+<p>လိုသမျှ class တွေကို Service Locator က ရှာပေးမှာ ဆိုတော့ ပြဿနာ မရှိဘူး။</p>
+
+<p>လိုတဲ့ type သိနေဖိူ့ပဲ လိုတာ။</p>
+
+<p>Return ပြန်တဲ့အချိန်မှာ
+Functional Programming က feature တစ်ခုဖြစ်တဲ့
+Left / Right 
+Failure / Data ကို သုံးဖြစ်တယ်။</p>
+
+<p>ဒီ Failure တို့ Exception တို့ကို စာရင်း လုပ်ထားတာ ရှိတယ်။</p>
+
+<p>လောလောဆယ်တော့ ဘယ်ရောက်သွားပြီလဲ?</p>
+
+<p>Entity - Usecase - Repository</p>
+
+<p>Provider - Entity - Usecase - Repository</p>
+
+<p>Repository တွေကို Implement တော့မယ် ဆိုရင် Datasource တွေလိုလာပြီ၊ ထုံးစံအတိုင်းပဲ abstract class တွေပါပဲ။
+ရှုပ်များသွားသလား မသိ</p>
+
+<p>Repository Implementation လုပ်တဲ့အခါမှာ လိုတဲ့ class ကို abstract class အနေနဲ့ သုံးတာမျိုး။</p>
+
+<p>Repository မှာ Exception တွေကို Failure အနေနဲ့ ပြောင်းပေးမယ်။</p>
+
+<p>Data Source မှာက External Library ဖြစ်တဲ့ HTTP တို့၊ Shared Preference တို့နဲ ့ဆက်သွယ်မယ်။</p>
+
+<p>သူတို့က ပြောင်းလွယ် ပြင်လွယ် အဆင်ပြေတယ် ဆိုတာက</p>
+
+<p>Contract တွေ ရှိလို့။</p>
+
+<p>ဆိုရရင် ဒီ Contract ကိုသာ ပြေလည်အောင် လုပ်ပေးရင် ကြိုက်တဲ့ကောင် plug and play လုပ်လို့ရတယ်။</p>
+
+<p>Class နှစ်ခု ချိတ်သုံးပြီ ဆိုတာနဲ့ abstrct က ကြားဝင်ပြီးသားပဲ။</p>
+
+<p>ကောင်းတာက Service Locator သုံးထားတော့ တကယ့် ကုတ်ကို ပြင်စရာ မလိုဘူး
+service injection လုပ်တဲ့နေရာမှာ class name လေး ပြောင်းပေးလိုက်ရုံပဲ။</p>
+
+<p>business logic တွေ
+entity တွေ ပြောင်းရင်တော့ တစ်မျိုးပေါ့။
+ဒါဆိုရင်တော့ တော်တော် များမျာကို လိုက်ပြောင်းရမယ် ထင်တယ်။</p>
+
+<p>Class တစ်ခု Initialize လုပ်တဲ့အခါမှာ</p>
+
+<p>ဒီ class ထဲမှာ လိုမယ့် class instance တွေကို constructor ထဲမှာ တစ်ပါတည်း ထည့်ပေးလိုက်တယ်။</p>
+
+<p>ထည့်ပေးလိုက်တဲ့ class instance တွေက concrete class / abstract class ဘာပဲ ဖြစ်ဖြစ် အဆင်ပြေတယ်။
+ဘာ အမျိုးအစားပဲ သုံးသုံး Service Locator က ပြန်လိုက်ရှာပေးမှာပဲ။</p>
+
+<p>အိုကေ ရေးရမယ့် အစီအစဉ်က</p>
+
+<p>Entity
+Repository
+Model
+Datasource</p>
+
+<p>Usecase
+Provider</p>
+
+<p>Widget</p>
+
+<p>Widget တွေမှာလည်း nested route ဆိုရင်</p>
+
+
+  </div>
+
+  <div class="date">
+    Written on January 19, 2022
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+    <script>
+	window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '608464966533110',
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v9.0'
+	  });
+		
+	  FB.AppEvents.logPageView();   
+		
+	};
+  
+	(function(d, s, id){
+	   var js, fjs = d.getElementsByTagName(s)[0];
+	   if (d.getElementById(id)) {return;}
+	   js = d.createElement(s); js.id = id;
+	   js.src = "https://connect.facebook.net/en_US/sdk.js";
+	   fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+
+	 
+FB.getLoginStatus(function(response) {
+	console.log("getLoginStatus");
+	console.log(response);
+    statusChangeCallback(response);
+});
+
+function statusChangeCallback(response){
+	console.log('response is');
+	console.log(response);
+	if(response.status == "connected"){
+		console.log("user is logged in ");
+	}
+	else{
+		console.log("user need to login");
+		//FB.login();
+	}
+}
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+  </script>
+
+  
+<fb:login-button 
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+@font-face {
+    font-family: Zawgyi;
+    src: url("../fonts/zawgyi.ttf")
+}
+body {
+    font-family: Zawgyi;
+}
+
+div.km_search_bar{
+    max-width: 400px;
+    margin: 0 auto;
+    margin-bottom : 10px;
+}
+
+div.km_card{
+    max-width: 400px;
+    margin: 0 auto;
+}
+div.km_card_img{
+    width: 100%;
+
+}

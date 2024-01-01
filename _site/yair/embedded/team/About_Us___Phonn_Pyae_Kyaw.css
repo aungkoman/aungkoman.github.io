@@ -1,0 +1,316 @@
+.mediaViewInfo {
+	--web-view-name: About Us – Phonn Pyae Kyaw;
+	--web-view-id: About_Us__Phonn_Pyae_Kyaw;
+	--web-scale-on-resize: true;
+	--web-enable-deep-linking: true;
+}
+:root {
+	--web-view-ids: About_Us__Phonn_Pyae_Kyaw;
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	border: none;
+}
+#About_Us__Phonn_Pyae_Kyaw {
+	position: absolute;
+	width: 1024px;
+	height: 600px;
+	background-color: rgba(255,255,255,1);
+	overflow: hidden;
+	--web-view-name: About Us – Phonn Pyae Kyaw;
+	--web-view-id: About_Us__Phonn_Pyae_Kyaw;
+	--web-scale-on-resize: true;
+	--web-enable-deep-linking: true;
+}
+@keyframes fadein {
+
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+
+}
+#Group_70_cy {
+	position: absolute;
+	width: 196px;
+	height: 196px;
+	left: 625px;
+	top: 41px;
+	overflow: visible;
+}
+#Ellipse_254_cz {
+	position: absolute;
+	width: 196px;
+	height: 196px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Group_90 {
+	position: absolute;
+	width: 196px;
+	height: 244px;
+	left: 203px;
+	top: 45px;
+	overflow: visible;
+	transition: all 0.3s ease-out;
+	--web-animation: fadein 0.3s ease-out;
+	--web-action-type: page;
+	--web-action-target: About_Us____Pyae_Phyo.html;
+	cursor: pointer;
+}
+#Group_69_c {
+	position: absolute;
+	width: 196px;
+	height: 196px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Ellipse_254_c {
+	position: absolute;
+	width: 196px;
+	height: 196px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Pyae_Phyo_c {
+	transform: translate(-203px, -45px) matrix(1,0,0,1,248,250) rotate(0deg);
+	transform-origin: center;
+	left: 0px;
+	top: 0px;
+	position: absolute;
+	overflow: visible;
+	width: 107px;
+	white-space: nowrap;
+	text-align: center;
+	font-family: Arial;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 21px;
+	color: rgba(44,101,141,1);
+}
+#UX__UI_Designer_c {
+	transform: translate(-203px, -45px) matrix(1,0,0,1,263,278) rotate(0deg);
+	transform-origin: center;
+	left: 0px;
+	top: 0px;
+	position: absolute;
+	overflow: visible;
+	width: 77px;
+	white-space: nowrap;
+	line-height: 30px;
+	margin-top: -10px;
+	text-align: center;
+	font-family: Arial;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 10px;
+	color: rgba(38,153,251,1);
+}
+#Phone_Pyae_Kyaw_c {
+	transform: matrix(1,0,0,1,633,250) rotate(0deg);
+	transform-origin: center;
+	left: 0px;
+	top: 0px;
+	position: absolute;
+	overflow: visible;
+	width: 181px;
+	white-space: nowrap;
+	text-align: center;
+	font-family: Arial;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 21px;
+	color: rgba(44,101,141,1);
+}
+#Data_Scientist__c {
+	transform: matrix(1,0,0,1,691,278) rotate(0deg);
+	transform-origin: center;
+	left: 0px;
+	top: 0px;
+	position: absolute;
+	overflow: visible;
+	width: 65px;
+	white-space: nowrap;
+	line-height: 30px;
+	margin-top: -10px;
+	text-align: center;
+	font-family: Arial;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 10px;
+	color: rgba(38,153,251,1);
+}
+#Group_92 {
+	position: absolute;
+	width: 196px;
+	height: 248px;
+	left: 625px;
+	top: 331px;
+	overflow: visible;
+	transition: all 0.3s ease-out;
+	--web-animation: fadein 0.3s ease-out;
+	--web-action-type: page;
+	--web-action-target: About_Us____Khin_Thet_Htar.html;
+	cursor: pointer;
+}
+#Group_72_c {
+	position: absolute;
+	width: 196px;
+	height: 196px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Ellipse_254_da {
+	position: absolute;
+	width: 196px;
+	height: 196px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Khin_Thet_Htar_da {
+	transform: translate(-625px, -331px) matrix(1,0,0,1,651,540) rotate(0deg);
+	transform-origin: center;
+	left: 0px;
+	top: 0px;
+	position: absolute;
+	overflow: visible;
+	width: 146px;
+	white-space: nowrap;
+	text-align: center;
+	font-family: Arial;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 21px;
+	color: rgba(44,101,141,1);
+}
+#Machine_Learning_Engineer_db {
+	transform: translate(-625px, -331px) matrix(1,0,0,1,662,568) rotate(0deg);
+	transform-origin: center;
+	left: 0px;
+	top: 0px;
+	position: absolute;
+	overflow: visible;
+	width: 123px;
+	white-space: nowrap;
+	line-height: 30px;
+	margin-top: -10px;
+	text-align: center;
+	font-family: Arial;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 10px;
+	color: rgba(38,153,251,1);
+}
+#Group_91 {
+	position: absolute;
+	width: 196px;
+	height: 244px;
+	left: 203px;
+	top: 331px;
+	overflow: visible;
+	transition: all 0.3s ease-out;
+	--web-animation: fadein 0.3s ease-out;
+	--web-action-type: page;
+	--web-action-target: About_Us____Aung_Ko_Man.html;
+	cursor: pointer;
+}
+#Group_71_dd {
+	position: absolute;
+	width: 196px;
+	height: 196px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Ellipse_255_de {
+	position: absolute;
+	width: 196px;
+	height: 196px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Aung_Ko_Man_df {
+	transform: translate(-203px, -331px) matrix(1,0,0,1,233,536) rotate(0deg);
+	transform-origin: center;
+	left: 0px;
+	top: 0px;
+	position: absolute;
+	overflow: visible;
+	width: 137px;
+	white-space: nowrap;
+	text-align: center;
+	font-family: Arial;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 21px;
+	color: rgba(44,101,141,1);
+}
+#Web_Developer_dg {
+	transform: translate(-203px, -331px) matrix(1,0,0,1,267,564) rotate(0deg);
+	transform-origin: center;
+	left: 0px;
+	top: 0px;
+	position: absolute;
+	overflow: visible;
+	width: 70px;
+	white-space: nowrap;
+	line-height: 30px;
+	margin-top: -10px;
+	text-align: center;
+	font-family: Arial;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 10px;
+	color: rgba(38,153,251,1);
+}
+#Group_80 {
+	position: absolute;
+	width: 264.483px;
+	height: 281.698px;
+	left: 591px;
+	top: 25px;
+	overflow: visible;
+	transition: all 0.3s ease-out;
+	--web-animation: fadein 0.3s ease-out;
+	--web-action-type: page;
+	--web-action-target: About_Us_.html;
+	cursor: pointer;
+}
+#Path_9_di {
+	fill: rgba(44,101,141,0.867);
+}
+.Path_9_di {
+	overflow: visible;
+	position: absolute;
+	width: 264.484px;
+	height: 281.698px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Phonn_Pyae_Kyaw_is_a_Machine_l {
+	transform: translate(-169px, -34px) matrix(1,0,0,1,194,79) rotate(0deg);
+	transform-origin: center;
+	left: 0px;
+	top: 0px;
+	position: absolute;
+	overflow: visible;
+	width: 228px;
+	height: 197px;
+	text-align: left;
+	font-family: Arial;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	color: rgba(255,255,255,1);
+}

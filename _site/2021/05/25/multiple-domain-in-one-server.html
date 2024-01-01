@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>How to add multiple domain in One Server? –  – Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="
+  
+    DNS and Name Server Configuration
+
+    Domain Name Company နဲ့ Name Server Company ကို ချိတ်ဆက်ပေးခြင်း
+  
+
+
+https://www.digitalocean.com/community/tutorials/how-to-point-to-digitalocean-nameservers-from-common-domain-registrars
+" />
+    <meta property="og:description" content="
+  
+    DNS and Name Server Configuration
+
+    Domain Name Company နဲ့ Name Server Company ကို ချိတ်ဆက်ပေးခြင်း
+  
+
+
+https://www.digitalocean.com/community/tutorials/how-to-point-to-digitalocean-nameservers-from-common-domain-registrars
+" />
+    
+    <meta name="author" content="" />
+
+    
+    <meta property="og:title" content="How to add multiple domain in One Server?" />
+    <meta property="twitter:title" content="How to add multiple domain in One Server?" />
+    
+
+    <!-- facebook Open Graph Metadatas -->
+    <meta content="your_facebook_app_id" property="fb:app_id">
+    <meta content="Your awesome title" property="og:site_name">
+    
+    <meta content="How to add multiple domain in One Server?" property="og:title">
+    
+    
+    <meta content="article" property="og:type">
+    
+    
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." property="og:description">
+    
+    
+    <meta content="http://localhost:4000/2021/05/25/multiple-domain-in-one-server.html" property="og:url">
+    
+    
+    <meta content="2021-05-25T00:00:00+06:30" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    <meta content="/img/logo-high-resolution.png" property="og:image">
+    
+    
+    
+    
+    
+    
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title=" - Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/"></a></h1>
+            <p class="site-description">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>How to add multiple domain in One Server?</h1>
+
+  <div class="entry">
+    <ol>
+  <li>
+    <p>DNS and Name Server Configuration</p>
+
+    <p>Domain Name Company နဲ့ Name Server Company ကို ချိတ်ဆက်ပေးခြင်း</p>
+  </li>
+</ol>
+
+<p>https://www.digitalocean.com/community/tutorials/how-to-point-to-digitalocean-nameservers-from-common-domain-registrars</p>
+
+<ol>
+  <li>
+    <p>A-Record configuration
+  domain name နဲ့ ip address ကို ချိတ်ဆက်ပေးခြင်း</p>
+  </li>
+  <li>
+    <p>Apache Server မှာ Virtual Host ဖိုင်တစ်ခု ထည့်သွင်းခြင်း
+  ဒီနေရာ <code class="language-plaintext highlighter-rouge">/etc/apache2/sites-available/</code> ကိုသွားပြီး ဖိုင်အသစ်တစ်ဖိုင် ဆောက်မယ်။ နာမည်ကို ကိုယ့် domain name နဲ့ .conf ပေါင်းပြီး ပေးမယ်။ ဉပမာ
+<code class="language-plaintext highlighter-rouge">mmsoftware100.com.conf</code>
+```conf</p>
+  </li>
+</ol>
+<p>&lt;VirtualHost *:80&gt;
+        ServerAdmin admin@mmsoftware100
+        ServerName mmsoftware100.com
+        ServerAlias www.mmsoftware100.com
+        DocumentRoot /var/www/mmsoftware100.com
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+&lt;/VirtualHost&gt;
+```
+အဓိက ပြင်ရမှာက
+ServerName</p>
+
+<p>ServerAlias နဲ့</p>
+
+<p>DocumentRoot ပဲ။</p>
+
+<p>ServerName =&gt; ကိုယ့်ရဲ့ domain name ကို ထည့်မယ် ( ဉပမာ mmsoftware100.com)
+ServerAlias =&gt; ကိုယ့် domain name ရှေ့မှာ www. ထည့်မယ် ( ဉပမာ www.mmsoftware100.com)
+DocumentRoot =&gt; ဒါကတော့ ကိုယ့် project file တွေထားမယ့်နေရာကိုထည့်ပေးရမှာ၊ များသောအားဖြင့် /var/www/ နေရာမှာ folder အသစ်ဆောက်ပြီး ညျွန်ပေးတာ အဆင်ပြေတယ်။ နမူနာဆိုရင် mmsoftware100.com လို့ folder တစ်ခု ဆောက်ပြီး /var/www/mmsoftware100.com လို့ ပေးလိုက်ရင် ရပြီ။</p>
+
+<ol>
+  <li>
+    <p>အသစ်ဆောက်ထားတဲ့ Virtual Host ဖိုင်က အဆင်ပြေမပြေသိဖို့ <code class="language-plaintext highlighter-rouge">sudo apache2ctl configtest</code> လို့ run ကြည့်လို့ရတယ်။ ပြီးရင် ဒီ Virtual Host ဖိုင်ကို enable လုပ်ဖို့အတွက်
+  <code class="language-plaintext highlighter-rouge">sudo a2ensite mmsoftware100.com</code> လို့ရိုက်မယ် ( နောက်က .conf မပါဘူး )</p>
+  </li>
+  <li>
+    <p>ဒါပြီးရင်တော့ လုပ်ခဲ့သမျှ အလုပ်တွေ အကျိုးသက်ရောက်မှု ရှိဖို့အတွက် Apache Server ကို restart ချပါမယ်။
+<code class="language-plaintext highlighter-rouge">sudo service apache2 reload</code></p>
+  </li>
+</ol>
+
+<p>အခုချိန် http://mmsoftware100.com ကို ဝင်ကြည့်ရင် ဘာမှ မြင်ရဉီးမှာ မဟုတ်ပါဘူး ။ ဘာဖိုင်မှ ထည့်ထားတာမှ မဟုတ်တာ 😛
+ဆိုေတာ့ index.php တစ်ဖိုင်လောက် ထည့်လိုက်ကြရအောင်။</p>
+
+<p><code class="language-plaintext highlighter-rouge">/var/www/mmsoftware100.com/</code> ကို ဝင် ၊ <code class="language-plaintext highlighter-rouge">sudo nano index.php</code> နဲ့ ဖိုင်အသစ်ဆောက်ပြီး &lt;?php echo “Mm Software 100”; ?&gt; လို့ ရေးပြီး သိမ်းထားလိုက်မယ်။
+အခု ပြန်ဝင်ကြည့်ရင်တော့ Mm Software 100 လို့ မြင်နေရပြီ ဖြစ်ပါတယ်။</p>
+
+<p>တစ်ခုပဲ ကျန်ပါတော့တယ်။ HTTPS ထည့်ဖို့ပါ။ ဒါကတော့ command line တစ်ကြောင်းနဲ့ ပြီးပါတယ်။ စက်ထဲမှာ certbot လည်းထည့်ထားပြီးသားဆိုတော့။
+<code class="language-plaintext highlighter-rouge">sudo certbot --apache -d mmsoftware100.com -d www.mmsoftware100.com</code></p>
+
+<p>Redirect လုပ်မှာလား မလုပ်ဘူးလား 1 , 2 ရွေးခိုင်းရင် 1 / 2 ကိုယ် လုပ်စေချင်တာ ရွေးလို့ရတယ်
+အိုကေ https://mmsoftware100.com လို့ ကြည့်လိုက်ရင် ssl တပ်ပြီးသား website အသစ်ချပ်ချွက်လေးကို မြင်ရမှာ ဖြစ်ပါတယ်။
+အဆင်ပြေကြပါစေ။</p>
+
+<p>TDL:
+ပြောရင် Theory တစ်ပိုင်းပြော
+Practical တစ်ပိုင်းပြောတာ ကောင်းမယ်။</p>
+
+
+  </div>
+
+  <div class="date">
+    Written on May 25, 2021
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+    <script>
+	window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '608464966533110',
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v9.0'
+	  });
+		
+	  FB.AppEvents.logPageView();   
+		
+	};
+  
+	(function(d, s, id){
+	   var js, fjs = d.getElementsByTagName(s)[0];
+	   if (d.getElementById(id)) {return;}
+	   js = d.createElement(s); js.id = id;
+	   js.src = "https://connect.facebook.net/en_US/sdk.js";
+	   fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+
+	 
+FB.getLoginStatus(function(response) {
+	console.log("getLoginStatus");
+	console.log(response);
+    statusChangeCallback(response);
+});
+
+function statusChangeCallback(response){
+	console.log('response is');
+	console.log(response);
+	if(response.status == "connected"){
+		console.log("user is logged in ");
+	}
+	else{
+		console.log("user need to login");
+		//FB.login();
+	}
+}
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+  </script>
+
+  
+<fb:login-button 
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
+  </body>
+</html>

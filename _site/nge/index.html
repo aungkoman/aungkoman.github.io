@@ -1,0 +1,1125 @@
+<!DOCTYPE html> 
+<html>
+ <head> 
+ 	<title>NORTH GATE ENERGY</title>
+ 	<meta charset="utf-8" http-equiv="X-UA-Compatible" content="IE=edge">
+ 	<meta name= "viewport"  content= "width=device-width,initial-scale=1.0">
+ 	<link rel='shortcut icon' type='image/x-icon' sizes='16x16 32x32 48x48 64x64' href= "img/logo/NG-Energy.png" >
+ 	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+ 	<style type= "text/css">
+ 	  /*standard color :0071FB */ 
+ 	   html ,body{ margin:0; padding: 0; box-sizing: border-box;}
+ 	   body{
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   }
+ 	   *{box-sizing: border-box;box-sizing: content-box;}  
+ 	   .containermta{
+ 	   		 width:100vw;max-width: 1900px;height:100vh;background-color: #fff;position: relative;overflow-x:hidden;overflow-y: scroll;
+ 	   		 scroll-behavior: smooth;-ms-overflow-style: none; scrollbar-width: none;
+ 	   	}
+ 	   	.containermta::-webkit-scrollbar {width: 7px; height:1px;transition:all .5s}
+		.containermta::-webkit-scrollbar-track {
+			background: -webkit-gradient(linear, center top, center bottom, from(#ededed), to(#fff));
+			background-image: linear-gradient(#ededed, #fff);
+			box-shadow: inset 0px 0px 3px 3px rgba(0,0,0,0.1)
+			border-radius:15px;
+		}
+		.containermta::-webkit-scrollbar-thumb {
+			background-color:#a3abb1;
+			border-radius:15px;
+		}
+ 	   	.headingmtaContainer{
+ 	   		width: 100%;
+ 	   		max-width: 1900px;
+ 	   		height: 100%;
+ 	   		background-image: linear-gradient(55deg, rgba(0, 0, 0, 0.4), transparent), linear-gradient(180deg, rgba(0, 0, 0, 0.4), transparent), url('CATEGO/Banner_Mottos/Lubricating_the_world/Lubriacating_the_world.jpg');
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: cover;
+ 	   		background-attachment: fixed;
+ 	   		background-position: center center;
+ 	   		position: relative;
+ 	   		overflow: none;
+ 	   		box-sizing: border-box;
+ 	   	}
+ 	   	.headingmtaContainerHolder{
+ 	   		width: 100%;
+ 	   		max-width: 1900px;
+ 	   		height: 80px;
+ 	   		transition: 1.5s;
+ 	   		display: flex;
+ 	   		justify-content: space-around;
+ 	   		align-items: center;
+ 	   		flex-wrap: wrap;
+ 	   	}
+ 	   	.fade-in{
+ 	   		transition: 1.5s;
+ 	   		background: rgba(0, 0, 0, 0.7);
+ 	   		z-index: 3;
+ 	   		position: fixed;
+ 	   		top: 0;
+ 	   	}
+ 	   	.logoDiv{
+ 	   		width: 20%;
+ 	   		height: 100%;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.logoDiv img{
+ 	   		margin-left: 30px;
+ 	   		max-width: 50px;
+ 	   		max-height: 50px;
+ 	   	}
+ 	   	.logoDiv div{
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   		font-family: 'Roboto', sans-serif;
+ 	   	}
+ 	   	.logoDiv div span:nth-child(1){
+ 	   		font-size: 15px;
+ 	   		color: #fff;
+ 	   	}
+ 	   	.logoDiv div span:nth-child(2){
+ 	   		font-size: 15px;
+ 	   		color: #F6A323;
+ 	   		margin-top: -4px;
+ 	   	}
+ 	   	.menuContainer{
+ 	   		width: 65%;
+ 	   		height: 100%;
+ 	   		display: flex;
+ 	   		justify-content: space-around;
+ 	   		align-items: center;
+ 	   		flex-wrap: wrap;
+ 	   	}
+ 	   	.menuContainer div{
+ 	   		width: 15%;
+ 	   		height: 100%;
+ 	   		font-size: 14px;
+ 	   		color: #fff;
+ 	   		cursor: pointer;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		font-family: 'Roboto', sans-serif;
+ 	   	}
+ 	   	.menuContainer div a{
+ 	   		text-decoration: none;
+ 	   		color: #fff;
+ 	   	}
+ 	   	.ourinfoContainer{
+ 	   		margin-left: 90px;
+ 	   		width: 80%;
+ 	   		height: 300px;
+ 	   		position: absolute;
+ 	   		bottom: 20%;
+ 	   	}
+ 	   	.ourinfoContainer div{
+ 	   		width: 80%;
+ 	   		height: auto;
+ 	   		font-size: 36px;
+ 	   		color: #efefef;
+ 	   		word-break: break-word;
+ 	   		font-weight: bold;
+ 	   		line-height: 50px;
+ 	   		font-family: 'Roboto', sans-serif;
+ 	   		/*-webkit-animation-name: slideInLeft;
+			  animation-name: slideInLeft;
+			  -webkit-animation-fill-mode: both;
+			  animation-fill-mode: both;*/
+ 	   	}
+ 	   	.ourinfoContainer div:nth-child(1){
+ 	   		transition: 1s;
+ 	   		-webkit-animation-duration: 1s;
+			  animation-duration: 1s;
+ 	   	}
+ 	   	.ourinfoContainer div:nth-child(2){
+ 	   		transition: 1.8s;
+ 	   		-webkit-animation-duration: 1.8s;
+			  animation-duration: 1.8s;
+			  font-size: 23px;
+			  color: #F4F4F4;
+ 	   	}
+ 	   	.ourinfoContainer button{
+ 	   		width: 200px;
+ 	   		height: 50px;
+ 	   		background: rgba(255,130,0,0.7);
+ 	   		border-radius: 5px;
+ 	   		cursor: pointer;
+ 	   		border: none;
+ 	   		outline: none;
+ 	   		color: #efefef;
+ 	   		margin-top: 10px;
+ 	   	}
+ 	   	 @-webkit-keyframes slideInLeft {
+			0% {
+				-webkit-transform: translateX(-100%);
+				transform: translateX(-100%);
+				visibility: visible;
+			}
+			100% {
+				-webkit-transform: translateX(0);
+				transform: translateX(0);
+			}
+		}
+		@keyframes slideInLeft {
+		  0% {
+			  -webkit-transform: translateX(-100%);
+			  transform: translateX(-100%);
+			  visibility: visible;
+		  }
+		  100% {
+			  -webkit-transform: translateX(0);
+			  transform: translateX(0);
+		  }
+ 		 }
+ 	   	.ourservicesContainer{
+ 	   		width: 100%;
+ 	   		height: auto;
+ 	   		background-color: #fff;
+ 	   		font-family: 'Roboto', sans-serif;
+ 	   		position: relative;
+ 	   	}
+ 	   	.ourservicesTransContainer{
+ 	   		width: 100%;
+ 	   		max-width: 1900px;
+ 	   		height: auto;
+ 	   		background-color: #fff;
+ 	   		font-family: 'Roboto', sans-serif;
+ 	   		position: relative;
+ 	   	}
+ 	   	.ourPrtnerContainer , .ourcompanystaffContainer{
+ 	   		width: 100%;
+ 	   		max-width: 1900px;
+ 	   		height: auto;
+ 	   		margin-top: 15px;
+ 	   		background-color: #fff;
+ 	   		display: flex;
+ 	   		justify-content: space-around;
+ 	   		align-items: center;
+ 	   		flex-wrap: wrap;
+ 	   		position: relative;
+ 	   	}
+ 	   	.ourPrtnerContainer div{
+ 	   		width: 25%;
+ 	   		height: 130px;
+ 	   		margin: 10px;
+ 	   		background-color: #F6F6F6;
+ 	   		border-radius: 5px;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		cursor: pointer;
+ 	   		font-size: 20px;
+ 	   		color:gray;font-weight: blod;
+ 	   	}
+ 	   	.ourcompanystaffContainer{
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.staffcontainer{
+ 	   		width: 28%;
+ 	   		height: 350px;
+ 	   		box-sizing: border-box;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		margin: 10px;
+ 	   		background-color: #F6F6F6;
+ 	   		color: #808080;
+ 	   		font-size: 16px;
+ 	   		font-weight: 600;
+ 	   		line-height: 30px;
+ 	   		border-radius: 5px;
+ 	   		box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+ 	   	}
+ 	   	.staffcontainer p{
+ 	   		width: 80%;
+ 	   		height: auto;
+ 	   		padding: 15px;
+ 	   	}
+ 	   	/* #06B; */
+ 	   	.infoTitle{
+ 	   		width: 100%;
+ 	   		max-width: 1900px;
+ 	   		height: 50px;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		font-size: 16px;
+ 	   		font-weight: bold;
+ 	   		color: #000;
+ 	   		margin: 0 0 20px;
+ 	   		line-height: 1.15;
+ 	   		font-weight: bold;
+ 	   	}
+ 	   	.infoTitle h3{
+ 	   		font-size: 18px;
+ 	   		color: #1900FF;
+ 	   	}
+ 	   	.showTitleContainer , .showTitleContainerTwo{
+ 	   		width: 100%;
+ 	   		height: auto;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-wrap: wrap-reverse;
+ 	   	}
+ 	   	.showTitleContainerTwo{
+ 	   		flex-wrap: wrap;
+ 	   	}
+ 	   	.companyInfo{
+ 	   		width: 40%;
+ 	   		height: 200px;
+ 	   		text-align: left;
+ 	   	}
+ 	   	.companyInfo h3{
+ 	   		max-width: 80%;
+ 	   		font-size: 18px;
+ 	   		color: blue;
+ 	   		font-weight: 700;
+ 	   	}
+ 	   	.companyInfo p{
+ 	   		max-width: 80%;
+ 	   		font-size: 14px;
+ 	   		color: #4F5457;
+ 	   	}
+ 	   	#mission{
+ 	   		background-image: url('container/Our_Mission/Our_Mission.jpg');
+ 	   	}
+ 	   	#values{
+ 	   		background-image: url('container/Our_Values/Our_Values.jpg');
+ 	   	}
+ 	   	#commit{
+ 	   		background-image: url('CATEGO/Our_committed/adobestock_157205947.jpeg');
+ 	   	}
+ 	   	.companyInfoImg , .companyCommitImg{
+ 	   		width: 40%;
+ 	   		height: 300px;
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: cover;
+ 	   		background-position: center;
+ 	   	}
+ 	   	.companyCommitImg{
+
+ 	   	}
+ 	   	.showTitleResult{
+ 	   		width: 60%;
+ 	   		height: auto;
+ 	   	}
+ 	   	.readMoreDiv{
+ 	   		width: 150px;
+ 	   		height: 50px;
+ 	   		margin-top: 30px;
+ 	   		cursor: pointer;
+ 	   		background-image: url(img/logo/readmoreTwo.png);
+ 	   		background-repeat: no-repeat;
+ 	   		background-position: left;
+ 	   		background-size: 35px 35px;
+ 	   		text-align: center;
+ 	   		box-sizing: border-box;
+ 	   		padding-top: 16px;
+ 	   		padding-left: 10px;
+ 	   		color: #172362;font-size: 13px;font-weight: 600;
+ 	   	}
+ 	   	.transLayoutContainer{
+ 	   		width: 100%;
+ 	   		max-width: 1900px;
+ 	   		height: auto;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-wrap: wrap;
+ 	   	}
+ 	   	.serviceContainer{
+ 	   		width: 30%;
+ 	   		height: auto;
+ 	   		background-color: #fff;
+ 	   		border-radius: 5px;
+ 	   		margin: 8px;
+ 	   	}
+ 	   	.serviceContainer img{
+ 	   		width: 100%;
+ 	   		height: 300px;
+ 	   		max-height: 300px;
+ 	   	}
+ 	   	.serviceContainer h3{
+ 	   		font-size: 18px;
+ 	   		color: blue;
+ 	   		font-weight: 700;
+ 	   	}
+ 	   	.serviceContainer span{
+ 	   		max-width: 80%;
+ 	   		color: #687078;
+ 	   		font-size: 13px;
+ 	   		line-height: 30px;
+ 	   	}
+ 	   	.serviceContainer button{
+ 	   		width: 150px;
+ 	   		height: 45px;
+ 	   		margin-top: 15px;
+ 	   		background:rgba(255,130,0,0.8);
+ 	   		color: #efefef;
+ 	   		cursor: pointer;
+ 	   		box-sizing: border-box;
+ 	   		font-size: 13px;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		border: none;
+ 	   		outline: none;
+ 	   	}
+ 	   	.companyStatusContainer{
+ 	   		width: 100%;
+ 	   		max-width: 1900px;
+ 	   		height: 100px;
+ 	   		background-color: #F4F5F8;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-wrap: wrap;
+ 	   	}
+ 	   	.companyStatusDiv{
+ 	   		width: 20%;
+ 	   		height: 70%;
+ 	   		border-right: 2px solid #efefef;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.companyStatusDiv div{
+ 	   		margin-left: 8px;
+ 	   		width: max-content;
+ 	   		height: auto;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		flex-direction: column;
+ 	   	}
+ 	   	.companyStatusDiv div span:nth-child(1){
+ 	   		font-size: 20px;
+ 	   		color: blue;
+ 	   		font-weight: 700;
+ 	   	}
+ 	   	.companyStatusDiv div span:nth-child(2){
+ 	   		font-size: 13px;
+ 	   		color: #687078;
+ 	   	}
+ 	   	.serviceContainerInfoContainer{
+ 	   		width: 100%;
+ 	   		max-width: 1900px;
+ 	   		height: auto;
+ 	   		background-color: #F4F5F8;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   		/*background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='400' height='359' preserveAspectRatio='none' viewBox='0 0 400 359'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1017%26quot%3b)' fill='none'%3e%3crect width='400' height='359' x='0' y='0' fill='rgba(30%2c 43%2c 122%2c 1)'%3e%3c/rect%3e%3cpath d='M0%2c152.32C28.234%2c147.958%2c54.366%2c137.432%2c78.158%2c121.616C101.653%2c105.998%2c122.019%2c86.632%2c135.827%2c62.03C150.499%2c35.89%2c160.487%2c7.051%2c159.271%2c-22.9C157.976%2c-54.781%2c151.598%2c-89.286%2c128.776%2c-111.585C106.356%2c-133.491%2c70.925%2c-130.302%2c40.732%2c-138.722C11.041%2c-147.002%2c-16.823%2c-166.046%2c-47.172%2c-160.655C-78.7%2c-155.055%2c-107.916%2c-135.593%2c-125.93%2c-109.119C-143.188%2c-83.757%2c-135.249%2c-50.292%2c-142.543%2c-20.495C-150.894%2c13.618%2c-181.296%2c44.656%2c-171.853%2c78.483C-162.373%2c112.442%2c-127.781%2c134.507%2c-95.387%2c148.425C-65.545%2c161.247%2c-32.099%2c157.279%2c0%2c152.32' fill='%23182262'%3e%3c/path%3e%3cpath d='M400 540.154C433.963 539.365 467.712 526.355 492.908 503.568 516.356 482.36199999999997 521.024 449.002 533.094 419.782 544.657 391.788 568.784 365.248 562.259 335.671 555.7529999999999 306.18 520.602 294.453 500.476 271.937 480.769 249.89 471.209 219.012 445.278 204.798 416.569 189.061 382.646 184.812 350.258 189.594 314.89 194.816 277.086 205.212 254.541 232.959 232.157 260.508 228.027 299.627 232.214 334.876 235.901 365.917 264.21000000000004 386.669 276.225 415.526 288.856 445.86199999999997 281.121 484.632 304.277 507.948 328.49 532.328 365.648 540.952 400 540.154' fill='%23243492'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1017'%3e%3crect width='400' height='359' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+ 	   		background-size: 100% 100%;
+ 	   		background-position: center center;*/
+ 	   		background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1000%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='%230e2a47'%3e%3c/rect%3e%3cpath d='M-61.37 392.79L-61.37 392.79' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-61.37 392.79L45.24 376.05' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-87.51 552.22L-87.51 552.22' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-87.51 552.22L-85.72 639.51' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-87.51 552.22L-61.37 392.79' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-87.51 552.22L46.1 674.47' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-87.51 552.22L110.25 560.84' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-87.51 552.22L45.24 376.05' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-87.51 552.22L193.45 522.99' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-85.72 639.51L-85.72 639.51' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-85.72 639.51L46.1 674.47' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-85.72 639.51L110.25 560.84' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-85.72 639.51L-61.37 392.79' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-85.72 639.51L200.67 672.59' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M45.24 376.05L45.24 376.05' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M45.24 376.05L227.01 359.53' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M45.24 376.05L110.25 560.84' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M45.24 376.05L193.45 522.99' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M45.24 376.05L-85.72 639.51' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M110.25 560.84L110.25 560.84' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M110.25 560.84L193.45 522.99' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M110.25 560.84L46.1 674.47' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M110.25 560.84L200.67 672.59' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M46.1 674.47L46.1 674.47' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M227.01 359.53L227.01 359.53' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M227.01 359.53L366.82 394.2' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M227.01 359.53L193.45 522.99' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M193.45 522.99L193.45 522.99' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M193.45 522.99L200.67 672.59' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M193.45 522.99L356.14 513.27' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M200.67 672.59L200.67 672.59' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M200.67 672.59L46.1 674.47' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M366.82 394.2L366.82 394.2' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M366.82 394.2L356.14 513.27' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M366.82 394.2L491.64 366.79' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M366.82 394.2L519.57 509.61' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M356.14 513.27L356.14 513.27' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M356.14 513.27L389.06 651.42' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M389.06 651.42L389.06 651.42' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M389.06 651.42L511.38 670.3' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M389.06 651.42L200.67 672.59' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M389.06 651.42L519.57 509.61' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M389.06 651.42L193.45 522.99' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M491.64 366.79L491.64 366.79' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M491.64 366.79L519.57 509.61' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M491.64 366.79L683.57 368.12' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M491.64 366.79L356.14 513.27' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M491.64 366.79L658.1 500.41' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M519.57 509.61L519.57 509.61' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M519.57 509.61L658.1 500.41' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M519.57 509.61L511.38 670.3' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M519.57 509.61L356.14 513.27' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M511.38 670.3L511.38 670.3' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M511.38 670.3L660.87 675.63' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M511.38 670.3L356.14 513.27' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M511.38 670.3L658.1 500.41' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M511.38 670.3L806.79 689.84' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M672.27 231.66L672.27 231.66' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M672.27 231.66L683.57 368.12' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M672.27 231.66L825.97 199.82' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M672.27 231.66L842.61 357.26' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M672.27 231.66L491.64 366.79' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M672.27 231.66L658.1 500.41' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M672.27 231.66L968.19 215.52' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M683.57 368.12L683.57 368.12' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M683.57 368.12L658.1 500.41' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M683.57 368.12L842.61 357.26' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M658.1 500.41L658.1 500.41' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M658.1 500.41L660.87 675.63' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M660.87 675.63L660.87 675.63' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M660.87 675.63L806.79 689.84' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M660.87 675.63L519.57 509.61' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M660.87 675.63L851.58 503.86' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M660.87 675.63L389.06 651.42' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M825.97 199.82L825.97 199.82' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M825.97 199.82L968.19 215.52' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M825.97 199.82L842.61 357.26' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M842.61 357.26L842.61 357.26' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M842.61 357.26L851.58 503.86' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M842.61 357.26L1001.99 360.91' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M842.61 357.26L968.19 215.52' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M851.58 503.86L851.58 503.86' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M851.58 503.86L995.66 540.02' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M851.58 503.86L806.79 689.84' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M851.58 503.86L658.1 500.41' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M806.79 689.84L806.79 689.84' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M806.79 689.84L994.88 667.82' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M994.95 -82.32L994.95 -82.32' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M994.95 -82.32L1112 -57.26' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M994.95 -82.32L963.08 71.48' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M994.95 -82.32L1160.52 82.1' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M963.08 71.48L963.08 71.48' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M963.08 71.48L968.19 215.52' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M968.19 215.52L968.19 215.52' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M968.19 215.52L1090.65 189.96' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M968.19 215.52L1001.99 360.91' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1001.99 360.91L1001.99 360.91' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1001.99 360.91L1099.79 402.48' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M995.66 540.02L995.66 540.02' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M995.66 540.02L994.88 667.82' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M995.66 540.02L1129.61 543.99' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M995.66 540.02L1099.79 402.48' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M995.66 540.02L1001.99 360.91' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M994.88 667.82L994.88 667.82' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M994.88 667.82L1110.94 677.38' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M994.88 667.82L1129.61 543.99' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M994.88 667.82L851.58 503.86' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1112 -57.26L1112 -57.26' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1112 -57.26L1253.76 -66.83' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1112 -57.26L1160.52 82.1' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1112 -57.26L963.08 71.48' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1160.52 82.1L1160.52 82.1' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1160.52 82.1L1090.65 189.96' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1160.52 82.1L1298.01 102.81' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1160.52 82.1L1253.76 -66.83' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1090.65 189.96L1090.65 189.96' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1090.65 189.96L963.08 71.48' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1099.79 402.48L1099.79 402.48' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1099.79 402.48L1129.61 543.99' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1099.79 402.48L1090.65 189.96' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1099.79 402.48L1261.33 544.03' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1129.61 543.99L1129.61 543.99' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1129.61 543.99L1261.33 544.03' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1129.61 543.99L1110.94 677.38' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1129.61 543.99L1245.87 676.65' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1110.94 677.38L1110.94 677.38' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1110.94 677.38L1245.87 676.65' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1110.94 677.38L995.66 540.02' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1253.76 -66.83L1253.76 -66.83' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1253.76 -66.83L1298.01 102.81' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1298.01 102.81L1298.01 102.81' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1298.01 102.81L1404.71 52.85' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1298.01 102.81L1415.88 189.31' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1298.01 102.81L1297.96 255.68' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1297.96 255.68L1297.96 255.68' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1297.96 255.68L1415.88 189.31' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1297.96 255.68L1399.74 346.28' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1297.96 255.68L1090.65 189.96' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1261.33 544.03L1261.33 544.03' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1261.33 544.03L1245.87 676.65' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1245.87 676.65L1245.87 676.65' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1245.87 676.65L1420.1 690.17' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1458.47 -90.63L1458.47 -90.63' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1458.47 -90.63L1604.33 -55.22' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1458.47 -90.63L1404.71 52.85' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1458.47 -90.63L1591.27 52.61' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1404.71 52.85L1404.71 52.85' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1404.71 52.85L1415.88 189.31' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1404.71 52.85L1591.27 52.61' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1404.71 52.85L1253.76 -66.83' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1404.71 52.85L1604.33 -55.22' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1415.88 189.31L1415.88 189.31' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1415.88 189.31L1399.74 346.28' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1415.88 189.31L1591.27 52.61' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1415.88 189.31L1607.79 372.32' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1399.74 346.28L1399.74 346.28' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1399.74 346.28L1442.01 542.16' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1399.74 346.28L1607.79 372.32' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1399.74 346.28L1261.33 544.03' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1442.01 542.16L1442.01 542.16' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1442.01 542.16L1563.72 546.16' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1442.01 542.16L1420.1 690.17' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1442.01 542.16L1261.33 544.03' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1442.01 542.16L1546.37 706.5' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1420.1 690.17L1420.1 690.17' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1420.1 690.17L1546.37 706.5' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1604.33 -55.22L1604.33 -55.22' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1604.33 -55.22L1591.27 52.61' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1604.33 -55.22L1415.88 189.31' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1604.33 -55.22L1298.01 102.81' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1604.33 -55.22L1253.76 -66.83' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1591.27 52.61L1591.27 52.61' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1591.27 52.61L1298.01 102.81' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1591.27 52.61L1607.79 372.32' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1607.79 372.32L1607.79 372.32' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1607.79 372.32L1563.72 546.16' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1607.79 372.32L1442.01 542.16' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1563.72 546.16L1563.72 546.16' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1563.72 546.16L1546.37 706.5' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1563.72 546.16L1420.1 690.17' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1546.37 706.5L1546.37 706.5' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1546.37 706.5L1245.87 676.65' stroke='%23132e65' stroke-width='1.5'%3e%3c/path%3e%3ccircle r='5' cx='-61.37' cy='392.79' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='-87.51' cy='552.22' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='-85.72' cy='639.51' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='45.24' cy='376.05' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='110.25' cy='560.84' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='46.1' cy='674.47' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='227.01' cy='359.53' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='193.45' cy='522.99' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='200.67' cy='672.59' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='366.82' cy='394.2' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='356.14' cy='513.27' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='389.06' cy='651.42' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='491.64' cy='366.79' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='519.57' cy='509.61' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='511.38' cy='670.3' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='672.27' cy='231.66' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='683.57' cy='368.12' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='658.1' cy='500.41' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='660.87' cy='675.63' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='825.97' cy='199.82' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='842.61' cy='357.26' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='851.58' cy='503.86' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='806.79' cy='689.84' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='994.95' cy='-82.32' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='963.08' cy='71.48' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='968.19' cy='215.52' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1001.99' cy='360.91' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='995.66' cy='540.02' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='994.88' cy='667.82' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1112' cy='-57.26' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1160.52' cy='82.1' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1090.65' cy='189.96' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1099.79' cy='402.48' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1129.61' cy='543.99' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1110.94' cy='677.38' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1253.76' cy='-66.83' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1298.01' cy='102.81' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1297.96' cy='255.68' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1261.33' cy='544.03' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1245.87' cy='676.65' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1458.47' cy='-90.63' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1404.71' cy='52.85' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1415.88' cy='189.31' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1399.74' cy='346.28' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1442.01' cy='542.16' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1420.1' cy='690.17' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1604.33' cy='-55.22' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1591.27' cy='52.61' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1607.79' cy='372.32' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1563.72' cy='546.16' fill='%23132e65'%3e%3c/circle%3e%3ccircle r='5' cx='1546.37' cy='706.5' fill='%23132e65'%3e%3c/circle%3e%3cpath d='M377.91 512.04L377.91 512.04' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M377.91 512.04L512.21 509.34' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M377.91 512.04L208.56 519.41' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M811.39 353.02L811.39 353.02' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M811.39 353.02L706.1 396.73' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M811.39 353.02L989.09 411.21' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M811.39 353.02L980.59 555.43' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M811.39 353.02L1093.76 218.11' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M811.39 353.02L672.69 637.75' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M952.19 659.09L952.19 659.09' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M952.19 659.09L980.59 555.43' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M952.19 659.09L798.33 682.98' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M952.19 659.09L1122.59 676.81' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1430.15 45.98L1430.15 45.98' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1430.15 45.98L1457.23 -39.07' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1430.15 45.98L1585.02 47.65' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1585.02 47.65L1585.02 47.65' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1585.02 47.65L1567.49 -44.81' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1585.02 47.65L1457.23 -39.07' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1546.67 510.77L1546.67 510.77' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1546.67 510.77L1397.37 487.68' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1546.67 510.77L1611.59 358.72' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1546.67 510.77L1604.5 667.92' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1546.67 510.77L1443.7 358.96' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1546.67 510.77L1405.27 687.46' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1604.5 667.92L1604.5 667.92' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1604.5 667.92L1405.27 687.46' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1604.5 667.92L1397.37 487.68' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-94.3 519.35L-94.3 519.35' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-94.3 519.35L-104.16 667.52' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-94.3 519.35L106.66 541.68' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-94.3 519.35L40.3 672.32' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-94.3 519.35L208.56 519.41' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-94.3 519.35L377.91 512.04' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-104.16 667.52L-104.16 667.52' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-104.16 667.52L40.3 672.32' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-104.16 667.52L106.66 541.68' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M-104.16 667.52L208.56 519.41' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M106.66 541.68L106.66 541.68' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M106.66 541.68L208.56 519.41' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M106.66 541.68L40.3 672.32' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M106.66 541.68L377.91 512.04' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M106.66 541.68L407.46 696.13' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M40.3 672.32L40.3 672.32' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M208.56 519.41L208.56 519.41' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M208.56 519.41L40.3 672.32' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M208.56 519.41L407.46 696.13' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M407.46 696.13L407.46 696.13' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M407.46 696.13L537.2 641.66' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M407.46 696.13L377.91 512.04' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M407.46 696.13L512.21 509.34' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M512.21 509.34L512.21 509.34' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M512.21 509.34L537.2 641.66' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M512.21 509.34L672.69 637.75' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M512.21 509.34L706.1 396.73' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M537.2 641.66L537.2 641.66' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M537.2 641.66L672.69 637.75' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M706.1 396.73L706.1 396.73' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M672.69 637.75L672.69 637.75' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M672.69 637.75L798.33 682.98' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M672.69 637.75L706.1 396.73' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M672.69 637.75L407.46 696.13' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M672.69 637.75L952.19 659.09' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M798.33 682.98L798.33 682.98' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M798.33 682.98L980.59 555.43' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M989.09 411.21L989.09 411.21' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M989.09 411.21L980.59 555.43' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M989.09 411.21L1137.21 365.23' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M989.09 411.21L1088.69 551.28' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M989.09 411.21L1093.76 218.11' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M989.09 411.21L952.19 659.09' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M980.59 555.43L980.59 555.43' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M980.59 555.43L1088.69 551.28' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M980.59 555.43L1122.59 676.81' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1093.76 218.11L1093.76 218.11' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1093.76 218.11L1137.21 365.23' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1093.76 218.11L1253.84 87.77' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1137.21 365.23L1137.21 365.23' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1088.69 551.28L1088.69 551.28' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1088.69 551.28L1122.59 676.81' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1088.69 551.28L952.19 659.09' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1088.69 551.28L1259.29 493.93' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1088.69 551.28L1137.21 365.23' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1122.59 676.81L1122.59 676.81' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1122.59 676.81L1275.94 646.95' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1288.21 -66.37L1288.21 -66.37' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1288.21 -66.37L1253.84 87.77' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1288.21 -66.37L1457.23 -39.07' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1288.21 -66.37L1430.15 45.98' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1288.21 -66.37L1567.49 -44.81' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1288.21 -66.37L1397.7 212.95' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1253.84 87.77L1253.84 87.77' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1253.84 87.77L1309.52 249.8' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1253.84 87.77L1430.15 45.98' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1309.52 249.8L1309.52 249.8' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1309.52 249.8L1397.7 212.95' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1309.52 249.8L1287.44 408.3' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1309.52 249.8L1443.7 358.96' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1309.52 249.8L1137.21 365.23' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1287.44 408.3L1287.44 408.3' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1287.44 408.3L1259.29 493.93' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1287.44 408.3L1397.37 487.68' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1287.44 408.3L1137.21 365.23' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1287.44 408.3L1443.7 358.96' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1287.44 408.3L1397.7 212.95' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1259.29 493.93L1259.29 493.93' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1259.29 493.93L1397.37 487.68' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1259.29 493.93L1275.94 646.95' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1275.94 646.95L1275.94 646.95' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1275.94 646.95L1405.27 687.46' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1457.23 -39.07L1457.23 -39.07' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1457.23 -39.07L1567.49 -44.81' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1457.23 -39.07L1253.84 87.77' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1397.7 212.95L1397.7 212.95' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1397.7 212.95L1540.3 242.99' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1443.7 358.96L1443.7 358.96' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1443.7 358.96L1397.37 487.68' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1443.7 358.96L1540.3 242.99' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1443.7 358.96L1397.7 212.95' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1443.7 358.96L1611.59 358.72' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1397.37 487.68L1397.37 487.68' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1405.27 687.46L1405.27 687.46' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1405.27 687.46L1397.37 487.68' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1567.49 -44.81L1567.49 -44.81' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1567.49 -44.81L1430.15 45.98' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1540.3 242.99L1540.3 242.99' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1540.3 242.99L1611.59 358.72' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1611.59 358.72L1611.59 358.72' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1611.59 358.72L1397.37 487.68' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1611.59 358.72L1397.7 212.95' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3cpath d='M1611.59 358.72L1604.5 667.92' stroke='hsl(228.5%2c 77.2%25%2c 51.5%25)' stroke-width='1.5'%3e%3c/path%3e%3ccircle r='25' cx='377.91' cy='512.04' fill='url(%23SvgjsRadialGradient1001)'%3e%3c/circle%3e%3ccircle r='25' cx='811.39' cy='353.02' fill='url(%23SvgjsRadialGradient1001)'%3e%3c/circle%3e%3ccircle r='25' cx='952.19' cy='659.09' fill='url(%23SvgjsRadialGradient1001)'%3e%3c/circle%3e%3ccircle r='25' cx='1430.15' cy='45.98' fill='url(%23SvgjsRadialGradient1001)'%3e%3c/circle%3e%3ccircle r='25' cx='1585.02' cy='47.65' fill='url(%23SvgjsRadialGradient1001)'%3e%3c/circle%3e%3ccircle r='25' cx='1546.67' cy='510.77' fill='url(%23SvgjsRadialGradient1001)'%3e%3c/circle%3e%3ccircle r='25' cx='1604.5' cy='667.92' fill='url(%23SvgjsRadialGradient1001)'%3e%3c/circle%3e%3ccircle r='5' cx='-94.3' cy='519.35' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='-104.16' cy='667.52' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='106.66' cy='541.68' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='40.3' cy='672.32' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='208.56' cy='519.41' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='407.46' cy='696.13' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='512.21' cy='509.34' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='537.2' cy='641.66' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='706.1' cy='396.73' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='672.69' cy='637.75' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='798.33' cy='682.98' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='989.09' cy='411.21' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='980.59' cy='555.43' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='1093.76' cy='218.11' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='1137.21' cy='365.23' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='1088.69' cy='551.28' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='1122.59' cy='676.81' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='1288.21' cy='-66.37' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='1253.84' cy='87.77' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='1309.52' cy='249.8' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='1287.44' cy='408.3' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='1259.29' cy='493.93' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='1275.94' cy='646.95' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='1457.23' cy='-39.07' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='1397.7' cy='212.95' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='1443.7' cy='358.96' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='1397.37' cy='487.68' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='1405.27' cy='687.46' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='1567.49' cy='-44.81' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='1540.3' cy='242.99' fill='%238b9ad9'%3e%3c/circle%3e%3ccircle r='5' cx='1611.59' cy='358.72' fill='%238b9ad9'%3e%3c/circle%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1000'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3cradialGradient id='SvgjsRadialGradient1001'%3e%3cstop stop-color='white' offset='0.1'%3e%3c/stop%3e%3cstop stop-color='%231735b3' offset='0.2'%3e%3c/stop%3e%3cstop stop-color='rgba(23%2c 53%2c 179%2c 0)' offset='1'%3e%3c/stop%3e%3c/radialGradient%3e%3c/defs%3e%3c/svg%3e");
+ 	   	}
+ 	   	.serviceContainerInfoContainer div:nth-child(1){
+ 	   		width: 90%;
+ 	   		height: 40px;
+ 	   		text-align: center;
+ 	   		color: blue;
+ 	   		font-size: 21px;
+ 	   		font-weight: 800;
+ 	   		font-family: 'Roboto', sans-serif;
+ 	   	}
+ 	   	.serviceContainerInfoContainer div:nth-child(2) , .serviceContainerInfoContainer div:nth-child(3) ,.serviceContainerInfoContainer div:nth-child(4){
+ 	   		width: 70%;
+ 	   		height: auto;
+ 	   		margin: 15px;
+ 	   		line-height: 40px;
+ 	   		color: #efefef;
+ 	   		font-size: 14px;
+ 	   	}
+ 	   	.companyFooterContainer{
+ 	   		width: 100%;
+ 	   		max-width: 1900px;
+ 	   		height: auto;
+ 	   		background-color: #fff;
+ 	   		display: flex;
+ 	   		justify-content: space-between;
+ 	   		flex-wrap: wrap;
+ 	   		align-items: center;
+ 	   		box-sizing: border-box;
+ 	   	}
+ 	   	.footerInfoContainer{
+ 	   		width: 100%;
+ 	   		max-width: 1900px;
+ 	   		height: auto;
+ 	   		background-color: #fff;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   	}
+ 	   	.contactlogo{
+ 	   		width: 100%;
+ 	   		
+ 	   		height: 100px;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.contactlogo img{
+ 	   		max-width: 50px;
+ 	   		max-height: 50px;
+ 	   		margin-left: 10px;
+ 	   	}
+ 	   	.contactlogo div{
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   		font-family: 'Roboto', sans-serif;
+ 	   	}
+ 	   	.contactlogo div span:nth-child(1){
+ 	   		font-size: 15px;
+ 	   		color: #000;
+ 	   	}
+ 	   	.contactlogo div span:nth-child(2){
+ 	   		font-size: 15px;
+ 	   		color: #F6A323;
+ 	   		margin-top: -2px;
+ 	   	}
+ 	   	.contactContainer{
+ 	   		width: 100%;
+ 	   		height: 100px;
+ 	   		display: flex;
+ 	   		justify-content: space-between;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.contactContainer div{
+ 	   		width: 32%;
+ 	   		height: 90%;
+ 	   		border-radius: 5px;
+ 	   		background-color: #F6F6F6;
+ 	   		margin-left: 1%;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   	}
+ 	   	.contactContainer div span:nth-child(1){
+ 	   		color: gray;font-size: 12px;
+ 	   	}
+ 	   	.contactContainer div span:nth-child(2){
+ 	   		color: #4F5457;font-size: 12px;
+ 	   	}
+ 	   	.addressContainer{
+ 	   		width: 100%;
+ 	   		height: 60px;
+ 	   		margin-left: 10px;
+ 	   		background-color: #F6F6F6;
+ 	   		border-radius: 5px;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   	}
+ 	   	.addressContainer span:nth-child(1){
+ 	   		color: gray;font-size: 12px;
+ 	   	}.addressContainer span:nth-child(2){
+ 	   		color: #4F5457;
+ 	   		font-size: 12px;
+ 	   	}
+ 	   	.subFooterContainer{
+ 	   		width: 35%;
+ 	   		height: 300px;
+ 	   		background-image: linear-gradient(55deg, rgba(30, 43, 122, 0.5), transparent), linear-gradient(180deg, rgba(30, 43, 122, 0.6), transparent), url('img/product/solar-and-wind-turbine.jpeg');
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: cover;
+ 	   		display: flex;
+ 	   		display: none;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		position: relative;
+ 	   		clip-path: polygon(0 0, 100% 0%, 100% 100%, 20% 100%);
+ 	   	}
+ 	   	.subscripberDiv{
+ 	   		width: 400px;
+ 	   		height: 50px;
+ 	   		margin-left: 20px;
+ 	   		background: rgba(0,0,0,0.7);
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.subscripberDiv input[type=text]{
+ 	   		width: 70%;
+ 	   		height: 100%;
+ 	   		border: none;
+ 	   		outline: none;
+ 	   		padding-left: 15px;
+ 	   		box-sizing: border-box;
+ 	   	}
+ 	   	.subscripberDiv input[type=button]{
+ 	   		width: 30%;
+ 	   		height: 100%;
+ 	   		box-sizing: border-box;
+ 	   		color: #efefef;
+ 	   		padding: 6px;
+ 	   		text-align: center;
+ 	   		background-color: #1E2B7A;
+ 	   		border: none;
+ 	   		outline: none;
+ 	   		cursor: pointer;
+ 	   	}
+ 	   	.copyRightContainer{
+ 	   		width: 100%;
+ 	   		height: 20px;
+ 	   		border-radius: 5px;
+ 	   		background-color: #F6F6F6;
+ 	   		color: #4F5457;
+ 	   		font-size: 12px;
+ 	   		font-weight: bold;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.covercontainervideomta{
+ 	   		width: 100%;
+ 	   		height: 500px;
+ 	   	}
+ 	   	.covercontainervideomta video{
+ 	   		width: 100%;
+ 	   		height: 100%;
+ 	   		object-fit: cover;
+ 	   	}
+ 	   	.crystal{
+		  position: relative;
+		  transform: translateY(150px);
+		  opacity: 0;
+		  transition: 0.8s all ease;
+		}
+		.crystal.active{
+		  transform: translateX(0);
+		  opacity: 1;
+		}
+		.contactUsMTAcontainer{
+ 	   		width: 100%;
+ 	   		max-width: 1700px;
+ 	   		height: 550px;
+ 	   		margin-top: 20px;
+ 	   		background-color: #F7F8FC;
+ 	   		display: flex;
+ 	   		justify-content: space-around;
+ 	   		flex-wrap: wrap-reverse;
+ 	   		clip-path: polygon(0 5%, 100% 0, 100% 100%, 0% 100%);
+ 	   		align-items: center;
+ 	   	}
+ 	   	.contactFormContainer{
+ 	   		width: 35%;
+ 	   		height: 450px;
+ 	   		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+ 	   		background-color: #fff;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   	}
+ 	   	.contactFormContainer input[type=text] , .contactFormContainer textarea{
+ 	   		width: 90%;
+ 	   		height: 40px;
+ 	   		border-radius: 5px;
+ 	   		border: none;
+ 	   		outline: none;
+ 	   		border: 1px solid gray;
+ 	   		margin-top: 15px;
+ 	   		box-sizing: border-box;
+ 	   		padding-left: 10px;
+ 	   	}
+ 	   	.contactFormContainer textarea{
+ 	   		min-width: 90%;
+ 	   		max-width: 90%;
+ 	   		min-height: 120px;
+ 	   		max-height: 180px;
+ 	   	}
+ 	   	.contactFormContainer input[type=submit]{
+ 	   		width: 90%;
+ 	   		height: 45px;
+ 	   		border-radius: 5px;
+ 	   		margin-top: 15px;
+ 	   		background-color: #0071FB;
+ 	   		color: #efefef;
+ 	   		text-align: center;
+ 	   		cursor: pointer;
+ 	   		border: none;
+ 	   		outline: none;
+ 	   	}
+ 	   	.contatctInfoContainer{
+ 	   		width: 55%;
+ 	   		height: 450px;
+ 	   		border-radius: 5px;
+ 	   		font-family: 'Roboto', sans-serif;
+ 	   	}
+ 	   	.contatctInfoContainer h4{
+ 	   		color: #112C45;
+ 	   		font-weight: bold;
+ 	   	}
+ 	   	.contatctInfoContainer table tr td{
+ 	   		font-size: 13px;
+ 	   		color: #4F647A;
+ 	   		font-weight: bold;
+ 	   	}
+ 	   	@media only screen and (max-width:1400px){
+ 	   		
+ 	   	}
+ 	   	@media only screen and (max-width: 1011px) and (min-width: 901px){
+ 	   		
+ 	   	}
+ 	   	@media only screen and (max-width:900px){
+ 	   		.ourinfoContainer div{
+ 	   			width: 70%;
+ 	   		}
+ 	   		.menuContainer div{
+ 	   			width: 15%;
+ 	   		}
+ 	   		.subscripberDiv{
+ 	   			width: 300px;
+ 	   			margin-left: 30px;
+ 	   		}
+ 	   		.companyStatusDiv{
+ 	   			width: 24%;
+ 	   		}
+ 	   		.contactUsMTAcontainer{
+ 	   			height: auto;
+ 	   		}
+ 	   		.contactFormContainer , .contatctInfoContainer{
+ 	   			margin-top: 15px;
+ 	   			width: 80%;
+ 	   		}
+ 	   		.contactFormContainer{
+ 	   			height: 450px;
+ 	   		}
+		}
+		@media only screen and (max-width: 749px) and (min-width: 700px){
+			.headingmtaContainerHolder{
+				justify-content: flex-start;
+				flex-direction: column;
+				height: auto;
+			}
+			.logoDiv{
+				width: 100%;
+				height: 40px;
+			}
+			.menuContainer{
+				width: 100%;
+				height: auto;
+				margin-top: 15px;
+			}
+			.menuContainer div{
+				width: 10%;
+				margin-top: 20px;
+			}
+			.logoDiv img{
+				margin-left: 5px;
+			}
+			.companyStatusDiv{
+				width: 22%;
+			}
+		}
+		@media only screen and (max-width: 699px) and (min-width: 451px){
+			.headingmtaContainerHolder{
+				flex-direction: column;
+				height: auto;
+			}
+			.logoDiv{
+				width: 100%;
+				height: 40px;
+			}
+			.menuContainer{
+				width: 100%;
+				height: 40px;
+			}
+			.ourinfoContainer{
+				margin-left: 20px;
+			}
+			.ourinfoContainer div{
+				font-size: 20px;
+				line-height: 50px;
+			}
+			.companyInfo , .companyInfoImg , .companyCommitImg{
+				width: 100%;
+				height: 350px;
+			}
+			.ourPrtnerContainer div{
+				width: 35%;
+			}
+			.companyStatusContainer{
+				height: auto;
+			}
+			.companyStatusDiv{
+				width: 45%;
+			}
+			.serviceContainer{
+				width: 100%;
+				height: auto;
+			}
+			.staffcontainer{
+				width: 100%;
+			}
+			.footerInfoContainer{
+				width: 100%;
+			}
+			.ourinfoContainer div:nth-child(1){
+				width: 100%;
+				font-size: 35px;
+			}
+			.ourinfoContainer div:nth-child(2){
+				font-size: 15px;
+				line-height: 30px;
+			}
+		}
+		@media only screen and (max-width: 449px){
+			.headingmtaContainerHolder{
+				flex-direction: column;
+				height: auto;
+			}
+			.logoDiv{
+				width: 100%;
+			}
+			.logoDiv img{
+				margin-left: 0px;
+			}
+			.menuContainer{
+				width: 99%;
+				justify-content: flex-start;
+			}
+			.menuContainer div{
+				width: 30%;
+				margin-top: 15px;
+			}
+			.ourinfoContainer{
+				margin-left: 10px;
+				width: 97%;
+			}
+			.ourinfoContainer div:nth-child(1){
+				width: 100%;
+				font-size: 35px;
+			}
+			.ourinfoContainer div:nth-child(2){
+				font-size: 15px;
+			}
+			.ourinfoContainer div{
+				width: 90%;
+				font-size: 20px;
+				line-height: 40px;
+			}
+			.transLayout{
+				flex-direction: column;
+			}
+			.trasImgLeft , .trasImgRight{
+				width: 100%;
+			}
+			.transImgInfo{
+				width: 100%;
+			}
+			.transLayoutContainer{
+				margin-top: 15px;
+			}
+			.ourPrtnerContainer div{
+				font-size: 11px;
+			}
+			.ourcompanystaffContainer , .companyFooterContainer{
+				flex-direction: column;
+			}
+			.staffcontainer , .footerInfoContainer , .subFooterContainer{
+				width: 100%;
+			}
+			.companyInfo , .companyInfoImg ,.companyCommitImg{
+				width: 100%;
+				height: 300px;
+			}
+			.serviceContainer{
+				width: 100%;
+				height: auto;
+			}
+			.ourPrtnerContainer div{
+				width: 35%;
+			}
+			.companyStatusContainer{
+				height: auto;
+			}
+			.companyStatusDiv{
+				width: 45%;
+			}
+		}
+ 	   </style>
+ 	   </head>
+	<body>
+		<div class="containermta" id="containermta">
+			<div class="headingmtaContainer">
+				<div class="headingmtaContainerHolder" id='headingmtaContainerHolder'>
+					<div class="logoDiv">
+						<img src="img/logo/NG-Energy-2.png">
+						<div>
+							<span>NORTHGATE</span>
+							<span>ENERGY</span>
+						</div>
+					</div>
+					<div class="menuContainer">
+						<div><a href="index.html">COMPANY</a></div>
+						<div><a href="#serviceContainerInfoContainer">SERVICES</a></div>
+						<div><a href="#ourservicesTransContainer">TECHNOLOGY</a></div>
+						<div><a href="#contactUs">CONTACT</a></div>
+					</div>
+				</div>
+				<div class="ourinfoContainer">
+					<div>Lubricating the world</div>
+					<div>Trusting us is the glue that keeps an organization together and lubricates the world to reduce friction in the mechanism of life.</div>
+					<button>KNOW MORE</button>
+				</div>
+			</div>
+			<div class="headingmtaContainer " style="background-image: linear-gradient(55deg, rgba(0, 0, 0, 0.4), transparent), linear-gradient(180deg, rgba(0, 0, 0, 0.4), transparent),  url(CATEGO/Banner_Mottos/Energy_For_the_World/Energy_for_the_world.jpg);">
+				<div class="headingmtaContainerHolder" id='headingmtaContainerHolder'></div>
+				<div class="ourinfoContainer">
+					<div>Energy For the World</div>
+					<div>Moving forward with intensive energy using our products</div>
+					<button>KNOW MORE</button>
+				</div>
+			</div>
+			<div class="headingmtaContainer" style="background-image: linear-gradient(55deg, rgba(0, 0, 0, 0.4), transparent), linear-gradient(180deg, rgba(0, 0, 0, 0.4), transparent),  url(CATEGO/Banner_Mottos/Quality_Oil_Quality_Service/Quality_Oil_Quality_Service.jpg);">
+				<div class="headingmtaContainerHolder" id='headingmtaContainerHolder'></div>
+				<div class="ourinfoContainer">
+					<div>Quality Oil, Quality Service.</div>
+					<div>Treat customers in a respectful, helpful way and provide a standard of product quality that satisfies the customer's needs.</div>
+					<button>KNOW MORE</button>
+				</div>
+			</div>
+			<div class="covercontainervideomta">
+		    	<video src="CATEGO/Banner_Mottos/Banner_Video.mp4" id='myVideoOne' autoplay muted ></video>
+		    </div>
+		    <div class="ourservicesContainer">
+		    	<div class="showTitleContainerTwo" style="margin-top: 15px;margin-bottom: 15px;">
+					<div class="companyCommitImg" id='commit'></div>
+					<div class="companyInfo crystal" style='margin-left: 15px;'>
+						<h3 style="letter-spacing:6px;">OUR COMMITTED </h3>
+						<p>Quality, Health, Safety and Environmental concerns are our top priorities as a company in every facet of our operations. We follow the safety standards in order to safe and incident-free operationsWe are also concerned about the environment; thus, we make an effort to reduce the impact of our actions by operating under a sustainable environment policy.</p>
+					</div>
+				</div>
+		    </div>
+			<div class="ourservicesContainer">
+				<div class="infoTitle"></div>
+				<div class="showTitleContainer">
+					<div class="companyInfo crystal" style='margin-left: 15px;'>
+						<h3 style="letter-spacing:6px;">OUR MISSION</h3>
+						<p>To be a better energy company by providing excellent services and solutions to our customers. As a responsible company, complying with corporate social responsibilities and focusing on delivering sustainable energy products that are more powerful on organization for the future growth</p>
+					</div>
+					<div class="companyInfoImg" id='mission'></div>
+				</div>
+				<br>
+				<div class="showTitleContainerTwo">
+					<div class="companyInfoImg" id='values'></div>
+					<div class="companyInfo crystal" style='margin-left: 15px;'>
+						<h3 style="letter-spacing:6px;">OUR VALUES</h3>
+						<p>Our core values are with respect, integrity and honesty to our customers. As an innovation and growing energy company, operating in a challenging world, providing international standard of our services and highly appreciate in customer satisfaction.</p>
+					</div>
+				</div>
+			</div>
+			<br>
+			<center><h3 style="color:blue;letter-spacing:6px;">OUR SERVICES</h3></center>
+			<div class="serviceContainerInfoContainer crystal" id='serviceContainerInfoContainer'>
+				<div></div>
+				<div>Our Services
+                     Our trading business unit commercially operates a strategically located global network of major infrastructure assets, including some of the newest, most efficient and best-in-class terminals in service today. We can do for our customers to supply, import, export and trade energy products. We are well providing and enhancing services for existing customers and new customers- maximizing use of the assets while operating to the highest standards, safely and responsibly.
+			    </div>
+			    <div> Our services range from blending all, to complex logistics, handling and delivery. Our advanced Management System supports to our customers direct, online and real-time access to their stored products, so they can track stock movement</div>
+			    <div>Our network of import, trading and transshipment terminals plays a critical role for our customers - from being a key part of the value chain supplying high growth energy markets, to providing storage capacity to facilitate global trade flows.</div>
+			</div>
+			<br>
+			<div class="ourservicesTransContainer" id='ourservicesTransContainer'>
+				<div class="infoTitle"></div>
+				<div class="transLayoutContainer">
+					<div class="serviceContainer">
+						<img src="CATEGO/Quality_Customer_Focus/imageforentry64-rtx.webp" style="width:100%;height: 300px;">
+						<div class="crystal">
+							<h3 style="letter-spacing:4px;">Quality Customer Focus</h3>
+							<span>The Management of the company strongly believes in total customer satisfaction. Systems  are in place to ensure that customer requirements  are met and the extent to which the customer is  satisfied is monitored and measured with the aim of continuously enhancing customer satisfaction</span>
+							<!--<button>READ MORE</button>-->
+						</div>
+					</div>
+					<div class="serviceContainer">
+						<img src="CATEGO/Quality_Objectives/quality-objectives-1.png">
+						<div class="crystal">
+							<h3 style="letter-spacing:4px;">Quality Objectives</h3>
+							<span> Our company is continually establishing specific measurable quality objectives consistent with the quality policy. These objectives are periodically reviewed and updated1 as necessary1 by the General Manager and Management Review Team and communicated to the organization. Review process is normally conducted at least once every year.</span>
+							<!--<button>READ MORE</button>-->
+						</div>
+					</div>
+					<div class="serviceContainer">
+						<img src="CATEGO/Sustainability/header.jpg">
+						<div class="crystal">
+							<h3 style="letter-spacing:4px;">Sustainability</h3>
+							<span>Our Company, North Gate Energy is taking action toward sustainability and is united across our business activities on three pillars of sustainable investing: Environment, socially responsible, and economics. As a sustainable business, we do agree to support our customers, employees, stakeholders, and communities to become a better future.</span>
+							<!--<button>READ MORE</button>-->
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="companyStatusContainer" style="display:none;">
+				<div class="companyStatusDiv">
+					<img src="img/logo/globe.png">
+					<div>
+						<span>27</span>
+						<span>Offices Around Countries</span>
+					</div>
+				</div>
+				<div class="companyStatusDiv">
+					<img src="img/logo/friends.png">
+					<div>
+						<span>100,000</span>
+						<span>Satisfied Employees</span>
+					</div>
+				</div>
+				<div class="companyStatusDiv">
+					<img src="img/logo/fire.png">
+					<div>
+						<span>170</span>
+						<span>Refineries & Operations</span>
+					</div>
+				</div>
+				<div class="companyStatusDiv">
+					<img src="img/logo/badge.png">
+					<div>
+						<span>37</span>
+						<span>Awards & Recognitions</span>
+					</div>
+				</div>
+			</div>
+			<br>
+			<center><h3 style="color:blue;letter-spacing:6px;">OUR STRATEGIES</h3></center>
+			<div class="ourcompanystaffContainer">
+				<div class="staffcontainer">
+					<p class="crystal">“ We focus on achieving operational excellence improving the management and control of existing assets; streamlining costs; and improving our value proposition to customers ”</p>
+				</div>
+				<div class="staffcontainer crystal">
+					<p class="crystal">“ We focus on growing our current core business attracting new customers and increasing our turnover; increasing our network presence; and expanding our existing portfolio ”</p>
+				</div>
+				<div class="staffcontainer crystal">
+					<p class="crystal">“ We focus on finding new sources of value developing new products and creating new businesses in existing geographies and expanding into markets in new geographies ”</p>
+				</div>
+			</div>
+			<br>
+			<center><h2 style="color:blue;letter-spacing:6px;">About Us</h2></center>
+			<div class="serviceContainerInfoContainer crystal">
+				<div></div>
+				<div style='text-align: left;'>North Gate office, registered in Myanmar, is a privately owned Company, and started domestic projects with national and international clientele have opened new areas of developments like energy sector.
+				<br>
+				We, one of the energy companies in Myanmar, trade energy products from direct refineries and distribute wholesale and retail throughout Myanmar. We have a highly trained and experienced team to provide new opportunities and the highest value of quality services to our customers and intensive achievements to our communities.
+				<br>
+				We believe that we can provide a more individualized approach to contracting which in turn provides the consumer with a quick response and high-quality service in a reduced cost.
+			    </div>
+			</div>
+			<div class="companyFooterContainer" id='contactUs'>
+				<div class="footerInfoContainer">
+					<div class="contactlogo">
+						<img src="img/logo/NG-Energy-2.png">
+						<div>
+							<span>NORTHGATE</span>
+							<span>ENERGY</span>
+						</div>
+					</div>
+					<!--<span style="text-align: left;color:blue;">CONTACT US</span>-->
+					<h2 style="text-align: left;color:blue;letter-spacing:6px;">CONTACT US</h2>
+					<div class="contactUsMTAcontainer" id='footerHeader'>
+				    	<div class="contactFormContainer">
+				    		<input type="text" name="" placeholder="Name"  required />
+				    		<input type="text" name="" placeholder="Mobile" required />
+				    		<input type="text" name="" placeholder="Subject" required />
+				    		<input type="text" name="" placeholder="Email" required />
+				    		<textarea type="text" name="" placeholder="Message" required></textarea>
+				    		<input type="submit"  value="SENT" />
+				    	</div>
+				    	<div class="contatctInfoContainer">
+				    		<h4 style="padding-top: 15px;">Our Address</h4>
+				    		<div style="width:100%;height: 100px;margin-top: 10px;display: flex;justify-content: flex-start;
+				    				align-items: center;border-bottom:2px solid rgba(130,144,166,0.6);">
+				    			<img src="img/logo/location.png">
+			    				<p>
+			    					<span style="color:#243D55;font-size:14px;font-weight: bold;">Yangon Head Office </span> <br>
+			    					<span style="color:#4F647A;font-size:13px;font-weight: bold;">North Gate Engineering And Technology Company Limited (Reg: 102090969) No.17 , Kyauk Myaung Street , Tamwe Township , 11211 , Yangon , Myanmar</span>
+			    				</p>
+				    		</div>
+				    		<div style="width:100%;height: 100px;margin-top: 10px;display: flex;justify-content: flex-start;
+				    				align-items: center;border-bottom:2px solid rgba(130,144,166,0.6);">
+				    			<img src="img/logo/location.png">
+			    				<p>
+			    					<span style="color:#243D55;font-size:14px;font-weight: bold;">Singapore Office </span> <br>
+			    					<span style="color:#4F647A;font-size:13px;font-weight: bold;">North Gate Engineering And Technology Pte. Ltd (Reg: 201933030W) 14 Robinson Road #08-01A , Far East Finance Building , Singapore (048545)</span>
+			    				</p>
+				    		</div>
+				    		<div style="width:100%;height: 100px;margin-top: 10px;display: flex;justify-content: flex-start;
+				    				align-items: center;border-bottom:2px solid rgba(130,144,166,0.6);">
+				    			<img src="img/logo/location.png">
+			    				<p>
+			    					<span style="color:#243D55;font-size:14px;font-weight: bold;">Thailand Office </span> <br>
+			    					<span style="color:#4F647A;font-size:13px;font-weight: bold;">No. 486/63 Soi Wat Phai Ngoen , Bang Khlo Subdistrict , Bang Kho Laem District , Bangkok 10120 , Thailand</span>
+			    				</p>
+				    		</div>
+				    	</div>
+				    </div>
+				    <div class="contactContainer">
+						<div>
+							<span>Telephone Number</span>
+							<span>+959 428 263 771</span>
+						</div>
+						<div>
+							<span>FAX Number</span>
+							<span>+959 54O08</span>
+						</div>
+						<div>
+							<span>email</span>
+							<span>info@norgate-energy.com</span>
+						</div>
+					</div>
+				</div>
+				<div class="subFooterContainer">
+					<div class="subscripberDiv">
+						<input type="text" name="email" placeholder="your email address">
+						<input type="button" name="submit" value="SUBSCRIBE">
+					</div>
+				</div>
+			</div>
+			<div class="copyRightContainer">2022@copyright NORTHGATE ENERGY All rights reserved.</div>
+		</div>
+	<script type="text/javascript">
+		const scrollhandle = document.getElementById('containermta');
+		const headerStyle = document.getElementById('headingmtaContainerHolder');
+		const videoSlide = document.getElementById('myVideoOne');
+		videoSlide.onended = function(){
+			videoSlide.play();
+		}
+		/*scrollhandle.addEventListener('scroll', function() {
+		  
+		});*/
+		function topFunction() { scrollhandle.scrollTop = 0;}
+		function crystal() {
+		  var crystal = document.querySelectorAll(".crystal");
+		  var scrollTop = scrollhandle.scrollTop;scrollTop > 20 ? headerStyle.classList.add("fade-in") : headerStyle.classList.remove("fade-in");
+		  for (var i = 0; i < crystal.length; i++) {
+		    var windowHeight = window.innerHeight;
+		    var elementTop = crystal[i].getBoundingClientRect().top;
+		    var elementVisible = 30;
+		    if (elementTop < windowHeight - elementVisible) {
+		      crystal[i].classList.add("active");
+		    } else {
+		      crystal[i].classList.remove("active");
+		    }
+		  }
+		}
+		scrollhandle.addEventListener("scroll", crystal);
+	</script>
+ </body>
+</html>

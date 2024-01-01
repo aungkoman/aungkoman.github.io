@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title>Thanks Book</title>
+    <!-- Path to Framework7 Library CSS-->
+    <link rel="stylesheet" href="css/framework7.ios.min.css" />
+    <link rel="stylesheet" href="css/framework7.ios.colors.min.css">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/my-app.css" />
+    <script src="bower_components/modernizr/modernizr.js"></script>
+  </head>
+  <body>
+    <!-- Status bar overlay for fullscreen mode-->
+    <div class="statusbar-overlay"></div>
+    <!-- Panels overlay-->
+    <div class="panel-overlay"></div>
+    <!-- Left panel with reveal effect-->
+    <div class="panel panel-left panel-reveal">
+      <div class="content-block">
+        <p>Main Menu</p>
+        <p><a href="#newThanks" class="button button-round close-panel">New Thank</a></p> 
+<p><a href="#rank" id="friendListBtn" class="button button-round close-panel">Friends List</a></p>
+<p><a href="#intro" class="button button-round close-panel">Intro</a></p> 
+<p><a href="#index" class="button button-round close-panel">Thanks List</a></p> 
+      </div>
+    </div>
+    <!-- Right panel with cover effect-->
+    <div class="panel panel-right panel-cover">
+      <div class="content-block">
+        <p>Right panel content goes here</p>
+      </div>
+    </div>
+    <!-- Views-->
+    <div class="views">
+      <!-- Your main view, should have "view-main" class-->
+      <div class="view view-main">
+        <!-- Top Navbar-->
+        <div class="navbar">
+          <!-- Navbar inner for Index page-->
+          <div data-page="index" class="navbar-inner">
+            <!-- We have home navbar without left link-->
+            <div class="center sliding">Thanks Book</div>
+            <div class="right">
+              <!-- Right link contains only icon - additional "icon-only" class--><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
+            </div>
+          </div>
+
+
+          <!-- Navbar inner for New Thanks page-->
+          <div data-page="newThanks" class="navbar-inner cached">
+            <div class="left sliding"><a href="#" class="back link"> <i class="icon icon-back"></i><span>Back</span></a></div>
+            <div class="center sliding">New Thanks</div>
+            <div class="right">
+              <!-- Right link contains only icon - additional "icon-only" class--><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
+            </div>
+          </div>
+
+          <!-- Navbar inner for intro page-->
+          <div data-page="intro" class="navbar-inner cached">
+            <div class="left sliding"><a href="#" class="back link"> <i class="icon icon-back"></i><span>Back</span></a></div>
+            <div class="center sliding">Intro</div>
+            <div class="right">
+              <!-- Right link contains only icon - additional "icon-only" class--><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
+            </div>
+          </div>
+
+
+          <!-- Navbar inner for rank page-->
+          <div data-page="rank" class="navbar-inner cached">
+            <div class="left sliding"><a href="#" class="back link"> <i class="icon icon-back"></i><span>Back</span></a></div>
+            <div class="center sliding">Friends List</div>
+            <div class="right">
+              <!-- Right link contains only icon - additional "icon-only" class--><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
+            </div>
+          </div>
+
+
+
+          <!-- Navbar inner for About page-->
+          <div data-page="about" class="navbar-inner cached">
+            <div class="left sliding"><a href="#" class="back link"> <i class="icon icon-back"></i><span>Back</span></a></div>
+            <div class="center sliding">Friend</div>
+            <div class="right">
+              <!-- Right link contains only icon - additional "icon-only" class--><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
+            </div>
+          </div>
+          <!-- Navbar inner for Services page-->
+          <div data-page="services" class="navbar-inner cached">
+            <div class="left sliding"><a href="#" class="back link"> <i class="icon icon-back"></i><span>Back</span></a></div>
+            <div class="center sliding">Services</div>
+          </div>
+          <!-- Navbar inner for Form page-->
+          <div data-page="form" class="navbar-inner cached">
+            <div class="left sliding"><a href="#" class="back link"> <i class="icon icon-back"></i><span>Back</span></a></div>
+            <div class="center sliding">Form</div>
+          </div>
+        </div>
+        <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+        <div class="pages navbar-through toolbar-through">
+          <!-- Index Page-->
+          <div data-page="index" class="page">
+            <!-- Scrollable page content-->
+            <div class="page-content">
+              <div class="content-block-title">Welcome To Thanks Book App</div>
+              <div class="content-block">
+                <div class="content-block-inner">
+
+              <!-- In data-picker attribute we specify CSS selector of picker we need to open-->
+              <!-- Link to close picker-->
+
+
+<p><a href="#newThanks" class="button button-round close-panel">New Thank</a></p> 
+<p><a href="#intro" class="button button-round close-panel">Intro</a></p>
+<div class="list-block">
+  <ul id="thanks_ul">
+  
+    <!-- Additional "swipeout" class on li -->
+    <li class="swipeout">
+      <!-- Usual list element wrapped with "swipeout-content" -->
+      <div class="swipeout-content">
+        <!-- Your list element here -->
+        <div class="item-content">
+          <div class="item-inner">
+              <p><span class="thanks_name_display">Thanks Book User</span> _ <span class="thanks_about_display"> Thanks for using our Thanks Book App</span><span class="badge">Example</span></p>
+          </div>
+        </div>
+      </div>
+      <!-- Swipeout actions left -->
+      <!-- Swipeout actions right -->
+      <div class="swipeout-actions-right">
+        <!-- Swipeout actions links/buttons -->
+        <a href="#" class="thanks_delete_btn">Delete</a>
+        <!--a href="#" class="thanks_edit_btn">Edit</a-->
+        <a class="swipeout-close" href="#">Cancel</a>
+      </div>
+    </li>
+
+   
+  </ul>
+</div>
+
+
+                </div>
+              </div>
+              <!--div class="content-block-title">What about simple navigation?</div>
+
+              
+              <div class="list-block">
+                <ul>
+                  <li><a href="#about" class="item-link">
+                      <div class="item-content">
+                        <div class="item-inner"> 
+                          <div class="item-title">About</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="#services" class="item-link">
+                      <div class="item-content"> 
+                        <div class="item-inner">
+                          <div class="item-title">Services</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="#form" class="item-link">
+                      <div class="item-content"> 
+                        <div class="item-inner">
+                          <div class="item-title">Form</div>
+                        </div>
+                      </div></a></li>
+                </ul>
+              </div>
+              <div class="content-block-title">Side panels</div>
+              <div class="content-block">
+                <div class="row">
+                  <div class="col-50"><a href="#" data-panel="left" class="button open-panel">Left Panel</a></div>
+                  <div class="col-50"><a href="#" data-panel="right" class="button open-panel">Right Panel</a></div>
+                </div>
+              </div-->
+            </div>
+          </div>
+
+
+          <!-- New Thanks Page-->
+          <div data-page="newThanks" class="page cached">
+            <div class="page-content">
+              <div class="content-block">
+               <div class="content-block">
+        <div class="list-block">
+  <ul>
+  
+    <li>
+      <div class="item-content">
+        <div class="item-media"><i class="icon icon-form-name"></i></div>
+        <div class="item-inner">
+          <div class="item-title label">Name</div>
+          <div class="item-input">
+              <input type="text" id="thanks_name_input" name="name">
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="align-top">
+      <div class="item-content">
+        <div class="item-media"><i class="icon icon-form-settings"></i></div>
+        <div class="item-inner">
+          <div class="item-title label">Why?</div>
+          <div class="item-input">
+              <textarea id="thanks_about_input"  name="about"></textarea>
+          </div>
+        </div>
+      </div>
+    </li>
+    </ul>
+  <p><a href="#index" id="save_thanks_btn" class="button button-round active">Save Thanks</a></p> 
+  
+</div>   
+      </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- About Page-->
+          <div data-page="about" class="page cached">
+            <div class="page-content">
+              <div class="content-block">
+                <div class="list-block">
+                <ul id="thanks_personal_ul"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <!-- Rank Page-->
+          <div data-page="rank" class="page cached">
+            <div class="page-content">
+              <div class="content-block">
+                
+                <div class="list-block">
+                <ul id="thanks_rank_ul">
+
+                  <li class="item-content">
+          <div class="item-media"><i class="icon icon-form-name"></i></div>
+          <div class="item-inner">
+            <div class="item-title"><a href="#about"><span class="thanks_name_display">a</span></a></div>
+            <div class="item-after"><span class="badge bg-red">5</span></div>
+          </div>
+        </li>
+                </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+
+          <!-- Intro Page-->
+          <div data-page="intro" class="page cached">
+            <div class="page-content">
+            
+<div class="content-block-title">Intro</div>
+<div class="list-block accordion-list">
+  <ul>
+    <li class="accordion-item"><a href="#" class="item-content item-link">
+        <div class="item-inner">
+          <div class="item-title">မိတ္ဆက္</div>
+        </div></a>
+      <div class="accordion-item-content">
+        <div class="content-block">
+           <p> ေက်းဇူးတရားနဲ႔ ပတ္သက္ျပီး ျမတ္စြာဘုရား ေဟာခဲ့တဲ့ ေတြ႔ရခဲတဲ့ လူ ႏွစ္မ်ိဳး ရိွပါတယ္။ ပထမ တစ္မ်ိဳးကေတာ့ ကိုယ္ က သူ႔အေပၚ ေက်းဇူးမရိွပဲ ကိုယ့္ကို 
+
+ေက်းဇူးလာျပဳတဲ့ သူမ်ိဳးပါ။ ဒီလိုလူမ်ိဳးက ေတြ႔ရခဲပါတယ္။ ေနာက္တစ္မ်ိဳးကေတာ့ ကိုယ္က သူ႔ကို ေက်းဇူးျပဳလို႔ ကိုယ္ျပဳတဲ့ ေက်းဇူးကို အသိအမွတ္ျပဳျပီး ျပန္ဆပ္တဲ့ သူမ်ိဳးပါ။ 
+
+ေလာကျကီးမွာ ဒီလိုလူမ်ိဳးေတြ ေတြ႔ရဖို႔ ရွားတယ္လို႔ ျမတ္စြာ ဘုရား ေဟာျကားခဲ့ပါတယ္။
+</p>
+<p>
+သူငယ္ခ်င္း အေနနဲ႔ ကိုယ့္ကို ေက်းဇူးျပဳတဲ့ သူေတြကို ျပန္ျပီး ေက်းဇူးဆပ္ခ်င္ေပမယ့္ အခ်ိန္ကာလ ျကာလာတာနဲ႔ အေသးအမြား ကိစၥေလးေတြကို ေမ့သြားႏိုင္ပါတယ္။ 
+
+ဒါေျကာင့္မို႔ေက်းဇူးတင္မိတဲ့ အေျကာင္းေတြကို စနစ္တက် မွတ္သားထားျပီး ေနာင္တစ္ခ်ိန္ ျပန္ျကည့္မိတဲ့ အခါ ကိုယ့္အေပၚေက်းဇူးျပဳဖူးတဲ့ သူေတြကို အမွတ္ရျပီး 
+
+အခြင့္အခါသင့္ရင္ ေက်းဇူးျပန္ဆပ္ႏိုင္ဖို႔အတြက္ ရည္ရြယ္ပါတယ္။ </p>
+        </div>
+      </div>
+    </li>
+    <li class="accordion-item"><a href="#" class="item-content item-link">
+        <div class="item-inner">
+          <div class="item-title">အသံုးျပဳနည္း</div>
+        </div></a>
+      <div class="accordion-item-content">
+        <div class="content-block">
+         <p><span class="color-blue">Main Menu</span> ကို ျကည့္ ရႈႏိုင္ရန္ Screen ကို ညာဘက္သို႔ ပြတ္ဆြဲပါ (သိုု႕မဟုတ္ ) ညာဘက္ အေပၚေထာင့္ ရိွ <span class="color-blue">Menu icon</span> ကို ႏိွပ္နိုင္ပါသည္။</p>
+         <p>
+အသံုးျပဳနည္းကလည္း ရိုးရွင္းပါတယ္
+<span class="color-blue">New Thanks</span> ခလုပ္ကို ႏိွပ္လိုက္ရင္ ေဖာင္ တစ္ခု က်လာပါမယ္။ အဲ့ဒီေဖာင္မွာ ကိုယ္ ေက်းဇူးတင္တဲ့ သူငယ္ခ်င္း/မိတ္ေဆြရဲ႕ နာမည္ နဲ႔ ဘာေျကာင့္ သူ႕ကို ေက်းဇူးတင္ ရတယ္ 
+
+ဆိုတဲ့ အေျကာင္း ေရးျပီး <span class="color-blue">Save Thank</span> ခလုပ္ကို ႏိွပ္လိုက္ရံုပါပဲ။
+</p>
+
+<p>မွားေရးမိလို႔ ဖ်တ္ခ်င္တယ္ ဆိုရင္ ကိုယ္ ဖ်တ္ခ်င္တဲ့ အေျကာင္းအရာအေပၚမွာ ဘယ္ဘက္ကို ပြတ္ဆြဲလိုက္ရင္ <span class="color-blue">Delete Menu</span> ေပၚလာပါလိမ့္မယ္။ <span class="color-blue">Delete</span> ကို ႏိွပ္ျပီး ဖ်တ္ႏိုင္ပါတယ္။</p>
+<p>
+ေနာက္ပိုင္း မွာ ကိုယ့္သူငယ္ခ်င္း နာမည္ေတြ ထပ္ခါ ထပ္ခါ ေရးစရာ မလိုေတာ့ပဲ နာမည္ အစကို ရိုက္လိုက္တာနဲ႔ <span class="color-blue">Auto Complete List</span> မွာ နာမည္ဆင္တူတဲ့ သူငယ္ခ်င္း 
+
+နာမည္ေတြကို ျပသေပးသြားမွာ ျဖစ္ပါတယ္။
+</p>
+<p>
+ဘယ္သူငယ္ခ်င္းကို ဘယ္ႏွစ္ခါ ေက်းဇူးတင္တဲ့ အေျကာင္း ေရးထားလဲဆိုတာကို <span class="color-blue">Friend List</span> မွာ ျကည့္ရႈႏိုင္မွာ ျဖစ္ပါတယ္။
+<span class="color-blue">Friend List</span> မွာ သူငယ္ခ်င္း နာမည္နဲ႕ သူ႕ကို ေက်းဇူးတင္ေျကာင္း မွတ္သားထားတဲ့ အျကိမ္အေရအတြက္ကို ယွဥ္တြဲ ေဖာ္ျပထားပါတယ္။</p>
+        </div>
+      </div>
+    </li>
+
+
+   <li class="accordion-item"><a href="#" class="item-content item-link">
+        <div class="item-inner">
+          <div class="item-title">Developer</div>
+        </div></a>
+      <div class="accordion-item-content">
+        <div class="list-block">
+          <ul>
+            <li class="item-content">
+              <div class="item-media">
+                <i class="icon icon-form-name"></i>
+              </div>
+              <div class="item-inner">
+                <div class="item-title">
+                    Developed by
+                </div>
+                <div class="item-after">
+                  <span class="color-blue">TEAM CS</span>
+                </div>
+              </div>
+            </li>
+            <li class="item-content">
+              <div class="item-media">
+                <i class="icon icon-form-url"></i>
+              </div>
+              <div class="item-inner">
+                <div class="item-title">
+                    Website
+                </div>
+                <div class="item-after">
+                  <a href="https://mcsc16.com">https://mcsc16.com</a>
+                </div>
+              </div>
+            </li>
+            <li class="item-content">
+              <div class="item-media">
+                <i class="icon icon-form-url"></i>
+              </div>
+              <div class="item-inner">
+                <div class="item-title">
+                    Facebook
+                </div>
+                <div class="item-after">
+                  <a href="https://facebook.com/teamcs1111">https://facebook.com/teamcs1111</a>
+                </div>
+              </div>
+            </li>
+
+            <li class="item-content">
+              <div class="item-media">
+                <i class="icon icon-form-comment"></i>
+              </div>
+              <div class="item-inner">
+                <div class="item-title">
+                    Messenger
+                </div>
+                <div class="item-after">
+                  <a href="http://m.me/teamcs1111">http://m.me/teamcs1111</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </li>
+
+
+  </ul>
+</div>
+            </div>
+          </div>
+    
+
+
+          <!-- Services Page-->
+          <div data-page="services" class="page cached">
+            <div class="page-content">
+              <div class="content-block">
+                <p>You may go <a href="#" class="back">back</a> or load <a href="#about">About</a> page.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel commodo massa, eu adipiscing mi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus ultricies dictum neque, non varius tortor fermentum at. Curabitur auctor cursus imperdiet. Nam molestie nisi nec est lacinia volutpat in a purus. Maecenas consectetur condimentum viverra. Donec ultricies nec sem vel condimentum. Phasellus eu tincidunt enim, sit amet convallis orci. Vestibulum quis fringilla dolor.    </p>
+                <p>Mauris commodo lacus at nisl lacinia, nec facilisis erat rhoncus. Sed eget pharetra nunc. Aenean vitae vehicula massa, sed sagittis ante. Quisque luctus nec velit dictum convallis. Nulla facilisi. Ut sed erat nisi. Donec non dolor massa. Mauris malesuada dolor velit, in suscipit leo consectetur vitae. Duis tempus ligula non eros pretium condimentum. Cras sed dolor odio.</p>
+                <p>Suspendisse commodo adipiscing urna, a aliquet sem egestas in. Sed tincidunt dui a magna facilisis bibendum. Nunc euismod consectetur lorem vitae molestie. Proin mattis tellus libero, non hendrerit neque eleifend ac. Pellentesque interdum velit at lacus consectetur scelerisque et id dui. Praesent non fringilla dui, a elementum purus. Proin vitae lacus libero. Nunc eget lectus non mi iaculis interdum vel a velit. Nullam tincidunt purus id lacus ornare, at elementum turpis euismod. Cras mauris enim, congue eu nisl sit amet, pulvinar semper erat. Suspendisse sed mauris diam.</p>
+                <p>Nam eu mauris leo. Pellentesque aliquam vehicula est, sed lobortis tellus malesuada facilisis. Fusce at hendrerit ligula. Donec eu nibh convallis, pulvinar enim quis, lacinia diam. Ut semper ac magna nec ornare. Integer placerat justo sed nunc suscipit facilisis. Vestibulum ac tincidunt augue. Duis eu aliquet mauris, vel luctus mauris. Nulla non augue nec diam pharetra posuere at in mauris.     </p>
+              </div>
+            </div>
+          </div>
+          <!-- Form Page-->
+          <div data-page="form" class="page cached">
+            <div class="page-content">
+              <div class="content-block-title">Form Example</div>
+              <div class="list-block">
+                <ul>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"> <i class="icon icon-form-name"></i> </div>
+                      <div class="item-inner"> 
+                        <div class="item-title label">Name</div>
+                        <div class="item-input">
+                          <input type="text" placeholder="Your name">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-form-email"></i></div>
+                      <div class="item-inner"> 
+                        <div class="item-title label">E-mail</div>
+                        <div class="item-input">
+                          <input type="email" placeholder="E-mail">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-form-url"></i></div>
+                      <div class="item-inner"> 
+                        <div class="item-title label">URL</div>
+                        <div class="item-input">
+                          <input type="url" placeholder="URL">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-form-password"></i></div>
+                      <div class="item-inner"> 
+                        <div class="item-title label">Password</div>
+                        <div class="item-input">
+                          <input type="password" placeholder="Password">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-form-tel"></i></div>
+                      <div class="item-inner"> 
+                        <div class="item-title label">Phone</div>
+                        <div class="item-input">
+                          <input type="tel" placeholder="Phone">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-form-gender"></i></div>
+                      <div class="item-inner"> 
+                        <div class="item-title label">Gender</div>
+                        <div class="item-input">
+                          <select>
+                            <option>Male</option>
+                            <option>Female</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-form-calendar"></i></div>
+                      <div class="item-inner"> 
+                        <div class="item-title label">Birth date</div>
+                        <div class="item-input">
+                          <input type="date" placeholder="Birth day" value="2014-04-30">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-form-toggle"></i></div>
+                      <div class="item-inner"> 
+                        <div class="item-title label">Switch</div>
+                        <div class="item-input">
+                          <label class="label-switch">
+                            <input type="checkbox">
+                            <div class="checkbox"></div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-form-settings"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title label">Slider</div>
+                        <div class="item-input">
+                          <div class="range-slider">
+                            <input type="range" min="0" max="100" value="50" step="0.1">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="align-top">
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-form-comment"></i></div>
+                      <div class="item-inner"> 
+                        <div class="item-title label">Textarea</div>
+                        <div class="item-input">
+                          <textarea></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="content-block">
+                <div class="row">
+                  <div class="col-50"><a href="#" class="button button-big button-fill color-red">Cancel</a></div>
+                  <div class="col-50">
+                    <input type="submit" value="Submit" class="button button-big button-fill color-green">
+                  </div>
+                </div>
+              </div>
+              <div class="content-block-title">Checkbox group</div>
+              <div class="list-block">
+                <ul>
+                  <li>
+                    <label class="label-checkbox item-content">
+                      <input type="checkbox" name="ks-checkbox" value="Books" checked>
+                      <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title">Books</div>
+                      </div>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="label-checkbox item-content">
+                      <input type="checkbox" name="ks-checkbox" value="Movies">
+                      <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title">Movies</div>
+                      </div>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="label-checkbox item-content">
+                      <input type="checkbox" name="ks-checkbox" value="Food">
+                      <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title">Food</div>
+                      </div>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="label-checkbox item-content">
+                      <input type="checkbox" name="ks-checkbox" value="Drinks">
+                      <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title">Drinks</div>
+                      </div>
+                    </label>
+                  </li>
+                </ul>
+              </div>
+              <div class="content-block-title">Radio buttons group</div>
+              <div class="list-block">
+                <ul>
+                  <li>
+                    <label class="label-radio item-content">
+                      <input type="radio" name="ks-radio" value="Books" checked>
+                      <div class="item-inner">
+                        <div class="item-title">Books</div>
+                      </div>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="label-radio item-content">
+                      <input type="radio" name="ks-radio" value="Movies">
+                      <div class="item-inner">
+                        <div class="item-title">Movies</div>
+                      </div>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="label-radio item-content">
+                      <input type="radio" name="ks-radio" value="Food">
+                      <div class="item-inner">
+                        <div class="item-title">Food</div>
+                      </div>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="label-radio item-content">
+                      <input type="radio" name="ks-radio" value="Drinks">
+                      <div class="item-inner">
+                        <div class="item-title">Drinks</div>
+                      </div>
+                    </label>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+       </div>
+        <!-- Bottom Toolbar-->
+        <!--div class="toolbar">
+          <div class="toolbar-inner"><a href="#" class="link">Link 1</a><a href="#" class="link">Link 2</a></div>
+        </div-->
+      </div>
+    </div>
+
+
+ <!-- Picker -->
+  <!--div class="picker-modal picker-1">
+    <div class="toolbar">
+      <div class="toolbar-inner">
+        <div class="left">New Thanks</div>
+        <div class="right"><a href="#" class="close-picker">Close</a></div>
+      </div>
+    </div>
+    <div class="picker-modal-inner">
+      <div class="content-block">
+        <div class="list-block">
+  <ul>
+  
+    <li>
+      <div class="item-content">
+        <div class="item-media"><i class="icon icon-form-name"></i></div>
+        <div class="item-inner">
+          <div class="item-title label">Name</div>
+          <div class="item-input">
+              <input type="text" id="thanks_name_input" name="name">
+          </div>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="item-content">
+        <div class="item-media"><i class="icon icon-form-settings"></i></div>
+        <div class="item-inner">
+          <div class="item-title label">Why?</div>
+          <div class="item-input">
+              <input type="text" id="thanks_about_input"  name="about">
+          </div>
+        </div>
+      </div>
+    </li>
+    </ul>
+  <p><a href="#" id="save_thanks_btn" class="button button-round active close-picker">Save Thanks</a></p> 
+  
+</div>   
+      </div>
+    </div>
+    </div-->
+<script type="text/x-template" id="thanks_view">
+      <div class="swipeout-content">
+        <div class="item-content">
+          <div class="item-inner">
+              <p><a href="#about"><span class="thanks_name_display"><%= name %></span></a> _ <span class="thanks_about_display"><%= about %></span><span class="thanks_id"><%= id %></span></p>
+              
+          </div>
+        </div>
+      </div>
+      <div class="swipeout-actions-right">
+        <a href="#" class="thanks_delete_btn">Delete</a>
+        <!--a href="#" class="thanks_edit_btn">Edit</a-->
+        <a class="swipeout-close" href="#">Cancel</a>
+      </div>
+ </script>
+
+<script type="text/template7" id="rankTemplate">
+        <li class="item-content">
+          <div class="item-media"><i class="icon icon-form-name"></i></div>
+          <div class="item-inner">
+            <div class="item-title"><a href="#about"><span class="thanks_name_display">{{name}}</span></a></div>
+            <div class="item-after"><span class="badge bg-red">{{count}}</span></div>
+          </div>
+        </li>
+</script>
+
+
+
+<script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/backbone/backbone.js"></script>
+    <!-- Path to Framework7 Library JS-->
+    <script type="text/javascript" src="js/framework7.min.js"></script>
+    <!-- Path to your app js-->
+    <script type="text/javascript" src="js/my-app.js"></script>
+  </body>
+</html>

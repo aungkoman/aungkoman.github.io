@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rose Dehydration</title>
+    <script src="js/chart.js"></script>
+</head>
+
+<body>
+    <div>
+        <canvas id="test1"></canvas>
+    </div>
+</body>
+
+<script>
+    labels = [
+        '0 min',
+        '10 min',
+        '20 min',
+        '30 min',
+        '40 min',
+        '50 min',
+        '60 min',
+        '70 min',
+        '80 min',
+        '90 min',
+        '100 min',
+    ];
+
+    data = {
+        labels: labels,
+        datasets: [{
+                label: 'Lightness',
+                backgroundColor: 'blue',
+                borderColor: 'lightblue',
+                data: [31.91, 31.45, 30.76, 27.76, 25.04, 22.55, 21.29, 20.61, 19.87, 18.23, 16.82],
+            }, {
+                label: 'Redness',
+                backgroundColor: 'pink',
+                borderColor: 'red',
+                data: [42.98, 42.23, 36.95, 35.20, 35.22, 33.34, 30.57, 27.12, 23.69, 22.79, 17.7],
+            }, {
+                label: 'Yellowness',
+                backgroundColor: 'lightblue',
+                borderColor: 'yellow',
+                data: [-4.50, -4.46, -2.62, 0.56, 0.88, 1.05, 3.67, 3.87, 4.30, 4.32, 5.7],
+            }
+
+        ]
+    };
+
+    config = {
+        type: 'line',
+        data: data,
+        options: {}
+    };
+
+    myChart = new Chart(
+        document.getElementById('test1'),
+        config
+    );
+
+
+    /*
+    var anotherData = {
+        labels: labels,
+        datasets: [{
+                label: 'L',
+                backgroundColor: 'rgb(255, 0, 0)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+            }, {
+                label: 'R',
+                backgroundColor: 'rgb(0, 255, 0)',
+                borderColor: 'rgb(0, 0, 132)',
+                data: [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+            }, {
+                label: 'R',
+                backgroundColor: 'rgb(0, 255, 0)',
+                borderColor: 'rgb(0, 0, 132)',
+                data: [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+            }
+
+
+        ]
+    };
+    function addData(chart, updateData) {
+        chart.data.labels = updateData.labels;
+        chart.data.datasets = updateData.datasets;
+        chart.update();
+    }
+    var index = 0;
+    var myInterval = setInterval(updateData, 3000);
+
+    function updateData() {
+        index++;
+        if (index % 2 == 0) {
+            addData(myChart, anotherData.labels, anotherData);
+        } else {
+            addData(myChart, data.labels, data);
+        }
+    }
+    */
+</script>
+
+</html>

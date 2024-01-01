@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Associative Array –  – Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="Two Types of Array
+" />
+    <meta property="og:description" content="Two Types of Array
+" />
+    
+    <meta name="author" content="" />
+
+    
+    <meta property="og:title" content="Associative Array" />
+    <meta property="twitter:title" content="Associative Array" />
+    
+
+    <!-- facebook Open Graph Metadatas -->
+    <meta content="your_facebook_app_id" property="fb:app_id">
+    <meta content="Your awesome title" property="og:site_name">
+    
+    <meta content="Associative Array" property="og:title">
+    
+    
+    <meta content="article" property="og:type">
+    
+    
+    <meta content="Programming Basic , Associative Array" property="og:description">
+    
+    
+    <meta content="http://localhost:4000/2021/11/09/associative-array.html" property="og:url">
+    
+    
+    <meta content="2021-11-09T00:00:00+06:30" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    <meta content="/img/posts/../images/auto_reply_sms.png" property="og:image">
+    
+    
+    
+    
+    
+    
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title=" - Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/"></a></h1>
+            <p class="site-description">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>Associative Array</h1>
+
+  <div class="entry">
+    <h3 id="two-types-of-array">Two Types of Array</h3>
+
+<p>ပြီးခဲ့တဲ့ အခန်းမှာ array ဆိုတာ data အများကြီးကို အခန်းလိုက် အခန်းလိုက် သိမ်းလို့ရတဲ့ varaible တစ်မျိုးဖြစ်တဲ့အကြောင်း ရှင်းပြခဲ့ပါတယ်။</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">name_list</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Aung Aung"</span><span class="p">,</span> <span class="s">"Mg Mg"</span><span class="p">,</span> <span class="s">"Bo Bo"</span><span class="p">]</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">name_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># Aung Aung
+</span><span class="nf">print</span><span class="p">(</span><span class="n">name_list</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># Mg Mg
+</span><span class="nf">print</span><span class="p">(</span><span class="n">name_list</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="c1"># Bo Bo
+</span></code></pre></div></div>
+
+<p>ဒီမှာဆိုရင် array အခန်းတွေကို numerical index နဲ့ သုံးထားတာကို တွေ့ရမှာပါ။
+ကျွန်တော် တို့ array နောက်တစ်မျိုး ကို ကြည့်ကြရအောင်။</p>
+
+<p>ဆိုကြပါစို့ ကျွန်တော်တို့ လူတစ်ယောက်ရဲ့ အမည်၊ အသက် နဲ့ သွေးအမျိုးအစားကို သိမ်းချင်တယ် ဆိုကြပါစို။</p>
+
+<p>ပုံမှန် varariable တွေ နဲ့ ဒါမျိုး ရေးနိုင်ပါတယ်</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">name</span> <span class="o">=</span> <span class="s">"Mg Mg"</span>
+<span class="n">age</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">blood</span> <span class="o">=</span> <span class="s">"B"</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"Personal data is "</span><span class="p">,</span><span class="n">name</span><span class="p">,</span> <span class="s">" "</span><span class="p">,</span><span class="n">age</span><span class="p">,</span> <span class="s">" "</span><span class="p">,</span><span class="n">blood</span><span class="p">)</span>
+</code></pre></div></div>
+<p>numerical array နဲ့ ဆို ဒါမျိုးရေးနိုင်ပါတယ်</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">person_data</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Mg Mg"</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="s">"B"</span><span class="p">]</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"Personal data is "</span><span class="p">,</span><span class="n">person_data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s">" "</span><span class="p">,</span> <span class="n">person_data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s">" "</span><span class="p">,</span><span class="n">person_data</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</code></pre></div></div>
+<p>associative array နဲ့ဆို ဒါမျိုး ရေးနိုင်ပါတယ်။</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">person_data</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"name"</span> <span class="p">:</span> <span class="s">"Mg Mg"</span><span class="p">,</span>
+  <span class="s">"age"</span> <span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+  <span class="s">"blood"</span> <span class="p">:</span> <span class="s">"B"</span>
+<span class="p">}</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"Personal data is "</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">person_data</span><span class="p">[</span><span class="s">"name"</span><span class="p">])</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">person_data</span><span class="p">[</span><span class="s">"age"</span><span class="p">])</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">person_data</span><span class="p">[</span><span class="s">"blood"</span><span class="p">])</span>
+
+</code></pre></div></div>
+
+<p>numerical array တွေကို သိမ်းတုန်းက value တွေအကုန်လုံးကို comma (,) ခြားပြီး သိမ်းပါတယ်။ ပြန်ထုတ်သုံးရင် index number 0 က စပြီး ပြန်ထုတ်သုံးပါတယ်။</p>
+
+<p>အခု associative array မှာတော့ သိမ်းတဲ့အခါ 
+key : value pair ပုံစံနဲ့ သိမ်းပါတယ်။ ပြန်ထုတ်သုံးချင်ရင် key နဲ့ ပြန်ထုတ်သုံးလို့ရပါတယ်။</p>
+
+<p>နမူနာ array မှာဆိုရင်</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">person_data</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"name"</span> <span class="p">:</span> <span class="s">"Mg Mg"</span><span class="p">,</span>
+  <span class="s">"age"</span> <span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+  <span class="s">"blood"</span> <span class="p">:</span> <span class="s">"B"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>ဆိုပြီး pair (၃) ခုသိမ်းထားပါတယ်။ နာမည်ကို ထုတ်ကြည့်ချင်ရင် numerical index လို index 0 ကနေ တွက်ကြည့်စရာမလိုပါဘူး၊ လိုချင်တဲ့ key နဲ့ တိုက်ရိုက် ထုတ်ကြည့်နိုင်ပါတယ်။</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">print</span><span class="p">(</span><span class="n">person_data</span><span class="p">[</span><span class="s">"name"</span><span class="p">])</span> <span class="c1"># Mg Mg
+</span></code></pre></div></div>
+
+<p>ဒါဆိုရင်တော့ numerical array နဲ့ associative array ကို နားလည်မယ်လို့ ထင်ပါတယ်။</p>
+
+  </div>
+
+  <div class="date">
+    Written on November  9, 2021
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+    <script>
+	window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '608464966533110',
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v9.0'
+	  });
+		
+	  FB.AppEvents.logPageView();   
+		
+	};
+  
+	(function(d, s, id){
+	   var js, fjs = d.getElementsByTagName(s)[0];
+	   if (d.getElementById(id)) {return;}
+	   js = d.createElement(s); js.id = id;
+	   js.src = "https://connect.facebook.net/en_US/sdk.js";
+	   fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+
+	 
+FB.getLoginStatus(function(response) {
+	console.log("getLoginStatus");
+	console.log(response);
+    statusChangeCallback(response);
+});
+
+function statusChangeCallback(response){
+	console.log('response is');
+	console.log(response);
+	if(response.status == "connected"){
+		console.log("user is logged in ");
+	}
+	else{
+		console.log("user need to login");
+		//FB.login();
+	}
+}
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+  </script>
+
+  
+<fb:login-button 
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
+  </body>
+</html>

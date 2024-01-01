@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="57x57" href="./apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="./apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="./apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="./apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="./apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="./apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="./apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="./android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="./favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="./ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <title>Birthday Calculator</title>
+    <style>
+        body {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+        }
+        
+        thead,
+        tfoot {
+            background-color: #3f87a6;
+            color: #fff;
+        }
+        
+        tbody {
+            background-color: #e4f0f5;
+        }
+        
+        caption {
+            padding: 10px;
+            caption-side: bottom;
+        }
+        
+        table {
+            border-collapse: collapse;
+            border: 2px solid rgb(200, 200, 200);
+            letter-spacing: 1px;
+            font-family: sans-serif;
+            font-size: .8rem;
+            width: 100%;
+            max-width: 500px;
+            min-width: 200px;
+        }
+        
+        td,
+        th {
+            border: 1px solid rgb(190, 190, 190);
+            padding: 5px 10px;
+        }
+        
+        td {
+            text-align: center;
+        }
+        
+        tr.past {
+            background-color: #a15e10;
+        }
+        
+        tr.current {
+            background-color: #11be37;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h4>မွေးနေ့ မွေးရက် ထပ်တူကျသောခုနှစ်များကို တွက်ချက်ခြင်း</h4>
+    <label for="birthday_input">မွေးနေ့ ရွေးချယ်ပါ</label>
+    <input type="date" placeholder="Choose Birthday" id="birthday_input">
+    <table>
+        <thead>
+            <th>#</th>
+            <th>Year</th>
+            <th>Age</th>
+        </thead>
+        <tbody id="birthday_list_table">
+            <tr>
+                <td colspan="3">မွေးနေ့ မွေးရက် ထပ်တူကျသောခုနှစ်များကို တွက်ချက်ရန် မွေးနေ့ ရွေးချယ်ပါ</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        function makeObj(year, age) {
+            return {
+                year,
+                age
+            };
+        }
+
+        function calculate(year) {
+            let age = 0;
+            let arr = [6, 5, 6, 11];
+            let index;
+            let modu = year % 4;
+            if (modu == 0) index = 2;
+            if (modu == 1) index = 0;
+            if (modu == 2) index = 3;
+            if (modu == 3) index = 1;
+
+            let nextYear1 = year + arr[index];
+            let nextYear2 = nextYear1 + arr[index + 1];
+            let nextYear3 = nextYear2 + arr[index + 1];
+
+            let nextYears = [makeObj(year, age)];
+            for (let i = 0; i < 20; i++) {
+                let nextYear = nextYears[i]['year'] + arr[index];
+                if (nextYear - year > 100) break;
+                nextYears[nextYears.length] = makeObj(nextYear, nextYear - year);
+                index++;
+                if (index >= 4) index = 0;
+
+            }
+            return nextYears;
+        }
+
+        function makeRow({
+            past,
+            serailNo,
+            year,
+            age
+        }) {
+            return "<tr class='" + past + "'><td>" + serailNo + "</td><td>" + year + "</td><td>" + age + "</td></tr>";
+        }
+
+        let birthday_input = document.querySelector('#birthday_input');
+        let birthday_list_table = document.querySelector('#birthday_list_table');
+        birthday_input.addEventListener('change', function() {
+            let birthday = this.valueAsDate;
+            let date = new Date(birthday);
+            let year = date.getFullYear();
+            //console.log(year);
+            //console.log(birthday);
+            //console.log('birthday is ' + birthday);
+            let nextYears = calculate(year);
+
+            //console.log(nextYears);
+            // #birthday_list_table > tbody
+            let rowHtmlArray = "";
+            for (let i = 0; i < nextYears.length; i++) {
+                nextYears[i].serailNo = i + 1;
+                let currentYear = new Date().getFullYear();
+                if (nextYears[i]['year'] < currentYear) nextYears[i].past = 'past';
+                else if (nextYears[i]['year'] == currentYear) nextYears[i].past = 'current';
+                else nextYears[i].past = '';
+                rowHtmlArray += makeRow(nextYears[i]);
+            }
+            birthday_list_table.innerHTML = rowHtmlArray;
+            // နှစ်တစ်ရာ အထိပဲ တွက်ပေးရန်
+        });
+    </script>
+
+</body>
+
+</html>

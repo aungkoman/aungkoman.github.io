@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>How to increase upload file size in apache? –  – Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="Increase PHP upload file size
+
+လက်ရှိ ဆာဗာက သုံးေနတဲ့ PHP version ကို 
+&lt;?php
+phpinfo();
+?&gt;
+
+ဒီဖိုင်မှာ သွားကြည့်။
+
+Loaded Configuration File	/etc/php/8.0/fpm/php.ini
+
+ဒါဆို ပြင်ရမယ့် ဖိုင်ကိုသိရပြီ။
+
+sudo nano /etc/php/8.0/fpm/php.ini
+
+Nano editor နဲ့ ပွင့်လာပြီဆိုရင် ရှာဖို့အတွက် Ctrl+w ကို နှိပ်။
+
+ပြင်ရမှာက ဒီ (၂)​ေကြာင်း။
+
+; Maximum allowed size for uploaded files.
+upload_max_filesize = 40M
+
+; Must be greater than or equal to upload_max_filesize
+post_max_size = 40M
+
+Ctrl+w ကို နှိပ်လိုက်ရင် search လုပ်မယ့် keyword ရိုက်ခိုင်းလိမ့်မယ်။
+upload_max_filesize လို့ ရိုက်ပြီး Enter နှိပ်။
+
+အဲ့စာေကြာင်းကို တန်းေရာက်သွားလိမ့်မယ်။
+
+Default က 2M လို့ ဖြစ်ေကာင်းဖြစ်ေနလိမ့်မယ်။
+
+80M ေပါ့ ကိုယ်လိုချင်သေလာက် ေပြာင်း
+
+Ctrl+x ကို နှိပ်ပြီး Save
+
+ပြီးရင် sudo nano /etc/php/8.0/fpm/php.ini နဲ့ post_max_size ကိုလည်း ဆက်ပြင်မယ်။
+
+နှစ်ေကြာင်းလံုး ပြင်ပြီးရင်
+
+sudo service apache2 restart
+
+Apache ကို Restart ချ
+
+" />
+    <meta property="og:description" content="Increase PHP upload file size
+
+လက်ရှိ ဆာဗာက သုံးေနတဲ့ PHP version ကို 
+&lt;?php
+phpinfo();
+?&gt;
+
+ဒီဖိုင်မှာ သွားကြည့်။
+
+Loaded Configuration File	/etc/php/8.0/fpm/php.ini
+
+ဒါဆို ပြင်ရမယ့် ဖိုင်ကိုသိရပြီ။
+
+sudo nano /etc/php/8.0/fpm/php.ini
+
+Nano editor နဲ့ ပွင့်လာပြီဆိုရင် ရှာဖို့အတွက် Ctrl+w ကို နှိပ်။
+
+ပြင်ရမှာက ဒီ (၂)​ေကြာင်း။
+
+; Maximum allowed size for uploaded files.
+upload_max_filesize = 40M
+
+; Must be greater than or equal to upload_max_filesize
+post_max_size = 40M
+
+Ctrl+w ကို နှိပ်လိုက်ရင် search လုပ်မယ့် keyword ရိုက်ခိုင်းလိမ့်မယ်။
+upload_max_filesize လို့ ရိုက်ပြီး Enter နှိပ်။
+
+အဲ့စာေကြာင်းကို တန်းေရာက်သွားလိမ့်မယ်။
+
+Default က 2M လို့ ဖြစ်ေကာင်းဖြစ်ေနလိမ့်မယ်။
+
+80M ေပါ့ ကိုယ်လိုချင်သေလာက် ေပြာင်း
+
+Ctrl+x ကို နှိပ်ပြီး Save
+
+ပြီးရင် sudo nano /etc/php/8.0/fpm/php.ini နဲ့ post_max_size ကိုလည်း ဆက်ပြင်မယ်။
+
+နှစ်ေကြာင်းလံုး ပြင်ပြီးရင်
+
+sudo service apache2 restart
+
+Apache ကို Restart ချ
+
+" />
+    
+    <meta name="author" content="" />
+
+    
+    <meta property="og:title" content="How to increase upload file size in apache?" />
+    <meta property="twitter:title" content="How to increase upload file size in apache?" />
+    
+
+    <!-- facebook Open Graph Metadatas -->
+    <meta content="your_facebook_app_id" property="fb:app_id">
+    <meta content="Your awesome title" property="og:site_name">
+    
+    <meta content="How to increase upload file size in apache?" property="og:title">
+    
+    
+    <meta content="article" property="og:type">
+    
+    
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." property="og:description">
+    
+    
+    <meta content="http://localhost:4000/2023/03/30/how-to-increase-upload-file-size-in-apache.html" property="og:url">
+    
+    
+    <meta content="2023-03-30T00:00:00+06:30" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    <meta content="/img/logo-high-resolution.png" property="og:image">
+    
+    
+    
+    
+    
+    
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title=" - Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/"></a></h1>
+            <p class="site-description">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>How to increase upload file size in apache?</h1>
+
+  <div class="entry">
+    <p>Increase PHP upload file size</p>
+
+<p>လက်ရှိ ဆာဗာက သုံးေနတဲ့ PHP version ကို 
+&lt;?php
+phpinfo();
+?&gt;</p>
+
+<p>ဒီဖိုင်မှာ သွားကြည့်။</p>
+
+<p>Loaded Configuration File	/etc/php/8.0/fpm/php.ini</p>
+
+<p>ဒါဆို ပြင်ရမယ့် ဖိုင်ကိုသိရပြီ။</p>
+
+<p>sudo nano /etc/php/8.0/fpm/php.ini</p>
+
+<p>Nano editor နဲ့ ပွင့်လာပြီဆိုရင် ရှာဖို့အတွက် Ctrl+w ကို နှိပ်။</p>
+
+<p>ပြင်ရမှာက ဒီ (၂)​ေကြာင်း။</p>
+
+<p>; Maximum allowed size for uploaded files.
+upload_max_filesize = 40M</p>
+
+<p>; Must be greater than or equal to upload_max_filesize
+post_max_size = 40M</p>
+
+<p>Ctrl+w ကို နှိပ်လိုက်ရင် search လုပ်မယ့် keyword ရိုက်ခိုင်းလိမ့်မယ်။
+upload_max_filesize လို့ ရိုက်ပြီး Enter နှိပ်။</p>
+
+<p>အဲ့စာေကြာင်းကို တန်းေရာက်သွားလိမ့်မယ်။</p>
+
+<p>Default က 2M လို့ ဖြစ်ေကာင်းဖြစ်ေနလိမ့်မယ်။</p>
+
+<p>80M ေပါ့ ကိုယ်လိုချင်သေလာက် ေပြာင်း</p>
+
+<p>Ctrl+x ကို နှိပ်ပြီး Save</p>
+
+<p>ပြီးရင် sudo nano /etc/php/8.0/fpm/php.ini နဲ့ post_max_size ကိုလည်း ဆက်ပြင်မယ်။</p>
+
+<p>နှစ်ေကြာင်းလံုး ပြင်ပြီးရင်</p>
+
+<p>sudo service apache2 restart</p>
+
+<p>Apache ကို Restart ချ</p>
+
+
+  </div>
+
+  <div class="date">
+    Written on March 30, 2023
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+    <script>
+	window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '608464966533110',
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v9.0'
+	  });
+		
+	  FB.AppEvents.logPageView();   
+		
+	};
+  
+	(function(d, s, id){
+	   var js, fjs = d.getElementsByTagName(s)[0];
+	   if (d.getElementById(id)) {return;}
+	   js = d.createElement(s); js.id = id;
+	   js.src = "https://connect.facebook.net/en_US/sdk.js";
+	   fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+
+	 
+FB.getLoginStatus(function(response) {
+	console.log("getLoginStatus");
+	console.log(response);
+    statusChangeCallback(response);
+});
+
+function statusChangeCallback(response){
+	console.log('response is');
+	console.log(response);
+	if(response.status == "connected"){
+		console.log("user is logged in ");
+	}
+	else{
+		console.log("user need to login");
+		//FB.login();
+	}
+}
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+  </script>
+
+  
+<fb:login-button 
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
+  </body>
+</html>

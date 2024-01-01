@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>How to Install MySQL Server on Ubuntu and Enable Remote Access –  – Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="How to Install MySQL Server on Ubuntu and Enable Remote Access
+
+Installation
+
+Install MySQL
+
+$ sudo apt-get install mysql-server libapache2-mod-auth-mysql php5-mysql
+
+
+Activate MySQL. (Skip if after 5.7)
+
+$ sudo mysql_install_db
+
+
+Finsh up by running the MySQL setup script.
+
+$ sudo mysql_secure_installation
+
+
+Say yes to all the options.
+
+Login &amp; Quit
+
+$ mysql -u [username] -p
+Enter passowrd: 
+mysql&gt; quit
+
+
+Create User
+
+mysql&gt; CREATE USER '[newuser]'@'localhost' IDENTIFIED BY '[password]';
+mysql&gt; GRANT ALL PRIVILEGES ON * . * TO '[newuser]'@'localhost';
+mysql&gt; FLUSH PRIVILEGES;
+
+
+
+Manage Permissions
+
+mysql&gt; GRANT [type of permission] ON [database name].[table name] TO '[username]'@'localhost';
+mysql&gt; REVOKE [type of permission] ON [database name].[table name] FROM '[username]'@'localhost';
+mysql&gt; DROP USER '[username]'@'localhost';
+
+
+
+Allow Remote Connection
+
+
+  Open /etc/mysql/my.cnf. (Or /etc/mysql/mysql.conf.d/mysqld.cnf if later than 5.7)
+  Comment this following line: bind-address  = 127.0.0.1
+  Run command sudo service mysql restart
+  Enter mysql shell, execute the following command:
+
+
+GRANT ALL PRIVILEGES ON *.* TO '[username]'@'[ip]' IDENTIFIED BY '[password]' WITH GRANT OPTION;
+
+
+If all ip addresses are allowed, replace [ip] to %.
+" />
+    <meta property="og:description" content="How to Install MySQL Server on Ubuntu and Enable Remote Access
+
+Installation
+
+Install MySQL
+
+$ sudo apt-get install mysql-server libapache2-mod-auth-mysql php5-mysql
+
+
+Activate MySQL. (Skip if after 5.7)
+
+$ sudo mysql_install_db
+
+
+Finsh up by running the MySQL setup script.
+
+$ sudo mysql_secure_installation
+
+
+Say yes to all the options.
+
+Login &amp; Quit
+
+$ mysql -u [username] -p
+Enter passowrd: 
+mysql&gt; quit
+
+
+Create User
+
+mysql&gt; CREATE USER '[newuser]'@'localhost' IDENTIFIED BY '[password]';
+mysql&gt; GRANT ALL PRIVILEGES ON * . * TO '[newuser]'@'localhost';
+mysql&gt; FLUSH PRIVILEGES;
+
+
+
+Manage Permissions
+
+mysql&gt; GRANT [type of permission] ON [database name].[table name] TO '[username]'@'localhost';
+mysql&gt; REVOKE [type of permission] ON [database name].[table name] FROM '[username]'@'localhost';
+mysql&gt; DROP USER '[username]'@'localhost';
+
+
+
+Allow Remote Connection
+
+
+  Open /etc/mysql/my.cnf. (Or /etc/mysql/mysql.conf.d/mysqld.cnf if later than 5.7)
+  Comment this following line: bind-address  = 127.0.0.1
+  Run command sudo service mysql restart
+  Enter mysql shell, execute the following command:
+
+
+GRANT ALL PRIVILEGES ON *.* TO '[username]'@'[ip]' IDENTIFIED BY '[password]' WITH GRANT OPTION;
+
+
+If all ip addresses are allowed, replace [ip] to %.
+" />
+    
+    <meta name="author" content="" />
+
+    
+    <meta property="og:title" content="How to Install MySQL Server on Ubuntu and Enable Remote Access" />
+    <meta property="twitter:title" content="How to Install MySQL Server on Ubuntu and Enable Remote Access" />
+    
+
+    <!-- facebook Open Graph Metadatas -->
+    <meta content="your_facebook_app_id" property="fb:app_id">
+    <meta content="Your awesome title" property="og:site_name">
+    
+    <meta content="How to Install MySQL Server on Ubuntu and Enable Remote Access" property="og:title">
+    
+    
+    <meta content="article" property="og:type">
+    
+    
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." property="og:description">
+    
+    
+    <meta content="http://localhost:4000/2023/03/13/mysql-remote-server-copy.html" property="og:url">
+    
+    
+    <meta content="2023-03-13T00:00:00+06:30" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    <meta content="/img/logo-high-resolution.png" property="og:image">
+    
+    
+    
+    
+    
+    
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title=" - Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/"></a></h1>
+            <p class="site-description">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>How to Install MySQL Server on Ubuntu and Enable Remote Access</h1>
+
+  <div class="entry">
+    <h1 id="how-to-install-mysql-server-on-ubuntu-and-enable-remote-access">How to Install MySQL Server on Ubuntu and Enable Remote Access</h1>
+
+<h2 id="installation">Installation</h2>
+
+<p>Install MySQL</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>mysql-server libapache2-mod-auth-mysql php5-mysql
+</code></pre></div></div>
+
+<p>Activate MySQL. (Skip if after 5.7)</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>mysql_install_db
+</code></pre></div></div>
+
+<p>Finsh up by running the MySQL setup script.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>mysql_secure_installation
+</code></pre></div></div>
+
+<p>Say yes to all the options.</p>
+
+<h2 id="login--quit">Login &amp; Quit</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mysql <span class="nt">-u</span> <span class="o">[</span>username] <span class="nt">-p</span>
+Enter passowrd: 
+mysql&gt; quit
+</code></pre></div></div>
+
+<h2 id="create-user">Create User</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; CREATE USER <span class="s1">'[newuser]'</span>@<span class="s1">'localhost'</span> IDENTIFIED BY <span class="s1">'[password]'</span><span class="p">;</span>
+mysql&gt; GRANT ALL PRIVILEGES ON <span class="k">*</span> <span class="nb">.</span> <span class="k">*</span> TO <span class="s1">'[newuser]'</span>@<span class="s1">'localhost'</span><span class="p">;</span>
+mysql&gt; FLUSH PRIVILEGES<span class="p">;</span>
+
+</code></pre></div></div>
+
+<h2 id="manage-permissions">Manage Permissions</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; GRANT <span class="o">[</span><span class="nb">type </span>of permission] ON <span class="o">[</span>database name].[table name] TO <span class="s1">'[username]'</span>@<span class="s1">'localhost'</span><span class="p">;</span>
+mysql&gt; REVOKE <span class="o">[</span><span class="nb">type </span>of permission] ON <span class="o">[</span>database name].[table name] FROM <span class="s1">'[username]'</span>@<span class="s1">'localhost'</span><span class="p">;</span>
+mysql&gt; DROP USER <span class="s1">'[username]'</span>@<span class="s1">'localhost'</span><span class="p">;</span>
+
+</code></pre></div></div>
+
+<h2 id="allow-remote-connection">Allow Remote Connection</h2>
+
+<ol>
+  <li>Open <code class="language-plaintext highlighter-rouge">/etc/mysql/my.cnf</code>. (Or <code class="language-plaintext highlighter-rouge">/etc/mysql/mysql.conf.d/mysqld.cnf</code> if later than 5.7)</li>
+  <li>Comment this following line: <code class="language-plaintext highlighter-rouge">bind-address  = 127.0.0.1</code></li>
+  <li>Run command <code class="language-plaintext highlighter-rouge">sudo service mysql restart</code></li>
+  <li>Enter mysql shell, execute the following command:</li>
+</ol>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="s1">'[username]'</span><span class="o">@</span><span class="s1">'[ip]'</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">'[password]'</span> <span class="k">WITH</span> <span class="k">GRANT</span> <span class="k">OPTION</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>If all ip addresses are allowed, replace <code class="language-plaintext highlighter-rouge">[ip]</code> to <code class="language-plaintext highlighter-rouge">%</code>.</p>
+
+  </div>
+
+  <div class="date">
+    Written on March 13, 2023
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+    <script>
+	window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '608464966533110',
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v9.0'
+	  });
+		
+	  FB.AppEvents.logPageView();   
+		
+	};
+  
+	(function(d, s, id){
+	   var js, fjs = d.getElementsByTagName(s)[0];
+	   if (d.getElementById(id)) {return;}
+	   js = d.createElement(s); js.id = id;
+	   js.src = "https://connect.facebook.net/en_US/sdk.js";
+	   fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+
+	 
+FB.getLoginStatus(function(response) {
+	console.log("getLoginStatus");
+	console.log(response);
+    statusChangeCallback(response);
+});
+
+function statusChangeCallback(response){
+	console.log('response is');
+	console.log(response);
+	if(response.status == "connected"){
+		console.log("user is logged in ");
+	}
+	else{
+		console.log("user need to login");
+		//FB.login();
+	}
+}
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+  </script>
+
+  
+<fb:login-button 
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
+  </body>
+</html>

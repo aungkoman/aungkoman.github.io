@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>How to install git on cent os –  – Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="sudo yum install git
+git –version
+
+sudo yum install git
+Loaded plugins: fastestmirror
+Determining fastest mirrors
+epel/x86_64/metalink                                                                                                | 4.2 kB  00:00:00
+
+  base: mirror2.totbb.net
+  epel: epel.mirror.angkasa.id
+  extras: mirror2.totbb.net
+  updates: mirror2.totbb.net
+base                                                                                                                | 3.6 kB  00:00:00   
+epel                                                                                                                | 4.7 kB  00:00:00   
+extras                                                                                                              | 2.9 kB  00:00:00   
+updates                                                                                                             | 2.9 kB  00:00:00   
+(1/3): epel/x86_64/updateinfo                                                                                       | 1.0 MB  00:00:00   
+(2/3): epel/x86_64/primary_db                                                                                       | 7.0 MB  00:00:01   
+(3/3): updates/7/x86_64/primary_db                                                                                  |  20 MB  00:00:04   
+Resolving Dependencies
+–&gt; Running transaction check
+—&gt; Package git.x86_64 0:1.8.3.1-24.el7_9 will be installed
+–&gt; Processing Dependency: perl-Git = 1.8.3.1-24.el7_9 for package: git-1.8.3.1-24.el7_9.x86_64
+–&gt; Processing Dependency: perl(Term::ReadKey) for package: git-1.8.3.1-24.el7_9.x86_64
+–&gt; Processing Dependency: perl(Git) for package: git-1.8.3.1-24.el7_9.x86_64
+–&gt; Processing Dependency: perl(Error) for package: git-1.8.3.1-24.el7_9.x86_64
+–&gt; Running transaction check
+—&gt; Package perl-Error.noarch 1:0.17020-2.el7 will be installed
+—&gt; Package perl-Git.noarch 0:1.8.3.1-24.el7_9 will be installed
+—&gt; Package perl-TermReadKey.x86_64 0:2.30-20.el7 will be installed
+–&gt; Finished Dependency Resolution
+
+
+Dependencies Resolved
+
+===========================================================================================================================================
+ Package                              Arch                       Version                                 Repository                   Size
+===========================================================================================================================================
+Installing:
+ git                                  x86_64                     1.8.3.1-24.el7_9                        updates                     4.4 M
+Installing for dependencies:
+ perl-Error                           noarch                     1:0.17020-2.el7                         base                         32 k
+ perl-Git                             noarch                     1.8.3.1-24.el7_9                        updates                      56 k
+ perl-TermReadKey                     x86_64                     2.30-20.el7                             base                         31 k
+
+Transaction Summary
+Install  1 Package (+3 Dependent packages)
+
+Total download size: 4.5 M
+Installed size: 22 M
+Is this ok [y/d/N]: y
+Downloading packages:
+(1/4): perl-Error-0.17020-2.el7.noarch.rpm                                                                          |  32 kB  00:00:00   
+(2/4): perl-TermReadKey-2.30-20.el7.x86_64.rpm                                                                      |  31 kB  00:00:00   
+(3/4): perl-Git-1.8.3.1-24.el7_9.noarch.rpm                                                                         |  56 kB  00:00:00   
+(4/4): git-1.8.3.1-24.el7_9.x86_64.rpm                                                                              | 4.4 MB  00:00:01   
+——————————————————————————————————————————————-
+Total                                                                                                      3.9 MB/s | 4.5 MB  00:00:01   
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : 1:perl-Error-0.17020-2.el7.noarch                                                                                       1/4 
+  Installing : perl-TermReadKey-2.30-20.el7.x86_64                                                                                     2/4 
+  Installing : perl-Git-1.8.3.1-24.el7_9.noarch                                                                                        3/4 
+  Installing : git-1.8.3.1-24.el7_9.x86_64                                                                                             4/4 
+  Verifying  : 1:perl-Error-0.17020-2.el7.noarch                                                                                       1/4 
+  Verifying  : perl-Git-1.8.3.1-24.el7_9.noarch                                                                                        2/4 
+  Verifying  : git-1.8.3.1-24.el7_9.x86_64                                                                                             3/4 
+  Verifying  : perl-TermReadKey-2.30-20.el7.x86_64                                                                                     4/4
+
+Installed:
+  git.x86_64 0:1.8.3.1-24.el7_9
+
+Dependency Installed:
+  perl-Error.noarch 1:0.17020-2.el7           perl-Git.noarch 0:1.8.3.1-24.el7_9           perl-TermReadKey.x86_64 0:2.30-20.el7
+
+Complete!
+[root@radius html]# git –version
+git version 1.8.3.1
+" />
+    <meta property="og:description" content="sudo yum install git
+git –version
+
+sudo yum install git
+Loaded plugins: fastestmirror
+Determining fastest mirrors
+epel/x86_64/metalink                                                                                                | 4.2 kB  00:00:00
+
+  base: mirror2.totbb.net
+  epel: epel.mirror.angkasa.id
+  extras: mirror2.totbb.net
+  updates: mirror2.totbb.net
+base                                                                                                                | 3.6 kB  00:00:00   
+epel                                                                                                                | 4.7 kB  00:00:00   
+extras                                                                                                              | 2.9 kB  00:00:00   
+updates                                                                                                             | 2.9 kB  00:00:00   
+(1/3): epel/x86_64/updateinfo                                                                                       | 1.0 MB  00:00:00   
+(2/3): epel/x86_64/primary_db                                                                                       | 7.0 MB  00:00:01   
+(3/3): updates/7/x86_64/primary_db                                                                                  |  20 MB  00:00:04   
+Resolving Dependencies
+–&gt; Running transaction check
+—&gt; Package git.x86_64 0:1.8.3.1-24.el7_9 will be installed
+–&gt; Processing Dependency: perl-Git = 1.8.3.1-24.el7_9 for package: git-1.8.3.1-24.el7_9.x86_64
+–&gt; Processing Dependency: perl(Term::ReadKey) for package: git-1.8.3.1-24.el7_9.x86_64
+–&gt; Processing Dependency: perl(Git) for package: git-1.8.3.1-24.el7_9.x86_64
+–&gt; Processing Dependency: perl(Error) for package: git-1.8.3.1-24.el7_9.x86_64
+–&gt; Running transaction check
+—&gt; Package perl-Error.noarch 1:0.17020-2.el7 will be installed
+—&gt; Package perl-Git.noarch 0:1.8.3.1-24.el7_9 will be installed
+—&gt; Package perl-TermReadKey.x86_64 0:2.30-20.el7 will be installed
+–&gt; Finished Dependency Resolution
+
+
+Dependencies Resolved
+
+===========================================================================================================================================
+ Package                              Arch                       Version                                 Repository                   Size
+===========================================================================================================================================
+Installing:
+ git                                  x86_64                     1.8.3.1-24.el7_9                        updates                     4.4 M
+Installing for dependencies:
+ perl-Error                           noarch                     1:0.17020-2.el7                         base                         32 k
+ perl-Git                             noarch                     1.8.3.1-24.el7_9                        updates                      56 k
+ perl-TermReadKey                     x86_64                     2.30-20.el7                             base                         31 k
+
+Transaction Summary
+Install  1 Package (+3 Dependent packages)
+
+Total download size: 4.5 M
+Installed size: 22 M
+Is this ok [y/d/N]: y
+Downloading packages:
+(1/4): perl-Error-0.17020-2.el7.noarch.rpm                                                                          |  32 kB  00:00:00   
+(2/4): perl-TermReadKey-2.30-20.el7.x86_64.rpm                                                                      |  31 kB  00:00:00   
+(3/4): perl-Git-1.8.3.1-24.el7_9.noarch.rpm                                                                         |  56 kB  00:00:00   
+(4/4): git-1.8.3.1-24.el7_9.x86_64.rpm                                                                              | 4.4 MB  00:00:01   
+——————————————————————————————————————————————-
+Total                                                                                                      3.9 MB/s | 4.5 MB  00:00:01   
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : 1:perl-Error-0.17020-2.el7.noarch                                                                                       1/4 
+  Installing : perl-TermReadKey-2.30-20.el7.x86_64                                                                                     2/4 
+  Installing : perl-Git-1.8.3.1-24.el7_9.noarch                                                                                        3/4 
+  Installing : git-1.8.3.1-24.el7_9.x86_64                                                                                             4/4 
+  Verifying  : 1:perl-Error-0.17020-2.el7.noarch                                                                                       1/4 
+  Verifying  : perl-Git-1.8.3.1-24.el7_9.noarch                                                                                        2/4 
+  Verifying  : git-1.8.3.1-24.el7_9.x86_64                                                                                             3/4 
+  Verifying  : perl-TermReadKey-2.30-20.el7.x86_64                                                                                     4/4
+
+Installed:
+  git.x86_64 0:1.8.3.1-24.el7_9
+
+Dependency Installed:
+  perl-Error.noarch 1:0.17020-2.el7           perl-Git.noarch 0:1.8.3.1-24.el7_9           perl-TermReadKey.x86_64 0:2.30-20.el7
+
+Complete!
+[root@radius html]# git –version
+git version 1.8.3.1
+" />
+    
+    <meta name="author" content="" />
+
+    
+    <meta property="og:title" content="How to install git on cent os" />
+    <meta property="twitter:title" content="How to install git on cent os" />
+    
+
+    <!-- facebook Open Graph Metadatas -->
+    <meta content="your_facebook_app_id" property="fb:app_id">
+    <meta content="Your awesome title" property="og:site_name">
+    
+    <meta content="How to install git on cent os" property="og:title">
+    
+    
+    <meta content="article" property="og:type">
+    
+    
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." property="og:description">
+    
+    
+    <meta content="http://localhost:4000/2023/04/12/how-to-install-git-on-cent-os.html" property="og:url">
+    
+    
+    <meta content="2023-04-12T00:00:00+06:30" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    <meta content="/img/logo-high-resolution.png" property="og:image">
+    
+    
+    
+    
+    
+    
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title=" - Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/"></a></h1>
+            <p class="site-description">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>How to install git on cent os</h1>
+
+  <div class="entry">
+    <p>sudo yum install git
+git –version</p>
+
+<p>sudo yum install git
+Loaded plugins: fastestmirror
+Determining fastest mirrors
+epel/x86_64/metalink                                                                                                | 4.2 kB  00:00:00</p>
+<ul>
+  <li>base: mirror2.totbb.net</li>
+  <li>epel: epel.mirror.angkasa.id</li>
+  <li>extras: mirror2.totbb.net</li>
+  <li>updates: mirror2.totbb.net
+base                                                                                                                | 3.6 kB  00:00:00   <br />
+epel                                                                                                                | 4.7 kB  00:00:00   <br />
+extras                                                                                                              | 2.9 kB  00:00:00   <br />
+updates                                                                                                             | 2.9 kB  00:00:00   <br />
+(1/3): epel/x86_64/updateinfo                                                                                       | 1.0 MB  00:00:00   <br />
+(2/3): epel/x86_64/primary_db                                                                                       | 7.0 MB  00:00:01   <br />
+(3/3): updates/7/x86_64/primary_db                                                                                  |  20 MB  00:00:04   <br />
+Resolving Dependencies
+–&gt; Running transaction check
+—&gt; Package git.x86_64 0:1.8.3.1-24.el7_9 will be installed
+–&gt; Processing Dependency: perl-Git = 1.8.3.1-24.el7_9 for package: git-1.8.3.1-24.el7_9.x86_64
+–&gt; Processing Dependency: perl(Term::ReadKey) for package: git-1.8.3.1-24.el7_9.x86_64
+–&gt; Processing Dependency: perl(Git) for package: git-1.8.3.1-24.el7_9.x86_64
+–&gt; Processing Dependency: perl(Error) for package: git-1.8.3.1-24.el7_9.x86_64
+–&gt; Running transaction check
+—&gt; Package perl-Error.noarch 1:0.17020-2.el7 will be installed
+—&gt; Package perl-Git.noarch 0:1.8.3.1-24.el7_9 will be installed
+—&gt; Package perl-TermReadKey.x86_64 0:2.30-20.el7 will be installed
+–&gt; Finished Dependency Resolution</li>
+</ul>
+
+<p>Dependencies Resolved</p>
+
+<p>===========================================================================================================================================
+ Package                              Arch                       Version                                 Repository                   Size
+===========================================================================================================================================
+Installing:
+ git                                  x86_64                     1.8.3.1-24.el7_9                        updates                     4.4 M
+Installing for dependencies:
+ perl-Error                           noarch                     1:0.17020-2.el7                         base                         32 k
+ perl-Git                             noarch                     1.8.3.1-24.el7_9                        updates                      56 k
+ perl-TermReadKey                     x86_64                     2.30-20.el7                             base                         31 k</p>
+
+<h1 id="transaction-summary">Transaction Summary</h1>
+<p>Install  1 Package (+3 Dependent packages)</p>
+
+<p>Total download size: 4.5 M
+Installed size: 22 M
+Is this ok [y/d/N]: y
+Downloading packages:
+(1/4): perl-Error-0.17020-2.el7.noarch.rpm                                                                          |  32 kB  00:00:00   <br />
+(2/4): perl-TermReadKey-2.30-20.el7.x86_64.rpm                                                                      |  31 kB  00:00:00   <br />
+(3/4): perl-Git-1.8.3.1-24.el7_9.noarch.rpm                                                                         |  56 kB  00:00:00   <br />
+(4/4): git-1.8.3.1-24.el7_9.x86_64.rpm                                                                              | 4.4 MB  00:00:01   <br />
+——————————————————————————————————————————————-
+Total                                                                                                      3.9 MB/s | 4.5 MB  00:00:01   <br />
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : 1:perl-Error-0.17020-2.el7.noarch                                                                                       1/4 
+  Installing : perl-TermReadKey-2.30-20.el7.x86_64                                                                                     2/4 
+  Installing : perl-Git-1.8.3.1-24.el7_9.noarch                                                                                        3/4 
+  Installing : git-1.8.3.1-24.el7_9.x86_64                                                                                             4/4 
+  Verifying  : 1:perl-Error-0.17020-2.el7.noarch                                                                                       1/4 
+  Verifying  : perl-Git-1.8.3.1-24.el7_9.noarch                                                                                        2/4 
+  Verifying  : git-1.8.3.1-24.el7_9.x86_64                                                                                             3/4 
+  Verifying  : perl-TermReadKey-2.30-20.el7.x86_64                                                                                     4/4</p>
+
+<p>Installed:
+  git.x86_64 0:1.8.3.1-24.el7_9</p>
+
+<p>Dependency Installed:
+  perl-Error.noarch 1:0.17020-2.el7           perl-Git.noarch 0:1.8.3.1-24.el7_9           perl-TermReadKey.x86_64 0:2.30-20.el7</p>
+
+<p>Complete!
+[root@radius html]# git –version
+git version 1.8.3.1</p>
+
+  </div>
+
+  <div class="date">
+    Written on April 12, 2023
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+    <script>
+	window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '608464966533110',
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v9.0'
+	  });
+		
+	  FB.AppEvents.logPageView();   
+		
+	};
+  
+	(function(d, s, id){
+	   var js, fjs = d.getElementsByTagName(s)[0];
+	   if (d.getElementById(id)) {return;}
+	   js = d.createElement(s); js.id = id;
+	   js.src = "https://connect.facebook.net/en_US/sdk.js";
+	   fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+
+	 
+FB.getLoginStatus(function(response) {
+	console.log("getLoginStatus");
+	console.log(response);
+    statusChangeCallback(response);
+});
+
+function statusChangeCallback(response){
+	console.log('response is');
+	console.log(response);
+	if(response.status == "connected"){
+		console.log("user is logged in ");
+	}
+	else{
+		console.log("user need to login");
+		//FB.login();
+	}
+}
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+  </script>
+
+  
+<fb:login-button 
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
+  </body>
+</html>
