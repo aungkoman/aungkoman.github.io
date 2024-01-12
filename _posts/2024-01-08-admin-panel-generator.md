@@ -34,6 +34,15 @@ http://127.0.0.1:8000/admin
 
 [0909] -> Admin Panel တက်လာပြီ။ Category နဲ့ Article လုပ်မယ်။
 
+[1535] -> intl extension ဟာ တစ်နေကုန် လျေှာက်စမ်းရင် ရလာပြီ။
+
+```bash
+php artisan make:filament-resource Patient
+```
+
+
+
+
 
 user စထည့်တာ တိုင်စပတ်။
 Class "NumberFormatter" not found
