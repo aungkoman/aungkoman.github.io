@@ -4,6 +4,8 @@ title:  "How to make money"
 date:   2024-02-20 09:15:00 +0630
 categories: howto
 ---
+Google မှာ Developer တစ်ယောက်အနေနဲ့ ငွေဘယ်လိုရှာမလဲ မေးကြည့်ရင် ဒါမျိုး ထွက်လာတယ်။
+
 
 Freelancing
 
