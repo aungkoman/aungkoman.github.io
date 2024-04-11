@@ -581,6 +581,103 @@ FFFF00 လို့ ဖော်ပြလို့ရမယ်။
 ဆိုတော့ကာ ဒီပုံမှာ pixel ပေါင်း 4,080 * 2,072 = 8,453,760 Pixel ပါတယ်လို့ ပြောနိုင်တယ်။
 
 
+-----
+
+#### ကွန်ပျူတာ သိပ္ပံ - အပိုင်း (၁ / စျ ) အသံကို binary ပြောင်းခြင်း
+
+အသံဆိုတာ လူတွေ ကြားရတဲ့ Analog Data တစ်မျိုး။
+Analog ဆိုတဲ့အတိုင်း စဉ်ဆက်မပြတ် ဝင်ရောက်နေသောလို့ အဓိပ္ပါယ်ရတယ်။
+ဒါပေမယ့် ကွန်ပျူတာမှာ Digital ပဲ ရှိတယ်။ ဒီတော့ ဘယ်လို ဘာသာပြန်ပြီး သိမ်းကြမလဲ? စာ တုန်းက ASCII Table သုံးတယ်။ ပုံ တုန်းကတော့ RGB လို အဓိက အရောင် (၃)​ ရောင် ကို အခြေပြုပြီး သိမ်းကြတယ်။ အသံ မှာ ကြတော့ မျိုးစုံ။ ပင်မ အသံဆိုပြီးလည်း မရှိ။ Physic ဘက်မှာတော့ အသံကို wave ဆိုပြီး represent လုပ်တာ ရှိတယ်။ 
+
+ဉပမာ "မင်္ဂလာပါ" လို့ နှုတ်ဆက်တဲ့ အသံကို ကွန်ပျူတာမှာ သိမ်းကြည့်ရအောင်။
+
+"မင်္ဂလာပါ" လို့ နှုတ်ဆက်တဲ့အသံဟာ (၁) စက္ကန့် ကြာတယ်ဆိုပါစို့။
+
+ဒီ (၁) စက္ကန့်စာ အသံကို မြင်သာအောင် ပုံဖော်ရမယ်ဆိုရင် wave တွေ အများကြီးကို တစ်ဆက်တည်း ဆွဲပြရလိမ့်မယ်။
+
+ပထမဆုံး တစ်စက္ကန့်စာ ကို အရင် binary ပြောင်းကြမယ်။
+
+ဒီ တစ်က္ကန့်ထဲမှာ wave တွေ ထောင်သောင်းချီပြီး ပါတယ်။ 
+ဒါပေမယ့် ကွန်ပျူတာဆိုတာ ကန့်သတ်ချက်ရှိတယ်။ ဒီတော့ ဒီ wave တွေ အကုန်လုံးကို သိမ်းဖို့ဆိုတာ မဖြစ်နိုင်ဘူး။
+ဒါနဲ့ တစ်စက္ကန့်အတွင်းမှာ ရှိတဲ့ wave တွေကို အစိတ်ကလေးတွေ ထပ်စိတ်လိုက်တယ်။ ဒီလို တစ်စက္ကန့်စာ wave တွေကို ဘယ်နှစ်စိတ် ထပ်စိတ်မယ်ဆိုတာကို sample rate လို့ ခေါ်တယ်။ 
+များသောအားဖြင့်တော့ sample rate 44.1 khz (kilohertz) အစိတ် လေးသောင်း လေးထောင် လောက် ထပ်စိတ်ပြီး စိတ်လိုက်တဲ့ နေရာက amplitude ကို သင်္ချာဂဏန်း ပြောင်းလိုက်တယ်။ amplitude ဆိုတာ လှိုင်းအမြင့် လို့ ပြောရမယ်။ လှိုင်းအမြင့်ကို သင်္ချာဂဏန်းပြောင်းတဲ့အခါ များသောအားဖြင့်  16-bit အဖြစ် ပြောင်းကြတယ်။ ဒါကို sample resolution လို့ ခေါ်တယ်။
+
+ဒီတော့ "မင်္ဂလာပါ" လို့ နှုတ်ဆက်တဲ့ တစ်စက္ကန့်စာ အသံမှာ 
+
+Sound Sample - 44,100 ရှိပြီး
+Sample တစ်ခုစီကို 16-bit နဲ့ သိမ်းကြတယ်။
+
+Sample Rate နဲ့ Sample Resoltion အပေါ်မူတည်ပြီး ဖိုင်အရွယ်အစား နဲ့ အသံအရည်အသွေး အတိုးအလျော့ ရှိမယ်။
+
+
+
+
+, 24-bit စသည်ဖြင့် bit အရေအတွက်တစ်ခု သတ်မှတ်ပြီး ပြောင်းကြတယ်။ 
+
+အသံဆိုတာကို စာရွက်ပေါ်မှာ မြင်သာအောင် ချဆွဲပြရမယ်ဆိုရင် လှိုင်းပုံတွေ ဆွဲပြီး ပြရမယ်ထင်တယ်။
+
+အသံကို ဘယ်လို Present လုပ်ကြလဲ?
+
+Frequency - Hertz နဲ့။
+
+ထင်တာက အသံတွေကို 
+
+အနိမ့် အမြင့်နဲ့ ခွဲတယ် မှတ်နေတာ
+
+အခု ကြည့်ကြည့်တော့ wave lenght လိုမျိုး
+Amplitude ဆိုပြီး အမြင့်ကိုလည်း ကြည့်သလား?
+
+Sampling ဆိုတာ 
+
+တစ်စက္ကန့်အတွင်း ဘယ်နှစ်ပိုင်း ဖြတ်မလဲဆုံးဖြတ်တာမျိုး။
+
+UP and Down သွားနေတဲ့ wave ကြီးတစ်ခု ရှိမယ်ပေါ့။
+လှိုင်းတွေကလည်း အများကြီး.
+
+အကုန်လုံးကိုလည်း မမှတ်နိုင်တော့
+
+အပိုင်း လေးသောင်းလောက်ပဲ​ခွဲလိုက်တယ်။
+
+ဒါဆို တစ်ပိုင်းခြင်းစီမှာ wave သေးသေးလေးတစ်ခု ရှိနေမယ်။
+Intersection Point တွေမှာ ရှိနေတဲ့ တန်ဖိုးကို ယူတာ။ 
+ဆိုတော့ကာ Amplitude (​လှိုင်းအမြင့်ပေါ့ ? )
+
+အဲ့တာကို သင်္ချာလို ဘယ်လိုပြောင်း?
+အဲ့ Wave ရဲ့ amplitude ကို ယူမှာလား?
+လှိုင်းအမြင့်ပေါ့။ 
+ဒါမှ မဟုတ် Wave Lenght ကို ယူမှာလား
+Wave Cycle ကို ယူမှာလား?
+
+
+
+cycle တစ်ခုစာ တစ်စက္ကန့်အတွင်း ဘယ်နှစ်ခု ပါလဲ​ကြည့်တာမျိုး။
+
+
+Amplitude, wavelength, and wave cycle are fundamental concepts in understanding waves, including sound waves.
+
+Amplitude: Amplitude refers to the maximum displacement or distance of a wave from its rest position. In simpler terms, it represents the "height" of the wave. For example, in a sound wave, the amplitude corresponds to the maximum pressure variation from the average atmospheric pressure. In a transverse wave like a water wave or a wave on a string, it represents the maximum distance the medium (water or string) moves up or down from its rest position.
+
+Wavelength: Wavelength is the distance between two consecutive points in a wave that are in phase, meaning they are at the same point in their respective cycles. In other words, it is the length of one complete cycle of the wave. For example, in a sound wave, it represents the distance between two consecutive compressions or rarefactions. In a transverse wave, like a light wave or a water wave, it represents the distance between two consecutive peaks or troughs.
+
+Wave Cycle: A wave cycle is one complete pattern of oscillation in a wave. It starts from a certain point, goes through its maximum displacement in one direction, returns to its starting position, goes through its maximum displacement in the opposite direction, and returns again to its starting position, completing one full cycle. In a sound wave, for example, one cycle would include both a compression (where the air molecules are pushed closer together) and a rarefaction (where the air molecules are spread apart).
+
+
+
+Yes, despite representing sound in digital formats using numerical values, modern computers and audio systems are capable of reproducing sound with remarkable accuracy and fidelity. Here's how they achieve this:
+
+High Sampling Rates: Digital audio is typically sampled at very high rates, such as 44,100 samples per second (44.1 kHz) or even higher (e.g., 48 kHz, 96 kHz, or 192 kHz). This high sampling rate allows for accurate capture and reproduction of a wide range of audio frequencies, including those within the range of human hearing.
+
+High Bit Depths: Digital audio systems often use high bit depths, such as 16-bit or 24-bit, to represent the amplitude of each audio sample. Higher bit depths provide greater dynamic range and resolution, allowing for more accurate representation of subtle variations in sound amplitude.
+
+Digital-to-Analog Conversion (DAC): When playing back digital audio, computers use digital-to-analog converters (DACs) to convert the digital audio data into analog signals that can be sent to speakers or headphones. High-quality DACs can accurately reconstruct the original analog waveform from the digital samples, preserving the nuances of the original sound.
+
+High-Quality Audio Components: Modern computers and audio equipment often include high-quality audio components, such as amplifiers and speakers or headphone drivers, that are capable of accurately reproducing sound with minimal distortion and noise.
+
+Signal Processing Algorithms: Digital audio processing algorithms, including filtering, equalization, and compression, are used to enhance and optimize the sound quality while minimizing artifacts and distortions.
+
+By employing these techniques, computers and audio systems can reproduce sound with a high degree of accuracy and fidelity, allowing us to hear audio content with excellent quality and clarity. However, it's important to note that the quality of the audio playback also depends on the quality of the audio source, the speakers or headphones used, and the acoustics of the listening environment.
+
+
 
 
 https://medium.com/nerd-for-tech/the-color-theory-why-do-computers-use-rgb-instead-of-ryb-205b75d6e783
