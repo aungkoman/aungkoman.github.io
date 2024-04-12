@@ -657,36 +657,6 @@ Wave Cycle ကို ယူမှာလား?
 cycle တစ်ခုစာ တစ်စက္ကန့်အတွင်း ဘယ်နှစ်ခု ပါလဲ​ကြည့်တာမျိုး။
 
 
-Amplitude, wavelength, and wave cycle are fundamental concepts in understanding waves, including sound waves.
-
-Amplitude: Amplitude refers to the maximum displacement or distance of a wave from its rest position. In simpler terms, it represents the "height" of the wave. For example, in a sound wave, the amplitude corresponds to the maximum pressure variation from the average atmospheric pressure. In a transverse wave like a water wave or a wave on a string, it represents the maximum distance the medium (water or string) moves up or down from its rest position.
-
-Wavelength: Wavelength is the distance between two consecutive points in a wave that are in phase, meaning they are at the same point in their respective cycles. In other words, it is the length of one complete cycle of the wave. For example, in a sound wave, it represents the distance between two consecutive compressions or rarefactions. In a transverse wave, like a light wave or a water wave, it represents the distance between two consecutive peaks or troughs.
-
-Wave Cycle: A wave cycle is one complete pattern of oscillation in a wave. It starts from a certain point, goes through its maximum displacement in one direction, returns to its starting position, goes through its maximum displacement in the opposite direction, and returns again to its starting position, completing one full cycle. In a sound wave, for example, one cycle would include both a compression (where the air molecules are pushed closer together) and a rarefaction (where the air molecules are spread apart).
-
-
-
-Yes, despite representing sound in digital formats using numerical values, modern computers and audio systems are capable of reproducing sound with remarkable accuracy and fidelity. Here's how they achieve this:
-
-High Sampling Rates: Digital audio is typically sampled at very high rates, such as 44,100 samples per second (44.1 kHz) or even higher (e.g., 48 kHz, 96 kHz, or 192 kHz). This high sampling rate allows for accurate capture and reproduction of a wide range of audio frequencies, including those within the range of human hearing.
-
-High Bit Depths: Digital audio systems often use high bit depths, such as 16-bit or 24-bit, to represent the amplitude of each audio sample. Higher bit depths provide greater dynamic range and resolution, allowing for more accurate representation of subtle variations in sound amplitude.
-
-Digital-to-Analog Conversion (DAC): When playing back digital audio, computers use digital-to-analog converters (DACs) to convert the digital audio data into analog signals that can be sent to speakers or headphones. High-quality DACs can accurately reconstruct the original analog waveform from the digital samples, preserving the nuances of the original sound.
-
-High-Quality Audio Components: Modern computers and audio equipment often include high-quality audio components, such as amplifiers and speakers or headphone drivers, that are capable of accurately reproducing sound with minimal distortion and noise.
-
-Signal Processing Algorithms: Digital audio processing algorithms, including filtering, equalization, and compression, are used to enhance and optimize the sound quality while minimizing artifacts and distortions.
-
-By employing these techniques, computers and audio systems can reproduce sound with a high degree of accuracy and fidelity, allowing us to hear audio content with excellent quality and clarity. However, it's important to note that the quality of the audio playback also depends on the quality of the audio source, the speakers or headphones used, and the acoustics of the listening environment.
-
-
-
-
-https://medium.com/nerd-for-tech/the-color-theory-why-do-computers-use-rgb-instead-of-ryb-205b75d6e783
-
-
 
 ဒစ်ဂျစ်တယ် ဓာတ်ပုံတွေဟာ တကယ်တော့ Pixel လို့ ခေါ်တဲ့ အစက်ကလေးတွေ အများကြီး စုထားတာမျိုး။
 
@@ -809,5 +779,52 @@ Kibibyte (KiB) အစား Kilobyte (KB)
 
 ## ကွန်ပျူတာသိပ္ပံ ဆိုတာ သိပ်လှတဲ့ သင်္ချာ အီကွေးရှင်း တစ်ခု
 
-အပြင်လောကမှာ ရှိနေတဲ့ အရာတွေ အကုန်လုံးကို သင်္ချာဂဏန်းတွေ ပြောင်း
+အပြင်လောကမှာ ရှိနေတဲ့ အရာတွေ အကုန်လုံးကို သင်္ချာဂဏန်းတွေ ပြောင်းပြီး သိမ်းထားတာဟာ တော်တော်လှတဲ့ အကွက်လို့ ပြောရမယ်။ ပြောင်းတဲ့နေရာမှာ သုံးတဲ့ အီကွေးရှင်းဟာလည်း အလယ်တန်းကျောင်းသားတောင် နားလည်နိုင်တဲ့ ပုံစံဆိုတော့ သိပ်ရှုပ်ထွေးနေတာမရှိတာ တွေ့ရမှာပါ။
+
+
+လူတွေရဲ့ အာရုံ (၅) ပါးမှာ 
+
+အမြင်
+အကြား
+အနံ
+အရသာ
+အထိအတွေ့
+
+အဓိက အမြင်နဲ့ အကြား ကို ကွန်ပျူတာမှာ ကောင်းကောင်းမှတ်ထားနိုင်ပြီ ပြောရမယ်။ ဘယ်ပြောနိုင်မလဲ​နောက်ပိုင်း အနံတွေ အရသာတွေ နဲ့ အထိအတွေ့ တွေကိုလည်း မှတ်ကောင်း မှတ်ထားနိုင်မယ် ထင်ရဲ့။
+
+
+
+
+## Side Note
+
+
+Amplitude, wavelength, and wave cycle are fundamental concepts in understanding waves, including sound waves.
+
+Amplitude: Amplitude refers to the maximum displacement or distance of a wave from its rest position. In simpler terms, it represents the "height" of the wave. For example, in a sound wave, the amplitude corresponds to the maximum pressure variation from the average atmospheric pressure. In a transverse wave like a water wave or a wave on a string, it represents the maximum distance the medium (water or string) moves up or down from its rest position.
+
+Wavelength: Wavelength is the distance between two consecutive points in a wave that are in phase, meaning they are at the same point in their respective cycles. In other words, it is the length of one complete cycle of the wave. For example, in a sound wave, it represents the distance between two consecutive compressions or rarefactions. In a transverse wave, like a light wave or a water wave, it represents the distance between two consecutive peaks or troughs.
+
+Wave Cycle: A wave cycle is one complete pattern of oscillation in a wave. It starts from a certain point, goes through its maximum displacement in one direction, returns to its starting position, goes through its maximum displacement in the opposite direction, and returns again to its starting position, completing one full cycle. In a sound wave, for example, one cycle would include both a compression (where the air molecules are pushed closer together) and a rarefaction (where the air molecules are spread apart).
+
+
+
+Yes, despite representing sound in digital formats using numerical values, modern computers and audio systems are capable of reproducing sound with remarkable accuracy and fidelity. Here's how they achieve this:
+
+High Sampling Rates: Digital audio is typically sampled at very high rates, such as 44,100 samples per second (44.1 kHz) or even higher (e.g., 48 kHz, 96 kHz, or 192 kHz). This high sampling rate allows for accurate capture and reproduction of a wide range of audio frequencies, including those within the range of human hearing.
+
+High Bit Depths: Digital audio systems often use high bit depths, such as 16-bit or 24-bit, to represent the amplitude of each audio sample. Higher bit depths provide greater dynamic range and resolution, allowing for more accurate representation of subtle variations in sound amplitude.
+
+Digital-to-Analog Conversion (DAC): When playing back digital audio, computers use digital-to-analog converters (DACs) to convert the digital audio data into analog signals that can be sent to speakers or headphones. High-quality DACs can accurately reconstruct the original analog waveform from the digital samples, preserving the nuances of the original sound.
+
+High-Quality Audio Components: Modern computers and audio equipment often include high-quality audio components, such as amplifiers and speakers or headphone drivers, that are capable of accurately reproducing sound with minimal distortion and noise.
+
+Signal Processing Algorithms: Digital audio processing algorithms, including filtering, equalization, and compression, are used to enhance and optimize the sound quality while minimizing artifacts and distortions.
+
+By employing these techniques, computers and audio systems can reproduce sound with a high degree of accuracy and fidelity, allowing us to hear audio content with excellent quality and clarity. However, it's important to note that the quality of the audio playback also depends on the quality of the audio source, the speakers or headphones used, and the acoustics of the listening environment.
+
+
+
+
+https://medium.com/nerd-for-tech/the-color-theory-why-do-computers-use-rgb-instead-of-ryb-205b75d6e783
+
 
