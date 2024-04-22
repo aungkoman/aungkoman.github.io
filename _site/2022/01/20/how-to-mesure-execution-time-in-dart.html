@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test ရေးတယ်ဆိုတာ –  – Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="Dart မှာ execution time ကို ဘယ်လို တိုင်းကြမလဲ?
+" />
+    <meta property="og:description" content="Dart မှာ execution time ကို ဘယ်လို တိုင်းကြမလဲ?
+" />
+    
+    <meta name="author" content="" />
+
+    
+    <meta property="og:title" content="Test ရေးတယ်ဆိုတာ" />
+    <meta property="twitter:title" content="Test ရေးတယ်ဆိုတာ" />
+    
+
+    <!-- facebook Open Graph Metadatas -->
+    <meta content="your_facebook_app_id" property="fb:app_id">
+    <meta content="Your awesome title" property="og:site_name">
+    
+    <meta content="Test ရေးတယ်ဆိုတာ" property="og:title">
+    
+    
+    <meta content="article" property="og:type">
+    
+    
+    <meta content="test driven development" property="og:description">
+    
+    
+    <meta content="http://localhost:4000/2022/01/20/how-to-mesure-execution-time-in-dart.html" property="og:url">
+    
+    
+    <meta content="2022-01-20T00:00:00+06:30" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    <meta content="/img/posts/../images/fcc/kfc.jpg" property="og:image">
+    
+    
+    
+    
+    
+    
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title=" - Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/"></a></h1>
+            <p class="site-description">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>Test ရေးတယ်ဆိုတာ</h1>
+
+  <div class="entry">
+    <p>Dart မှာ execution time ကို ဘယ်လို တိုင်းကြမလဲ?</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Stopwatch</span> <span class="n">stopwatch</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stopwatch</span><span class="p">().</span><span class="o">.</span><span class="na">start</span><span class="p">();</span>
+<span class="n">doSomething</span><span class="p">();</span>
+<span class="n">print</span><span class="p">(</span><span class="s">'doSomething() executed in </span><span class="si">${stopwatch.elapsed}</span><span class="s">'</span><span class="p">);</span>
+</code></pre></div></div>
+<p>Code War မှာ solution တစ်ခု submit လုပ်တော့
+သူတို့က voting အများဆုံး တွေကို စီပြတယ်။</p>
+
+<p>ကိုယ်က လူလည်ကျထားတာကို သဘောမကျ။
+နောက်ပြီး exection time ကလည်း ဘယ်လိုဖြစ်မလဲ မသိရသေး။
+ဒါနဲ့ ဒီနှစ်ခုကို တိုင်းကြည့်ဖို့ ဖြစ်လာတယ်။</p>
+
+<h3 id="most-voted-solution">Most Voted Solution</h3>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bool</span> <span class="nf">validBraces</span><span class="p">(</span><span class="kt">String</span> <span class="n">str</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="n">prev</span> <span class="o">=</span> <span class="s">""</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">str</span><span class="o">.</span><span class="na">length</span> <span class="o">!=</span> <span class="n">prev</span><span class="o">.</span><span class="na">length</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="n">str</span><span class="p">;</span>
+            <span class="n">str</span> <span class="o">=</span> <span class="n">str</span>
+                <span class="o">.</span><span class="na">replaceAll</span><span class="p">(</span><span class="s">"()"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
+                <span class="o">.</span><span class="na">replaceAll</span><span class="p">(</span><span class="s">"[]"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
+                <span class="o">.</span><span class="na">replaceAll</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="s">""</span><span class="p">);</span>                
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">str</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>00:01 +2: find true or false should return true / false
+validBraces executed in 0:00:00.000225
+00:01 +3: find true or false Example tests
+validBraces executed in 0:00:00.000013
+validBraces executed in 0:00:00.000006
+validBraces executed in 0:00:00.000013
+00:01 +4: All tests passed!
+</code></pre></div></div>
+
+<h3 id="our-solution">Our Solution</h3>
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bool</span> <span class="nf">validBraces</span><span class="p">(</span><span class="kt">String</span> <span class="n">braces</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Stopwatch</span> <span class="n">stopwatch</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stopwatch</span><span class="p">().</span><span class="o">.</span><span class="na">start</span><span class="p">();</span>
+    <span class="c1">// TODO</span>
+    <span class="kt">bool</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="kt">List</span><span class="p">&lt;</span><span class="kt">String</span><span class="p">&gt;</span> <span class="n">currentCloser</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">braces</span><span class="o">.</span><span class="na">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+      <span class="kt">String</span> <span class="n">currentCloserChar</span> <span class="o">=</span> <span class="n">currentCloser</span><span class="o">.</span><span class="na">isEmpty</span> <span class="o">?</span> <span class="s">""</span> <span class="o">:</span> <span class="n">currentCloser</span><span class="o">.</span><span class="na">last</span><span class="p">;</span>
+      <span class="c1">//print("current Closer - braches i =&gt; $currentCloserChar - ${braces[i]}");</span>
+      <span class="c1">// အခု ပိတ်မှာလား?</span>
+      <span class="k">if</span><span class="p">(</span> <span class="n">currentCloserChar</span> <span class="o">!=</span> <span class="n">braces</span><span class="p">[</span><span class="n">i</span><span class="p">]){</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+        <span class="c1">// အသစ် ထပ်လာမှာလား</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="n">braces</span><span class="p">[</span><span class="n">i</span><span class="p">]){</span>
+          <span class="k">case</span> <span class="s">"("</span><span class="o">:</span>
+            <span class="n">currentCloser</span><span class="o">.</span><span class="na">add</span><span class="p">(</span><span class="s">")"</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+          <span class="k">case</span> <span class="s">"{"</span><span class="o">:</span>
+            <span class="n">currentCloser</span><span class="o">.</span><span class="na">add</span><span class="p">(</span><span class="s">"}"</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+          <span class="k">case</span> <span class="s">"["</span><span class="o">:</span>
+            <span class="n">currentCloser</span><span class="o">.</span><span class="na">add</span><span class="p">(</span><span class="s">"]"</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+          <span class="k">default</span><span class="o">:</span>
+            <span class="c1">// အသစ်လည်း ထပ်လာမှာ မဟုတ်ဘူး၊ စပြီး တလွဲကြီး ဖြစ်နေပြီ</span>
+            <span class="n">currentCloser</span><span class="o">.</span><span class="na">add</span><span class="p">(</span><span class="s">"-"</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">else</span><span class="p">{</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="n">currentCloser</span><span class="o">.</span><span class="na">removeLast</span><span class="p">();</span>
+      <span class="p">}</span>
+
+      <span class="c1">//print("result is $result");</span>
+
+    <span class="p">}</span>
+    <span class="n">print</span><span class="p">(</span><span class="s">'validBraces executed in </span><span class="si">${stopwatch.elapsed}</span><span class="s">'</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>00:01 +2: find true or false should return true / false
+validBraces executed in 0:00:00.000217
+00:01 +3: find true or false Example tests
+validBraces executed in 0:00:00.000007
+validBraces executed in 0:00:00.000005
+validBraces executed in 0:00:00.000008
+00:01 +4: All tests passed!
+</code></pre></div></div>
+
+  </div>
+
+  <div class="date">
+    Written on January 20, 2022
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+    <script>
+	window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '608464966533110',
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v9.0'
+	  });
+		
+	  FB.AppEvents.logPageView();   
+		
+	};
+  
+	(function(d, s, id){
+	   var js, fjs = d.getElementsByTagName(s)[0];
+	   if (d.getElementById(id)) {return;}
+	   js = d.createElement(s); js.id = id;
+	   js.src = "https://connect.facebook.net/en_US/sdk.js";
+	   fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+
+	 
+FB.getLoginStatus(function(response) {
+	console.log("getLoginStatus");
+	console.log(response);
+    statusChangeCallback(response);
+});
+
+function statusChangeCallback(response){
+	console.log('response is');
+	console.log(response);
+	if(response.status == "connected"){
+		console.log("user is logged in ");
+	}
+	else{
+		console.log("user need to login");
+		//FB.login();
+	}
+}
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+  </script>
+
+  
+<fb:login-button 
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
+  </body>
+</html>

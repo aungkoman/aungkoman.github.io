@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>NGPanel</title>
+	<meta charset="utf-8" http-equiv="X-UA-Compatible" content="IE=edge">
+ 	<meta name= "viewport"  content= "width=device-width,initial-scale=1.0">
+ 	<link rel='shortcut icon' type='image/x-icon' sizes='16x16 32x32 48x48 64x64' href= "logo/North Gate Engineering Logo.png" >
+ 	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<style type= "text/css">
+ 	   html ,body{ margin:0; padding: 0; box-sizing: border-box;}  
+ 	   *{ box-sizing: border-box;}   
+ 	   .containermta{
+ 	   		 width:100vw;height:100vh;background-color: #F6F7FB;position: relative;
+ 	   		 background-image: url(CATEGO/MayaHTT_image.jpg);
+		    background-repeat: no-repeat;
+		    background-size: cover;
+		    background-attachment: fixed;
+		    background-position: center;
+ 	   	}
+ 	   	.containerheader{
+ 	   		width: 100%;
+ 	   		height: 80px;
+ 	   		background-color: rgba(0, 0, 0, 0.9);
+ 	   		font-size: 14px;
+ 	   		font-family: 'Roboto', sans-serif;font-weight:bold;
+ 	   		display: flex;
+ 	   		justify-content: space-between;
+ 	   		align-items: center;
+ 	   		flex-wrap: wrap;
+ 	   		/*border-bottom: 2px solid rgba(255,255,255,0.7);*/
+ 	   	}
+ 	   	.logoarea{
+ 	   		width: 40%;
+ 	   		height: 100%;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.logoarea div{
+ 	   		width: max-content;
+ 	   		height: max-content;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   		color: #efefef;font-weight: bold;
+ 	   		margin-left: 15px;
+ 	   	}
+ 	   	.menucontainer{
+ 	   		width: 50%;
+ 	   		height: 100%;
+ 	   		display: flex;
+ 	   		justify-content: space-around;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.menucontainer div{
+ 	   		width: 25%;
+ 	   		height: 100%;
+ 	   		color: #efefef;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		cursor: pointer;
+ 	   		transition: 0.3s ease-out;
+ 	   	}
+ 	   	.menucontainer div:nth-child(1){
+ 	   		border-bottom: 6px solid rgba(255, 255, 255, 1);
+ 	   	}
+ 	   	.menucontainer div:hover{
+ 	   		border-bottom: 6px solid rgba(255, 255, 255, 1);
+ 	   	}
+ 	   	.logoNG{
+ 	   		max-width: 60px;
+ 	   		max-height: 60px;
+ 	   		margin-left: 20px;
+ 	   	}
+ 	   	.containerloginimage{
+ 	   		background-color: rgba(255,255,255,0.98);
+ 	   		width: 100%;
+ 	   		height: calc(100% - 80px);
+ 	   		box-sizing: border-box;
+ 	   		position: relative;
+ 	   	}
+ 	   	.infoCate{
+ 	   		width: 250px;
+ 	   		height: 50px;
+ 	   		background-color: #fff;
+ 	   		border-radius: 5px;
+ 	   		box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+ 	   		color: #555555;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		cursor: pointer;
+ 	   		margin: 10px;
+ 	   		position: absolute;
+ 	   	}
+ 	   	.cateResultContainer{
+ 	   		width: 100%;
+ 	   		height: calc(100% - 20px);
+ 	   		margin-top: 20px;
+ 	   		position: absolute;
+ 	   		display: flex;
+ 	   		justify-content: space-between;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.cateResultDiv{
+ 	   		width: 65%;
+ 	   		height: 98%;
+ 	   		overflow-x: hidden;
+ 	   		overflow-y: auto;
+ 	   	}
+ 	   	.cateResultTbl{
+ 	   		width: 98%;
+ 	   		height: auto;
+ 	   		font-size: 13px;
+ 	   		margin-left: 2.5%;
+ 	   		border-collapse: collapse;
+ 	   	}
+ 	   	.cateImportDiv{
+ 	   		width: 30%;
+ 	   		height: 98%;
+ 	   		box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+ 	   	}
+ 	   	.importerForm{
+ 	   		width: 100%;
+ 	   		height: 100%;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   		overflow-x: hidden;
+ 	   		overflow-y: auto;
+ 	   	}
+ 	   	.importerForm div , .importerForm input[type=text] , .importerForm textarea , .importerForm type[type=button] , .importerForm select{
+ 	   		width: 90%;
+ 	   		margin-top: 15px;
+ 	   		outline: none;
+ 	   	}
+ 	   	.importerForm div{
+ 	   		border: 1px solid gray;
+ 	   	}
+ 	   	.imgContainer{
+ 	   		height: 230px;
+ 	   		border-radius: 5px;
+ 	   		background-image: url('logo/bgImg.png');
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: 60px 60px;
+ 	   		background-position: center;
+ 	   		cursor: pointer;
+ 	   	}
+ 	   	.importerForm input[type=text] , .importerForm select{
+ 	   		height: 50px;
+ 	   		border: 1px solid gray;
+ 	   		border-radius: 5px;
+ 	   		box-sizing: border-box;
+ 	   		padding-left: 15px;
+ 	   	}
+ 	   	.importerForm select{
+ 	   		cursor: pointer;
+ 	   	}
+ 	   	.importerForm textarea{
+ 	   		min-width: 90%;
+ 	   		max-width: 90%;
+ 	   		min-height: 50px;
+ 	   		max-height: 130px;
+ 	   		border-radius: 5px;
+ 	   		box-sizing: border-box;
+ 	   		padding-left: 15px;
+ 	   	}	
+ 	   	.inputSubmit{
+ 	   		width: 90%;
+ 	   		height: 50px;
+ 	   		margin-top: 35px;
+ 	   		border: none;
+ 	   		outline: none;
+ 	   		background-color: rgba(22, 72, 210, 0.9);
+ 	   		color: #efefef;
+ 	   		cursor: pointer;
+ 	   		border-radius: 5px;
+ 	   	}
+ 	   	table.cateResultTbl thead tr{
+ 	   		height: 50px;
+ 	   		text-align: center;
+ 	   		background-color: #F4F5F5;
+ 	   		color: #4F5457;
+ 	   		position: sticky;
+ 	   		top: 0;
+ 	   	}
+ 	   	.cateResultTbl tbody tr{
+ 	   		text-align: center;
+ 	   		border-radius: 20px;
+ 	   	}
+ 	   	.cateResultTbl tbody tr:nth-child(even){
+ 	   		background-color: #F4F5F5;color: #4F5457;
+ 	   	}
+ 	   	.cateImg{
+ 	   		width: 50px;
+ 	   		height: 50px;
+ 	   		border-radius: 50%;
+ 	   	}
+ 	   	table.cateResultTbl tr td{
+ 	   		max-width: 150px;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+ 	   	}
+ 	   	#editBtn , #delBtn{
+ 	   		cursor: pointer;
+ 	   		width: 40px;
+ 	   	}
+ 	   	.loader{
+ 	   		width: 25px;height: 25px;margin-top: 8px;display: none;
+ 	   	}
+ 	   	#subCategoryResultContainer{
+ 	   		display: none;
+ 	   	}
+ 	   	.loaderContainer{
+ 	   		width: 100%;
+ 	   		height: 100%;
+ 	   		position: fixed;
+ 	   		z-index: 4;
+ 	   		background: rgba(0, 0, 0, 0.8);
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.statusContainer{
+ 	   		width: 100%;
+ 	   		height: 100%;
+ 	   		position: fixed;
+ 	   		z-index: 5;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		background: rgba(0, 0, 0, 0.7);
+ 	   	}
+ 	   	.statusDiv{
+ 	   		width: 250px;
+ 	   		height: 200px;
+ 	   		border-radius: 5px;
+ 	   		background-color: #fff;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   		-webkit-animation-name: slideInRight;
+			  animation-name: slideInRight;
+			  -webkit-animation-duration: 0.7s;
+			  animation-duration:0.7s;
+			  -webkit-animation-fill-mode: both;
+			  animation-fill-mode: both;
+ 	   	}
+ 	   	@-webkit-keyframes slideInRight {
+		  0% {
+			  -webkit-transform: translateY(-100%);
+			  transform: translateY(-100%);
+			  visibility: visible;
+		  }
+		  100% {
+			  -webkit-transform: translateY(0);
+			  transform: translateY(0);
+		  }
+		}
+		  @keyframes slideInRight {
+		 	0% {
+			  -webkit-transform: translateY(-150%);
+			  transform: translateY(-150%);
+			  visibility: visible;
+		  }
+		  100% {
+			  -webkit-transform: translateY(0);
+			  transform: translateY(0);
+		  }
+		 } 
+ 	   	.loaderContainer div{
+ 	   		width: 150px;
+ 	   		height: 150px;
+ 	   		background-image: url('logo/loader.gif');
+ 	   		background-repeat: no-repeat;
+ 	   		background-position: center;
+ 	   	}
+ 	   	.actionIco{
+ 	   		width: 36px;
+ 	   		height: 36px;
+ 	   		cursor: pointer;
+ 	   	}
+ 	   	.restFun{
+ 	   		width: 130px;
+ 	   		height: 40px;
+ 	   		background-color: blue;
+ 	   		margin-top: 30px;
+ 	   	}
+ 	   	button{
+ 	   		width: 150px;
+ 	   		height: 30px;
+ 	   		background-color: rgba(22, 72, 210, 0.9);
+ 	   		color: #efefef;
+ 	   		box-sizing: border-box;
+ 	   		text-align: center;
+ 	   		padding: 5px;
+ 	   		cursor: pointer;
+ 	   		border: none;
+ 	   		outline: none;
+ 	   		border-radius: 5px;
+ 	   	}
+ 	</style>
+</head>
+<body>
+	<div class="loaderContainer" id="loaderContainer"><div></div></div>
+	<div class="statusContainer" id='statusContainer'>
+		<div class="statusDiv">
+			<img src="logo/successTwo.png">
+			<h3 style="color:#4F5457;font-weight: bold;">SUCCESS</h3>
+			<button id='confirmBtn'>OK</button>
+		</div>
+	</div>
+	<div class="containermta">
+		<div class="containerheader">
+			<div class="logoarea">
+				<img src="logo/North Gate Engineering Logo.png" class="logoNG">
+				<div>
+					<span>NORTH GATE</span>
+					<span>ENGINNERING & THECHNOLOGY</span>
+				</div>
+			</div>
+			<div class="menucontainer">
+				<div id='mainCate'>MainCategory</div>
+				<div id='subCate'>SubCategory</div>
+				<div id='logout'>Logout</div>
+			</div>
+		</div>
+		<div class="containerloginimage">
+			<div class="cateResultContainer" id='mainCategoryResultContainer'>
+				<div class="cateResultDiv">
+					<table class="cateResultTbl" id='cateResultTbl'></table>
+				</div>
+				<div class="cateImportDiv">
+					<form class="importerForm" id='importerForm' autocomplete="off">
+						<input type='hidden' id='upId' name='id'/>
+						<input type='hidden' id='upS' value='0'/>
+						<input type='file' id='imgFile' name='file' style='display:none;' />
+						<div class="imgContainer" id='imgContainer'></div>
+						<input type="text" name="title" id='mainTitle' placeholder="Title" class="inputcls" required>
+						<textarea type="text" name="brief" id='mainBreif' placeholder="Brief Info" class="inputcls" required></textarea>
+						<textarea type="text" name="description" id='mainDesc' placeholder="Detail Info" class="inputclsDetail" required></textarea>
+						<img src="logo/loader.gif" class="loader" id='loader'>
+						<input type="submit" name="titleName" value="SUBMIT" id='inputAction' class="inputSubmit">
+						<div class="restFun" id='resetForm' style="width:150px;height: :38px;border-radius: 5px;background-color:#fff;box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;border: none;margin-top: 50px;display: flex;justify-content: center;align-items: center;cursor: pointer;">
+							<img src="logo/reset.png" style='max-width:36px;max-height:36px;'>
+							<span style="color:#4F5457;font-weight: bold;font-size: 13px;">Reset</span>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="cateResultContainer" id='subCategoryResultContainer'>
+				<div class="cateResultDiv">
+					<table class="cateResultTbl" id='cateResultTblTwo'></table>
+				</div>
+				<div class="cateImportDiv">
+					<form class="importerForm" id='importerFormTwo' autocomplete="off">
+						<input type='hidden' id='subUpId' name='id'/>
+						<input type='hidden' id='subUpS' value='0'/>
+						<input type='file' id='imgFileTwo' name='file'  style='display:none;' />
+						<div class="imgContainer" id='imgContainerTwo'></div>
+						<select id='selMainCate' name='nge_category_id'><option value="">Choose Main Category</option></select>
+						<input type="text" name="title" id="subTitle" placeholder="Title" class="inputcls" required>
+						<textarea type="text" name="brief" id="subBrief" placeholder="Brief Info" class="inputcls" required></textarea>
+						<textarea type="text" name="description" id="subDesc" placeholder="Detail Info" class="inputclsDetail" required></textarea>
+						<img src="logo/loader.gif" class="loader" id='loaderTwo'>
+						<input type="submit" name="titleName" value="SUBMIT" class="inputSubmit" id='subInputAction'>
+						<div class="restFun" id='resetFormTwo' style="width:150px;height: :38px;border-radius: 5px;background-color:#fff;box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;border: none;margin-top: 30px;display: flex;justify-content: center;align-items: center;cursor: pointer;">
+							<img src="logo/reset.png" style='max-width:36px;max-height:36px;'>
+							<span style="color:#4F5457;font-weight: bold;font-size: 13px;">Reset</span>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript"  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		(function($) {
+			$(document).on("change","#imgFile",function(){
+				var files = !!this.files ? this.files : [];
+				if (!files.length || !window.FileReader) return;
+				if (/^image/.test( files[0].type)){
+					var reader = new FileReader();
+					var geekss = this.files[0].name;
+					$("#imgFile").attr("value",geekss);
+					reader.readAsDataURL(files[0]);
+					reader.onloadend = function(){
+						$("#imgContainer").css({"background-image":"url("+this.result+")","background-size":"cover"});
+					}
+				}
+			});
+			$(document).on("change","#imgFileTwo",function(){
+				var files = !!this.files ? this.files : [];
+				if (!files.length || !window.FileReader) return;
+				if (/^image/.test( files[0].type)){
+					var reader = new FileReader();
+					var geekss = this.files[0].name;
+					$("#imgFileTwo").attr("value",geekss);
+					reader.readAsDataURL(files[0]);
+					reader.onloadend = function(){
+						$("#imgContainerTwo").css({"background-image":"url("+this.result+")","background-size":"cover"});
+					}
+				}
+			});
+			$('#imgContainer').click(function(){$('#imgFile').click();});
+			$('#imgContainerTwo').click(function(){$('#imgFileTwo').click();});
+			$(document).on("click","#mainCate",function(){
+				$(".menucontainer div").css({"border-bottom":"none"});
+				$(this).css({"border-bottom":"6px solid rgba(255, 255, 255, 1)"});
+				$("#mainCategoryResultContainer").show().css({"display":"flex"});$("#subCategoryResultContainer").hide();
+			});$(document).on("click","#subCate",function(){
+				$(".menucontainer div").css({"border-bottom":"none"});
+				$(this).css({"border-bottom":"6px solid rgba(255, 255, 255, 1)"});
+				$("#subCategoryResultContainer").show().css({"display":"flex"});$("#mainCategoryResultContainer").hide();
+			});
+			$(document).on("click","#maineditBtn",function(){
+				var mainId = $(this).parent().parent().attr('id');
+				var pImg = $(this).closest('tr').find('.cateImg').attr('src');
+				var pTitle = $(this).closest('tr').find('td').eq(2).text();
+				var pBrief = $(this).closest('tr').find('td').eq(3).text();
+				var pDetail = $(this).closest('tr').find('td').eq(4).text();
+				$("#upId").val(mainId);$("#upS").val(1);$("#inputAction").val("UPDATE");
+				$("#imgContainer").css({"background-image":"url("+pImg+")" ,"background-size":"cover"});
+				$("#mainTitle").val(pTitle);$("#mainBreif").val(pBrief);$("#mainDesc").val(pDetail);
+			});
+			$(document).on("click","#maindelBtn",function(){
+				var mainId = $(this).parent().parent().attr('id');
+				if (confirm('Are you sure ?')) {
+					goMainCateDelFun(mainId , "main");
+				}
+			});
+			$(document).on("click","#subeditBtn",function(){
+				var mainId = $(this).parent().parent().attr('id');
+				var pImg = $(this).closest('tr').find('.cateImg').attr('src');
+				var cateID = $(this).closest('tr').find('td').eq(2).text();
+				var pTitle = $(this).closest('tr').find('td').eq(3).text();
+				var pBrief = $(this).closest('tr').find('td').eq(4).text();
+				var pDetail = $(this).closest('tr').find('td').eq(5).text();
+				$("#subUpId").val(mainId);$("#subUpS").val(1);$("#subInputAction").val("UPDATE");
+				$("#imgContainerTwo").css({"background-image":"url("+pImg+")" ,"background-size":"cover"});
+				$("#subTitle").val(pTitle);$("#subBrief").val(pBrief);$("#subDesc").val(pDetail);
+				$("#selMainCate option[value="+cateID+"]").attr('selected', 'selected');
+			});
+			$(document).on("click","#subdelBtn",function(){
+				var mainId = $(this).parent().parent().attr('id');
+				if (confirm('Are you sure ?')) {
+					goMainCateDelFun(mainId , "sub");
+				}
+			});
+		}(jQuery));
+	</script>
+	<script type="text/javascript">
+		const api_url = "https://mmsoftware100.com/nge/public/api/v1/nge_category";
+		const api_mUpUrl = "https://mmsoftware100.com/nge/public/api/v1/nge_category/update";
+		const api_insUrl = "https://mmsoftware100.com/nge/public/api/v1/nge_post";
+		const api_upUrl = "https://mmsoftware100.com/nge/public/api/v1/nge_post/update";
+		const mainCateTbl = document.getElementById('cateResultTbl');
+		const subCateTbl = document.getElementById('cateResultTblTwo');
+		const importMainCate = document.getElementById('importerForm');
+		const imprtSubCate = document.getElementById('importerFormTwo');
+		const loaderContainer = document.getElementById('loaderContainer');
+		const statusContainer = document.getElementById('statusContainer');
+		const logout = document.getElementById('logout');
+		const actionButton = document.getElementById('inputAction');
+		const subActionButton = document.getElementById('subInputAction');
+		const mainBgImg = document.getElementById('imgContainer');
+		const mainStatus = document.getElementById('upS');
+		const subBgImg = document.getElementById('imgContainerTwo');
+		const subStatus = document.getElementById('subUpS');
+		const restForm = document.getElementById('resetForm');
+		const restFormTwo = document.getElementById('resetFormTwo');
+		const confirmBtn = document.getElementById('confirmBtn');
+		var mainCateSelect = document.getElementById('selMainCate');var accessToken = "";
+		statusContainer.style.display = "none";
+		const chekAccess = new URLSearchParams(window.location.search);
+		if(chekAccess.has('xxruysc')){
+			if(chekAccess.get('xxruysc')!=""){
+				accessToken = chekAccess.get('xxruysc');
+				goListiningDataByCate(api_url);
+				goListiningDataByCateSub(api_insUrl);
+			}else{
+				window.location.replace('login.html')
+			}
+		}else{
+			window.location.replace('login.html')
+		}
+		async function goListiningDataByCate(cate){
+  			const response = await fetch(cate);var combSelect="";var combStr="<thead><tr class='tblHeader'><td>Sr</td><td>IMG</td><td>Title</td><td>Brief</td><td>Detail</td><td>Edit</td><td>Delete</td></tr></thead><tbody>";var imgUrl="https://mmsoftware100.com/nge/public/";
+			var rtData = await response.json();
+			for(var i=0 ; i < rtData.count ; i++){
+				combStr+="<tr id='"+rtData.data[i].id+"'><td>"+(i+1)+"</td><td><img class='cateImg' src='"+imgUrl+""+rtData.data[i].photo_url+"' /></td><td>"+rtData.data[i].title+"</td><td>"+rtData.data[i].brief+"</td><td>"+rtData.data[i].description+"</td><td><img src='logo/edit.png' class='actionIco' id='maineditBtn'></td><td><img src='logo/delete.png' class='actionIco' id='maindelBtn'></td></tr>";
+				combSelect+="<option value='"+rtData.data[i].id+"'>"+rtData.data[i].title+"</option>";
+			}
+			combStr+="</tbody>";
+			mainCateTbl.innerHTML = combStr;
+			mainCateSelect.innerHTML = combSelect;
+			loaderContainer.style.display = "none";	
+  		}
+  		async function deleteApiDataFun(api , id , accessKey , status) {
+  			const response = await fetch(api+"?id="+id+"" , {
+  				method:"DELETE",
+  				headers:{
+  					'Authorization' : 'Bearer '+accessKey+'',
+  					redirect: 'follow'
+  				}
+  			});
+  			var rtData = await response.json();
+  			if(rtData.status==true){
+  				alert("SUCCESS");
+  				status==1 ? goListiningDataByCate(api_url) : goListiningDataByCateSub(api_insUrl);
+  				loaderContainer.style.display = "none";
+  			}
+  		}
+  		async function goListiningDataByCateSub(cate){
+  			const response = await fetch(cate+"?nge_category_id=11");
+  			var combStr="<thead><tr class='tblHeader'><td>Sr</td><td>IMG</td><td>MainCate</td><td>Title</td><td>Brief</td><td>Detail</td><td>Edit</td><td>Delete</td></tr></thead><tbody>";var imgUrl="https://mmsoftware100.com/nge/public/";
+			var rtData = await response.json();
+			for(var i=0 ; i < rtData.data.length ; i++){
+				combStr+="<tr id='"+rtData.data[i].id+"'><td>"+(i+1)+"</td><td><img class='cateImg' src='"+imgUrl+""+rtData.data[i].photo_url+"' /></td><td>"+rtData.data[i].nge_category_name+"</td><td>"+rtData.data[i].title+"</td><td>"+rtData.data[i].brief+"</td><td>"+rtData.data[i].description+"</td><td ><img src='logo/edit.png' class='actionIco' id='subeditBtn'></td><td><img src='logo/delete.png' class='actionIco' id='subdelBtn'></td></tr>";
+			}
+			combStr+="</tbody>";
+			subCateTbl.innerHTML = combStr;
+			loaderContainer.style.display = "none";
+  		}
+  		async function importDataNGFun(api , requestData , accessKey , formType){
+			const req = await fetch(api , {
+				method:"POST",
+				headers : {
+					'Accept' : 'application/json',
+					'Authorization' : 'Bearer '+accessKey+''
+				},
+				body : requestData ,
+				redirect: 'follow'
+			});
+			const extRes = await req.json();
+			if(extRes.status==true){
+				if(formType==1){
+					statusContainer.style.display = "block";statusContainer.style.display = "flex";
+					importMainCate.reset();
+					actionButton.value = "SUBMIT";
+					mainBgImg.style.backgroundImage="url(logo/bgImg.png)";
+					mainBgImg.style.backgroundSize = "60px 60px";
+					mainStatus.value = 0;
+					goListiningDataByCate(api_url);
+				}else{
+					statusContainer.style.display = "block";statusContainer.style.display = "flex";
+					imprtSubCate.reset();
+					subActionButton.value = "SUBMIT";
+					subBgImg.style.backgroundImage="url(logo/bgImg.png)";
+					subBgImg.style.backgroundSize = "60px 60px";
+					subStatus.value = 0;
+					goListiningDataByCateSub(api_insUrl);
+				}
+			}
+		}
+		logout.addEventListener("click" , function() {
+			window.location.href =  window.location.href.split("?")[0];
+		});
+		resetForm.addEventListener("click" , ()=> {
+			importMainCate.reset();
+			actionButton.value = "SUBMIT";
+			mainBgImg.style.backgroundImage="url(logo/bgImg.png)";
+			mainBgImg.style.backgroundSize = "60px 60px";
+			mainStatus.value = 0;
+		});
+		resetFormTwo.addEventListener("click" , ()=> {
+			imprtSubCate.reset();
+			subActionButton.value = "SUBMIT";
+			subBgImg.style.backgroundImage="url(logo/bgImg.png)";
+			subBgImg.style.backgroundSize = "60px 60px";
+			subStatus.value = 0;
+		});
+		confirmBtn.addEventListener("click" , ()=> {
+			statusContainer.style.display = "none";
+		});
+		importMainCate.addEventListener("submit", function(e){
+			e.preventDefault();
+			var cateMain = new FormData(importMainCate);
+			var determineAction = document.getElementById('upS').value;
+			determineAction==0 ? importDataNGFun(api_url , cateMain , accessToken , 1) : importDataNGFun(api_mUpUrl , cateMain , accessToken, 1);
+			loaderContainer.style.display = "block";loaderContainer.style.display = "flex";
+		});
+		imprtSubCate.addEventListener('submit' ,(e)=> {
+			e.preventDefault();
+			var cateSub = new FormData(imprtSubCate);
+			var determineAction = document.getElementById('subUpS').value;
+			determineAction==0 ? importDataNGFun(api_insUrl , cateSub , accessToken , 2) : importDataNGFun(api_upUrl , cateSub , accessToken , 2);
+			loaderContainer.style.display = "block";loaderContainer.style.display = "flex";
+		});
+		function goMainCateDelFun(id , status) {
+			status=="main" ? deleteApiDataFun(api_url , id , accessToken , 1) : deleteApiDataFun(api_url , id , accessToken , 2);
+			loaderContainer.style.display = "block";loaderContainer.style.display = "flex";
+		}
+	</script>
+</body>
+</html>

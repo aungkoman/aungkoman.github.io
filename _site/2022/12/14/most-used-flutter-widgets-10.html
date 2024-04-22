@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>အသုံးအများဆုံး Flutter Widget (၁၀) ခု –  – Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="What’s widget in Flutter?
+" />
+    <meta property="og:description" content="What’s widget in Flutter?
+" />
+    
+    <meta name="author" content="" />
+
+    
+    <meta property="og:title" content="အသုံးအများဆုံး Flutter Widget (၁၀) ခု" />
+    <meta property="twitter:title" content="အသုံးအများဆုံး Flutter Widget (၁၀) ခု" />
+    
+
+    <!-- facebook Open Graph Metadatas -->
+    <meta content="your_facebook_app_id" property="fb:app_id">
+    <meta content="Your awesome title" property="og:site_name">
+    
+    <meta content="အသုံးအများဆုံး Flutter Widget (၁၀) ခု" property="og:title">
+    
+    
+    <meta content="article" property="og:type">
+    
+    
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." property="og:description">
+    
+    
+    <meta content="http://localhost:4000/2022/12/14/most-used-flutter-widgets-10.html" property="og:url">
+    
+    
+    <meta content="2022-12-14T00:00:00+06:30" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    <meta content="/img/logo-high-resolution.png" property="og:image">
+    
+    
+    
+    
+    
+    
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title=" - Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/"></a></h1>
+            <p class="site-description">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>အသုံးအများဆုံး Flutter Widget (၁၀) ခု</h1>
+
+  <div class="entry">
+    <h1 id="whats-widget-in-flutter">What’s widget in Flutter?</h1>
+
+<h2 id="အသုံးအများဆုံး-flutter-widget-၁၀-ခု">အသုံးအများဆုံး Flutter Widget (၁၀) ခု</h2>
+
+<h3 id="materialapp">MaterialApp</h3>
+
+<p>ဒါကတော့ Google က ထုတ်တဲ့ Material UI ဆိုတဲ့ UI Framework ကို သုံးမယ်ဆိုရင် မဖြစ်မနေ သုံးရမယ့် Widget ပါ။ iOS အထူးပြု UI တွေ သုံးမယ်ဆိုရင်တော့ Capachino ဆိုတဲ့ Widget ရှိပါတယ်။ လောလောဆယ်တော့ လူသုံးများတဲ့ Material UI နဲ့ သွားပါမယ်။</p>
+
+<p>ဆိုတော့ကာ ကိုယ့် App ရဲ့ root widget ကို MaterialApp လို့ ဒီလို ရေးပါမယ်။</p>
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">runApp</span><span class="p">(</span>
+        <span class="n">MaterialApp</span><span class="p">(),</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>MaterialApp မှာ ကိုယ့် App ရဲ့ home screen ကို သတ်မှတ်ချင်ရင် <code class="language-plaintext highlighter-rouge">home</code> ဆိုတဲ့ property ရှိပါတယ်။</p>
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">runApp</span><span class="p">(</span>
+        <span class="n">MaterialApp</span><span class="p">(</span>
+            <span class="nl">home:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Hell World"</span><span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="text">Text</h3>
+
+<p>စာ ပြချင်ရင်တော့ <code class="language-plaintext highlighter-rouge">Text</code> Widget ကို သုံးနိုင်ပါတယ်။ ဉပမာ Hello World လို့ ကိုယ့် App မှာ ပေါ်စေချင်ရင်</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Text</span><span class="p">(</span><span class="s">"Hello World"</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">runApp</span><span class="p">(</span>
+        <span class="n">MaterialApp</span><span class="p">(</span>
+            <span class="nl">home:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Hell World"</span><span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="image">Image</h3>
+
+<p>ပုံတွေ ပြဖို့အတွက် <code class="language-plaintext highlighter-rouge">Image</code> Widget ကို သုံးနိုင်ပါတယ်။ အင်တာနက်ပေါ်က ပုံတွေကို ပြနိုင်သလို local မှာ သိမ်းထားတဲ့ ပုံတွေကိုလည်း ပြနိုင်ပါတယ်။</p>
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Image</span><span class="p">(</span>
+    <span class="nl">image:</span> <span class="n">NetworkImage</span><span class="p">(</span><span class="s">"https://mmsoftware100.com/images/flutter-logo.png"</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Image</span><span class="p">(</span>
+    <span class="nl">image:</span> <span class="n">AssetImage</span><span class="p">(</span><span class="s">"assets/images/flutter-logo.png"</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">runApp</span><span class="p">(</span>
+        <span class="n">MaterialApp</span><span class="p">(</span>
+            <span class="nl">home:</span> <span class="n">Image</span><span class="p">(</span>
+                <span class="nl">image:</span> <span class="n">NetworkImage</span><span class="p">(</span><span class="s">"https://mmsoftware100.com/images/flutter-logo.png"</span><span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">),</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="center">Center</h3>
+<p>ဒါကတော့ Layout Widget တစ်ခုဖြစ်ပါတယ်။ Widget တစ်ခု ကို အလယ်မှာ နေရာချထားချင်တယ်ဆိုရင် <code class="language-plaintext highlighter-rouge">Center</code> Widget ကိုသုံးနိုင်ပါတယ်။</p>
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Center</span><span class="p">(</span>
+    <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Hello World"</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">runApp</span><span class="p">(</span>
+        <span class="n">MaterialApp</span><span class="p">(</span>
+            <span class="nl">home:</span> <span class="n">Center</span><span class="p">(</span>
+                <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Hello World"</span><span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">),</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="scaffold">Scaffold</h3>
+
+<p>အခုထိ သုံးခဲ့သမျှ Widget တွေဖြစ်တဲ့ Text, Image, တွေဟာ ကြည့်ရဆိုးနေတယ်လို့ ထင်နေသလား? <code class="language-plaintext highlighter-rouge">Scaffold</code> Widget သုံးလိုက်ပါ။ Scaffold ဆိုတာကတော့  App Bar, Body , Navigation Drawer နဲ့ Floating Action Button အပါအဝင် Mobile App Screen တစ်ခုမှာ ရှိသင့်ရှိထိုက်တဲ့ အင်္ဂါရပ်တွေ အစုံအလင် ထောက်ပံ့ပေးထားတဲ့ Widget တစ်ခုဖြစ်ပါတယ်။</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Scaffold</span><span class="p">(</span>
+    <span class="nl">appBar:</span> <span class="n">AppBar</span><span class="p">(</span>
+        <span class="nl">title:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Hello App Bar"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="nl">body:</span> <span class="n">Center</span><span class="p">(</span>
+        <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Hello Body"</span><span class="p">)</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">runApp</span><span class="p">(</span>
+        <span class="n">MaterialApp</span><span class="p">(</span>
+            <span class="nl">home:</span> <span class="n">Scaffold</span><span class="p">(</span>
+                <span class="nl">appBar:</span> <span class="n">AppBar</span><span class="p">(</span>
+                    <span class="nl">title:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Hello App Bar"</span><span class="p">),</span>
+                <span class="p">),</span>
+                <span class="nl">body:</span> <span class="n">Center</span><span class="p">(</span>
+                    <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Hello Body"</span><span class="p">)</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>ကြည့်ပျော် ရှုပျော် App တစ်ခု ရလာမယ်လို့ မျှော်လင့်ပါတယ်။</p>
+
+<p>ဒီအထိ ရောက်လာပြီဆိုရင် Widget အကြောင်း နည်းနည်းသဘောပေါက်လာပြီလို့ ထင်ပါတယ်။ အဲ့ဒီတော့ Widet အသစ်တွေ အကြောင်း မပြောခင်် Widget ဆိုတာ ဘာလဲ ဘယ်လဲ ဆိုတာ နည်းနည်း ပြန်ဆွေးနွေးလိုက်ကြရအောင်။</p>
+
+<p>Flutter မှာ Widget သည်သာ အရာရာပဲ။ ရို ဆန်တယ် မထင်လေနဲ့ ဆရာ။ အကုန်လုံးကို Widget ထဲမှာ Widget တွေထည့်ပြီး အဆင့်ဆင့် တည်ဆောက်ကြရတာ။ Nested Widget / Widget Tree လို့ ခေါ်ကြတယ်။</p>
+
+<p>ဆိုတော့ကာ အခြေခံ အကျဆုံး <code class="language-plaintext highlighter-rouge">Text</code> Widget ကို တစ်ချက်ကြည့်လိုက်ကြရအောင်</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Text</span><span class="p">(</span><span class="s">"Hello World"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>ဒီမှာ ကျွန်တော် တို့ ပြချင်တဲ့ စာ / content က <code class="language-plaintext highlighter-rouge">Hello World</code> သုံးရတဲ့ Widget က <code class="language-plaintext highlighter-rouge">Text</code>
+ဒီတော့ Widget ဟေ့လို့ ဆိုလိုက်တာနဲ့ Widget Name ပါမယ်။ အဲ့ Widget က တာဝန်ယူပြီး ပြပေးမယ့် content ပါမယ်။ နောက်တစ်ခါ နည်းနည်း ထပ်တိုးလိုက်ကြရအောင် ဒီ စာကို အလယ်မှာ ပြချင်ရင် <code class="language-plaintext highlighter-rouge">Center</code> Widget သုံးလို့ရတယ်။ ဒီလိုဖြစ်သွားမယ်။</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Center</span><span class="p">(</span>
+    <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Hello World"</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Center</code> widget မှာတော့ <code class="language-plaintext highlighter-rouge">child</code> ဆိုတဲ့ <code class="language-plaintext highlighter-rouge">property</code> တစ်ခု ပါလာပြီး အဲ့ <code class="language-plaintext highlighter-rouge">property</code> ရဲ့ value အနေနဲ့ <code class="language-plaintext highlighter-rouge">Text</code> Widget ကို ထည့်ပေးထားတယ်။</p>
+
+<p>ဒီတော့ ထပ်ပြောရရင် Widget ဟေ့လို့ ဆိုလိုက်တာနဲ့</p>
+<ul>
+  <li>Widget Name</li>
+  <li>Content</li>
+  <li>property : value 
+ဒါမျိုးတွေ ရှိမယ်။</li>
+</ul>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">WidgetName</span><span class="p">(</span>
+    <span class="n">content</span><span class="p">,</span>
+    <span class="nl">property_one:</span> <span class="n">value_one</span><span class="p">,</span>
+    <span class="nl">property_two:</span> <span class="n">value_two</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Text</code> Widget မှာလည်း <code class="language-plaintext highlighter-rouge">property</code> တွေ ရှိတယ်။ ကျွန်တော် တို့ အခု Hello World ဆိုတဲ့ text ကို စာ အနီရောင် နဲ့ ဖော်ပြချင်တယ်ဆိုပါစို့။ ဘယ်လို လုပ်ကြမလဲ?</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Text</span><span class="p">(</span>
+    <span class="s">"Hello World"</span><span class="p">,</span>
+    <span class="nl">style:</span> <span class="n">TextStyle</span><span class="p">(</span>
+        <span class="nl">color:</span> <span class="n">Colors</span><span class="o">.</span><span class="na">red</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Text</code> Widget မှာ <code class="language-plaintext highlighter-rouge">style</code> ဆိုတဲ့ property ရှိပါတယ်။ ဒီ style property ကို သုံးပြီး ကျွန်‌တော် တို့ Text ရဲ့ အရောင်၊ အရွယ်အစား စတာတွေကို ပြောင်းနိုင်ပါတယ်။</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Text</span><span class="p">(</span>
+    <span class="s">"Hello World"</span><span class="p">,</span>
+    <span class="nl">style:</span> <span class="n">TextStyle</span><span class="p">(</span>
+        <span class="nl">color:</span> <span class="n">Colors</span><span class="o">.</span><span class="na">red</span><span class="p">,</span>
+        <span class="n">font</span><span class="o">-</span><span class="nl">size:</span> <span class="mi">16</span><span class="p">,</span>
+        <span class="n">font</span><span class="o">-</span><span class="nl">weight:</span> <span class="n">FontWeight</span><span class="o">.</span><span class="na">bold</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>ဒီတော့ Widget တိုင်း Widget တိုင်းမှာ</p>
+<ul>
+  <li>Widget Name</li>
+  <li>Widget Content</li>
+  <li>Widget Property</li>
+</ul>
+
+<p>ဒီ (၃) ခု ရှိမယ်ဆိုတာ မှတ်ထားရင် ရပြီ။
+အိုကေ ဒီတော့ (၆) ခုမြောက် Widget ကို သွားကြရအောင်။</p>
+
+<h3 id="container">Container</h3>
+
+<p>Container က UI Widget ဆိုရင်လည်း ဟုတ်တယ် Layout Widget ဆိုရင်လည်း မမှားဘူး။ ဟ ဘာလဲ UI Widget, ဘာလဲ Layout Widget ? UI Widget ဆိုတာက ဗျာ <code class="language-plaintext highlighter-rouge">Text</code> တို့ <code class="language-plaintext highlighter-rouge">Image</code> တို့ ဒါမျိုး Widget တွေကို ပြောတာ။ ဒီ Widget တွေက စာတွေ ပုံတွေကို ပြဖို့ သုံးတဲ့ Widget တွေ။ ဆိုရရင် UI မှာ ပြပေးတဲ့ကောင်တွေပေါ့။ အဲ <code class="language-plaintext highlighter-rouge">Center</code> Widget ကတော့ <code class="language-plaintext highlighter-rouge">Text</code> တို့ <code class="language-plaintext highlighter-rouge">Image</code> တို့လို UI မှာတော့ မမြင်ရဘူး၊ ဒါပေမယ့် Text ကိုတော့ အလယ်တည့်တည့်မှာ နေရာချပေးနိုင်တယ်။ ဒီလို UI Widget တွေကို သင့်တင့်လျောက်ပတ်တဲ့ နေရာမှာ နေရာချပေးတဲ့ Widget တွေကိုတော့ Layout Widget လို့ ခေါ်ကြတယ်။</p>
+
+<p>အိုကေ ဒီတော့ Container က ဘာလဲ ဘယ်လိုနေရာတွေမှာ သုံးလို့ရလဲ ကြည့်လိုက်ကြရအောင်။</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Container</span><span class="p">(</span>
+    <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Hello World"</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>Text Widget ကို Container Widget ရဲ့ <code class="language-plaintext highlighter-rouge">child</code> property မှာ ထားထားတယ်။ ဘာထူးလဲ 
+No ဘာမှ မထူးဘူး။
+အိုကေ Continer မှာ background color ထည့်ကြည့်ရအောင်။</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Container</span><span class="p">(</span>
+    <span class="n">background</span><span class="o">-</span><span class="nl">color:</span> <span class="n">Colors</span><span class="o">.</span><span class="na">red</span><span class="p">,</span>
+    <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Hello World"</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>နောက်ထပ် အသုံးများတဲ့ property တွေက <code class="language-plaintext highlighter-rouge">width</code>, <code class="language-plaintext highlighter-rouge">height</code> , <code class="language-plaintext highlighter-rouge">padding</code> နဲ့ <code class="language-plaintext highlighter-rouge">margin</code> 
+ဘယ်လိုသုံးလဲ ကြည့်လိုက်ကြရအောင်။</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Container</span><span class="p">(</span>
+    <span class="nl">width:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="nl">height:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="nl">margin:</span> <span class="n">EdgeInsert</span><span class="o">.</span><span class="na">all</span><span class="p">(</span><span class="mf">24.0</span><span class="p">),</span>
+    <span class="nl">padding:</span> <span class="n">EdgetInsert</span><span class="o">.</span><span class="na">all</span><span class="p">(</span><span class="mf">24.0</span><span class="p">),</span>
+    <span class="n">background</span><span class="o">-</span><span class="nl">color:</span> <span class="n">Colors</span><span class="o">.</span><span class="na">red</span><span class="p">,</span>
+    <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Hello World"</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>width နဲ့ height ကတော့ Container ရဲ့ အလျား နဲ့ အနံ ကို သတ်မှတ်တာ။
+margin ကတော့ ဘေးမျဉ်းခေါ်မှာပေါ့။ ဒီမှာတော့ ဘေးဘယ်ညာ အပေါ်အောက် Widget တွေနဲ့ 24 unit ခြားထားမယ်လို့ သတ်မှတ်ထားတယ်။
+padding ကတော့ ကိုယ့်အောက်က content တွေနဲ့ ကိုယ်နဲ့ ဘယ်လောက် ခြားထားမလဲ ဆိုတာကို သတ်မှတ်တာ။</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">runApp</span><span class="p">(</span>
+        <span class="n">MaterialApp</span><span class="p">(</span>
+            <span class="nl">home:</span> <span class="n">Scaffold</span><span class="p">(</span>
+                <span class="nl">appBar:</span> <span class="n">AppBar</span><span class="p">(</span>
+                    <span class="nl">title:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Hello App Bar"</span><span class="p">),</span>
+                <span class="p">),</span>
+                <span class="nl">body:</span> <span class="n">Container</span><span class="p">(</span>
+                    <span class="nl">width:</span> <span class="mi">100</span><span class="p">,</span>
+                    <span class="nl">height:</span> <span class="mi">100</span><span class="p">,</span>
+                    <span class="nl">margin:</span> <span class="n">EdgeInsert</span><span class="o">.</span><span class="na">all</span><span class="p">(</span><span class="mf">24.0</span><span class="p">),</span>
+                    <span class="nl">padding:</span> <span class="n">EdgetInsert</span><span class="o">.</span><span class="na">all</span><span class="p">(</span><span class="mf">24.0</span><span class="p">),</span>
+                    <span class="n">background</span><span class="o">-</span><span class="nl">color:</span> <span class="n">Colors</span><span class="o">.</span><span class="na">red</span><span class="p">,</span>
+                    <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Hello World"</span><span class="p">)</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Container ရဲ့ width, height, margin , padding နဲ့ background-color တန်ဖိုးတွေကို ပြောင်းကြည့်ပါ။ အခုထိ ပြောခဲ့တဲ့ Center တို့ Contianer တို့ ဆိုတာတွေက Single Child Layout Widget တွေ။ ‌ဟော လာပြန်ပြီ ဘာလဲ Single Child Layout Widget ? ပြောချင်တာက ဗျာ ဒီ Widget တွေက Widget တစ်ခုကိုပဲ နေရာချပေးနိုင်တယ်။ ဒီတော့ Widget အများကြီးကို နေရာချပေးနိုင်တဲ့ Multi Children Layout Widget တွေလည်း ရှိသေးတဲ့ သဘောလား? အမှန်ပါပဲ။ ဆိုပါစို့ ကျွန်တော် တို့ ပုံ နဲ့ စာ ကို အပေါ် အောက် ပြထားချင်ရင် ဘယ်လိုလုပ်ကြမလဲ? အောက်မှာ ထပ်ပြောမယ့် Column နဲ့ Row ဆိုတဲ့ Widget တွေကိုကြည့်ပါ။</p>
+
+<h3 id="column--row">Column , Row</h3>
+<p>ဒါကတော့ Multi Children Layout Widget တစ်ခုပါပဲ။ ကျွန်တော်တို့ ပုံနဲ့ စာကို အပေါ် အောက် ပြချင်ရင် ဒါမျိုး ရေးပါမယ်။</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Column</span><span class="p">(</span>
+    <span class="nl">children:</span><span class="p">[</span>
+        <span class="n">Image</span><span class="p">(</span><span class="nl">image:</span> <span class="n">NetworkImage</span><span class="p">(</span><span class="s">"https://mmsoftware100.com/images/flutter-logo.png"</span><span class="p">),),</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">"Hello World"</span><span class="p">),</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Column</code> ဆိုတဲ့ Widget မှာ <code class="language-plaintext highlighter-rouge">children</code> property သုံးပြီး ကိုယ် အပေါ်အောက်ပြချင်တဲ့ Widget တွေကို တန်းစီပြီး ရေးသွားရုံပဲ။</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">runApp</span><span class="p">(</span>
+        <span class="n">MaterialApp</span><span class="p">(</span>
+            <span class="nl">home:</span> <span class="n">Scaffold</span><span class="p">(</span>
+                <span class="nl">appBar:</span> <span class="n">AppBar</span><span class="p">(</span>
+                    <span class="nl">title:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Hello App Bar"</span><span class="p">),</span>
+                <span class="p">),</span>
+                <span class="nl">body:</span> <span class="n">Column</span><span class="p">(</span>
+                    <span class="nl">children:</span><span class="p">[</span>
+                        <span class="n">Image</span><span class="p">(</span><span class="nl">image:</span> <span class="n">NetworkImage</span><span class="p">(</span><span class="s">"https://mmsoftware100.com/images/flutter-logo.png"</span><span class="p">),),</span>
+                        <span class="n">Text</span><span class="p">(</span><span class="s">"Hello World"</span><span class="p">),</span>
+                    <span class="p">]</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>ဒီမှာ alignement အနေနဲ့ <code class="language-plaintext highlighter-rouge">Column</code> Widget က သူ့ရဲ့ Children တွေကို MainAxisAlignmet နဲ့ CrossAxisAlignment ဆိုပြီး ဝင်ရိုး (၂) ခုသုံးပြီး နေရာချပေးတယ်။ Default အနေနဲ့ကတော့ ဝင်ရိုးတွေရဲ့ အစကနေပြီး စပြီးနေရာချတယ်။ ကျွန်‌တော် တို့က အခု အလယ်က စပြီး နေရာချပေးပါလို့ ပြောချင်ရင်</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">runApp</span><span class="p">(</span>
+        <span class="n">MaterialApp</span><span class="p">(</span>
+            <span class="nl">home:</span> <span class="n">Scaffold</span><span class="p">(</span>
+                <span class="nl">appBar:</span> <span class="n">AppBar</span><span class="p">(</span>
+                    <span class="nl">title:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Hello App Bar"</span><span class="p">),</span>
+                <span class="p">),</span>
+                <span class="nl">body:</span> <span class="n">Column</span><span class="p">(</span>
+                    <span class="nl">crossAxisAlignment:</span> <span class="n">CrossAxisAlignment</span><span class="o">.</span><span class="na">center</span><span class="p">,</span>
+                    <span class="nl">children:</span><span class="p">[</span>
+                        <span class="n">Image</span><span class="p">(</span><span class="nl">image:</span> <span class="n">NetworkImage</span><span class="p">(</span><span class="s">"https://mmsoftware100.com/images/flutter-logo.png"</span><span class="p">),),</span>
+                        <span class="n">Text</span><span class="p">(</span><span class="s">"Hello World"</span><span class="p">),</span>
+                    <span class="p">]</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="expanded">Expanded</h3>
+
+<p>ကျွန်တော် တို့ အပေါ်မှာ ရေးခဲ့တဲ့ ပုံနဲ့စာကို screen ရဲ့ တစ်ဝက်စီမှာ ပြချင်ရင် ဘယ်လိုလုပ်ကြမလဲ? <code class="language-plaintext highlighter-rouge">Expanded</code> ဆိုတဲ့   Single Child Layout Widget ကို သုံးလို့ရတယ်။</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Column</span><span class="p">(</span>
+    <span class="nl">children:</span><span class="p">[</span>
+        <span class="n">Expanded</span><span class="p">(</span>
+            <span class="nl">child:</span><span class="n">Image</span><span class="p">(</span>
+                <span class="nl">image:</span> <span class="n">NetworkImage</span><span class="p">(</span><span class="s">"https://mmsoftware100.com/images/flutter-logo.png"</span><span class="p">),</span>
+            <span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">Expanded</span><span class="p">(</span>
+            <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Hello World"</span><span class="p">),</span>
+        <span class="p">),</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>Expanded ဆိုတာက Parent Widget စီက နေရာကျန်သလောက် ပေးပါလို့ တောင်းတာမျိုး။ အခု Column မှာက ကလေး နှစ်ယောက် ရှိတယ်။ Image နဲ့ Text ။ ကလေး (၂) ယောက်လုံးက သူ့စီမှာ ရှိသမျှ အကုန်ပေးပါ တောင်းနေတော့ နှစ်ယောက်လုံးကို တစ်ဝက်စီ အညီအမျှ ခွဲပေးလိုက်တယ်။</p>
+
+<p>Expanded ကို Row နဲ့ Column Widget တွေရဲ့ direct child အနေနဲ့ပဲ သုံးလို့ရမယ်။ ဆိုရရင် Parent က Row ဒါမှမဟုတ် Column ဖြစ်နေမှပဲ အကုန်ပေးလို့ တောင်းဆိုလို့ရမယ်ပေါ့။ တစ်ခြား Container တို့ Stack တို့လို့ Widget တွေအောက်မှာ တောင်းရင်တော့ ပြဿနာ တက်မယ်။</p>
+
+<p>Expanded Widget မှာလည်း property တစ်ခုရှိတယ်။ <code class="language-plaintext highlighter-rouge">flex</code> တဲ့ ။ ဒါက ဘယ်လို အသုံးဝင်လာလဲ ကြည့်ကြရအောင်။</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Row</span><span class="p">(</span>
+    <span class="nl">children:</span> <span class="p">[</span>
+        <span class="n">Container</span><span class="p">(</span>
+            <span class="nl">padding:</span> <span class="n">EdgeInset</span><span class="o">.</span><span class="na">all</span><span class="p">(</span><span class="mf">8.0</span><span class="p">),</span>
+            <span class="n">background</span><span class="o">-</span><span class="nl">color:</span> <span class="n">Colors</span><span class="o">.</span><span class="na">red</span><span class="p">,</span>
+            <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Red"</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">Container</span><span class="p">(</span>
+            <span class="nl">padding:</span> <span class="n">EdgeInset</span><span class="o">.</span><span class="na">all</span><span class="p">(</span><span class="mf">8.0</span><span class="p">),</span>
+            <span class="n">background</span><span class="o">-</span><span class="nl">color:</span> <span class="n">Colors</span><span class="o">.</span><span class="na">green</span><span class="p">,</span>
+            <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Green"</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">Container</span><span class="p">(</span>
+            <span class="nl">padding:</span> <span class="n">EdgeInset</span><span class="o">.</span><span class="na">all</span><span class="p">(</span><span class="mf">8.0</span><span class="p">),</span>
+            <span class="n">background</span><span class="o">-</span><span class="nl">color:</span> <span class="n">Colors</span><span class="o">.</span><span class="na">blue</span><span class="p">,</span>
+            <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Blue"</span><span class="p">),</span>
+        <span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>ဒီမှာ ဆိုရင် Red, Green, Blue ဆိုတဲ့ Container (၃) ခုကို အပေါ်အောက် ပြထားတယ်။ လောလောဆယ်တော့ သူတို့က သူတို့မှာ ပါတဲ့ content အရွယ်အစားဖော်ပြဖို့ အတွက် သင့်တော်တဲ့ အရွယ်အစား နေရာထိုင်ခင်းကိုပဲ ‌တောင်းဆိုထားတယ်။ အဆင်ပြေတယ်။
+အဲ့ဒီမှာ ဒီကောင်တွေက တစ်ယောက်ကို တစ်ယောက်ကြည့်ပြီး မညီမျှဘူးလို့ ထင်လာတယ်။ Red က character (3) လုံးတည်းဆိုတော့ နေရာနည်းနည်းလေး ရပြီး Green  က character (၅) လုံးဆိုတော့ နေရာ ပိုကျယ်ကျယ်ရတယ်။ ဒီမှာ လူလည်ကျတဲ့ Red က ငါက သားဉီးပဲ မိဘမှာ ကျန်သမျှ ငါအကုန်လုံး ယူမယ်ဆိုပြီး Expanded Widget ကောက်သုံးလိုက်တယ်။</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Row</span><span class="p">(</span>
+    <span class="nl">children:</span> <span class="p">[</span>
+        <span class="n">Expanded</span><span class="p">(</span>
+            <span class="nl">child:</span> <span class="n">Container</span><span class="p">(</span>
+                <span class="nl">padding:</span> <span class="n">EdgeInset</span><span class="o">.</span><span class="na">all</span><span class="p">(</span><span class="mf">8.0</span><span class="p">),</span>
+                <span class="n">background</span><span class="o">-</span><span class="nl">color:</span> <span class="n">Colors</span><span class="o">.</span><span class="na">red</span><span class="p">,</span>
+                <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Red"</span><span class="p">),</span>
+            <span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">Container</span><span class="p">(</span>
+            <span class="nl">padding:</span> <span class="n">EdgeInset</span><span class="o">.</span><span class="na">all</span><span class="p">(</span><span class="mf">8.0</span><span class="p">),</span>
+            <span class="n">background</span><span class="o">-</span><span class="nl">color:</span> <span class="n">Colors</span><span class="o">.</span><span class="na">green</span><span class="p">,</span>
+            <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Green"</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">Container</span><span class="p">(</span>
+            <span class="nl">padding:</span> <span class="n">EdgeInset</span><span class="o">.</span><span class="na">all</span><span class="p">(</span><span class="mf">8.0</span><span class="p">),</span>
+            <span class="n">background</span><span class="o">-</span><span class="nl">color:</span> <span class="n">Colors</span><span class="o">.</span><span class="na">blue</span><span class="p">,</span>
+            <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Blue"</span><span class="p">),</span>
+        <span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>Yay… နေရာတွေအများစုကို Red က ရသွားပါပြီ။ ဒီမှာ Green နဲ့ Blue ကလည်း ဟ သားသမီးချင်း အတူတူပဲ နေရာတွေကို အညီအမျှ ခွဲသင့်တယ်ဆိုပြီး သူတို့လည်း Expanded နဲ့ တောင်းဆိုကြတယ်။</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Row</span><span class="p">(</span>
+    <span class="nl">children:</span> <span class="p">[</span>
+        <span class="n">Expanded</span><span class="p">(</span>
+            <span class="nl">child:</span> <span class="n">Container</span><span class="p">(</span>
+                <span class="nl">padding:</span> <span class="n">EdgeInset</span><span class="o">.</span><span class="na">all</span><span class="p">(</span><span class="mf">8.0</span><span class="p">),</span>
+                <span class="n">background</span><span class="o">-</span><span class="nl">color:</span> <span class="n">Colors</span><span class="o">.</span><span class="na">red</span><span class="p">,</span>
+                <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Red"</span><span class="p">),</span>
+            <span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">Expanded</span><span class="p">(</span>
+            <span class="nl">child:</span> <span class="n">Container</span><span class="p">(</span>
+                <span class="nl">padding:</span> <span class="n">EdgeInset</span><span class="o">.</span><span class="na">all</span><span class="p">(</span><span class="mf">8.0</span><span class="p">),</span>
+                <span class="n">background</span><span class="o">-</span><span class="nl">color:</span> <span class="n">Colors</span><span class="o">.</span><span class="na">green</span><span class="p">,</span>
+                <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Green"</span><span class="p">),</span>
+            <span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">Expanded</span><span class="p">(</span>
+            <span class="nl">child:</span> <span class="n">Container</span><span class="p">(</span>
+                <span class="nl">padding:</span> <span class="n">EdgeInset</span><span class="o">.</span><span class="na">all</span><span class="p">(</span><span class="mf">8.0</span><span class="p">),</span>
+                <span class="n">background</span><span class="o">-</span><span class="nl">color:</span> <span class="n">Colors</span><span class="o">.</span><span class="na">blue</span><span class="p">,</span>
+                <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Blue"</span><span class="p">),</span>
+            <span class="p">),</span>
+        <span class="p">),</span>
+        
+    <span class="p">],</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>အိုကေ ကလေးတွေ အကုန်လုံးတော့ နေရာ အညီအမျှ ခွဲခြမ်းစိတ်ဖြာပြီးသွားပြီ။ ဒီမှာ Red က လိုက်ပြီးညှိနှိုင်းတယ်။ ငါက သားဉီး အစ်ကိုကြီး အဘအရာ အနေနဲ့ အမွေတွေရဲ့ တစ်ဝက်ကို ငါယူမယ်။ ကျန်တဲ့ တစ်ဝက်ကို မင်းတို့ တစ်ဝက်စီ ခွဲယူကြ။ ကျန်တဲ့ Green နဲ့ Blue ကလည်း ညီအစ်ကိုချင်း ပြသနာ မဖြစ်ချင်တာနဲ့ အိုကေပါပေါ့ ။ ဒီတော ့အမွေတွေကို လေးပုံပုံ၊ နှစ်ပုံကို Red က ယူ။ Green နဲ့ Blue က တစ်ပုံစီ ယူပြီး ညီအစ်ကိုတွေ ချစ်ချစ်ခင်ခင် နေသွားကြသတဲ့။</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Row</span><span class="p">(</span>
+    <span class="nl">children:</span> <span class="p">[</span>
+        <span class="n">Expanded</span><span class="p">(</span>
+            <span class="nl">flex:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="nl">child:</span> <span class="n">Container</span><span class="p">(</span>
+                <span class="nl">padding:</span> <span class="n">EdgeInset</span><span class="o">.</span><span class="na">all</span><span class="p">(</span><span class="mf">8.0</span><span class="p">),</span>
+                <span class="n">background</span><span class="o">-</span><span class="nl">color:</span> <span class="n">Colors</span><span class="o">.</span><span class="na">red</span><span class="p">,</span>
+                <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Red"</span><span class="p">),</span>
+            <span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">Expanded</span><span class="p">(</span>
+            <span class="nl">flex:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nl">child:</span> <span class="n">Container</span><span class="p">(</span>
+                <span class="nl">padding:</span> <span class="n">EdgeInset</span><span class="o">.</span><span class="na">all</span><span class="p">(</span><span class="mf">8.0</span><span class="p">),</span>
+                <span class="n">background</span><span class="o">-</span><span class="nl">color:</span> <span class="n">Colors</span><span class="o">.</span><span class="na">green</span><span class="p">,</span>
+                <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Green"</span><span class="p">),</span>
+            <span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">Expanded</span><span class="p">(</span>
+            <span class="nl">flex:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nl">child:</span> <span class="n">Container</span><span class="p">(</span>
+                <span class="nl">padding:</span> <span class="n">EdgeInset</span><span class="o">.</span><span class="na">all</span><span class="p">(</span><span class="mf">8.0</span><span class="p">),</span>
+                <span class="n">background</span><span class="o">-</span><span class="nl">color:</span> <span class="n">Colors</span><span class="o">.</span><span class="na">blue</span><span class="p">,</span>
+                <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Blue"</span><span class="p">),</span>
+            <span class="p">),</span>
+        <span class="p">),</span>
+        
+    <span class="p">],</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>ပုံပြင်လေးကတော့ ဒါပါပဲကွယ် 🤣🤣
+ဒီမှာ သူတို့ <code class="language-plaintext highlighter-rouge">Expanded</code> Widget ရဲ့ <code class="language-plaintext highlighter-rouge">flex</code> Property ကို ဘယ်လို သုံးသွားလည်း ဆိုတာကို တွေ့နိုင်ပါတယ်။</p>
+
+<h3 id="stack">Stack</h3>
+<p>ကျွန်တော် တို့ ပြောခဲ့သမျှ တွေက UI တွေကို ဘေးဘယ်ညာ စီတာ၊ အပေါ်အောက် စီတာ တွေပဲ များတယ်။ အခု UI တစ်ခုနဲ့ တစ်ခု ထပ်ချင်တယ်။ ဘယ်လို လုပ်ကြမလဲ?
+လိုလားချက်က ဒီလိုဗျာ ဓာတ်ပုံ တစ်ပုံ ရှိမယ် အဲ့ ဓာတ်ပုံအပေါ်မှာ စာပေါ် ချင်တယ်။</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Stack</span><span class="p">(</span>
+    <span class="nl">children:</span> <span class="p">[</span>
+        <span class="n">Image</span><span class="p">(</span>
+            <span class="nl">image:</span> <span class="n">NetworkImage</span><span class="p">(</span><span class="s">"https://mmsoftware100.com/images/flutter-logo.png"</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">"Hello World"</span><span class="p">)</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>Stack သည်လည်း Multi Child Layout Widget ဖြစ်တဲ့အတွက် <code class="language-plaintext highlighter-rouge">children</code> property နဲ့ Widget တွေကို လက်ခံတယ်။ ပြီးရင် အစဉ်အတိုင်း တစ်ခုအပေါ် တစ်ခု ထပ်ပြတယ်။</p>
+
+<p>ဒီမှာလည်း ထပ်တဲ့အခါမှာ Alignment ကို default အနေနဲ့ Top Left Corner ကနေ စီပြီး ထပ်ပေးတယ်။</p>
+
+<p>// TODO: stack alignment</p>
+
+  </div>
+
+  <div class="date">
+    Written on December 14, 2022
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+    <script>
+	window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '608464966533110',
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v9.0'
+	  });
+		
+	  FB.AppEvents.logPageView();   
+		
+	};
+  
+	(function(d, s, id){
+	   var js, fjs = d.getElementsByTagName(s)[0];
+	   if (d.getElementById(id)) {return;}
+	   js = d.createElement(s); js.id = id;
+	   js.src = "https://connect.facebook.net/en_US/sdk.js";
+	   fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+
+	 
+FB.getLoginStatus(function(response) {
+	console.log("getLoginStatus");
+	console.log(response);
+    statusChangeCallback(response);
+});
+
+function statusChangeCallback(response){
+	console.log('response is');
+	console.log(response);
+	if(response.status == "connected"){
+		console.log("user is logged in ");
+	}
+	else{
+		console.log("user need to login");
+		//FB.login();
+	}
+}
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+  </script>
+
+  
+<fb:login-button 
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
+  </body>
+</html>

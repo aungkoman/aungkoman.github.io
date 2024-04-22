@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Camera Movement</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+    <script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/loaders/OBJLoader2.js"></script>
+    <script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/loaders/MTLLoader.js"></script>
+    <script>
+        // Set up the WebGL renderer
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Create a scene
+        const scene = new THREE.Scene();
+
+        // Create a camera
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
+
+        // Create controls for camera movement
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+        // Load and parse the 3D model
+        const mtlLoader = new THREE.MTLLoader();
+        mtlLoader.load('phone.mtl', function (materials) {
+            materials.preload();
+            const objLoader = new THREE.OBJLoader2();
+            objLoader.setMaterials(materials);
+            objLoader.load('phone.obj', function (object) {
+                // Add the model to the scene
+                scene.add(object.detail.loaderRootNode);
+            });
+        });
+
+        // Render the scene
+        function render() {
+            requestAnimationFrame(render);
+            renderer.render(scene, camera);
+        }
+        render();
+    </script>
+</body>
+</html>

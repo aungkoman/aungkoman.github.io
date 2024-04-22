@@ -1,0 +1,13 @@
+#EXTM3U
+
+
+#EXT-X-STREAM-INF:PROGRAM-ID=5,BANDWIDTH=150000
+
+http://203.81.81.229/hls-live/livepkgr/_definst_/mrtv/mrtv1.m3u8
+
+#EXT-X-STREAM-INF:PROGRAM-ID=5,BANDWIDTH=500000
+
+http://203.81.81.229/hls-live/livepkgr/_definst_/mrtv/mrtv2.m3u8
+
+#EXT-X-STREAM-INF:PROGRAM-ID=5,BANDWIDTH=1000000
+http://203.81.81.229/hls-live/livepkgr/_definst_/mrtv/mrtv3.m3u8

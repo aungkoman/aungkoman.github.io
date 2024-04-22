@@ -1,0 +1,20 @@
+{
+    "databoxone": {
+      "lat": 16.000000,
+      "lng": 96.000000,
+      "name": "databoxone",
+      "remark": "this is remark"
+    },
+    "databoxtwo": {
+        "lat": 16.000100,
+        "lng": 96.000100,
+        "name": "databoxtwo",
+        "remark": "this is remark"
+    },
+    "databoxthree": {
+        "lat": 16.000200,
+        "lng": 96.000200,
+        "name": "databoxthree",
+        "remark": "this is remark"
+    }
+}

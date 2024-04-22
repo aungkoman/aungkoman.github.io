@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>How to change PHP version in XAMPP on Mac –  – Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="I need to change default php 8.2 come with XAMPP latest version to 8.0.2 which we’re running on production server.
+
+brew install php@8.0
+
+msd@MSDs-Mac-mini base % php -v
+PHP 8.1.17 (cli) (built: Mar 16 2023 13:07:08) (NTS)
+Copyright (c) The PHP Group
+Zend Engine v4.1.17, Copyright (c) Zend Technologies
+    with Zend OPcache v8.1.17, Copyright (c), by Zend Technologies
+msd@MSDs-Mac-mini base % composer install
+Installing dependencies from lock file (including require-dev)
+Verifying lock file contents can be installed on current platform.
+Nothing to install, update or remove
+Generating optimized autoload files
+
+  Illuminate\Foundation\ComposerScripts::postAutoloadDump
+@php artisan package:discover –ansi
+
+
+INFO  Discovering packages.
+
+barryvdh/laravel-debugbar ……………………………………………………………………………………………………. DONE
+  kreait/laravel-firebase ……………………………………………………………………………………………………… DONE
+  laravel/passport ……………………………………………………………………………………………………………. DONE
+  laravel/sail ……………………………………………………………………………………………………………….. DONE
+  laravel/sanctum …………………………………………………………………………………………………………….. DONE
+  laravel/telescope …………………………………………………………………………………………………………… DONE
+  laravel/tinker ……………………………………………………………………………………………………………… DONE
+  livewire/livewire …………………………………………………………………………………………………………… DONE
+  nesbot/carbon ………………………………………………………………………………………………………………. DONE
+  nunomaduro/collision ………………………………………………………………………………………………………… DONE
+  nunomaduro/termwind …………………………………………………………………………………………………………. DONE
+  opcodesio/log-viewer ………………………………………………………………………………………………………… DONE
+  spatie/laravel-ignition ……………………………………………………………………………………………………… DONE
+
+103 packages you are using are looking for funding.
+Use the composer fund command to find out more!
+msd@MSDs-Mac-mini base % brew install php@8.0
+Running brew update --auto-update…
+==&gt; Homebrew is run entirely by unpaid volunteers. Please consider donating:
+  https://github.com/Homebrew/brew#donations
+
+==&gt; Auto-updated Homebrew!
+Updated 2 taps (homebrew/core and homebrew/cask).
+==&gt; New Formulae
+aarch64-elf-gdb                 dexter                          hz                              llvm@15                         opal                            trurl                           wxlua
+aliyunpan                       enchive                         imessage-exporter               mdt                             openssl@3.0                     trust-dns                       zpaqfranz
+arjun                           flavours                        kitex                           musikcube                       renovate                        tt
+blocky                          gat                             ksops                           notify                          streamvbyte                     typst
+cloudpan189-go                  go-feature-flag-relay-proxy     libansilove                     ntfy                            thriftgo                        wazero
+==&gt; New Casks
+alipay-key-tool          beardie                  cursor                   edrawmind                mullvad-browser          orbstack                 piclist                  usmart-trade             zed
+archaeology              carbide-create           dehelper                 hummingbird              nozbe                    orcaslicer               stack                    vbrokers
+
+You have 5 outdated formulae installed.
+
+Warning: php@8.0 has been deprecated because it is a versioned formula!
+==&gt; Fetching dependencies for php@8.0: apr, zstd, freetds, openexr and sqlite
+==&gt; Fetching apr
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/apr/manifests/1.7.3
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/apr/blobs/sha256:3697f4c0227f5ffbe41d20c423c4ef730f32aafa70b52865704cd8a1e1220c26
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:3697f4c0227f5ffbe41d20c423c4ef730f32aafa70b52865704cd8a1e1220c26?se=2023-04-10T04%3A45%3A00Z&amp;sig=toBRYV4C6DXPcQtobIemtBBwJ8lNK9ADvCnE2K88Zww%
+######################################################################## 100.0%
+==&gt; Fetching zstd
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/zstd/manifests/1.5.5
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/zstd/blobs/sha256:b709835f4cd5d339b97103f0dfa343489a02d2073f8e80ba7b04d682f1d29bd4
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:b709835f4cd5d339b97103f0dfa343489a02d2073f8e80ba7b04d682f1d29bd4?se=2023-04-10T04%3A45%3A00Z&amp;sig=wynErbldkC0AfsM%2FFiIDIA4knFElvCOYZFqxVdtW94
+######################################################################## 100.0%
+==&gt; Fetching freetds
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/freetds/manifests/1.3.18
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/freetds/blobs/sha256:3121d9240917d0efb691d437cd1973123822b0c0fe4197aa9706622588228835
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:3121d9240917d0efb691d437cd1973123822b0c0fe4197aa9706622588228835?se=2023-04-10T04%3A45%3A00Z&amp;sig=vtGcwx9Hsao4q2NT1J3kSFvdGT5n6FNQRhxL5OIx1aY%
+######################################################################## 100.0%
+==&gt; Fetching openexr
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/openexr/manifests/3.1.7
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/openexr/blobs/sha256:af3bf3c18721d74bd6e3ae7ca18af940b18d598539b69f5872e2d5e130f6e83c
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:af3bf3c18721d74bd6e3ae7ca18af940b18d598539b69f5872e2d5e130f6e83c?se=2023-04-10T04%3A45%3A00Z&amp;sig=Sq3eqR4Txxs036d73XIsgo%2ByPLDTUkUvt25k3G8ons
+######################################################################## 100.0%
+==&gt; Fetching sqlite
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/sqlite/manifests/3.41.2
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/sqlite/blobs/sha256:2a77f2ddcf124d8704c299572c4dc55517996d796011545852e362c6e2a2a2ea
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:2a77f2ddcf124d8704c299572c4dc55517996d796011545852e362c6e2a2a2ea?se=2023-04-10T04%3A45%3A00Z&amp;sig=6x7DpD%2F2gtTBKvnTZoUidb2jujozug4hEVrU0E%2Fx
+######################################################################## 100.0%
+==&gt; Fetching php@8.0
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/php/8.0/manifests/8.0.28
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/php/8.0/blobs/sha256:fdff1a7af1220afe62fca6cdc859ec00b72382b7ef14e3cad54cfea8628a5be8
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:fdff1a7af1220afe62fca6cdc859ec00b72382b7ef14e3cad54cfea8628a5be8?se=2023-04-10T04%3A45%3A00Z&amp;sig=ivtHO6Ot29QU3g6woME4x%2ByKYm5oeILoT7vYDavUGD
+######################################################################## 100.0%
+==&gt; Installing dependencies for php@8.0: apr, zstd, freetds, openexr and sqlite
+==&gt; Installing php@8.0 dependency: apr
+==&gt; Pouring apr–1.7.3.arm64_ventura.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/apr/1.7.3: 59 files, 1.4MB
+==&gt; Installing php@8.0 dependency: zstd
+==&gt; Pouring zstd–1.5.5.arm64_ventura.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/zstd/1.5.5: 31 files, 2.3MB
+==&gt; Installing php@8.0 dependency: freetds
+==&gt; Pouring freetds–1.3.18.arm64_ventura.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/freetds/1.3.18: 1,262 files, 14MB
+==&gt; Installing php@8.0 dependency: openexr
+==&gt; Pouring openexr–3.1.7.arm64_ventura.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/openexr/3.1.7: 194 files, 6.0MB
+==&gt; Installing php@8.0 dependency: sqlite
+==&gt; Pouring sqlite–3.41.2.arm64_ventura.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/sqlite/3.41.2: 11 files, 4.5MB
+==&gt; Installing php@8.0
+==&gt; Pouring php@8.0–8.0.28.arm64_ventura.bottle.tar.gz
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set php_ini /opt/homebrew/etc/php/8.0/php.ini system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set php_dir /opt/homebrew/share/pear@8.0 system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set doc_dir /opt/homebrew/share/pear@8.0/doc system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set ext_dir /opt/homebrew/lib/php/pecl/20200930 system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set bin_dir /opt/homebrew/opt/php@8.0/bin system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set data_dir /opt/homebrew/share/pear@8.0/data system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set cfg_dir /opt/homebrew/share/pear@8.0/cfg system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set www_dir /opt/homebrew/share/pear@8.0/htdocs system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set man_dir /opt/homebrew/share/man system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set test_dir /opt/homebrew/share/pear@8.0/test system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set php_bin /opt/homebrew/opt/php@8.0/bin/php system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear update-channels
+==&gt; Caveats
+To enable PHP in Apache add the following to httpd.conf and restart Apache:
+    LoadModule php_module /opt/homebrew/opt/php@8.0/lib/httpd/modules/libphp.so
+
+&lt;FilesMatch \.php$&gt;
+    SetHandler application/x-httpd-php
+&lt;/FilesMatch&gt;
+
+
+Finally, check DirectoryIndex includes index.php
+    DirectoryIndex index.php index.html
+
+The php.ini and php-fpm.ini file can be found in:
+    /opt/homebrew/etc/php/8.0/
+
+php@8.0 is keg-only, which means it was not symlinked into /opt/homebrew,
+because this is an alternate version of another formula.
+
+If you need to have php@8.0 first in your PATH, run:
+  echo ‘export PATH=”/opt/homebrew/opt/php@8.0/bin:$PATH”’ » ~/.zshrc
+  echo ‘export PATH=”/opt/homebrew/opt/php@8.0/sbin:$PATH”’ » ~/.zshrc
+
+For compilers to find php@8.0 you may need to set:
+  export LDFLAGS=”-L/opt/homebrew/opt/php@8.0/lib”
+  export CPPFLAGS=”-I/opt/homebrew/opt/php@8.0/include”
+
+To restart php@8.0 after an upgrade:
+  brew services restart php@8.0
+Or, if you don’t want/need a background service you can just run:
+  /opt/homebrew/opt/php@8.0/sbin/php-fpm –nodaemonize
+==&gt; Summary
+🍺  /opt/homebrew/Cellar/php@8.0/8.0.28: 500 files, 77.8MB
+==&gt; Running brew cleanup php@8.0…
+Disable this behaviour by setting HOMEBREW_NO_INSTALL_CLEANUP.
+Hide these hints with HOMEBREW_NO_ENV_HINTS (see man brew).
+==&gt; Caveats
+==&gt; php@8.0
+To enable PHP in Apache add the following to httpd.conf and restart Apache:
+    LoadModule php_module /opt/homebrew/opt/php@8.0/lib/httpd/modules/libphp.so
+
+&lt;FilesMatch \.php$&gt;
+    SetHandler application/x-httpd-php
+&lt;/FilesMatch&gt;
+
+
+Finally, check DirectoryIndex includes index.php
+    DirectoryIndex index.php index.html
+
+The php.ini and php-fpm.ini file can be found in:
+    /opt/homebrew/etc/php/8.0/
+
+php@8.0 is keg-only, which means it was not symlinked into /opt/homebrew,
+because this is an alternate version of another formula.
+
+If you need to have php@8.0 first in your PATH, run:
+  echo ‘export PATH=”/opt/homebrew/opt/php@8.0/bin:$PATH”’ » ~/.zshrc
+  echo ‘export PATH=”/opt/homebrew/opt/php@8.0/sbin:$PATH”’ » ~/.zshrc
+
+For compilers to find php@8.0 you may need to set:
+  export LDFLAGS=”-L/opt/homebrew/opt/php@8.0/lib”
+  export CPPFLAGS=”-I/opt/homebrew/opt/php@8.0/include”
+
+To restart php@8.0 after an upgrade:
+  brew services restart php@8.0
+Or, if you don’t want/need a background service you can just run:
+  /opt/homebrew/opt/php@8.0/sbin/php-fpm –nodaemonize
+
+export PATH=”/Applications/XAMPP/xamppfiles/bin/:$PATH”
+export PATH=$PATH:/Users/msd/Code/enviroment/flutter/bin
+#export PATH=$PATH:/Applications/XAMPP/bin
+export PATH=$PATH:/Applications/XAMPP/xamppfiles/htdocs/composer/composer.phar
+#export PATH=$PATH:/user/bin/python3
+alias python=/usr/bin/python3
+export PATH=$PATH:/opt/homebrew/bin
+#export PATH=”/opt/homebrew/opt/php@8.1/bin:$PATH”
+#export PATH=”/opt/homebrew/opt/php@8.1/sbin:$PATH”
+export PATH=”/opt/homebrew/opt/php@8.0/bin:$PATH”
+export PATH=”/opt/homebrew/opt/php@8.0/sbin:$PATH”
+" />
+    <meta property="og:description" content="I need to change default php 8.2 come with XAMPP latest version to 8.0.2 which we’re running on production server.
+
+brew install php@8.0
+
+msd@MSDs-Mac-mini base % php -v
+PHP 8.1.17 (cli) (built: Mar 16 2023 13:07:08) (NTS)
+Copyright (c) The PHP Group
+Zend Engine v4.1.17, Copyright (c) Zend Technologies
+    with Zend OPcache v8.1.17, Copyright (c), by Zend Technologies
+msd@MSDs-Mac-mini base % composer install
+Installing dependencies from lock file (including require-dev)
+Verifying lock file contents can be installed on current platform.
+Nothing to install, update or remove
+Generating optimized autoload files
+
+  Illuminate\Foundation\ComposerScripts::postAutoloadDump
+@php artisan package:discover –ansi
+
+
+INFO  Discovering packages.
+
+barryvdh/laravel-debugbar ……………………………………………………………………………………………………. DONE
+  kreait/laravel-firebase ……………………………………………………………………………………………………… DONE
+  laravel/passport ……………………………………………………………………………………………………………. DONE
+  laravel/sail ……………………………………………………………………………………………………………….. DONE
+  laravel/sanctum …………………………………………………………………………………………………………….. DONE
+  laravel/telescope …………………………………………………………………………………………………………… DONE
+  laravel/tinker ……………………………………………………………………………………………………………… DONE
+  livewire/livewire …………………………………………………………………………………………………………… DONE
+  nesbot/carbon ………………………………………………………………………………………………………………. DONE
+  nunomaduro/collision ………………………………………………………………………………………………………… DONE
+  nunomaduro/termwind …………………………………………………………………………………………………………. DONE
+  opcodesio/log-viewer ………………………………………………………………………………………………………… DONE
+  spatie/laravel-ignition ……………………………………………………………………………………………………… DONE
+
+103 packages you are using are looking for funding.
+Use the composer fund command to find out more!
+msd@MSDs-Mac-mini base % brew install php@8.0
+Running brew update --auto-update…
+==&gt; Homebrew is run entirely by unpaid volunteers. Please consider donating:
+  https://github.com/Homebrew/brew#donations
+
+==&gt; Auto-updated Homebrew!
+Updated 2 taps (homebrew/core and homebrew/cask).
+==&gt; New Formulae
+aarch64-elf-gdb                 dexter                          hz                              llvm@15                         opal                            trurl                           wxlua
+aliyunpan                       enchive                         imessage-exporter               mdt                             openssl@3.0                     trust-dns                       zpaqfranz
+arjun                           flavours                        kitex                           musikcube                       renovate                        tt
+blocky                          gat                             ksops                           notify                          streamvbyte                     typst
+cloudpan189-go                  go-feature-flag-relay-proxy     libansilove                     ntfy                            thriftgo                        wazero
+==&gt; New Casks
+alipay-key-tool          beardie                  cursor                   edrawmind                mullvad-browser          orbstack                 piclist                  usmart-trade             zed
+archaeology              carbide-create           dehelper                 hummingbird              nozbe                    orcaslicer               stack                    vbrokers
+
+You have 5 outdated formulae installed.
+
+Warning: php@8.0 has been deprecated because it is a versioned formula!
+==&gt; Fetching dependencies for php@8.0: apr, zstd, freetds, openexr and sqlite
+==&gt; Fetching apr
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/apr/manifests/1.7.3
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/apr/blobs/sha256:3697f4c0227f5ffbe41d20c423c4ef730f32aafa70b52865704cd8a1e1220c26
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:3697f4c0227f5ffbe41d20c423c4ef730f32aafa70b52865704cd8a1e1220c26?se=2023-04-10T04%3A45%3A00Z&amp;sig=toBRYV4C6DXPcQtobIemtBBwJ8lNK9ADvCnE2K88Zww%
+######################################################################## 100.0%
+==&gt; Fetching zstd
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/zstd/manifests/1.5.5
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/zstd/blobs/sha256:b709835f4cd5d339b97103f0dfa343489a02d2073f8e80ba7b04d682f1d29bd4
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:b709835f4cd5d339b97103f0dfa343489a02d2073f8e80ba7b04d682f1d29bd4?se=2023-04-10T04%3A45%3A00Z&amp;sig=wynErbldkC0AfsM%2FFiIDIA4knFElvCOYZFqxVdtW94
+######################################################################## 100.0%
+==&gt; Fetching freetds
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/freetds/manifests/1.3.18
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/freetds/blobs/sha256:3121d9240917d0efb691d437cd1973123822b0c0fe4197aa9706622588228835
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:3121d9240917d0efb691d437cd1973123822b0c0fe4197aa9706622588228835?se=2023-04-10T04%3A45%3A00Z&amp;sig=vtGcwx9Hsao4q2NT1J3kSFvdGT5n6FNQRhxL5OIx1aY%
+######################################################################## 100.0%
+==&gt; Fetching openexr
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/openexr/manifests/3.1.7
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/openexr/blobs/sha256:af3bf3c18721d74bd6e3ae7ca18af940b18d598539b69f5872e2d5e130f6e83c
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:af3bf3c18721d74bd6e3ae7ca18af940b18d598539b69f5872e2d5e130f6e83c?se=2023-04-10T04%3A45%3A00Z&amp;sig=Sq3eqR4Txxs036d73XIsgo%2ByPLDTUkUvt25k3G8ons
+######################################################################## 100.0%
+==&gt; Fetching sqlite
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/sqlite/manifests/3.41.2
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/sqlite/blobs/sha256:2a77f2ddcf124d8704c299572c4dc55517996d796011545852e362c6e2a2a2ea
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:2a77f2ddcf124d8704c299572c4dc55517996d796011545852e362c6e2a2a2ea?se=2023-04-10T04%3A45%3A00Z&amp;sig=6x7DpD%2F2gtTBKvnTZoUidb2jujozug4hEVrU0E%2Fx
+######################################################################## 100.0%
+==&gt; Fetching php@8.0
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/php/8.0/manifests/8.0.28
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/php/8.0/blobs/sha256:fdff1a7af1220afe62fca6cdc859ec00b72382b7ef14e3cad54cfea8628a5be8
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:fdff1a7af1220afe62fca6cdc859ec00b72382b7ef14e3cad54cfea8628a5be8?se=2023-04-10T04%3A45%3A00Z&amp;sig=ivtHO6Ot29QU3g6woME4x%2ByKYm5oeILoT7vYDavUGD
+######################################################################## 100.0%
+==&gt; Installing dependencies for php@8.0: apr, zstd, freetds, openexr and sqlite
+==&gt; Installing php@8.0 dependency: apr
+==&gt; Pouring apr–1.7.3.arm64_ventura.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/apr/1.7.3: 59 files, 1.4MB
+==&gt; Installing php@8.0 dependency: zstd
+==&gt; Pouring zstd–1.5.5.arm64_ventura.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/zstd/1.5.5: 31 files, 2.3MB
+==&gt; Installing php@8.0 dependency: freetds
+==&gt; Pouring freetds–1.3.18.arm64_ventura.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/freetds/1.3.18: 1,262 files, 14MB
+==&gt; Installing php@8.0 dependency: openexr
+==&gt; Pouring openexr–3.1.7.arm64_ventura.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/openexr/3.1.7: 194 files, 6.0MB
+==&gt; Installing php@8.0 dependency: sqlite
+==&gt; Pouring sqlite–3.41.2.arm64_ventura.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/sqlite/3.41.2: 11 files, 4.5MB
+==&gt; Installing php@8.0
+==&gt; Pouring php@8.0–8.0.28.arm64_ventura.bottle.tar.gz
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set php_ini /opt/homebrew/etc/php/8.0/php.ini system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set php_dir /opt/homebrew/share/pear@8.0 system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set doc_dir /opt/homebrew/share/pear@8.0/doc system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set ext_dir /opt/homebrew/lib/php/pecl/20200930 system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set bin_dir /opt/homebrew/opt/php@8.0/bin system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set data_dir /opt/homebrew/share/pear@8.0/data system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set cfg_dir /opt/homebrew/share/pear@8.0/cfg system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set www_dir /opt/homebrew/share/pear@8.0/htdocs system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set man_dir /opt/homebrew/share/man system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set test_dir /opt/homebrew/share/pear@8.0/test system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set php_bin /opt/homebrew/opt/php@8.0/bin/php system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear update-channels
+==&gt; Caveats
+To enable PHP in Apache add the following to httpd.conf and restart Apache:
+    LoadModule php_module /opt/homebrew/opt/php@8.0/lib/httpd/modules/libphp.so
+
+&lt;FilesMatch \.php$&gt;
+    SetHandler application/x-httpd-php
+&lt;/FilesMatch&gt;
+
+
+Finally, check DirectoryIndex includes index.php
+    DirectoryIndex index.php index.html
+
+The php.ini and php-fpm.ini file can be found in:
+    /opt/homebrew/etc/php/8.0/
+
+php@8.0 is keg-only, which means it was not symlinked into /opt/homebrew,
+because this is an alternate version of another formula.
+
+If you need to have php@8.0 first in your PATH, run:
+  echo ‘export PATH=”/opt/homebrew/opt/php@8.0/bin:$PATH”’ » ~/.zshrc
+  echo ‘export PATH=”/opt/homebrew/opt/php@8.0/sbin:$PATH”’ » ~/.zshrc
+
+For compilers to find php@8.0 you may need to set:
+  export LDFLAGS=”-L/opt/homebrew/opt/php@8.0/lib”
+  export CPPFLAGS=”-I/opt/homebrew/opt/php@8.0/include”
+
+To restart php@8.0 after an upgrade:
+  brew services restart php@8.0
+Or, if you don’t want/need a background service you can just run:
+  /opt/homebrew/opt/php@8.0/sbin/php-fpm –nodaemonize
+==&gt; Summary
+🍺  /opt/homebrew/Cellar/php@8.0/8.0.28: 500 files, 77.8MB
+==&gt; Running brew cleanup php@8.0…
+Disable this behaviour by setting HOMEBREW_NO_INSTALL_CLEANUP.
+Hide these hints with HOMEBREW_NO_ENV_HINTS (see man brew).
+==&gt; Caveats
+==&gt; php@8.0
+To enable PHP in Apache add the following to httpd.conf and restart Apache:
+    LoadModule php_module /opt/homebrew/opt/php@8.0/lib/httpd/modules/libphp.so
+
+&lt;FilesMatch \.php$&gt;
+    SetHandler application/x-httpd-php
+&lt;/FilesMatch&gt;
+
+
+Finally, check DirectoryIndex includes index.php
+    DirectoryIndex index.php index.html
+
+The php.ini and php-fpm.ini file can be found in:
+    /opt/homebrew/etc/php/8.0/
+
+php@8.0 is keg-only, which means it was not symlinked into /opt/homebrew,
+because this is an alternate version of another formula.
+
+If you need to have php@8.0 first in your PATH, run:
+  echo ‘export PATH=”/opt/homebrew/opt/php@8.0/bin:$PATH”’ » ~/.zshrc
+  echo ‘export PATH=”/opt/homebrew/opt/php@8.0/sbin:$PATH”’ » ~/.zshrc
+
+For compilers to find php@8.0 you may need to set:
+  export LDFLAGS=”-L/opt/homebrew/opt/php@8.0/lib”
+  export CPPFLAGS=”-I/opt/homebrew/opt/php@8.0/include”
+
+To restart php@8.0 after an upgrade:
+  brew services restart php@8.0
+Or, if you don’t want/need a background service you can just run:
+  /opt/homebrew/opt/php@8.0/sbin/php-fpm –nodaemonize
+
+export PATH=”/Applications/XAMPP/xamppfiles/bin/:$PATH”
+export PATH=$PATH:/Users/msd/Code/enviroment/flutter/bin
+#export PATH=$PATH:/Applications/XAMPP/bin
+export PATH=$PATH:/Applications/XAMPP/xamppfiles/htdocs/composer/composer.phar
+#export PATH=$PATH:/user/bin/python3
+alias python=/usr/bin/python3
+export PATH=$PATH:/opt/homebrew/bin
+#export PATH=”/opt/homebrew/opt/php@8.1/bin:$PATH”
+#export PATH=”/opt/homebrew/opt/php@8.1/sbin:$PATH”
+export PATH=”/opt/homebrew/opt/php@8.0/bin:$PATH”
+export PATH=”/opt/homebrew/opt/php@8.0/sbin:$PATH”
+" />
+    
+    <meta name="author" content="" />
+
+    
+    <meta property="og:title" content="How to change PHP version in XAMPP on Mac" />
+    <meta property="twitter:title" content="How to change PHP version in XAMPP on Mac" />
+    
+
+    <!-- facebook Open Graph Metadatas -->
+    <meta content="your_facebook_app_id" property="fb:app_id">
+    <meta content="Your awesome title" property="og:site_name">
+    
+    <meta content="How to change PHP version in XAMPP on Mac" property="og:title">
+    
+    
+    <meta content="article" property="og:type">
+    
+    
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." property="og:description">
+    
+    
+    <meta content="http://localhost:4000/2023/04/10/how-to-change-php-version-in-xampp-mac.html" property="og:url">
+    
+    
+    <meta content="2023-04-10T00:00:00+06:30" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    <meta content="/img/logo-high-resolution.png" property="og:image">
+    
+    
+    
+    
+    
+    
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title=" - Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/"></a></h1>
+            <p class="site-description">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>How to change PHP version in XAMPP on Mac</h1>
+
+  <div class="entry">
+    <p>I need to change default php 8.2 come with XAMPP latest version to 8.0.2 which we’re running on production server.</p>
+
+<p>brew install php@8.0</p>
+
+<p>msd@MSDs-Mac-mini base % php -v
+PHP 8.1.17 (cli) (built: Mar 16 2023 13:07:08) (NTS)
+Copyright (c) The PHP Group
+Zend Engine v4.1.17, Copyright (c) Zend Technologies
+    with Zend OPcache v8.1.17, Copyright (c), by Zend Technologies
+msd@MSDs-Mac-mini base % composer install
+Installing dependencies from lock file (including require-dev)
+Verifying lock file contents can be installed on current platform.
+Nothing to install, update or remove
+Generating optimized autoload files</p>
+<blockquote>
+  <p>Illuminate\Foundation\ComposerScripts::postAutoloadDump
+@php artisan package:discover –ansi</p>
+</blockquote>
+
+<p>INFO  Discovering packages.</p>
+
+<p>barryvdh/laravel-debugbar ……………………………………………………………………………………………………. DONE
+  kreait/laravel-firebase ……………………………………………………………………………………………………… DONE
+  laravel/passport ……………………………………………………………………………………………………………. DONE
+  laravel/sail ……………………………………………………………………………………………………………….. DONE
+  laravel/sanctum …………………………………………………………………………………………………………….. DONE
+  laravel/telescope …………………………………………………………………………………………………………… DONE
+  laravel/tinker ……………………………………………………………………………………………………………… DONE
+  livewire/livewire …………………………………………………………………………………………………………… DONE
+  nesbot/carbon ………………………………………………………………………………………………………………. DONE
+  nunomaduro/collision ………………………………………………………………………………………………………… DONE
+  nunomaduro/termwind …………………………………………………………………………………………………………. DONE
+  opcodesio/log-viewer ………………………………………………………………………………………………………… DONE
+  spatie/laravel-ignition ……………………………………………………………………………………………………… DONE</p>
+
+<p>103 packages you are using are looking for funding.
+Use the <code class="language-plaintext highlighter-rouge">composer fund</code> command to find out more!
+msd@MSDs-Mac-mini base % brew install php@8.0
+Running <code class="language-plaintext highlighter-rouge">brew update --auto-update</code>…
+==&gt; Homebrew is run entirely by unpaid volunteers. Please consider donating:
+  https://github.com/Homebrew/brew#donations</p>
+
+<p>==&gt; Auto-updated Homebrew!
+Updated 2 taps (homebrew/core and homebrew/cask).
+==&gt; New Formulae
+aarch64-elf-gdb                 dexter                          hz                              llvm@15                         opal                            trurl                           wxlua
+aliyunpan                       enchive                         imessage-exporter               mdt                             openssl@3.0                     trust-dns                       zpaqfranz
+arjun                           flavours                        kitex                           musikcube                       renovate                        tt
+blocky                          gat                             ksops                           notify                          streamvbyte                     typst
+cloudpan189-go                  go-feature-flag-relay-proxy     libansilove                     ntfy                            thriftgo                        wazero
+==&gt; New Casks
+alipay-key-tool          beardie                  cursor                   edrawmind                mullvad-browser          orbstack                 piclist                  usmart-trade             zed
+archaeology              carbide-create           dehelper                 hummingbird              nozbe                    orcaslicer               stack                    vbrokers</p>
+
+<p>You have 5 outdated formulae installed.</p>
+
+<p>Warning: php@8.0 has been deprecated because it is a versioned formula!
+==&gt; Fetching dependencies for php@8.0: apr, zstd, freetds, openexr and sqlite
+==&gt; Fetching apr
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/apr/manifests/1.7.3
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/apr/blobs/sha256:3697f4c0227f5ffbe41d20c423c4ef730f32aafa70b52865704cd8a1e1220c26
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:3697f4c0227f5ffbe41d20c423c4ef730f32aafa70b52865704cd8a1e1220c26?se=2023-04-10T04%3A45%3A00Z&amp;sig=toBRYV4C6DXPcQtobIemtBBwJ8lNK9ADvCnE2K88Zww%
+######################################################################## 100.0%
+==&gt; Fetching zstd
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/zstd/manifests/1.5.5
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/zstd/blobs/sha256:b709835f4cd5d339b97103f0dfa343489a02d2073f8e80ba7b04d682f1d29bd4
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:b709835f4cd5d339b97103f0dfa343489a02d2073f8e80ba7b04d682f1d29bd4?se=2023-04-10T04%3A45%3A00Z&amp;sig=wynErbldkC0AfsM%2FFiIDIA4knFElvCOYZFqxVdtW94
+######################################################################## 100.0%
+==&gt; Fetching freetds
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/freetds/manifests/1.3.18
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/freetds/blobs/sha256:3121d9240917d0efb691d437cd1973123822b0c0fe4197aa9706622588228835
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:3121d9240917d0efb691d437cd1973123822b0c0fe4197aa9706622588228835?se=2023-04-10T04%3A45%3A00Z&amp;sig=vtGcwx9Hsao4q2NT1J3kSFvdGT5n6FNQRhxL5OIx1aY%
+######################################################################## 100.0%
+==&gt; Fetching openexr
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/openexr/manifests/3.1.7
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/openexr/blobs/sha256:af3bf3c18721d74bd6e3ae7ca18af940b18d598539b69f5872e2d5e130f6e83c
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:af3bf3c18721d74bd6e3ae7ca18af940b18d598539b69f5872e2d5e130f6e83c?se=2023-04-10T04%3A45%3A00Z&amp;sig=Sq3eqR4Txxs036d73XIsgo%2ByPLDTUkUvt25k3G8ons
+######################################################################## 100.0%
+==&gt; Fetching sqlite
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/sqlite/manifests/3.41.2
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/sqlite/blobs/sha256:2a77f2ddcf124d8704c299572c4dc55517996d796011545852e362c6e2a2a2ea
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:2a77f2ddcf124d8704c299572c4dc55517996d796011545852e362c6e2a2a2ea?se=2023-04-10T04%3A45%3A00Z&amp;sig=6x7DpD%2F2gtTBKvnTZoUidb2jujozug4hEVrU0E%2Fx
+######################################################################## 100.0%
+==&gt; Fetching php@8.0
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/php/8.0/manifests/8.0.28
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/php/8.0/blobs/sha256:fdff1a7af1220afe62fca6cdc859ec00b72382b7ef14e3cad54cfea8628a5be8
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:fdff1a7af1220afe62fca6cdc859ec00b72382b7ef14e3cad54cfea8628a5be8?se=2023-04-10T04%3A45%3A00Z&amp;sig=ivtHO6Ot29QU3g6woME4x%2ByKYm5oeILoT7vYDavUGD
+######################################################################## 100.0%
+==&gt; Installing dependencies for php@8.0: apr, zstd, freetds, openexr and sqlite
+==&gt; Installing php@8.0 dependency: apr
+==&gt; Pouring apr–1.7.3.arm64_ventura.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/apr/1.7.3: 59 files, 1.4MB
+==&gt; Installing php@8.0 dependency: zstd
+==&gt; Pouring zstd–1.5.5.arm64_ventura.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/zstd/1.5.5: 31 files, 2.3MB
+==&gt; Installing php@8.0 dependency: freetds
+==&gt; Pouring freetds–1.3.18.arm64_ventura.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/freetds/1.3.18: 1,262 files, 14MB
+==&gt; Installing php@8.0 dependency: openexr
+==&gt; Pouring openexr–3.1.7.arm64_ventura.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/openexr/3.1.7: 194 files, 6.0MB
+==&gt; Installing php@8.0 dependency: sqlite
+==&gt; Pouring sqlite–3.41.2.arm64_ventura.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/sqlite/3.41.2: 11 files, 4.5MB
+==&gt; Installing php@8.0
+==&gt; Pouring php@8.0–8.0.28.arm64_ventura.bottle.tar.gz
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set php_ini /opt/homebrew/etc/php/8.0/php.ini system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set php_dir /opt/homebrew/share/pear@8.0 system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set doc_dir /opt/homebrew/share/pear@8.0/doc system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set ext_dir /opt/homebrew/lib/php/pecl/20200930 system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set bin_dir /opt/homebrew/opt/php@8.0/bin system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set data_dir /opt/homebrew/share/pear@8.0/data system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set cfg_dir /opt/homebrew/share/pear@8.0/cfg system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set www_dir /opt/homebrew/share/pear@8.0/htdocs system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set man_dir /opt/homebrew/share/man system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set test_dir /opt/homebrew/share/pear@8.0/test system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear config-set php_bin /opt/homebrew/opt/php@8.0/bin/php system
+==&gt; /opt/homebrew/Cellar/php@8.0/8.0.28/bin/pear update-channels
+==&gt; Caveats
+To enable PHP in Apache add the following to httpd.conf and restart Apache:
+    LoadModule php_module /opt/homebrew/opt/php@8.0/lib/httpd/modules/libphp.so</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;FilesMatch \.php$&gt;
+    SetHandler application/x-httpd-php
+&lt;/FilesMatch&gt;
+</code></pre></div></div>
+
+<p>Finally, check DirectoryIndex includes index.php
+    DirectoryIndex index.php index.html</p>
+
+<p>The php.ini and php-fpm.ini file can be found in:
+    /opt/homebrew/etc/php/8.0/</p>
+
+<p>php@8.0 is keg-only, which means it was not symlinked into /opt/homebrew,
+because this is an alternate version of another formula.</p>
+
+<p>If you need to have php@8.0 first in your PATH, run:
+  echo ‘export PATH=”/opt/homebrew/opt/php@8.0/bin:$PATH”’ » ~/.zshrc
+  echo ‘export PATH=”/opt/homebrew/opt/php@8.0/sbin:$PATH”’ » ~/.zshrc</p>
+
+<p>For compilers to find php@8.0 you may need to set:
+  export LDFLAGS=”-L/opt/homebrew/opt/php@8.0/lib”
+  export CPPFLAGS=”-I/opt/homebrew/opt/php@8.0/include”</p>
+
+<p>To restart php@8.0 after an upgrade:
+  brew services restart php@8.0
+Or, if you don’t want/need a background service you can just run:
+  /opt/homebrew/opt/php@8.0/sbin/php-fpm –nodaemonize
+==&gt; Summary
+🍺  /opt/homebrew/Cellar/php@8.0/8.0.28: 500 files, 77.8MB
+==&gt; Running <code class="language-plaintext highlighter-rouge">brew cleanup php@8.0</code>…
+Disable this behaviour by setting HOMEBREW_NO_INSTALL_CLEANUP.
+Hide these hints with HOMEBREW_NO_ENV_HINTS (see <code class="language-plaintext highlighter-rouge">man brew</code>).
+==&gt; Caveats
+==&gt; php@8.0
+To enable PHP in Apache add the following to httpd.conf and restart Apache:
+    LoadModule php_module /opt/homebrew/opt/php@8.0/lib/httpd/modules/libphp.so</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;FilesMatch \.php$&gt;
+    SetHandler application/x-httpd-php
+&lt;/FilesMatch&gt;
+</code></pre></div></div>
+
+<p>Finally, check DirectoryIndex includes index.php
+    DirectoryIndex index.php index.html</p>
+
+<p>The php.ini and php-fpm.ini file can be found in:
+    /opt/homebrew/etc/php/8.0/</p>
+
+<p>php@8.0 is keg-only, which means it was not symlinked into /opt/homebrew,
+because this is an alternate version of another formula.</p>
+
+<p>If you need to have php@8.0 first in your PATH, run:
+  echo ‘export PATH=”/opt/homebrew/opt/php@8.0/bin:$PATH”’ » ~/.zshrc
+  echo ‘export PATH=”/opt/homebrew/opt/php@8.0/sbin:$PATH”’ » ~/.zshrc</p>
+
+<p>For compilers to find php@8.0 you may need to set:
+  export LDFLAGS=”-L/opt/homebrew/opt/php@8.0/lib”
+  export CPPFLAGS=”-I/opt/homebrew/opt/php@8.0/include”</p>
+
+<p>To restart php@8.0 after an upgrade:
+  brew services restart php@8.0
+Or, if you don’t want/need a background service you can just run:
+  /opt/homebrew/opt/php@8.0/sbin/php-fpm –nodaemonize</p>
+
+<p>export PATH=”/Applications/XAMPP/xamppfiles/bin/:$PATH”
+export PATH=$PATH:/Users/msd/Code/enviroment/flutter/bin
+#export PATH=$PATH:/Applications/XAMPP/bin
+export PATH=$PATH:/Applications/XAMPP/xamppfiles/htdocs/composer/composer.phar
+#export PATH=$PATH:/user/bin/python3
+alias python=/usr/bin/python3
+export PATH=$PATH:/opt/homebrew/bin
+#export PATH=”/opt/homebrew/opt/php@8.1/bin:$PATH”
+#export PATH=”/opt/homebrew/opt/php@8.1/sbin:$PATH”
+export PATH=”/opt/homebrew/opt/php@8.0/bin:$PATH”
+export PATH=”/opt/homebrew/opt/php@8.0/sbin:$PATH”</p>
+
+  </div>
+
+  <div class="date">
+    Written on April 10, 2023
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+    <script>
+	window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '608464966533110',
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v9.0'
+	  });
+		
+	  FB.AppEvents.logPageView();   
+		
+	};
+  
+	(function(d, s, id){
+	   var js, fjs = d.getElementsByTagName(s)[0];
+	   if (d.getElementById(id)) {return;}
+	   js = d.createElement(s); js.id = id;
+	   js.src = "https://connect.facebook.net/en_US/sdk.js";
+	   fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+
+	 
+FB.getLoginStatus(function(response) {
+	console.log("getLoginStatus");
+	console.log(response);
+    statusChangeCallback(response);
+});
+
+function statusChangeCallback(response){
+	console.log('response is');
+	console.log(response);
+	if(response.status == "connected"){
+		console.log("user is logged in ");
+	}
+	else{
+		console.log("user need to login");
+		//FB.login();
+	}
+}
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+  </script>
+
+  
+<fb:login-button 
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
+  </body>
+</html>

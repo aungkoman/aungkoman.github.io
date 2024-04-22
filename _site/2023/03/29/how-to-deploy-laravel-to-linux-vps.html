@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>How to setup vhost apache? –  – Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="Required Data
+
+
+  vps with ssh access
+
+
+Required Softwares
+
+
+  Apache
+  PHP 8.1
+  MySQL with accounts
+  Github Repo
+  Composer
+  vhost
+  domain and ip point out
+
+
+How to install LAMP stack on ubuntu
+https://lightsail.aws.amazon.com/ls/docs/en_us/articles/lightsail-how-to-set-up-putty-to-connect-using-ssh
+
+Connect instance using putty.
+
+https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-20-04
+
+sudo apt update
+
+sudo apt install apache2
+
+sudo ufw app list
+
+sudo ufw allow in "Apache"
+
+sudo ufw status
+
+http://your_server_ip
+http://54.255.18.148/
+
+sudo apt install mysql-server
+
+sudo mysql_secure_installation
+
+
+
+sudo mysql -u root -p 
+CREATE USER 'username'@'localhost' IDENTIFIED BY 'P4ssW0rd';
+GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost';
+FLUSH PRIVILEGES;
+
+CREATE USER 'user'@'localhost' IDENTIFIED BY 'P@ssw0rd!@#';
+GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost';
+FLUSH PRIVILEGES;
+
+
+
+sudo apt install php libapache2-mod-php php-mysql
+
+php -v
+sudo apt install software-properties-common
+sudo add-apt-repository ppa:ondrej/php
+
+sudo apt update
+sudo apt install php8.0 libapache2-mod-php8.0
+sudo systemctl restart apache2
+sudo apt update
+sudo apt install php8.0-fpm libapache2-mod-fcgid
+sudo a2enmod proxy_fcgi setenvif
+sudo a2enconf php8.0-fpm
+sudo systemctl restart apache2
+
+sudo apt-get install php8-mysql
+
+sudo service apache2 restart
+
+cd /var/www/html
+
+sudo git clone https://github.com/aungkoman/server-management
+
+http://54.255.18.148/server-management
+
+
+" />
+    <meta property="og:description" content="Required Data
+
+
+  vps with ssh access
+
+
+Required Softwares
+
+
+  Apache
+  PHP 8.1
+  MySQL with accounts
+  Github Repo
+  Composer
+  vhost
+  domain and ip point out
+
+
+How to install LAMP stack on ubuntu
+https://lightsail.aws.amazon.com/ls/docs/en_us/articles/lightsail-how-to-set-up-putty-to-connect-using-ssh
+
+Connect instance using putty.
+
+https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-20-04
+
+sudo apt update
+
+sudo apt install apache2
+
+sudo ufw app list
+
+sudo ufw allow in "Apache"
+
+sudo ufw status
+
+http://your_server_ip
+http://54.255.18.148/
+
+sudo apt install mysql-server
+
+sudo mysql_secure_installation
+
+
+
+sudo mysql -u root -p 
+CREATE USER 'username'@'localhost' IDENTIFIED BY 'P4ssW0rd';
+GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost';
+FLUSH PRIVILEGES;
+
+CREATE USER 'user'@'localhost' IDENTIFIED BY 'P@ssw0rd!@#';
+GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost';
+FLUSH PRIVILEGES;
+
+
+
+sudo apt install php libapache2-mod-php php-mysql
+
+php -v
+sudo apt install software-properties-common
+sudo add-apt-repository ppa:ondrej/php
+
+sudo apt update
+sudo apt install php8.0 libapache2-mod-php8.0
+sudo systemctl restart apache2
+sudo apt update
+sudo apt install php8.0-fpm libapache2-mod-fcgid
+sudo a2enmod proxy_fcgi setenvif
+sudo a2enconf php8.0-fpm
+sudo systemctl restart apache2
+
+sudo apt-get install php8-mysql
+
+sudo service apache2 restart
+
+cd /var/www/html
+
+sudo git clone https://github.com/aungkoman/server-management
+
+http://54.255.18.148/server-management
+
+
+" />
+    
+    <meta name="author" content="" />
+
+    
+    <meta property="og:title" content="How to setup vhost apache?" />
+    <meta property="twitter:title" content="How to setup vhost apache?" />
+    
+
+    <!-- facebook Open Graph Metadatas -->
+    <meta content="your_facebook_app_id" property="fb:app_id">
+    <meta content="Your awesome title" property="og:site_name">
+    
+    <meta content="How to setup vhost apache?" property="og:title">
+    
+    
+    <meta content="article" property="og:type">
+    
+    
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." property="og:description">
+    
+    
+    <meta content="http://localhost:4000/2023/03/29/how-to-deploy-laravel-to-linux-vps.html" property="og:url">
+    
+    
+    <meta content="2023-03-29T00:00:00+06:30" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    <meta content="/img/logo-high-resolution.png" property="og:image">
+    
+    
+    
+    
+    
+    
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title=" - Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/"></a></h1>
+            <p class="site-description">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>How to setup vhost apache?</h1>
+
+  <div class="entry">
+    <h3 id="required-data">Required Data</h3>
+
+<ul>
+  <li>vps with ssh access</li>
+</ul>
+
+<h3 id="required-softwares">Required Softwares</h3>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Apache</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />PHP 8.1</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />MySQL with accounts</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Github Repo</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Composer</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />vhost</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />domain and ip point out</li>
+</ul>
+
+<h3 id="how-to-install-lamp-stack-on-ubuntu">How to install LAMP stack on ubuntu</h3>
+<p>https://lightsail.aws.amazon.com/ls/docs/en_us/articles/lightsail-how-to-set-up-putty-to-connect-using-ssh</p>
+
+<p>Connect instance using putty.</p>
+
+<p>https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-20-04</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update
+
+<span class="nb">sudo </span>apt <span class="nb">install </span>apache2
+
+<span class="nb">sudo </span>ufw app list
+
+<span class="nb">sudo </span>ufw allow <span class="k">in</span> <span class="s2">"Apache"</span>
+
+<span class="nb">sudo </span>ufw status
+
+http://your_server_ip
+http://54.255.18.148/
+
+<span class="nb">sudo </span>apt <span class="nb">install </span>mysql-server
+
+<span class="nb">sudo </span>mysql_secure_installation
+
+
+
+<span class="nb">sudo </span>mysql <span class="nt">-u</span> root <span class="nt">-p</span> 
+CREATE USER <span class="s1">'username'</span>@<span class="s1">'localhost'</span> IDENTIFIED BY <span class="s1">'P4ssW0rd'</span><span class="p">;</span>
+GRANT ALL PRIVILEGES ON <span class="k">*</span>.<span class="k">*</span> TO <span class="s1">'username'</span>@<span class="s1">'localhost'</span><span class="p">;</span>
+FLUSH PRIVILEGES<span class="p">;</span>
+
+CREATE USER <span class="s1">'user'</span>@<span class="s1">'localhost'</span> IDENTIFIED BY <span class="s1">'P@ssw0rd!@#'</span><span class="p">;</span>
+GRANT ALL PRIVILEGES ON <span class="k">*</span>.<span class="k">*</span> TO <span class="s1">'user'</span>@<span class="s1">'localhost'</span><span class="p">;</span>
+FLUSH PRIVILEGES<span class="p">;</span>
+
+
+
+<span class="nb">sudo </span>apt <span class="nb">install </span>php libapache2-mod-php php-mysql
+
+php <span class="nt">-v</span>
+<span class="nb">sudo </span>apt <span class="nb">install </span>software-properties-common
+<span class="nb">sudo </span>add-apt-repository ppa:ondrej/php
+
+<span class="nb">sudo </span>apt update
+<span class="nb">sudo </span>apt <span class="nb">install </span>php8.0 libapache2-mod-php8.0
+<span class="nb">sudo </span>systemctl restart apache2
+<span class="nb">sudo </span>apt update
+<span class="nb">sudo </span>apt <span class="nb">install </span>php8.0-fpm libapache2-mod-fcgid
+<span class="nb">sudo </span>a2enmod proxy_fcgi setenvif
+<span class="nb">sudo </span>a2enconf php8.0-fpm
+<span class="nb">sudo </span>systemctl restart apache2
+
+<span class="nb">sudo </span>apt-get <span class="nb">install </span>php8-mysql
+
+<span class="nb">sudo </span>service apache2 restart
+
+<span class="nb">cd</span> /var/www/html
+
+<span class="nb">sudo </span>git clone https://github.com/aungkoman/server-management
+
+http://54.255.18.148/server-management
+</code></pre></div></div>
+
+
+  </div>
+
+  <div class="date">
+    Written on March 29, 2023
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+    <script>
+	window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '608464966533110',
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v9.0'
+	  });
+		
+	  FB.AppEvents.logPageView();   
+		
+	};
+  
+	(function(d, s, id){
+	   var js, fjs = d.getElementsByTagName(s)[0];
+	   if (d.getElementById(id)) {return;}
+	   js = d.createElement(s); js.id = id;
+	   js.src = "https://connect.facebook.net/en_US/sdk.js";
+	   fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+
+	 
+FB.getLoginStatus(function(response) {
+	console.log("getLoginStatus");
+	console.log(response);
+    statusChangeCallback(response);
+});
+
+function statusChangeCallback(response){
+	console.log('response is');
+	console.log(response);
+	if(response.status == "connected"){
+		console.log("user is logged in ");
+	}
+	else{
+		console.log("user need to login");
+		//FB.login();
+	}
+}
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+  </script>
+
+  
+<fb:login-button 
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
+  </body>
+</html>

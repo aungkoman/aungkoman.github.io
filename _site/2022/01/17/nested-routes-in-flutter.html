@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>How to stay away from Depress? –  – Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="Auto Router မှာ Nested မဟုတ်ပဲ ရိုးရိုး Route တစ်ခုကို ဘယ်လိုသွားမလဲ?
+Nested မှာ ဘယ်လို သွားလဲ အရင်ကြည့်မယ်။
+" />
+    <meta property="og:description" content="Auto Router မှာ Nested မဟုတ်ပဲ ရိုးရိုး Route တစ်ခုကို ဘယ်လိုသွားမလဲ?
+Nested မှာ ဘယ်လို သွားလဲ အရင်ကြည့်မယ်။
+" />
+    
+    <meta name="author" content="" />
+
+    
+    <meta property="og:title" content="How to stay away from Depress?" />
+    <meta property="twitter:title" content="How to stay away from Depress?" />
+    
+
+    <!-- facebook Open Graph Metadatas -->
+    <meta content="your_facebook_app_id" property="fb:app_id">
+    <meta content="Your awesome title" property="og:site_name">
+    
+    <meta content="How to stay away from Depress?" property="og:title">
+    
+    
+    <meta content="article" property="og:type">
+    
+    
+    <meta content="Depression" property="og:description">
+    
+    
+    <meta content="http://localhost:4000/2022/01/17/nested-routes-in-flutter.html" property="og:url">
+    
+    
+    <meta content="2022-01-17T00:00:00+06:30" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    <meta content="/img/posts/../images/fcc/kfc.jpg" property="og:image">
+    
+    
+    
+    
+    
+    
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title=" - Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/"></a></h1>
+            <p class="site-description">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>How to stay away from Depress?</h1>
+
+  <div class="entry">
+    <h3 id="auto-router-မှာ-nested-မဟုတ်ပဲ-ရိုးရိုး-route-တစ်ခုကို-ဘယ်လိုသွားမလဲ">Auto Router မှာ Nested မဟုတ်ပဲ ရိုးရိုး Route တစ်ခုကို ဘယ်လိုသွားမလဲ?</h3>
+<p>Nested မှာ ဘယ်လို သွားလဲ အရင်ကြည့်မယ်။</p>
+
+<p>Documentation မှာတော့ ဒီလို ပြတယ်
+https://pub.dev/packages/auto_route#navigating-between-screens</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// get the scoped router by calling        </span>
+<span class="n">AutoRouter</span><span class="o">.</span><span class="na">of</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>        
+<span class="c1">// or using the extension        </span>
+<span class="n">context</span><span class="o">.</span><span class="na">router</span>        
+        
+<span class="c1">// adds a new entry to the pages stack        </span>
+<span class="n">router</span><span class="o">.</span><span class="na">push</span><span class="p">(</span><span class="kd">const</span> <span class="n">BooksListRoute</span><span class="p">())</span>      
+<span class="c1">// or by using using paths      </span>
+<span class="n">router</span><span class="o">.</span><span class="na">pushNamed</span><span class="p">(</span><span class="s">'/books'</span><span class="p">)</span> 
+
+<span class="c1">// removes last entry in stack and pushs provided route     </span>
+<span class="c1">// if last entry == provided route page will just be updated    </span>
+<span class="n">router</span><span class="o">.</span><span class="na">replace</span><span class="p">(</span><span class="kd">const</span> <span class="n">BooksListRoute</span><span class="p">())</span>        
+<span class="c1">// or by using using paths      </span>
+<span class="n">router</span><span class="o">.</span><span class="na">replaceNamed</span><span class="p">(</span><span class="s">'/books'</span><span class="p">)</span>      
+    
+<span class="c1">// pops until provided route, if it already exists in stack        </span>
+<span class="c1">// else adds it to the stack (good for web Apps).        </span>
+<span class="n">router</span><span class="o">.</span><span class="na">navigate</span><span class="p">(</span><span class="kd">const</span> <span class="n">BooksListRoute</span><span class="p">())</span>      
+<span class="c1">// or by using using paths      </span>
+<span class="n">router</span><span class="o">.</span><span class="na">navigateNamed</span><span class="p">(</span><span class="s">'/books'</span><span class="p">)</span>    
+  
+<span class="c1">// on Web it calls window.history.back();</span>
+<span class="c1">// on Native it navigates you back </span>
+<span class="c1">// to the previous location</span>
+<span class="n">router</span><span class="o">.</span><span class="na">navigateBack</span><span class="p">();</span>
+
+<span class="c1">// adds a list of routes to the pages stack at once    </span>
+<span class="n">router</span><span class="o">.</span><span class="na">pushAll</span><span class="p">([</span>    
+   <span class="n">BooksListRoute</span><span class="p">(),</span>    
+   <span class="n">BookDetailsRoute</span><span class="p">(</span><span class="nl">id:</span><span class="mi">1</span><span class="p">),</span>    
+<span class="p">]);</span>    
+    
+<span class="c1">// This's like providing a completely new stack as it rebuilds the stack    </span>
+<span class="c1">// with the list of passed routes    </span>
+<span class="c1">// entires might just update if alright exist    </span>
+<span class="n">router</span><span class="o">.</span><span class="na">replaceAll</span><span class="p">([</span>    
+   <span class="n">LoginRoute</span><span class="p">()</span>    
+<span class="p">]);</span>    
+<span class="c1">// pops the last page unless stack has 1 entry        </span>
+<span class="n">context</span><span class="o">.</span><span class="na">router</span><span class="o">.</span><span class="na">pop</span><span class="p">();</span>       
+<span class="c1">// keeps poping routes until predicate is satisfied    </span>
+<span class="n">context</span><span class="o">.</span><span class="na">router</span><span class="o">.</span><span class="na">popUntil</span><span class="p">((</span><span class="n">route</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">route</span><span class="o">.</span><span class="na">name</span> <span class="o">==</span> <span class="s">'HomeRoute'</span><span class="p">);</span>    
+<span class="c1">// a simplifed version of the above line    </span>
+<span class="n">context</span><span class="o">.</span><span class="na">router</span><span class="o">.</span><span class="na">popUntilRouteWithName</span><span class="p">(</span><span class="s">'HomeRoute'</span><span class="p">);</span>    
+<span class="c1">// pops all routes down to the root    </span>
+<span class="n">context</span><span class="o">.</span><span class="na">router</span><span class="o">.</span><span class="na">popUntilRoot</span><span class="p">();</span>    
+         
+<span class="c1">// removes the top most page in stack even if it's the last    </span>
+<span class="c1">// remove != pop, it doesn't respect WillPopScopes it just     </span>
+<span class="c1">// removes the entry.    </span>
+<span class="n">context</span><span class="o">.</span><span class="na">router</span><span class="o">.</span><span class="na">removeLast</span><span class="p">();</span>     
+    
+<span class="c1">// removes any route in stack that satisfis the predicate    </span>
+<span class="c1">// this works exactly like removing items from a regualar List    </span>
+<span class="c1">// &lt;PageRouteInfo&gt;[...].removeWhere((r)=&gt;)    </span>
+<span class="n">context</span><span class="o">.</span><span class="na">router</span><span class="o">.</span><span class="na">removeWhere</span><span class="p">((</span><span class="n">route</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="p">);</span>    
+        
+<span class="c1">// you can also use the common helper methods from context extension to navigate    </span>
+<span class="n">context</span><span class="o">.</span><span class="na">pushRoute</span><span class="p">(</span><span class="kd">const</span> <span class="n">BooksListRoute</span><span class="p">());</span>    
+<span class="n">context</span><span class="o">.</span><span class="na">replaceRoute</span><span class="p">(</span><span class="kd">const</span> <span class="n">BooksListRoute</span><span class="p">());</span>    
+<span class="n">context</span><span class="o">.</span><span class="na">navigateTo</span><span class="p">(</span><span class="kd">const</span> <span class="n">BooksListRoute</span><span class="p">());</span>    
+<span class="n">context</span><span class="o">.</span><span class="na">navigateNamedTo</span><span class="p">(</span><span class="s">'/books'</span><span class="p">);</span>    
+<span class="n">context</span><span class="o">.</span><span class="na">navigateBack</span><span class="p">();</span>   
+<span class="n">context</span><span class="o">.</span><span class="na">popRoute</span><span class="p">();</span>
+
+</code></pre></div></div>
+
+<h3 id="yes-its-really-simple">Yes, it’s really simple</h3>
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@MaterialAutoRouter</span><span class="p">(</span>
+  <span class="nl">replaceInRouteName:</span> <span class="s">'Page,Route'</span><span class="p">,</span>
+  <span class="nl">routes:</span> <span class="p">[</span>
+    <span class="n">AutoRoute</span><span class="p">(</span><span class="nl">path:</span> <span class="s">'/'</span><span class="p">,</span> <span class="nl">page:</span> <span class="n">HomePage</span><span class="p">,</span> <span class="nl">children:</span> <span class="p">[</span>
+      <span class="n">AutoRoute</span><span class="p">(</span>
+        <span class="nl">path:</span> <span class="s">'posts'</span><span class="p">,</span>
+        <span class="nl">name:</span> <span class="s">'PostsRouter'</span><span class="p">,</span>
+        <span class="nl">page:</span> <span class="n">EmptyRouterPage</span><span class="p">,</span>
+        <span class="nl">children:</span> <span class="p">[</span>
+          <span class="n">AutoRoute</span><span class="p">(</span>
+            <span class="nl">path:</span> <span class="s">''</span><span class="p">,</span>
+            <span class="nl">page:</span> <span class="n">PostsPage</span><span class="p">,</span>
+          <span class="p">),</span>
+          <span class="n">AutoRoute</span><span class="p">(</span>
+            <span class="nl">path:</span> <span class="s">':postId'</span><span class="p">,</span>
+            <span class="nl">page:</span> <span class="n">SinglePostPage</span><span class="p">,</span>
+          <span class="p">)</span>
+        <span class="p">],</span>
+      <span class="p">),</span>
+      <span class="n">AutoRoute</span><span class="p">(</span>
+        <span class="nl">path:</span> <span class="s">'users'</span><span class="p">,</span>
+        <span class="nl">name:</span> <span class="s">'UsersRouter'</span><span class="p">,</span>
+        <span class="nl">page:</span> <span class="n">EmptyRouterPage</span><span class="p">,</span>
+        <span class="nl">children:</span> <span class="p">[</span>
+          <span class="n">AutoRoute</span><span class="p">(</span>
+            <span class="nl">path:</span> <span class="s">''</span><span class="p">,</span>
+            <span class="nl">page:</span> <span class="n">UsersPage</span><span class="p">,</span>
+          <span class="p">),</span>
+          <span class="n">AutoRoute</span><span class="p">(</span>
+            <span class="nl">path:</span> <span class="s">':userId'</span><span class="p">,</span>
+            <span class="nl">page:</span> <span class="n">UserProfilePage</span><span class="p">,</span>
+          <span class="p">),</span>
+        <span class="p">],</span>
+      <span class="p">),</span>
+      <span class="n">AutoRoute</span><span class="p">(</span>
+        <span class="nl">path:</span> <span class="s">'settings'</span><span class="p">,</span>
+        <span class="nl">name:</span> <span class="s">'SettingsRouter'</span><span class="p">,</span>
+        <span class="nl">page:</span> <span class="n">SettingsPage</span><span class="p">,</span>
+      <span class="p">)</span>
+    <span class="p">]),</span>
+
+    <span class="n">AutoRoute</span><span class="p">(</span>
+        <span class="nl">path:</span> <span class="s">'/deep-link-page'</span><span class="p">,</span>
+        <span class="nl">page:</span> <span class="n">DeepLinkPage</span><span class="p">,</span>
+    <span class="p">),</span>
+  <span class="p">],</span>
+<span class="p">)</span>
+<span class="kd">class</span> <span class="err">$</span><span class="nc">AppRouter</span> <span class="p">{}</span>
+</code></pre></div></div>
+
+<h3 id="deeplinkpage">DeepLinkPage</h3>
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">class</span> <span class="nc">DeepLinkPage</span> <span class="kd">extends</span> <span class="n">StatelessWidget</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="n">DeepLinkPage</span><span class="p">({</span><span class="n">Key</span><span class="o">?</span> <span class="n">key</span><span class="p">})</span> <span class="o">:</span> <span class="k">super</span><span class="p">(</span><span class="nl">key:</span> <span class="n">key</span><span class="p">);</span>
+
+  <span class="nd">@override</span>
+  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">Scaffold</span><span class="p">(</span>
+      <span class="nl">appBar:</span> <span class="n">AppBar</span><span class="p">(</span>
+        <span class="nl">title:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Deep Link Page"</span><span class="p">),</span>
+      <span class="p">),</span>
+      <span class="nl">body:</span> <span class="n">Center</span><span class="p">(</span>
+        <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">"Deep Link Page"</span><span class="p">),</span>
+      <span class="p">),</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="how-to-route">How to route</h3>
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">AutoRouter</span><span class="o">.</span><span class="na">of</span><span class="p">(</span><span class="n">context</span><span class="p">)</span><span class="o">.</span><span class="na">push</span><span class="p">(</span><span class="kd">const</span> <span class="n">DeepLinkRoute</span><span class="p">());</span>
+</code></pre></div></div>
+
+<h3 id="router-တစ်ခုတည်း-အောက်က-child-အချင်းချင်း-ကူးချင်ရင်">Router တစ်ခုတည်း အောက်က child အချင်းချင်း ကူးချင်ရင်</h3>
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">context</span><span class="o">.</span><span class="na">router</span><span class="o">.</span><span class="na">push</span><span class="p">(</span><span class="n">UserProfileRoute</span><span class="p">(</span><span class="nl">userId:</span> <span class="n">users</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="na">id</span><span class="p">,),)</span>
+</code></pre></div></div>
+
+<h3 id="တစ်ခြား-router-အောက်က-child-တစ်ခုကို-သွားချင်ရင်">တစ်ခြား router အောက်က Child တစ်ခုကို သွားချင်ရင်</h3>
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">context</span><span class="o">.</span><span class="na">navigateTo</span><span class="p">(</span><span class="n">PostsRouter</span><span class="p">(</span><span class="nl">children:</span> <span class="n">SinglePostRoute</span><span class="p">(</span><span class="nl">postId:</span> <span class="n">id</span><span class="p">))).</span>
+</code></pre></div></div>
+
+<h3 id="flutter-botton-navigation-bar-နဲ့-ဘယ်လို-ချိတ်လဲ">Flutter Botton Navigation Bar နဲ့ ဘယ်လို ချိတ်လဲ?</h3>
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">class</span> <span class="nc">HomePage</span> <span class="kd">extends</span> <span class="n">StatelessWidget</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="n">HomePage</span><span class="p">({</span><span class="n">Key</span><span class="o">?</span> <span class="n">key</span><span class="p">})</span> <span class="o">:</span> <span class="k">super</span><span class="p">(</span><span class="nl">key:</span> <span class="n">key</span><span class="p">);</span>
+
+  <span class="nd">@override</span>
+  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">AutoTabsScaffold</span><span class="p">(</span>
+      <span class="cm">/* ဒီမှာ app bar ကို သက်ဆိုင်ရာ tab အလိုက် build လို့ ရတာပဲ။ child တွေ ဆိုရင်တော့ မသိ */</span>
+      <span class="nl">appBarBuilder:</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">tabsRouter</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">AppBar</span><span class="p">(</span>
+        <span class="nl">backgroundColor:</span> <span class="n">Colors</span><span class="o">.</span><span class="na">indigo</span><span class="p">,</span>
+        <span class="nl">title:</span> <span class="n">Text</span><span class="p">(</span><span class="s">'FlutterBottomNav </span><span class="si">${tabsRouter.activeIndex}</span><span class="s">'</span><span class="p">),</span>
+        <span class="nl">centerTitle:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nl">leading:</span> <span class="kd">const</span> <span class="n">AutoBackButton</span><span class="p">(),</span>
+      <span class="p">),</span>
+      <span class="nl">backgroundColor:</span> <span class="n">Colors</span><span class="o">.</span><span class="na">indigo</span><span class="p">,</span>
+      <span class="cm">/* သက်ဆိုင်ရာ route နဲ့ tab ကို တွဲပေးလိုက်တာ ဖြစ်မယ် */</span>
+      <span class="cm">/* အခု လိုတာက သီးခြား Page တစ်ခုကို ဘယ်လို သွားကြမလဲ */</span>
+      <span class="nl">routes:</span> <span class="kd">const</span> <span class="p">[</span>
+        <span class="n">PostsRouter</span><span class="p">(),</span>
+        <span class="n">UsersRouter</span><span class="p">(),</span>
+        <span class="n">SettingsRouter</span><span class="p">(),</span>
+      <span class="p">],</span>
+      <span class="nl">bottomNavigationBuilder:</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">tabsRouter</span><span class="p">)</span> <span class="p">{</span>
+        <span class="cm">/* အိုကေ၊ bottom navigation bar တော့ flutter က ပါတဲ့ ကောင်နဲ့ ပြောင်းလိုက်ပြီ ၊ */</span>
+        <span class="k">return</span> <span class="n">BottomNavigationBar</span><span class="p">(</span>
+          <span class="nl">type:</span> <span class="n">BottomNavigationBarType</span><span class="o">.</span><span class="na">fixed</span><span class="p">,</span>
+          <span class="cm">/* ဒါက အမှန်ဆို int တွေ get / set လုပ်ပေးတာ ထင်တယ်၊ အခု Auto Router ပေးတဲ့ ကောင်တွေကို ခေါ်လိုက်တယ် */</span>
+          <span class="nl">currentIndex:</span> <span class="n">tabsRouter</span><span class="o">.</span><span class="na">activeIndex</span><span class="p">,</span>
+          <span class="nl">onTap:</span> <span class="n">tabsRouter</span><span class="o">.</span><span class="na">setActiveIndex</span><span class="p">,</span>
+          <span class="nl">items:</span> <span class="p">[</span>
+            <span class="n">BottomNavigationBarItem</span><span class="p">(</span>
+              <span class="nl">icon:</span> <span class="n">Icon</span><span class="p">(</span><span class="n">Icons</span><span class="o">.</span><span class="na">school</span><span class="p">),</span>
+              <span class="nl">label:</span> <span class="s">'School'</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">BottomNavigationBarItem</span><span class="p">(</span>
+              <span class="nl">icon:</span> <span class="n">Icon</span><span class="p">(</span><span class="n">Icons</span><span class="o">.</span><span class="na">business</span><span class="p">),</span>
+              <span class="nl">label:</span> <span class="s">'Business'</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">BottomNavigationBarItem</span><span class="p">(</span>
+              <span class="nl">icon:</span> <span class="n">Icon</span><span class="p">(</span><span class="n">Icons</span><span class="o">.</span><span class="na">home</span><span class="p">),</span>
+              <span class="nl">label:</span> <span class="s">'Home'</span><span class="p">,</span>
+            <span class="p">),</span>
+          <span class="p">],</span>
+        <span class="p">);</span>
+
+      <span class="p">},</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+  </div>
+
+  <div class="date">
+    Written on January 17, 2022
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+    <script>
+	window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '608464966533110',
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v9.0'
+	  });
+		
+	  FB.AppEvents.logPageView();   
+		
+	};
+  
+	(function(d, s, id){
+	   var js, fjs = d.getElementsByTagName(s)[0];
+	   if (d.getElementById(id)) {return;}
+	   js = d.createElement(s); js.id = id;
+	   js.src = "https://connect.facebook.net/en_US/sdk.js";
+	   fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+
+	 
+FB.getLoginStatus(function(response) {
+	console.log("getLoginStatus");
+	console.log(response);
+    statusChangeCallback(response);
+});
+
+function statusChangeCallback(response){
+	console.log('response is');
+	console.log(response);
+	if(response.status == "connected"){
+		console.log("user is logged in ");
+	}
+	else{
+		console.log("user need to login");
+		//FB.login();
+	}
+}
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+  </script>
+
+  
+<fb:login-button 
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
+  </body>
+</html>

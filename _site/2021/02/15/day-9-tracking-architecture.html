@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Day 9 - Tracking Structure –  – Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="[x] GPS Tracking Coding Structure
+" />
+    <meta property="og:description" content="[x] GPS Tracking Coding Structure
+" />
+    
+    <meta name="author" content="" />
+
+    
+    <meta property="og:title" content="Day 9 - Tracking Structure" />
+    <meta property="twitter:title" content="Day 9 - Tracking Structure" />
+    
+
+    <!-- facebook Open Graph Metadatas -->
+    <meta content="your_facebook_app_id" property="fb:app_id">
+    <meta content="Your awesome title" property="og:site_name">
+    
+    <meta content="Day 9 - Tracking Structure" property="og:title">
+    
+    
+    <meta content="article" property="og:type">
+    
+    
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." property="og:description">
+    
+    
+    <meta content="http://localhost:4000/2021/02/15/day-9-tracking-architecture.html" property="og:url">
+    
+    
+    <meta content="2021-02-15T00:00:00+06:30" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    <meta content="/img/logo-high-resolution.png" property="og:image">
+    
+    
+    
+    
+    
+    
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title=" - Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/"></a></h1>
+            <p class="site-description">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>Day 9 - Tracking Structure</h1>
+
+  <div class="entry">
+    <p>[x] GPS Tracking Coding Structure</p>
+
+<p>[x] Redlist Website Up and Running</p>
+
+<p>[x] iMovie DBA နဲ့ ဆွေးနွေးဖြစ်</p>
+
+<p>GPS Tracking ကို Architecture ပြောင်းတယ်။ မဟုတ်ရင် Project က အလုပ်လုပ်ရုံ သပ်သပ်ပဲ ဖြစ်နေတာ။ Sensor Data တွေယူတယ်။ သင့်တင့်သလို ပြတယ်။ Provider ကိုက မဖြစ်မနေ Setting အချက်အလက်တွေအတွက်ပဲ သုံးထားတာ။</p>
+
+<p>ဆိုတော့ကာ Backend နဲ့ချိတ်မယ် ဆက်မယ်ဆိုတော့ ဘယ်လိုမှ အဆင်သင့်မဖြစ်။ ဒီတော့ ပြန်ပြင်ရတယ်။ UI ကို မဟုတ်ဘူး နောက်က Coding Structure ကို။</p>
+
+<p>ကျွန်တော် က ဒီလို ပုံစံနဲ့ ရေးဖြစ်တယ်။</p>
+
+<p><code class="language-plaintext highlighter-rouge">UI &lt;-&gt; Provider &lt;-&gt; Service &lt;-&gt; DAO</code></p>
+
+<p>ပထမဆုံး Data Model တွေ ပြန်ဆောက်ရတယ်။ နောက် ကိုယ်က No SQL သုံးဖို့ ကြံထားတာဆိုတော့ Relationship တွေ မများစေဖို့လည်း သတိထားပြီး ပြန်ရေးရတယ်။</p>
+
+<p>ထုံးစံအတိုင်း DAO မှာ Interface ရေး၊ Monk ရေး၊ Service ကခေါ် ၊ Service ကို Provider က ခေါ် ။ null handling မှာတောင် တိုင်နည်းနည်းပတ်သွားသေးတယ်။ စိတ်က ရှည်တာဆိုတော့ အကုန်ကျော် လိုက်တယ်။</p>
+
+<p>UI က ပြန်ချိတ်တာနဲ့ ဘာနဲ့ ဆိုရင် User Model နဲ့တင် နေ့တစ်ပိုင်း ကုန်သွားတယ်။ စဉ်းစားမိတယ်။ User Module တော့ ရေးထားသင့်ပြီလို့။</p>
+
+<p>နောက် Route Data Provider ရေးတော့ UI ဘက်ကို ပြန်သွားကြည့်ရတယ်။ ဒီနေ့တော့ အချိန်မရှိတော့ဘူး။ နောက်ရက်မှ UI အပိုင်းကို Provider  ယူအောင် ပြန်ပြင်ရေးရမယ်။</p>
+
+<p>တစ်ခု စဉ်းစားနေရတာက Consumer Widget နဲ့ ဆိုရင် Provider Data တွေကို listen လုပ်လို့ရနေပေမယ် widget မဟုတ်ပဲ ရိုးရိုး state တစ်ခုအနေနဲ့ရော သုံးလို့ရနိုင်မလား‌ပေါ့ ။ ဒါမှမဟုတ် နေရာတိုင်းမှာ consumer တွေ ခွဲပြီး လုပ်ရမလား။ ဒါကတော့ လေ့လာပြီး တစ်ခုခု ဆုံးဖြတ်မှ ရမယ်။ လွယ်တဲ့နည်းကတော့ Consumer Widget တွေ အများကြီးနဲ့ သုံးတာပါ။ ဖြစ်ချင်တာကတော့ initState လိုနေရာမှာ Provider က အချက်အလက်ကို live ယူနေချင်တာ။ setState တော့ ပြန်ခေါ် နိုင်မှာ မဟုတ်ပေမယ့်ပေါ့။ ရမယ်လို့ မျှော်လင့်မိတယ်။</p>
+
+<p>Day 9 က အလုပ်ပြီးဖို့တော့ လိုသေးတယ်။</p>
+
+
+  </div>
+
+  <div class="date">
+    Written on February 15, 2021
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+    <script>
+	window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '608464966533110',
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v9.0'
+	  });
+		
+	  FB.AppEvents.logPageView();   
+		
+	};
+  
+	(function(d, s, id){
+	   var js, fjs = d.getElementsByTagName(s)[0];
+	   if (d.getElementById(id)) {return;}
+	   js = d.createElement(s); js.id = id;
+	   js.src = "https://connect.facebook.net/en_US/sdk.js";
+	   fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+
+	 
+FB.getLoginStatus(function(response) {
+	console.log("getLoginStatus");
+	console.log(response);
+    statusChangeCallback(response);
+});
+
+function statusChangeCallback(response){
+	console.log('response is');
+	console.log(response);
+	if(response.status == "connected"){
+		console.log("user is logged in ");
+	}
+	else{
+		console.log("user need to login");
+		//FB.login();
+	}
+}
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+  </script>
+
+  
+<fb:login-button 
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
+  </body>
+</html>

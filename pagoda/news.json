@@ -1,0 +1,14 @@
+[
+    {
+        "id" : 1,
+        "title" : "History Part 1",
+        "cover_photo_url" : "https://www.tripsavvy.com/thmb/Hjdno8I9dP8FrmtPi2S4AXQJ4dE=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/shwedagon-pagoda-yangon-5a0e73e44e4f7d0036a76931.jpg",
+        "description" : "this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. "
+    },
+    {
+        "id" : 2,
+        "title" : "History Part 2",
+        "cover_photo_url" : "https://res.cloudinary.com/rainforest-cruises/images/c_fill,g_auto/f_auto,q_auto/v1623088422/Shwedagon-Pagoda-Guide-Sunset/Shwedagon-Pagoda-Guide-Sunset.jpg",
+        "description" : "this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. this is long description. "
+    }
+]

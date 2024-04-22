@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/myandora/static/css/main.ae71d505.css",
+    "main.js": "/myandora/static/js/main.d6cd8f02.js",
+    "static/js/787.28cb0dcd.chunk.js": "/myandora/static/js/787.28cb0dcd.chunk.js",
+    "static/media/logo.svg": "/myandora/static/media/logo.b2e5a01e505f739f1484b881277d5186.svg",
+    "index.html": "/myandora/index.html",
+    "main.ae71d505.css.map": "/myandora/static/css/main.ae71d505.css.map",
+    "main.d6cd8f02.js.map": "/myandora/static/js/main.d6cd8f02.js.map",
+    "787.28cb0dcd.chunk.js.map": "/myandora/static/js/787.28cb0dcd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ae71d505.css",
+    "static/js/main.d6cd8f02.js"
+  ]
+}

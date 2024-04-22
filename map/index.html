@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MYANMAR LINK</title>
+    <link rel="stylesheet" href="Style/mdb.min.css" />
+    <link rel="stylesheet" href="Style/leaflet.css" />
+    <link rel="stylesheet" href="Style/font-awesome.min.css" />
+    <link rel="stylesheet" href="Style/alertify.min.css" />
+    <style>
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 999;
+            top: 20;
+            right: 0;
+            background-color: hsla(0, 0%, 7%, 0.788);
+            overflow: none;
+            transition: 0.5s;
+            overflow-y: auto;
+        }
+
+
+        .leaflet-control-layers {
+            float: right;
+        }
+
+
+        .leaflet-control-layers label {
+            display: inline-block;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .leaflet-control-layers-toggle {
+            background-image: url(Images/layers.png) !important;
+            background-size: 30px 30px;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+        }
+
+        /* .leaflet-control-layers-selector{
+            display: none;
+        } */
+
+        .leaflet-container.crosshair-cursor-enabled {
+            cursor: crosshair;
+        }
+
+        .image-container {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            z-index: 3;
+            top: 10px;
+            right: 20px;
+            position: fixed;
+        }
+
+        .dropdown-toggle:after {
+            display: none;
+        }
+
+        .dropdown-menu {
+            z-index: 9999;
+        }
+
+        .map-container {
+            top: 0;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            overflow: hidden;
+        }
+
+        .marker-view {
+            margin-left: 100px;
+        }
+
+        .view {
+            position: relative;
+            top: 10px;
+            display: inline-flex;
+            z-index: 3;
+            background-color: whitesmoke;
+            border-radius: 25px;
+            padding: 5px 8px;
+            color: black;
+            font-weight: bolder;
+            cursor: pointer;
+            margin: 5px 10px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .view:hover {
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+        }
+
+        .pointer {
+            cursor: pointer;
+        }
+
+        .user-card {
+            position: relative;
+        }
+
+        .user-card:hover {
+            box-shadow: rgba(238, 236, 236, 0.952) 0px 1px 4px, rgb(165, 165, 165) 0px 0px 0px 3px;
+        }
+
+        .icon {
+            width: 30px;
+            height: 25px;
+            padding: 0;
+        }
+
+        .view span {
+            font-size: 14px;
+            padding-top: 2px;
+        }
+
+        .error {
+            color: red !important;
+        }
+
+        .alertify-notifier {
+            position: fixed;
+            width: 0;
+            overflow: visible;
+            z-index: 9999;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+            right: 10px;
+            bottom: 10px;
+            text-transform: capitalize;
+            text-align: center;
+            padding: 2px;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            background-color: #f93154;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body style="background-color: black;">
+    <main id="main">
+        <!-- Signin Modal -->
+        <div class="modal fade mt-5" id="login" role="dialog" data-mdb-backdrop="static">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title center">Login</h4>
+                    </div>
+                    <div class="modal-body p-5">
+                        <button type="button" class="btn btn-block btn-default" onclick="signInWithGoogle()"><img
+                                src="Images/google.png" style="width: 20px;height: 20px;margin-right: 10px;" />Login
+                            with google</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Employee/Client Modal -->
+        <div class="modal fade mt-5" id="NewEmployee" role="dialog" data-mdb-backdrop="static">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <form id="NewEmployeeForm">
+                        <div class="modal-header">
+                            <h4 id="mytitle" class="modal-title center">New User</h4>
+                        </div>
+                        <div class="modal-body p-5">
+                            <div class="form-group m-1">
+                                <label for="user_name">Name</label>
+                                <input type="text" class="form-control" id="user_name" name="user_name"
+                                    required="required" />
+                            </div>
+                            <div class="form-group m-1">
+                                <label for="user_email">Email</label>
+                                <input type="email" class="form-control" id="user_email" name="user_email"
+                                    required="required" />
+                            </div>
+                            <div class="form-group m-1">
+                                <label for="user_phone_number">Phone Number</label>
+                                <input type="tel" class="form-control" id="user_phone_number" name="user_phone_number"
+                                    required="required" />
+                            </div>
+                            <div class="form-group m-1">
+                                <label for="user_lat">Latitude</label>
+                                <input type="number" step="any" class="form-control" id="user_lat" name="user_lat"
+                                    required="required" />
+                            </div>
+                            <div class="form-group m-1">
+                                <label for="user_lng">Longitude</label>
+                                <input type="number" step="any" class="form-control" id="user_lng" name="user_lng"
+                                    required="required" />
+                            </div>
+                            <div class="form-group m-1">
+                                <label for="user_remark">Remark</label>
+                                <textarea type="text" class="form-control" id="user_remark" rows="2"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="form-group m-2 text-end">
+                                <input type="button" class="btn btn-danger" value="Cancel" data-mdb-dismiss="modal"
+                                    onclick="cleardata()" />
+                                <input type="button" class="btn btn-success" value="Add" id="new_employee" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Databox Modal -->
+        <div class="modal fade mt-5" id="NewDatabox" role="dialog" data-mdb-backdrop="static">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <form id="NewDataBoxForm">
+                        <div class="modal-header">
+                            <h4 class="modal-title center">New Databox</h4>
+                        </div>
+                        <div class="modal-body p-5">
+                            <div class="form-group m-1">
+                                <label for="databox_name">Name</label>
+                                <input type="text" class="form-control" id="databox_name" required="required"
+                                    name="databox_name" />
+                            </div>
+                            <div class="form-group m-1">
+                                <label for="databox_lat">Latitude</label>
+                                <input type="number" step="any" class="form-control" id="databox_lat" name="databox_lat"
+                                    required="required" />
+                            </div>
+                            <div class="form-group m-1">
+                                <label for="databox_lng">Longitude</label>
+                                <input type="number" step="any" class="form-control" id="databox_lng" name="databox_lng"
+                                    required="required" />
+                            </div>
+                            <div class="form-group m-1">
+                                <label for="databox_remark">Remark</label>
+                                <textarea type="text" class="form-control" id="databox_remark" row="2"
+                                    name="databox_remark">
+                            </textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="form-group m-2 text-end">
+                                <input type="button" class="btn btn-danger" value="Cancel" data-mdb-dismiss="modal"
+                                    onclick="cleardata()" />
+                                <input type="button" class="btn btn-success" value="Add" id="new_databox" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Delete Modal -->
+        <div class="modal fade mt-5" id="Delete" role="dialog" data-mdb-backdrop="static">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header bg-danger">
+                        <h4 class="modal-title center text-white">Warning</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-danger">Are You Sure To Delete "<span id="key_name"></span>" From "<span
+                                id="rtype"></span>"?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group m-2 text-end">
+                            <input type="button" class="btn btn-warning" value="Cancel" data-mdb-dismiss="modal"
+                                onclick="message('Deletion Is Cancled');function a(){return ('.alertify-notifier').addClass('bg-success')}"
+                                id="Cancel" />
+                            <input type="button" class="btn btn-danger" value="Delete" id="Okay" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="sidenav" class="sidenav">
+            <div class="m-2 mb-3 pointer  overflow-hidden  inline-flex " onclick="hidesidenav()" title="Hide">
+                <span class="fa fa-times btn btn-danger"></span>
+                <span class="fa fa-plus btn btn-success overflow-hidden float-end" title="Create"
+                    data-mdb-toggle="modal" data-mdb-target="#NewEmployee" id="open_modal"></span>
+            </div>
+            <div id="side_content">
+            </div>
+        </div>
+        <!-- d-flex justify-content-center align-items-center -->
+        <div class="d-flex marker-view">
+            <div id="only_employee_show" class="view">
+                <img src="Images/employee.png" class="icon" /><span>Employees</span>
+            </div>
+            <div id="only_databox_show" class="view">
+                <img src="Images/station.png" class="icon" /><span>Databoxes</span>
+            </div>
+            <div id="only_client_show" class="view">
+                <img src="Images/home.png" class="icon" /><span>Clients</span>
+            </div>
+        </div>
+
+        <div class="d-flex image-container dropdown dropdown-toggle-no-caret">
+            <a class="dropdown-toggle mydrown" href="#" id="user_dropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <img id="user_img" src="Images/user-img.png" alt="User Image" class="rounded-circle img-fluid" />
+            </a>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="user_dropdown">
+                <a class="dropdown-item mydrown" href="#" onclick="signOut() ">Sign Out</a>
+            </div>
+        </div>
+
+        <div id="map" class="map-container">
+        </div>
+
+        <div class="alertify-notifier"></div>
+
+    </main>
+
+    <script type="text/javascript" src="Script/mdb.min.js"></script>
+    <script type="text/javascript" src="Script/jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="Script/leaflet.js"></script>
+    <script type="text/javascript" src="Script/firebase-app.js"></script>
+    <script type="text/javascript" src="Script/firebase-database.js"></script>
+    <script type="text/javascript" src="Script/firebases-auth.js"></script>
+    <script type="text/javascript" src="Script/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="Script/alertify.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.dropdown-toggle').dropdown();
+            $("#NewEmployeeForm").validate({
+                rules: {
+                    user_name: "required",
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    user_phone_number: {
+                        required: true,
+                        number: true,
+                    },
+                    user_lat: {
+                        required: true,
+                        number: true,
+                    },
+                    user_lng: {
+                        required: true,
+                        number: true,
+                    }
+                }
+            });
+
+            $("#NewDataBoxForm").validate({
+                rules: {
+                    databox_name: "required",
+                    databox_lat: {
+                        required: true,
+                        number: true,
+                    },
+                    databox_lng: {
+                        required: true,
+                        number: true,
+                    }
+                }
+            });
+
+        });
+
+        $('.mydrown').click(function () {
+            $('.dropdown-menu').toggle();
+        });
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBFuQI4JTm04WVUPeJzIqm1eCIQzc3kF04",
+            authDomain: "my-place-1a38a.firebaseapp.com",
+            databaseURL: "https://my-place-1a38a-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "my-place-1a38a",
+            storageBucket: "my-place-1a38a.appspot.com",
+            messagingSenderId: "634843586019",
+            appId: "1:634843586019:web:a048f635da31894ae054d6",
+            measurementId: "G-F95ZSSL42T"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+
+        //employeeIcon
+        var employeeIcon = L.icon({
+            iconUrl: 'Images/employeeicon.png',
+            iconSize: [90, 95],
+            iconAnchor: [45, 65],
+            popupAnchor: [0, -30]
+        });
+
+        //stationIcon
+        var stationIcon = L.icon({
+            iconUrl: 'Images/station.png',
+            iconSize: [50, 50],
+            iconAnchor: [5, 70],
+            popupAnchor: [20, -50]
+        });
+
+        //clientIcon
+        var clientIcon = L.icon({
+            iconUrl: 'Images/homeicon.png',
+            iconSize: [50, 50],
+            iconAnchor: [30, 35],
+            popupAnchor: [-8, -35]
+        });
+
+        let osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+
+        let osmHOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png');
+
+        let googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+            maxZoom: 13,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        });
+
+        let googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+            maxZoom: 13,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        });
+
+        let googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            maxZoom: 13,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        });
+
+        let googleTerrain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
+            maxZoom: 13,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        });
+
+
+        var mapOptions = {
+            center: [16.810539, 96.176570],
+            zoom: 8,
+            maxZoom: 30,
+            'attributionControl': false,
+            layers: [googleStreets, googleHybrid, googleSat, googleTerrain, osmHOT, osm]
+        }
+
+        var map = L.map('map', mapOptions);
+
+        let baseMaps = {
+            "GoogleStreets": googleStreets,
+            "GoogleHybrid": googleHybrid,
+            "GoogleSatellite": googleSat,
+            "GoogleTerrain": googleTerrain,
+            "OpenStreetMapHOT": osmHOT,
+            "OpenStreetMap": osm
+        };
+
+        //LayerControl
+        var layerControl = L.control.layers(baseMaps, null, { collapsed: true }).addTo(map);
+        layerControl.setPosition('bottomleft');
+
+        function signInWithGoogle() {
+            var provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(provider)
+                .then(function (result) {
+                    var user = result.user;
+                    console.log("Signed in user:", user);
+                })
+                .catch(function (error) {
+                    var errorMessage = error.message;
+                    console.error(errorMessage);
+                });
+        }
+
+        function signOut() {
+            firebase.auth().signOut()
+                .then(function () {
+                    map.eachLayer(function (layer) {
+                        map.removeLayer(layer);
+                    });
+                    console.log("User signed out successfully.");
+                })
+                .catch(function (error) {
+                    var errorMessage = error.message;
+                    console.error(errorMessage);
+                });
+        }
+
+        var employees_list = [];
+        var employees_list_layer = L.layerGroup();
+
+        var databoxes_list = [];
+        var databoxes_list_layer = L.layerGroup();
+
+        var clients_list = [];
+        var clients_list_layer = L.layerGroup();
+
+
+        var user_route;
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                $('#login').modal('hide');
+                $('#user_img').attr('src', user.photoURL).attr('title', user.displayName);
+                GetEmployees();
+                GetDataBoxes();
+                GetClients();
+
+            } else {
+                $('#login').modal('show');
+            }
+        });
+
+
+        //Employee SECTION
+        //Employee is changed depend on database
+        firebase.database().ref('employees').on("child_changed", function (snapshot) {
+            let newLatLng = L.latLng(snapshot.val().lat, snapshot.val().lng);
+            let layers = employees_list_layer.getLayers();
+            for (let i = 0; i < layers.length; i++) {
+                let layer = layers[i];
+                if (layer.options && layer.options.id === snapshot.key) {
+                    layer.setLatLng(newLatLng);
+                    employees_list[i].bindPopup(snapshot.key + '<br/>' + (snapshot.val().phone == undefined ? "" : snapshot.val().phone)).openPopup();
+                    break;
+                }
+            }
+            draw_card('employees');
+        });
+
+        firebase.database().ref('employees').on('child_removed', function (oldChildSnapshot) {
+            employees_list_layer.eachLayer(function (layer) {
+                if (layer instanceof L.Marker && layer.options.id === oldChildSnapshot.key) {
+                    employees_list_layer.removeLayer(layer);
+                }
+            });
+            draw_card('employees');
+        });
+
+        //Show Only Employee Layer
+        $(document).on('click', '#only_employee_show', function () {
+            $('#open_modal').attr('data-mdb-target', '#NewEmployee');
+            $('#mytitle').html("New User");
+            $('#new_client').attr("id", "new_employee")
+            map.removeLayer(databoxes_list_layer).removeLayer(clients_list_layer);
+            if (user_route != undefined) {
+                map.removeLayer(user_route);
+            }
+            GetEmployees();
+            $('#sidenav').css('width', '25%');
+            draw_card('employees');
+        })
+
+        //Create New Employee
+        $(document).on('click', '#new_employee', function () {
+            let name = $('#user_name').val();
+            let phone = $('#user_phone_number').val();
+            let lat = $('#user_lat').val();
+            let lng = $('#user_lng').val();
+            let email = $('#user_email').val();
+            let remark = $('#user_remark').val().trim();
+            if (lat == "" || lng == "") {
+                lat = 16.810539;
+                lng = 96.176570;
+            }
+
+            let obj = {
+                "name": name,
+                "phone": phone,
+                "lat": lat,
+                "lng": lng,
+                "email": email,
+                "remark": remark,
+                "updatedate": Date()
+            }
+            if ($("#NewEmployeeForm").valid() === true) {
+                firebase.database().ref('employees/' + name).set(obj);
+                let marker = L.marker([lat, lng], { id: name, icon: employeeIcon }).bindPopup(name + '<br/>' + phone);
+                employees_list.push(marker);
+                employees_list_layer = L.layerGroup(employees_list);
+                map.addLayer(employees_list_layer);
+                map.panTo([lat, lng]).setZoom(18);
+                employees_list[employees_list.length - 1].openPopup();
+                cleardata();
+                $("#NewEmployee").modal('hide');
+                message("New Employee '" + name + "' Is Successfully Created");
+                $('.alertify-notifier').addClass('bg-success text-white');
+            }
+            else {
+                message("New Employee '" + name + "' Is Not Created");
+                $('.alertify-notifier').addClass('bg-danger text-white');
+            }
+        })
+
+        //Update Employee
+        $(document).on('click', '#edit_employee', function () {
+            let name = $('#user_name').val();
+            let phone = $('#user_phone_number').val();
+            let lat = $('#user_lat').val();
+            let lng = $('#user_lng').val();
+            let remark = $('#user_remark').val().trim();
+            let email = $('#user_email').val();
+            let key = $(this).attr('employee_id');
+            if (lat == "" || lng == "") {
+                lat = 16.810539;
+                lng = 96.176570;
+            }
+            if ($("#NewEmployeeForm").valid() === true) {
+                firebase.database().ref('employees/' + key).update({
+                    name: name,
+                    phone: phone,
+                    email: email,
+                    lat: lat,
+                    lng: lng,
+                    remark: remark,
+                    updatedate: Date()
+                })
+                    .catch(function (error) {
+                        console.log('Error updating user:', error);
+                    });
+                $('#edit_employee').attr("id", "new_employee").removeClass('btn-info').addClass('btn-success').val("Add").removeAttr("employee_id").removeAttr("disabled");
+                cleardata();
+                $("#NewEmployee").modal('hide');
+                message("Employee '" + name + "' Is Successfully Updated");
+                $('.alertify-notifier').addClass('bg-success text-white');
+            }
+            else {
+                message("Employee '" + name + "' Is Not Updated");
+                $('.alertify-notifier').addClass('bg-danger text-white');
+            }
+        })
+
+        //Get Employee
+        function GetEmployees() {
+            //get data from firebase
+            firebase.database().ref('employees').once('value', function (snapshot) {
+                snapshot.forEach(
+                    function (ChildSnapshot) {
+                        let marker = L.marker([parseFloat(ChildSnapshot.val().lat), parseFloat(ChildSnapshot.val().lng)], { id: ChildSnapshot.key, icon: employeeIcon }).bindPopup(ChildSnapshot.val().name + '<br/>' + (ChildSnapshot.val().phone == undefined ? "" : ChildSnapshot.val().phone));
+                        employees_list.push(marker);
+                    }
+                )
+                employees_list_layer = L.layerGroup(employees_list);
+                map.addLayer(employees_list_layer);
+            })
+        }
+
+        //Update Employee
+        function UpdateEmployee(key) {
+            firebase.database().ref('employees/' + key).on('value', function (snapshot) {
+                let updateuser = snapshot.val();
+                $('#user_name').val(updateuser.name).attr("disabled", "disabled");
+                $('#user_phone_number').val(updateuser.phone);
+                $('#user_lat').val(updateuser.lat);
+                $('#user_lng').val(updateuser.lng);
+                $('#user_email').val(updateuser.email);
+                $('#user_remark').val((updateuser.remark).replace('_', ' '));
+                $("#NewEmployee").modal('show');
+                $('#new_employee').attr("id", "edit_employee").removeClass('btn-success').addClass('btn-info').val("Edit").attr("employee_id", key);
+
+            });
+        }
+
+        //Special Employee
+        function SpecialViewEmployee(key) {
+            GetEmployees();
+            if (user_route != undefined) {
+                map.removeLayer(user_route);
+            }
+            let layers = employees_list_layer.getLayers();
+            for (let i = 0; i < layers.length; i++) {
+                let layer = layers[i];
+                if (layer.options && layer.options.id === key) {
+                    map.setZoom(18).panTo(employees_list[i].getLatLng());
+                    employees_list[i].openPopup();
+                    break;
+                }
+            }
+            $("#sidenav").css("width", "0");
+        }
+
+        //Choose Employee History
+        function EmployeeHistory(key) {
+            $('#' + key + ' .card-footer').empty();
+            firebase.database().ref('tracks/' + key).orderByKey().limitToLast(10).once('value', function (snapshot) {
+                var day_array = [];
+                if (snapshot.val() != null) {
+                    snapshot.forEach(
+                        function (ChildSnapshot) {
+                            day_array.push(ChildSnapshot.key);
+                        })
+                    day_array = day_array.reverse();
+                    day_array.forEach(function (day, i) {
+                        $('#' + key + ' .card-footer').append(
+                            '<div class="btn btn-outline-primary m-2" onclick=UserDailyRoute("' + key + '","' + day_array[i] + '")>' +
+                            day_array[i].slice(6) + '-' + day_array[i].slice(4, 6) + '-' + day_array[i].slice(0, 4) +
+                            '</div>'
+                        )
+                    })
+                }
+            })
+        }
+
+        //Show Employee Daily Route 
+        function UserDailyRoute(key, date = GETDATE()) {
+            employees_list_layer.clearLayers();
+            var route = [];
+            if (user_route != undefined) {
+                map.removeLayer(user_route);
+            }
+            firebase.database().ref('tracks/' + key + '/' + date).once('value', function (snapshot) {
+                if (snapshot.val() != null) {
+                    snapshot.forEach(
+                        function (ChildSnapshot) {
+                            route.push([ChildSnapshot.val().lat, ChildSnapshot.val().lng]);
+                        })
+                    user_route = L.polyline(route, { color: 'red', weight: 5 }).addTo(map);
+                    map.panTo(route[0]).setZoom(16);
+                }
+            })
+        }
+        //USER SECTION
+
+
+
+        //DATABOX SECTION
+        firebase.database().ref('databoxes').on('child_changed', function (snapshot) {
+            let newLatLng = L.latLng(snapshot.val().lat, snapshot.val().lng);
+            let layers = databoxes_list_layer.getLayers();
+            for (let i = 0; i < layers.length; i++) {
+                let layer = layers[i];
+                if (layer.options && layer.options.id === snapshot.key) {
+                    layer.setLatLng(newLatLng);
+                    databoxes_list[i].bindPopup(snapshot.val().name + '<br/>' + (snapshot.val().remark == undefined ? "" : snapshot.val().remark)).openPopup();
+                    break;
+                }
+            }
+            draw_card('databoxes');
+        })
+
+        firebase.database().ref('databoxes').on('child_removed', function (oldChildSnapshot) {
+            databoxes_list_layer.eachLayer(function (layer) {
+                if (layer instanceof L.Marker && layer.options.id === oldChildSnapshot.key) {
+                    databoxes_list_layer.removeLayer(layer);
+                }
+            });
+            draw_card('databoxes');
+        });
+
+        //Show Only DataBox Layer
+        $(document).on('click', '#only_databox_show', function () {
+            $('#open_modal').attr('data-mdb-target', '#NewDatabox');
+            map.removeLayer(employees_list_layer).removeLayer(clients_list_layer);
+            if (user_route != undefined) {
+                map.removeLayer(user_route);
+            }
+            GetDataBoxes();
+            $('#sidenav').css('width', '25%');
+            draw_card('databoxes');
+        })
+
+        //Create New Databox
+        $(document).on('click', '#new_databox', function () {
+            let name = $('#databox_name').val();
+            let lat = $('#databox_lat').val();
+            let lng = $('#databox_lng').val();
+            let remark = $('#databox_remark').val().trim();
+            if (lat == "" || lng == "") {
+                lat = 16.810539;
+                lng = 96.176570;
+            }
+
+            let obj = {
+                "name": name,
+                "lat": lat,
+                "lng": lng,
+                "remark": remark,
+                "updatedate": Date()
+            }
+            if ($('#NewDataBoxForm').valid() === true) {
+                firebase.database().ref('databoxes').push().set(obj);
+                let marker = L.marker([lat, lng], { id: name, icon: stationIcon }).bindPopup(name + '<br/>' + remark);
+                databoxes_list.push(marker);
+                databoxes_list_layer = L.layerGroup(databoxes_list);
+                map.addLayer(databoxes_list_layer);
+                map.panTo([lat, lng]).setZoom(18);
+                databoxes_list[databoxes_list.length - 1].openPopup();
+                cleardata();
+                $("#NewDatabox").modal('hide');
+                message("New DataBox '" + name + "' Is Successfully Created");
+                $('.alertify-notifier').addClass('bg-success text-white');
+            }
+            else {
+                message("New DataBox '" + name + "' Is Not Created");
+                $('.alertify-notifier').addClass('bg-danger text-white');
+            }
+        })
+
+        //Update Databox
+        $(document).on('click', '#edit_databox', function () {
+            let name = $('#databox_name').val();
+            let lat = $('#databox_lat').val();
+            let lng = $('#databox_lng').val();
+            let remark = $('#databox_remark').val();
+            let key = $(this).attr('databox_id');
+            if (lat == "" || lng == "") {
+                lat = 16.810539;
+                lng = 96.176570;
+            }
+            if ($("#NewDataBoxeForm").valid() === true) {
+                firebase.database().ref('databoxes/' + key).update({
+                    name: name,
+                    lat: lat,
+                    lng: lng,
+                    remark: remark,
+                    updatedate: Date()
+                })
+                    .catch(function (error) {
+                        console.log('Error updating databox:', error);
+                    });
+                $('#edit_databox').attr("id", "new_databox").removeClass('btn-info').addClass('btn-success').val("Add").removeAttr("databox_id").removeAttr("disabled");
+                cleardata();
+                $("#NewDatabox").modal('hide');
+                message("DataBox '" + name + "' Is Successfully Updated");
+                $('.alertify-notifier').addClass('bg-success text-white');
+            }
+            else {
+                message("DataBox '" + name + "' Is Not Updated");
+                $('.alertify-notifier').addClass('bg-danger text-white');
+            }
+        })
+
+        //Update Databox
+        function UpdateDataBox(key) {
+            firebase.database().ref('databoxes/' + key).on('value', function (snapshot) {
+                let updatedatabox = snapshot.val();
+                $('#databox_name').val(updatedatabox.name).attr("disabled", "disabled");
+                $('#databox_lat').val(updatedatabox.lat);
+                $('#databox_lng').val(updatedatabox.lng);
+                $('#databox_remark').val(updatedatabox.remark.replace('_', ' '));
+                $("#NewDatabox").modal('show');
+                $('#new_databox').attr("id", "edit_databox").removeClass('btn-success').addClass('btn-info').val("Edit").attr("databox_id", key);
+
+            });
+        }
+
+        //Get Databoxes
+        function GetDataBoxes() {
+            //get data from firebase
+            firebase.database().ref('databoxes').once('value', function (snapshot) {
+                snapshot.forEach(
+                    function (ChildSnapshot) {
+                        let marker = L.marker([parseFloat(ChildSnapshot.val().lat), parseFloat(ChildSnapshot.val().lng)], { id: ChildSnapshot.key, icon: stationIcon }).bindPopup(ChildSnapshot.val().name + '<br/>' + (ChildSnapshot.val().phone == undefined ? "" : ChildSnapshot.val().phone));
+                        databoxes_list.push(marker);
+                    }
+                )
+                databoxes_list_layer = L.layerGroup(databoxes_list);
+                map.addLayer(databoxes_list_layer);
+            })
+        }
+
+        //Choose One DataBox
+        function SpecialViewDataBox(key) {
+            GetDataBoxes();
+            if (user_route != undefined) {
+                map.removeLayer(user_route);
+            }
+            let layers = databoxes_list_layer.getLayers();
+            for (let i = 0; i < layers.length; i++) {
+                let layer = layers[i];
+                if (layer.options && layer.options.id === key) {
+                    map.setZoom(18).panTo(databoxes_list[i].getLatLng());
+                    databoxes_list[i].openPopup();
+                    break;
+                }
+            }
+            $("#sidenav").css("width", "0");
+        }
+        //DATABOX SECTION
+
+
+        //CLIENT SECTION
+        firebase.database().ref('clients').on('child_changed', function (snapshot) {
+            let newLatLng = L.latLng(snapshot.val().lat, snapshot.val().lng);
+            let layers = clients_list_layer.getLayers();
+            for (let i = 0; i < layers.length; i++) {
+                let layer = layers[i];
+                if (layer.options && layer.options.id === snapshot.key) {
+                    layer.setLatLng(newLatLng);
+                    clients_list[i].bindPopup(snapshot.val().name + '<br/>' + (snapshot.val().phone == undefined ? "" : snapshot.val().phone)).openPopup();
+                    break;
+                }
+            }
+            draw_card('clients');
+        });
+
+        firebase.database().ref('clients').on('child_removed', function (oldChildSnapshot) {
+            clients_list_layer.eachLayer(function (layer) {
+                if (layer instanceof L.Marker && layer.options.id === oldChildSnapshot.key) {
+                    clients_list_layer.removeLayer(layer);
+                }
+            });
+            draw_card('clients');
+        });
+
+        //Show Only Client Layer
+        $(document).on('click', '#only_client_show', function () {
+            $('#open_modal').attr('data-mdb-target', '#NewEmployee');
+            $('#mytitle').html("New Client");
+            $('#new_employee').attr("id", "new_client")
+            map.removeLayer(employees_list_layer).removeLayer(databoxes_list_layer);
+            if (user_route != undefined) {
+                map.removeLayer(user_route);
+            }
+            GetClients();
+            $('#sidenav').css('width', '25%');
+            draw_card('clients');
+        })
+
+        //Create New Client
+        $(document).on('click', '#new_client', function () {
+            let name = $('#user_name').val();
+            let phone = $('#user_phone_number').val();
+            let lat = $('#user_lat').val();
+            let lng = $('#user_lng').val();
+            let email = $('#user_email').val();
+            let remark = $('#user_remark').val().trim();
+            if (lat == "" || lng == "") {
+                lat = 16.810539;
+                lng = 96.176570;
+            }
+
+            let obj = {
+                "name": name,
+                "phone": phone,
+                "lat": lat,
+                "lng": lng,
+                "email": email,
+                "remark": remark,
+                "updatedate": Date()
+            }
+            if ($("#NewEmployeeForm").valid() === true) {
+                firebase.database().ref('clients').push().set(obj);
+                let marker = L.marker([lat, lng], { id: name, icon: clientIcon }).bindPopup(name + '<br/>' + phone);
+                clients_list.push(marker);
+                clients_list_layer = L.layerGroup(clients_list);
+                map.addLayer(clients_list_layer);
+                map.panTo([lat, lng]).setZoom(18);
+                clients_list[clients_list.length - 1].openPopup();
+                cleardata();
+                $("#NewEmployee").modal('hide');
+                message("New Client '" + name + "'' Is Successfully Created");
+                $('.alertify-notifier').addClass('bg-success text-white');
+            }
+            else {
+                message("New Client '" + name + "' Is Not Created");
+                $('.alertify-notifier').addClass('bg-danger text-white');
+            }
+        })
+
+        //Update Client
+        $(document).on('click', '#edit_client', function () {
+            let name = $('#user_name').val();
+            let lat = $('#user_lat').val();
+            let lng = $('#user_lng').val();
+            let phone = $('#user_phone_number').val();
+            let remark = $('#user_remark').val().trim();
+            let key = $(this).attr('client_id');
+            if (lat == "" || lng == "") {
+                lat = 16.810539;
+                lng = 96.176570;
+            }
+            if ($("#NewEmployeeForm").valid() === true) {
+                firebase.database().ref('clients/' + key).update({
+                    name: name,
+                    lat: lat,
+                    lng: lng,
+                    phone: phone,
+                    remark: remark,
+                    updatedate: Date()
+                })
+                    .catch(function (error) {
+                        console.log('Error updating databox:', error);
+                    });
+                $('#edit_client').attr("id", "new_client").removeClass('btn-info').addClass('btn-success').val("Add").removeAttr("client_id").removeAttr("disabled");
+                cleardata();
+                $("#NewEmployee").modal('hide');
+                message("Client '" + name + "' Is Successfully Updated");
+                $('.alertify-notifier').addClass('bg-success text-white');
+            }
+            else {
+                message("Client '" + name + "' Is Not Updated");
+                $('.alertify-notifier').addClass('bg-danger text-white');
+            }
+        })
+
+        //Special Client
+        function SpecialViewClient(key) {
+            console.log(key);
+            GetClients();
+            if (user_route != undefined) {
+                map.removeLayer(user_route);
+            }
+            let layers = clients_list_layer.getLayers();
+            for (let i = 0; i < layers.length; i++) {
+                let layer = layers[i];
+                if (layer.options && layer.options.id === key) {
+                    map.setZoom(18).panTo(clients_list[i].getLatLng());
+                    clients_list[i].openPopup();
+                    break;
+                }
+            }
+            $("#sidenav").css("width", "0");
+        }
+
+        //Update Client
+        function UpdateClient(key) {
+            firebase.database().ref('clients/' + key).on('value', function (snapshot) {
+                let updateclient = snapshot.val();
+                $('#user_name').val(updateclient.name).attr("disabled", "disabled");
+                $('#user_phone_number').val(updateclient.phone);
+                $('#user_lat').val(updateclient.lat);
+                $('#user_lng').val(updateclient.lng);
+                $('#user_email').val(updateclient.email);
+                $('#user_remark').val((updateclient.remark).replace('_', ' '));
+                $("#NewEmployee").modal('show');
+                $('#new_client').attr("id", "edit_client").removeClass('btn-success').addClass('btn-info').val("Edit").attr("client_id", key);
+                ;
+            });
+        }
+
+        //Get Clietns
+        function GetClients() {
+            //get data from firebase
+            firebase.database().ref('clients').once('value', function (snapshot) {
+                snapshot.forEach(
+                    function (ChildSnapshot) {
+                        let marker = L.marker([parseFloat(ChildSnapshot.val().lat), parseFloat(ChildSnapshot.val().lng)], { id: ChildSnapshot.key, icon: clientIcon }).bindPopup(ChildSnapshot.val().name + '<br/>' + (ChildSnapshot.val().phone == undefined ? "" : ChildSnapshot.val().phone));
+                        clients_list.push(marker);
+                    }
+                )
+                clients_list_layer = L.layerGroup(clients_list);
+                map.addLayer(clients_list_layer);
+            })
+        }
+
+
+        //All SECTION
+        //Delete
+        function Delete(ref_name, key, user) {
+            $("#key_name").html(user);
+            $("#rtype").html(ref_name);
+            $("#Okay").attr('onclick', 'Delete_function("' + ref_name + '","' + key + '","' + user + '")');
+            $("#Delete").modal('show');
+        }
+
+        function Delete_function(ref_name, key, user) {
+            firebase.database().ref(ref_name + '/' + key).remove();
+            $('.alertify-notifier').addClass('bg-success text-white');
+            message('"' + user + '" Is Successfully Deleted')
+            $("#Delete").modal('hide');
+        }
+        //Side Hide
+        function hidesidenav() {
+            $('#sidenav').css('width', '0px');
+        }
+
+        //Render List
+        function draw_card(ref_name) {
+            $('#side_content').empty();
+            firebase.database().ref(ref_name).once('value', function (snapshot) {
+                snapshot.forEach(
+                    function (ChildSnapshot) {
+                        $('#side_content').append(
+                            '<div class="user-card card text-center border-0 m-2 pointer" id="' + ChildSnapshot.key + '">' +
+                            '<div class="card-body">' +
+                            '<div class="d-flex mb-1">' +
+                            '<div class="col-2">' +
+                            '<img src="' + ChildSnapshot.val().photoUrl + '" />' +
+                            '</div>' +
+                            '<div class=" col-8">' +
+                            '<h5 class="card-title mb-1">' + ChildSnapshot.val().name + '</h5>' +
+                            '<div class="text-dark">' + (ChildSnapshot.val().phone == undefined ? "" : ChildSnapshot.val().phone) + '</div>' +
+                            '<div class="text-dark">' + (ChildSnapshot.val().remark == undefined ? "" : ChildSnapshot.val().remark) + '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="d-flex justify-content-around align-items-center overflow-hidden">' +
+                            '<span class="btn btn-block btn-warning fa fa-map-marker m-1" data-mdb-toggle="tooltip"  onclick=' + (ref_name == "employees" ? "SpecialViewEmployee" : ref_name == "databoxes" ? "SpecialViewDataBox" : "SpecialViewClient") + '("' + ChildSnapshot.key.toString() + '") title="Current Location"></span>' +
+                            (ref_name == "employees" ? '<span class="btn btn-block btn-success fa fa-eye m-1" data-mdb-toggle="tooltip"  onclick=EmployeeHistory("' + ChildSnapshot.key + '") title="View History"></span>' : '') +
+                            "<span class='btn btn-block btn-info fa fa-edit  m-1' data-mdb-toggle='tooltip'  title='Edit' onclick=" + (ref_name == 'employees' ? 'UpdateEmployee' : ref_name == "databoxes" ? 'UpdateDataBox' : 'UpdateClient') + "('" + ChildSnapshot.key.toString() + "')></span>" +
+                            '<span class="btn btn-block btn-danger fa fa-trash  m-1" data-mdb-toggle="tooltip"   title="Delete"  onclick=Delete("' + ref_name + '","' + ChildSnapshot.key + '","' + ChildSnapshot.val().name.replace(' ', '_') + '")></span>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="card-footer">' +
+                            '</div>' +
+                            '</div>'
+                        )
+                    }
+                )
+            })
+        }
+
+        //Clear
+        function cleardata() {
+            $("input[type='text'],input[type='email'],input[type='number'],textarea").val('');
+            $("input[type='text']").removeAttr('disabled');
+        }
+
+        function message(msg) {
+            $('.alertify-notifier').html(msg).css('width', '15%');
+            setTimeout(function () { $('.alertify-notifier').css('width', '0').css('right', '-10px') }, 1500);
+        }
+
+        //Today
+        function GETDATE() {
+            const currentDate = new Date();
+            const year = currentDate.getFullYear();
+            const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+            const day = currentDate.getDate().toString().padStart(2, '0');
+            return date = `${year}${month}${day}`;
+        }   
+    </script>
+</body>
+
+</html>

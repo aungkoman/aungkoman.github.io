@@ -1,0 +1,20 @@
+{
+    "employeeone": {
+        "lat": 16.8863488,
+        "lng": 96.2287967,
+        "name": "employeeone",
+        "email": "employeeone@gmail.com",
+        "phone": "0945856352",
+        "remark": "this is remark",
+        "update_at": "2023-07-14 10:22:34.755303"
+    },
+    "employetwo": {
+        "lat": 16.000101,
+        "lng": 96.2287967,
+        "name": "employetwo",
+        "email": "employetwo@gmail.com",
+        "phone": "0945856352",
+        "remark": "this is remark",
+        "update_at": "2023-07-14 10:22:34.755303"
+    }
+}

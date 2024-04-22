@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Localization in Flutter –  – Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="Multi Language in Flutter
+" />
+    <meta property="og:description" content="Multi Language in Flutter
+" />
+    
+    <meta name="author" content="" />
+
+    
+    <meta property="og:title" content="Localization in Flutter" />
+    <meta property="twitter:title" content="Localization in Flutter" />
+    
+
+    <!-- facebook Open Graph Metadatas -->
+    <meta content="your_facebook_app_id" property="fb:app_id">
+    <meta content="Your awesome title" property="og:site_name">
+    
+    <meta content="Localization in Flutter" property="og:title">
+    
+    
+    <meta content="article" property="og:type">
+    
+    
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." property="og:description">
+    
+    
+    <meta content="http://localhost:4000/2021/06/06/localization-in-flutter.html" property="og:url">
+    
+    
+    <meta content="2021-06-06T00:00:00+06:30" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    <meta content="/img/logo-high-resolution.png" property="og:image">
+    
+    
+    
+    
+    
+    
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title=" - Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/"></a></h1>
+            <p class="site-description">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>Localization in Flutter</h1>
+
+  <div class="entry">
+    <p>Multi Language in Flutter</p>
+
+<p>မြန်မာ ဘာသာစကားတစ်ခုတည်းနဲ့ ထုတ်လို့မရတဲ့ Mobile Appတစ်ခု ရေးရတဲ့အခါ localization ခေါ်တဲ့ ဘာသာစကားမျိုးစုံအတွက် ထောက်ပံ့ပေးတဲ့ feature တွေ ရေးပေးဖို့ လိုလာတယ်။</p>
+
+<p>Flutter မှာက Localization အတွက် default ထောက်ပံ့ထားပေးတာရှိပေမယ့် ဖတ်ရတာ စိတ်ရှုပ်တာနဲ့ အလွယ်ရတဲ့ easy_localization package ကိုသုံးလိုက်တယ်။ သူက တော်တ်ောလေးကို အဆင်ပြေတယ်။ လုပ်ရတဲ့အလုပ်က</p>
+
+<h3 id="step-1">Step 1.</h3>
+<pre><code class="language-en.json```">```json
+{
+    "greeting": "Hello English",
+}
+</code></pre>
+<pre><code class="language-mm.json```">```json
+{
+    "greeting": "မင်္ဂလာပါ မြန်မာ",
+}
+</code></pre>
+<p>စသည်ဖြင့် ကိုယ် ထောက်ပံ့မယ့် ဘာသာစကား json file တွေကို assets folder (ဉပမာ ။ <code class="language-plaintext highlighter-rouge">assets/translations</code>) ထဲသွားထည့်ထား။</p>
+
+<h3 id="step-2">Step 2.</h3>
+<p>ကိုယ့်ရဲ့ widget tree ထပ်ဆုံးမှာ EasyLocalization() widget ကို တင်ထားမယ်။
+ကျွန်တော် က Bloc သုံးတာဆိုတော့ Bloc Provider အောက် ကပ်ရပ်မှာ ထည့်ထားလိုက်တယ်။</p>
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kt">void</span> <span class="nf">main</span><span class="p">()</span> <span class="kd">async</span><span class="p">{</span>
+  <span class="n">WidgetsFlutterBinding</span><span class="o">.</span><span class="na">ensureInitialized</span><span class="p">();</span>
+  <span class="n">runApp</span><span class="p">(</span>
+      <span class="n">BlocProvider</span><span class="p">(</span>
+          <span class="nl">create:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">sl</span><span class="p">&lt;</span><span class="n">IbaydinBloc</span><span class="p">&gt;(),</span>
+          <span class="c1">//child:  MyApp()</span>
+          <span class="nl">child:</span> <span class="n">EasyLocalization</span><span class="p">(</span>
+            <span class="nl">supportedLocales:</span> <span class="p">[</span><span class="n">Locale</span><span class="p">(</span><span class="s">'en'</span><span class="p">),</span> <span class="n">Locale</span><span class="p">(</span><span class="s">'my'</span><span class="p">)],</span>
+            <span class="nl">path:</span> <span class="s">'assets/translations'</span><span class="p">,</span> <span class="c1">// &lt;-- change the path of the translation files</span>
+            <span class="nl">fallbackLocale:</span> <span class="n">Locale</span><span class="p">(</span><span class="s">'en'</span><span class="p">,</span> <span class="s">'US'</span><span class="p">),</span>
+            <span class="nl">child:</span> <span class="n">MyApp</span><span class="p">()</span>
+          <span class="p">),</span>
+      <span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h3 id="step-3">Step 3.</h3>
+<p>ဘာသာပြန်ချင်တဲ့ String / Text Widget နောက်မှာ .tr() method ခေါ် ပေးရုံပဲ။</p>
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="s">'package:easy_localization/easy_localization.dart'</span><span class="o">;</span>
+<span class="n">Text</span><span class="p">(</span><span class="s">'greeting'</span><span class="p">)</span><span class="o">.</span><span class="na">tr</span><span class="p">();</span> <span class="c1">// widget</span>
+<span class="s">"greeting"</span><span class="o">.</span><span class="na">tr</span><span class="p">();</span> <span class="c1">// String</span>
+</code></pre></div></div>
+<p>Device Setting အပေါ် မူတည်ပြီး language ပြောင်းတာတွေ ဘာတွေကို မူရင်း flutter package documentation https://pub.dev/packages/easy_localization မှာ သွားဖတ်နိုင်ပါတယ်။</p>
+
+<p>တစ်ခြား သုံးလို့ အဆင်ပြေတဲ့ Localization Package တွေရှိရင်လည်း မျှဝေခဲ့ကြပါဉီးဗျို့။</p>
+
+  </div>
+
+  <div class="date">
+    Written on June  6, 2021
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+    <script>
+	window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '608464966533110',
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v9.0'
+	  });
+		
+	  FB.AppEvents.logPageView();   
+		
+	};
+  
+	(function(d, s, id){
+	   var js, fjs = d.getElementsByTagName(s)[0];
+	   if (d.getElementById(id)) {return;}
+	   js = d.createElement(s); js.id = id;
+	   js.src = "https://connect.facebook.net/en_US/sdk.js";
+	   fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+
+	 
+FB.getLoginStatus(function(response) {
+	console.log("getLoginStatus");
+	console.log(response);
+    statusChangeCallback(response);
+});
+
+function statusChangeCallback(response){
+	console.log('response is');
+	console.log(response);
+	if(response.status == "connected"){
+		console.log("user is logged in ");
+	}
+	else{
+		console.log("user need to login");
+		//FB.login();
+	}
+}
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+  </script>
+
+  
+<fb:login-button 
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
+  </body>
+</html>

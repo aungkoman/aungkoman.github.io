@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Laravel Starter Kit in Myanmar –  – Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="Laravel Starter Kit in Myanmar
+" />
+    <meta property="og:description" content="Laravel Starter Kit in Myanmar
+" />
+    
+    <meta name="author" content="" />
+
+    
+    <meta property="og:title" content="Laravel Starter Kit in Myanmar" />
+    <meta property="twitter:title" content="Laravel Starter Kit in Myanmar" />
+    
+
+    <!-- facebook Open Graph Metadatas -->
+    <meta content="your_facebook_app_id" property="fb:app_id">
+    <meta content="Your awesome title" property="og:site_name">
+    
+    <meta content="Laravel Starter Kit in Myanmar" property="og:title">
+    
+    
+    <meta content="article" property="og:type">
+    
+    
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." property="og:description">
+    
+    
+    <meta content="http://localhost:4000/2022/11/01/laravel-starter-kit.html" property="og:url">
+    
+    
+    <meta content="2022-11-01T00:00:00+06:30" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    <meta content="/img/logo-high-resolution.png" property="og:image">
+    
+    
+    
+    
+    
+    
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title=" - Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/"></a></h1>
+            <p class="site-description">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>Laravel Starter Kit in Myanmar</h1>
+
+  <div class="entry">
+    <h2 id="laravel-starter-kit-in-myanmar">Laravel Starter Kit in Myanmar</h2>
+
+<p>Laravel Project တစ်ခု စတဲ့အခါ ဘယ်က စလို့ ဘာလုပ်ရမှန်းမသိ လမ်းပျောက်မနေအောင်လို့ လုပ်မယ့် အလုပ် နဲ့ သုံးရမယ့် command တွေကို စာရင်းလုပ်ထားတယ်။</p>
+
+<h3 id="model-creation">Model Creation</h3>
+
+<p>ပထမဆုံး လိုတာကတော့ Model ပဲ။ ရေးထားတဲ့ ER Diagram / DB Design ကို ကြည့်ပြီး Model တွေ စရေးမယ်။ များသောအားဖြင့်တော့ Entity List ထုတ်ပြီး အဲ့အတိုင်း လိုက်ရေးတာများတယ်။</p>
+
+<p>ဆိုတော့ Entity က ဒါမျိုး ရှိမယ် ဆိုပါတော့</p>
+
+<pre><code class="language-entity">### News
+
+- id
+- title
+- featured_photo_id
+- short_description
+- description
+- url
+- user_id
+</code></pre>
+
+<h4 id="command">Command</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:model News <span class="nt">-msc</span>
+</code></pre></div></div>
+
+<ul>
+  <li>m means Migration</li>
+  <li>s means Seeder</li>
+  <li>c means Controller</li>
+</ul>
+
+<h4 id="output">Output</h4>
+
+<pre><code class="language-log">aungkoman@AungnoMBookpuro ecommerce % php artisan make:model News -msc
+Model created successfully.
+Created Migration: 2022_11_01_093923_create_news_table
+Seeder created successfully.
+Controller created successfully.
+aungkoman@AungnoMBookpuro ecommerce % 
+</code></pre>
+
+<p>အိုကေ ဒါဆိုရင် Model တစ်ခု ဆောက်ပြီး သွားပြီ။ ဒီမှာ ပါမယ့် Fields တွေနဲ့ ထည့်မယ်။ ဒီမှာတော့ Migration လုပ်တယ်လို့ ခေါ်တယ်။ <code class="language-plaintext highlighter-rouge">database/migrations/</code> folder ထဲမှာ ရှိမယ်။</p>
+
+<h4 id="migration">Migration</h4>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">up</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nc">Schema</span><span class="o">::</span><span class="nf">create</span><span class="p">(</span><span class="s1">'news'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="kt">Blueprint</span> <span class="nv">$table</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">id</span><span class="p">();</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">string</span><span class="p">(</span><span class="s1">'title'</span><span class="p">);</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">string</span><span class="p">(</span><span class="s1">'featured_photo_url'</span><span class="p">)</span><span class="o">-&gt;</span><span class="k">default</span><span class="p">(</span><span class="s2">""</span><span class="p">);</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">string</span><span class="p">(</span><span class="s1">'short_description'</span><span class="p">)</span><span class="o">-&gt;</span><span class="k">default</span><span class="p">(</span><span class="s2">""</span><span class="p">);</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">string</span><span class="p">(</span><span class="s1">'description'</span><span class="p">)</span><span class="o">-&gt;</span><span class="k">default</span><span class="p">(</span><span class="s2">""</span><span class="p">);</span> <span class="c1">//-&gt;nullable();</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">string</span><span class="p">(</span><span class="s1">'url'</span><span class="p">);</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">foreignId</span><span class="p">(</span><span class="s1">'user_id'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">constrained</span><span class="p">();</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">timestamps</span><span class="p">();</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Migration အတွက်လည်း လိုအပ်တဲ့ Field တွေ ပြင်ပြီးပြင်ဆိုရင် တကယ် Migrate လုပ်ဖို့ ဒီ command ကို run မယ်။</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan migrate
+</code></pre></div></div>
+
+<h4 id="migration-output">Migration Output</h4>
+
+<pre><code class="language-logs">aungkoman@AungnoMBookpuro ecommerce % php artisan migrate
+Migrating: 2022_11_01_093923_create_news_table
+Migrated:  2022_11_01_093923_create_news_table (71.91ms)
+aungkoman@AungnoMBookpuro ecommerce % 
+</code></pre>
+
+<p>အို‌ကေ ဒါဆိုရင် Model တစ်ခု ရပြီ။ Database ထဲမှာလည်း Table တစ်ခု ဆောက်ပြီးသွားပြီ။
+ဒီထဲကို နမူနာ Data ထည့်ထားကြမယ်။ ဒီမှာ Seeder ရဲ့ အပိုင်း ဝင်လာပြီ။ နမူနာ Data ထည့်ထားမှပဲ စမ်းဖို့ ပြုဖို့ အဆင်ပြေမှာ။</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">function</span> <span class="n">run</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">makeNews</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"news title one"</span><span class="p">,</span> <span class="s2">"news_one.jpg"</span><span class="p">,</span> <span class="s2">"this is short description"</span><span class="p">,</span><span class="s2">"this is long descritpion"</span><span class="p">,</span> <span class="s2">"https://mmsoftware100.com"</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">makeNews</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"news title two"</span><span class="p">,</span> <span class="s2">"news_two.jpg"</span><span class="p">,</span> <span class="s2">"this is short description"</span><span class="p">,</span><span class="s2">"this is long descritpion"</span><span class="p">,</span> <span class="s2">"https://mmsoftware100.com"</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">makeNews</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">"news title three"</span><span class="p">,</span> <span class="s2">"news_three.jpg"</span><span class="p">,</span> <span class="s2">"this is short description"</span><span class="p">,</span><span class="s2">"this is long descritpion"</span><span class="p">,</span> <span class="s2">"https://mmsoftware100.com"</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">makeNews</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s2">"news title four"</span><span class="p">,</span> <span class="s2">"news_four.jpg"</span><span class="p">,</span> <span class="s2">"this is short description"</span><span class="p">,</span><span class="s2">"this is long descritpion"</span><span class="p">,</span> <span class="s2">"https://mmsoftware100.com"</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">makeNews</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">"news title five"</span><span class="p">,</span> <span class="s2">"news_five.jpg"</span><span class="p">,</span> <span class="s2">"this is short description"</span><span class="p">,</span><span class="s2">"this is long descritpion"</span><span class="p">,</span> <span class="s2">"https://mmsoftware100.com"</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">makeNews</span><span class="p">(</span><span class="nv">$id</span><span class="p">,</span><span class="nv">$title</span><span class="p">,</span> <span class="nv">$featured_photo_url</span><span class="p">,</span> <span class="nv">$short_description</span><span class="p">,</span> <span class="nv">$description</span><span class="p">,</span> <span class="nv">$url</span><span class="p">,</span> <span class="nv">$user_id</span><span class="p">){</span>
+        <span class="nc">News</span><span class="o">::</span><span class="nf">create</span><span class="p">([</span>
+            <span class="s1">'id'</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">,</span>
+            <span class="s1">'title'</span> <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span>
+            <span class="s1">'featured_photo_url'</span> <span class="o">=&gt;</span> <span class="nv">$featured_photo_url</span><span class="p">,</span>
+            <span class="s1">'short_description'</span> <span class="o">=&gt;</span> <span class="nv">$short_description</span><span class="p">,</span>
+            <span class="s1">'description'</span> <span class="o">=&gt;</span> <span class="nv">$description</span><span class="p">,</span>
+            <span class="s1">'url'</span> <span class="o">=&gt;</span> <span class="nv">$url</span><span class="p">,</span>
+            <span class="s1">'user_id'</span> <span class="o">=&gt;</span> <span class="nv">$user_id</span>
+        <span class="p">]);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Seeder ထဲမှာထည့်မယ့် Data လည်းပြင်ပြီးသွားပြီဆိုတော့ database ထဲကို တကယ်ထည့်ဖို့ အောက်က command ကို run မယ်။</p>
+
+<h4 id="database-seeding">Database Seeding</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan db:seed <span class="nt">--class</span><span class="o">=</span>NewsSeeder
+</code></pre></div></div>
+
+<h4 id="database-seeding-output">Database Seeding Output</h4>
+
+<pre><code class="language-logs">aungkoman@AungnoMBookpuro ecommerce % php artisan db:seed --class=NewsSeeder
+Database seeding completed successfully.
+aungkoman@AungnoMBookpuro ecommerce % 
+</code></pre>
+
+<p>ဆိုတော့ကာ နမူနာ Data တွေလည်း Database ထဲကို ရောက်ပြီ ဆိုတော့ လုပ်စရာ နှစ်ခု ရှိမယ်။ ဒီအတွက် CRUD API ထုတ်ဖို့နဲ့ CRUD Admin Panel ထည့်ဖို့။</p>
+
+<p>လောလောဆယ် API ကို အရင်သွားမယ်။ ဒီတော့ API Controller နဲ့ API Router ထည့်ကြတာပေါ့။</p>
+
+<h3 id="adding-api-controller">Adding API Controller</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:controller Api<span class="se">\\</span>NewsApiController <span class="nt">--model</span><span class="o">=</span>News
+</code></pre></div></div>
+
+<h3 id="adding-api-controller-result">Adding API Controller Result</h3>
+
+<pre><code class="language-log">aungkoman@AungnoMBookpuro ecommerce % php artisan make:controller Api\\NewsApiController --model=News
+Controller created successfully.
+aungkoman@AungnoMBookpuro ecommerce % 
+</code></pre>
+
+<p>Laravel ကတော့ API Controller တစ်ခုမှာ ပါမယ့် CRUD Method တွေ အကုန်ရေးပေးထားတယ်။ မသုံးတက်သေးရင် ကိုယ့်ဘာသာကိုယ် CRUD Method တွေ ရေးပေါ့။</p>
+
+<p>select all က စရေးလိုက်မယ်။</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">selectAll</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// select all လုပ်ပြီး ပြန်ပေးလိုက်။</span>
+        <span class="nv">$news</span> <span class="o">=</span> <span class="nc">News</span><span class="o">::</span><span class="nf">all</span><span class="p">();</span>
+        <span class="nv">$responseData</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+            <span class="s1">'status'</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s1">'message'</span> <span class="o">=&gt;</span> <span class="s2">"News Select Success"</span><span class="p">,</span>
+            <span class="s1">'data'</span> <span class="o">=&gt;</span> <span class="nv">$news</span>
+        <span class="p">);</span>
+        <span class="k">return</span> <span class="nf">response</span><span class="p">(</span><span class="nv">$responseData</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Method လည်း ကြေညာ ပြိးပြီ။ ဒီ Method ကို ခေါ်မယ့် Routing ထည့်ဖို့ ကျန်မယ်။ <code class="language-plaintext highlighter-rouge">routes/api.php</code> မှာ ဒီလိုထည့်မယ်။</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">prefix</span><span class="p">(</span><span class="s1">'v1'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">group</span><span class="p">(</span><span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/news'</span><span class="p">,</span> <span class="p">[</span><span class="nc">NewsApiController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'selectAll'</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>အခုချိန် Postman ကနေ <code class="language-plaintext highlighter-rouge">api/v1/news</code> endpoint ကို <code class="language-plaintext highlighter-rouge">GET</code> request ပို့ရင် ဒါမျိုး json response ရမယ်။</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"News Select Success"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"news title one"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"featured_photo_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"news_one.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"short_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"this is short description"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"this is long descritpion"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://mmsoftware100.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-11-01T10:14:11.000000Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-11-01T10:14:11.000000Z"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"news title two"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"featured_photo_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"news_two.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"short_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"this is short description"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"this is long descritpion"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://mmsoftware100.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-11-01T10:14:11.000000Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-11-01T10:14:11.000000Z"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"news title three"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"featured_photo_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"news_three.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"short_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"this is short description"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"this is long descritpion"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://mmsoftware100.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-11-01T10:14:11.000000Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-11-01T10:14:11.000000Z"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"news title four"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"featured_photo_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"news_four.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"short_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"this is short description"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"this is long descritpion"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://mmsoftware100.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-11-01T10:14:11.000000Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-11-01T10:14:11.000000Z"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"news title five"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"featured_photo_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"news_five.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"short_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"this is short description"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"this is long descritpion"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://mmsoftware100.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-11-01T10:14:11.000000Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-11-01T10:14:11.000000Z"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>အိုကေ Select API တော့ အိုကေသွားပြီဆိုရမယ်။ လောလောဆယ် API အပိုင်းကို ခန နားပြီး Admin Panel အပိုင်းကို ဆက်မယ်။</p>
+
+<p>ထုံးစံအတိုင်း News Admin Panel အတွက် Controller တစ်ခု ဆောက်မယ်။</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:controller NewsController <span class="nt">--model</span><span class="o">=</span>News
+</code></pre></div></div>
+
+<h4 id="model-generation-result">Model Generation Result</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aungkoman@AungnoMBookpuro ecommerce % php artisan make:controller NewsController <span class="nt">--model</span><span class="o">=</span>News
+Controller created successfully.
+aungkoman@AungnoMBookpuro ecommerce % 
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">app/Http/Controllers/</code> folder ထဲမှာ <code class="language-plaintext highlighter-rouge">NewsController</code> ဆိုပြီး ဖိုင်တစ်ဖိုင်ရောက်လာမယ်။ လိုအပ်တဲ့ method တွေလည်း ရေးထားပြီးသား။</p>
+
+<p>ဒီ methods တွေထဲကမှာ သက်ဆိုင်ရာ View ကို render လုပ်ပေးဖို့ လိုမယ်။ ဒီတော့ <code class="language-plaintext highlighter-rouge">resources/views/</code> folder မှာ <code class="language-plaintext highlighter-rouge">news</code> ဆိုပြီး folder တစ်ခုဆောက်ပြီး news နဲ့ ပတ်သက်တဲ့ view ( blade template file ) တွေ စုရေးထားမယ်။ အဓိကတော့ Form နဲ့ Table ပါပဲ။</p>
+
+<p>data တွေ တန်းစီပြဖို့အတွက် <code class="language-plaintext highlighter-rouge">index.blade.php</code> ဆိုပြီး တစ်ဖိုင်ဆောက်မယ်။ သူ့က List News လိုမယ်။ ဒါတွေကို table ပုံစံနဲ့ ပြမယ်။</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;table&gt;</span>
+  <span class="nt">&lt;thead&gt;</span>
+    <span class="nt">&lt;tr&gt;</span>
+      <span class="nt">&lt;th&gt;</span>No<span class="nt">&lt;/th&gt;</span>
+      <span class="nt">&lt;th&gt;</span>Name<span class="nt">&lt;/th&gt;</span>
+    <span class="nt">&lt;/tr&gt;</span>
+  <span class="nt">&lt;/thead&gt;</span>
+  <span class="nt">&lt;tbody&gt;</span>
+    <span class="nt">&lt;tr&gt;</span>
+      <span class="nt">&lt;td&gt;</span>January<span class="nt">&lt;/td&gt;</span>
+      <span class="nt">&lt;td&gt;</span>$100<span class="nt">&lt;/td&gt;</span>
+    <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;tr&gt;</span>
+      <span class="nt">&lt;td&gt;</span>February<span class="nt">&lt;/td&gt;</span>
+      <span class="nt">&lt;td&gt;</span>$80<span class="nt">&lt;/td&gt;</span>
+    <span class="nt">&lt;/tr&gt;</span>
+  <span class="nt">&lt;/tbody&gt;</span>
+  <span class="nt">&lt;tfoot&gt;</span>
+    <span class="nt">&lt;tr&gt;</span>
+      <span class="nt">&lt;td&gt;</span>Sum<span class="nt">&lt;/td&gt;</span>
+      <span class="nt">&lt;td&gt;</span>$180<span class="nt">&lt;/td&gt;</span>
+    <span class="nt">&lt;/tr&gt;</span>
+  <span class="nt">&lt;/tfoot&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+</code></pre></div></div>
+
+<p>ဒီထဲကို model တွေ inject လုပ်မယ်။</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="k">foreach</span> <span class="p">(</span><span class="nv">$newsList</span> <span class="k">as</span> <span class="nv">$news</span><span class="p">)</span>
+    <span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
+<span class="o">@</span><span class="k">endforeach</span>
+</code></pre></div></div>
+
+<p>data ကို ပြပေးမယ့် view လည်း ရေးပြိးသွာပြီ။ controller က data ယူပြီး view ကို pass ပေးဖို့ပဲ ကျန်မယ်။ ဒါမျိုး index method ကို သွားပြင်လိုက်မယ်။</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">index</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$newsList</span> <span class="o">=</span> <span class="nc">News</span><span class="o">::</span><span class="nf">all</span><span class="p">();</span>
+    <span class="c1">//return view('news.index', compact('newsList'));</span>
+    <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'news.index'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'newsList'</span> <span class="o">=&gt;</span> <span class="nv">$newsList</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>controller နဲ့ view အပိုင်းကတော့ အိုကေသွားပြီ ဒီ controller method ကို ခေါ်မယ့် routing အပိုင်း ဆက်ထည့်လိုက်မယ်။ <code class="language-plaintext highlighter-rouge">routes/web.php</code> မှာ routing တစ်ခု သွားတိုးမယ်။</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/news'</span><span class="p">,</span> <span class="p">[</span><span class="nc">NewsController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'index'</span><span class="p">]);</span>
+<span class="c1">// for complete routing</span>
+<span class="c1">// Route::resource('news', NewsController::class);</span>
+</code></pre></div></div>
+
+<p>အခုချိန် <code class="language-plaintext highlighter-rouge">/news</code> endpoint ကို brower မှာ ကြည့်ရင် နမူနာ ထည့်ထားတဲ့ သတင်း (၅) ခုကို တွေ့နေရပါပြီ။</p>
+
+<h3 id="create--update-and-delete">Create , Update and Delete</h3>
+
+<p>အသစ်ထည့်တာ၊ ပြင်တာ ဖျတ်တာ တွေ လုပ်နိုင်ဖို့ အခု UI မှာ ဆက်ထည့်မယ်။ လောလောဆယ် ဒီအတွက် View တွေ အရင် ဖန်တီးလိုက်ကြအောင်။</p>
+
+<h4 id="new-form">New Form</h4>
+
+<p>news view folder ထဲမှာ ```create.blade.php`` ဆိုပြီး ဖိုင်အသစ်ဆောက်ပြီး ဖောင်တစ်ခု ရေးမယ်။</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"/action_page.php"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"fname"</span><span class="nt">&gt;</span>First name:<span class="nt">&lt;/label&gt;&lt;br&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">id=</span><span class="s">"fname"</span> <span class="na">name=</span><span class="s">"fname"</span> <span class="na">value=</span><span class="s">"John"</span><span class="nt">&gt;&lt;br&gt;</span>
+  <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"lname"</span><span class="nt">&gt;</span>Last name:<span class="nt">&lt;/label&gt;&lt;br&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">id=</span><span class="s">"lname"</span> <span class="na">name=</span><span class="s">"lname"</span> <span class="na">value=</span><span class="s">"Doe"</span><span class="nt">&gt;&lt;br&gt;&lt;br&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Submit"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span> 
+</code></pre></div></div>
+
+<p>လိုမှာက Route Name , Method , CSRF
+Router မှာ create route သွားထည့်မယ်။</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/news'</span><span class="p">,</span> <span class="p">[</span><span class="nc">NewsController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'index'</span><span class="p">])</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'news'</span><span class="p">);</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/news/create'</span><span class="p">,</span> <span class="p">[</span><span class="nc">NewsController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'create'</span><span class="p">])</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'news_create'</span><span class="p">);</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">post</span><span class="p">(</span><span class="s1">'/news'</span><span class="p">,</span> <span class="p">[</span><span class="nc">NewsController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'store'</span><span class="p">])</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'news_store'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>ဖောင်အတွက် route တစ်ခုပါ ထည့်ပြီးသွားပြီ။ index မှာ ဒါမျိုး Link သွားထည့်ထားမယ်။</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">""</span><span class="nt">&gt;</span> Create News<span class="nt">&lt;/a&gt;</span>
+                
+</code></pre></div></div>
+
+<p>router ကိုရောက်ရင် ခေါ်မယ့် controller method မှာလည်း သွားပြင်ထားမယ်။</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">create</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'news.create'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>ဒီတော့ <code class="language-plaintext highlighter-rouge">/news/create</code> endpoint ကို broswer က ဝင်ကြည့်ရင် ဖောင် စမြင်ရပြီ။
+ဖောင်ထဲမှာ လိုအပ်တဲ့ ဟာတွေကို
+ဒီလို ပြန်ပြင်ရေးလိုက်မယ်။</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">""</span> <span class="na">method=</span><span class="s">"POST"</span> <span class="na">enctype=</span><span class="s">"multipart/form-data"</span><span class="nt">&gt;</span>
+            @csrf
+            <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"title"</span><span class="nt">&gt;</span>Title:<span class="nt">&lt;/label&gt;&lt;br&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">id=</span><span class="s">"title"</span> <span class="na">name=</span><span class="s">"title"</span> <span class="na">value=</span><span class="s">"title"</span> <span class="na">placeholder=</span><span class="s">"Enter Title"</span> <span class="na">required</span><span class="nt">&gt;&lt;br&gt;</span>
+
+            <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"featured_photo_url"</span><span class="nt">&gt;</span>Featured Photo URL:<span class="nt">&lt;/label&gt;&lt;br&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">id=</span><span class="s">"featured_photo_url"</span> <span class="na">name=</span><span class="s">"featured_photo_url"</span> <span class="na">value=</span><span class="s">"featured_photo_url"</span><span class="nt">&gt;&lt;br&gt;</span>
+
+            <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"short_description"</span><span class="nt">&gt;</span>Short Description<span class="nt">&lt;/label&gt;&lt;br&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">id=</span><span class="s">"short_description"</span> <span class="na">name=</span><span class="s">"short_description"</span> <span class="na">value=</span><span class="s">"short_description"</span><span class="nt">&gt;&lt;br&gt;</span>
+
+            <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"description"</span><span class="nt">&gt;</span>Description<span class="nt">&lt;/label&gt;&lt;br&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">id=</span><span class="s">"description"</span> <span class="na">name=</span><span class="s">"description"</span> <span class="na">value=</span><span class="s">"description"</span><span class="nt">&gt;&lt;br&gt;</span>
+
+            <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"url"</span><span class="nt">&gt;</span>Description<span class="nt">&lt;/label&gt;&lt;br&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">id=</span><span class="s">"url"</span> <span class="na">name=</span><span class="s">"url"</span> <span class="na">value=</span><span class="s">"url"</span><span class="nt">&gt;&lt;br&gt;</span>
+            
+            
+            <span class="nt">&lt;br&gt;</span>
+
+            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Submit"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/form&gt;</span> 
+</code></pre></div></div>
+
+<p>အိုကေ ဖောင်ကတော့ data အပြည့်နဲံ ထည့်ဖို့ အဆင်သင့်ဖြစ်နေပြီ။ router မှာလည်း controller ကို ခေါ်ထားပြီးပြီ။ controller မှာပဲ request က data ကိုယူပြီး db ထဲကို ထည့်ဖို့ ကျန်တော့မယ်။</p>
+
+<p>news controller ရဲ့ store method မှာ validation နဲ့ model create method တွေ ခေါ်မယ်။</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">validate</span><span class="p">([</span>
+            <span class="s1">'title'</span> <span class="o">=&gt;</span> <span class="s1">'required'</span><span class="p">,</span>
+            <span class="s1">'featured_photo_url'</span> <span class="o">=&gt;</span> <span class="s1">'required'</span><span class="p">,</span>
+            <span class="s1">'short_description'</span> <span class="o">=&gt;</span> <span class="s1">'required'</span><span class="p">,</span>
+            <span class="s1">'description'</span> <span class="o">=&gt;</span> <span class="s1">'required'</span><span class="p">,</span>
+            <span class="s1">'url'</span> <span class="o">=&gt;</span> <span class="s1">'required'</span><span class="p">,</span>
+        <span class="p">]);</span>
+
+        <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">post</span><span class="p">();</span>
+        <span class="nv">$data</span><span class="p">[</span><span class="s2">"user_id"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// TODO: get auth user id</span>
+        
+        <span class="nc">News</span><span class="o">::</span><span class="nf">create</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
+        <span class="c1">// Company::create($request-&gt;post());</span>
+
+        <span class="k">return</span> <span class="nf">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">route</span><span class="p">(</span><span class="s1">'news'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">with</span><span class="p">(</span><span class="s1">'success'</span><span class="p">,</span><span class="s1">'Company has been created successfully.'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>ဒီမှာ ပြဿနာ တက်တယ်။</p>
+
+<pre><code class="language-logs">Add [_token] to fillable property to allow mass assignment on [App\Models\News].
+</code></pre>
+
+<p>Model ရဲ့ fields တွေကို တိုက်ရိုက် အဖြည့်မခံတဲ့ သဘော။ ဒီတော့ model မှာ ဒါမျိုး သွားပြင်မယ်။</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">News</span> <span class="kd">extends</span> <span class="nc">Model</span>
+<span class="p">{</span>
+    <span class="kn">use</span> <span class="nc">HasFactory</span><span class="p">;</span>
+
+    <span class="k">protected</span> <span class="nv">$fillable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'title'</span><span class="p">,</span> <span class="s1">'featured_photo_url'</span><span class="p">,</span> <span class="s1">'short_description'</span><span class="p">,</span> <span class="s1">'description'</span><span class="p">,</span> <span class="s1">'url'</span><span class="p">,</span> <span class="s1">'user_id'</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>အိုကေ Create အထိ အိုကေသွားပြီ။ Update နဲ့ Delete ကျန်မယ်။</p>
+
+<p>တစ်ခုခု လုပ်တော့မယ် ဆိုရင်
+ဘယ်ကစလဲ</p>
+
+<p>Model ကတော့ ရေးရမယ်။</p>
+
+<p>ပြီးရင် controller မှာ methods တွေ ထည့်မယ်။</p>
+
+<p>ဒါပြီးရင် router တွေ ရေးမယ်။</p>
+
+<p>နောက်ဆုံးတော့ view ပေါ့။</p>
+
+<p>အဲ့မှာ view ကို ပေးရမယ့် data တွေ အတွက် controller method ကို implement လုပ်။</p>
+
+<p>နောက် view က နေ ရမယ့် data တွေအတွက် router နဲ့ controller တွေကို ပြန်ညိှ။</p>
+
+<p>အိုကေ အခု Update Form လုပ်ရမယ်။ ဘယ်က စကြမလဲ?</p>
+
+<p>လောလောဆယ် edit form ကို သွားမယ့် edit route အရင် စသတ်မှတ်မယ်။</p>
+
+<h3 id="side-note-about-roureresource">Side Note about Roure::Resource</h3>
+
+<p>A RESTful resource controller sets up some default routes for you and even names them.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">resource</span><span class="p">(</span><span class="s1">'users'</span><span class="p">,</span> <span class="s1">'UsersController'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Gives you these named routes:</p>
+
+<p>Verb          Path                        Action  Route Name
+GET           /users                      index   users.index
+GET           /users/create               create  users.create
+POST          /users                      store   users.store
+GET           /users/{user}               show    users.show
+GET           /users/{user}/edit          edit    users.edit
+PUT|PATCH     /users/{user}               update  users.update
+DELETE        /users/{user}               destroy users.destroy</p>
+
+<p>view အရင်ရေးလိုက်ကြရအောင်။</p>
+
+<h3 id="refrence-list">Refrence List</h3>
+
+<p><a href="https://techvblogs.com/blog/laravel-9-crud-application-tutorial-with-example">https://techvblogs.com/blog/laravel-9-crud-application-tutorial-with-example</a></p>
+
+  </div>
+
+  <div class="date">
+    Written on November  1, 2022
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+    <script>
+	window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '608464966533110',
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v9.0'
+	  });
+		
+	  FB.AppEvents.logPageView();   
+		
+	};
+  
+	(function(d, s, id){
+	   var js, fjs = d.getElementsByTagName(s)[0];
+	   if (d.getElementById(id)) {return;}
+	   js = d.createElement(s); js.id = id;
+	   js.src = "https://connect.facebook.net/en_US/sdk.js";
+	   fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+
+	 
+FB.getLoginStatus(function(response) {
+	console.log("getLoginStatus");
+	console.log(response);
+    statusChangeCallback(response);
+});
+
+function statusChangeCallback(response){
+	console.log('response is');
+	console.log(response);
+	if(response.status == "connected"){
+		console.log("user is logged in ");
+	}
+	else{
+		console.log("user need to login");
+		//FB.login();
+	}
+}
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+  </script>
+
+  
+<fb:login-button 
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
+  </body>
+</html>

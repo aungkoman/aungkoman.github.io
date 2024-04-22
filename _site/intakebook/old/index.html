@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="icon" href="images/intakebook_sdt_logo.png" type="image/png" />
+    <title>Intake Book</title>
+    <!-- Path to Framework7 Library CSS-->
+    <link rel="stylesheet" href="css/framework7.ios.min.css" />
+    <link rel="stylesheet" href="css/framework7.ios.colors.min.css">
+    <link rel="stylesheet" href="css/framework7-icons.css">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/my-app.css" />
+    <!--script src="js/jquery.js"></script-->
+  <style type="text/css">
+  
+  
+    img[src="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhost-white2.png"] {
+        display: none;
+    }
+.demo-card-header-pic .card-header {
+  height: 40vw;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+}
+.demo-card-header-pic .card-content-padding .date{
+  color: #8e8e93;
+}
+div.post_para {
+  height: 100px;
+  overflow: hidden;
+  padding-left : 20px;
+  padding-right : 20px;
+}
+
+
+.infinite-scroll-preloader {
+  margin-top:20px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.infinite-scroll-preloader .preloader {
+  width:34px;
+  height:34px;
+}   
+
+
+  </style>
+
+    <script src="bower_components/modernizr/modernizr.js"></script>
+  </head>
+  <body>
+
+    <!-- Status bar overlay for fullscreen mode-->
+    <div class="statusbar-overlay"></div>
+    <!-- Panels overlay-->
+    <div class="panel-overlay"></div>
+    <!-- Left panel with reveal effect-->
+    <div class="panel panel-left panel-reveal">
+      <div class="content-block">
+        <center><p>Intake Book</p></center>
+        <p><a href="#index" class="button button-round close-panel">Intake Book</a></p>
+        <p><a href="#profile" class="button button-round close-panel" id="profile_a">My Profile</a></p>
+        <p><a href="#course" class="button button-round close-panel" id="my_course_a">My Course</a></p>
+        <p><a href="#" class="button button-round close-panel open-login-screen" id="logout_a">Logout</a></p>
+        <p><a href="#about" class="button button-round close-panel">About App</a></p>
+      </div>
+    </div>
+    <!-- Right panel with cover effect-->
+    <div class="panel panel-right panel-cover">
+      <div class="content-block">
+        <p>Right panel</p>
+      </div>
+    </div>
+    <!-- Views-->
+    <div class="views">
+      <!-- Your main view, should have "view-main" class-->
+      <div class="view view-main">
+        <!-- Top Navbar-->
+        <div class="navbar">
+          <!-- Navbar inner for Index page-->
+          <div data-page="index" class="navbar-inner">
+            <!-- We have home navbar without left link-->
+            <div class="center sliding">Intake Book</div>
+            <div class="right">
+              <!-- Right link contains only icon - additional "icon-only" class--><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
+            </div>
+          </div>
+
+          <!-- Navbar inner for Profile page-->
+          <div data-page="profile" class="navbar-inner cached">
+            <!-- We have home navbar without left link-->
+            <div class="center sliding">My Profile</div>
+            <div class="right">
+              <!-- Right link contains only icon - additional "icon-only" class--><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
+            </div>
+          </div>
+
+          <!-- Navbar inner for Course page-->
+          <div data-page="course" class="navbar-inner cached">
+            <!-- We have home navbar without left link-->
+            <div class="center sliding">My Course</div>
+            <div class="right">
+              <!-- Right link contains only icon - additional "icon-only" class--><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
+            </div>
+          </div>
+
+          <!-- Navbar inner for about page-->
+          <div data-page="about" class="navbar-inner cached">
+            <!-- We have home navbar without left link-->
+            <div class="center sliding">Intake Book App</div>
+            <div class="right">
+              <!-- Right link contains only icon - additional "icon-only" class--><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
+            </div>
+          </div>
+
+          <!-- Navbar inner for single course page-->
+          <div data-page="single_course" class="navbar-inner cached">
+
+      <div class="left">
+        <a class="link" href="#course">
+          <i class="icon icon-back"></i>
+          <span class="if-not-md">Back</span>
+        </a>
+      </div>
+            <!-- We have home navbar without left link-->
+            <div class="center sliding" id="single_course_page_title">Single Course</div>
+            <div class="right">
+              <!-- Right link contains only icon - additional "icon-only" class--><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
+            </div>
+          </div>
+
+        </div>
+        <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+        <div class="pages navbar-through toolbar-through">
+
+
+          <!-- About page -->
+          <div class="page cached" data-page="profile">
+            <div class="page-content">
+              <!--p>profile page</p-->
+
+
+              <div class="list-block" id="profile_div">
+
+              </div>
+            </div>
+          </div>
+ 
+
+          <!-- coruse page -->
+          <div class="page cached" data-page="course">
+            <div class="page-content">
+              <!--p>course page</p-->
+              <!--div class="list-block">
+                <ul>
+<li>
+  <a class="item-link smart-select smart-select-init" data-open-in="popup"  data-searchbar="true" data-searchbar-placeholder="Search Course">
+    <select name="course_list_org_select" id="course_list_org_select" multiple>
+        <option value="honda" selected>Honda</option>
+        <option value="lexus">Lexus</option>
+        <option value="mazda">Mazda</option>
+        <option value="nissan">Nissan</option>
+        <option value="toyota">Toyota</option>
+        <option value="audi" selected>Audi</option>
+        <option value="bmw">BMW</option>
+        <option value="mercedes">Mercedes</option>
+        <option value="vw">Volkswagen</option>
+        <option value="volvo">Volvo</option>
+        <option value="cadillac">Cadillac</option>
+        <option value="chrysler">Chrysler</option>
+        <option value="dodge">Dodge</option>
+        <option value="ford" selected>Ford</option>
+    </select>
+    <div class="item-content">
+      <div class="item-inner">
+        <div class="item-title">Course List</div>
+      </div>
+    </div>
+  </a>
+</li-->
+
+                </ul>
+              </div--> <!-- end of list block div -->
+              <h2>တက္ေရာက္ခဲ့ေသာ သင္တန္းမ်ား</h2>
+              <div class="list-block">
+                <ul id="course_list_selected_ul">
+                  <!--li>
+                    <a class="item-link list-button course_name_list_a" data-courseId="54"  href="#single_course">List Button 1</a>
+                  </li>
+                  <li>
+                    <a class="item-link list-button course_name_list_a" data-courseId="55" href="#single_course">List Button 2</a>
+                  </li-->
+                </ul>
+              </div> <!-- end of list block div -->
+
+            </div>
+          </div>
+ 
+ 
+          <!-- About page -->
+          <div class="page cached" data-page="about">
+            <div class="page-content">
+              <p style="padding-left: 20px;padding-right: 5px;">Your suggection and feedback are welcome.</p>
+              <p style="padding-left: 20px"><a class="link external" href="http://m.me/aungkoman">Contact to Developer</a></p>
+
+            </div>
+          </div>
+ 
+
+ 
+          <!-- single page -->
+          <div class="page cached" data-page="single_course">
+            <div class="page-content">
+              <!--p>about single course</p-->
+
+    <div class="list-block">
+      <ul>
+        <li class="item-content">
+          <div class="item-inner" >
+            <div class="item-title" id="single_course_data_div">{{Course Title}} {{course_intake}} <br>
+              {{course_start_date}} ရက္ေန့မွ {{ course_start_date }} ရက္ေန့ထိ <br> 
+            {{course_location}} </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <center> <h2>Name List</h2></center>
+    <div class="list-block">
+      <ul id="single_course_name_list_ul">
+        <li class="item-content">
+          <div class="item-inner">
+            <div class="item-title">{{mc_type}} {{mc}} {{ rank }} <br> {{name}} <br>{{unit}}<br>{{phone_no}}</div>
+          </div>
+        </li>
+        <li class="item-content">
+          <div class="item-inner">
+            <div class="item-title">{{mc_type}} {{mc}} {{ rank }} <br> {{name}} <br>{{unit}}<br>{{phone_no}}</div>
+          </div>
+        </li>
+        <li class="item-content">
+          <div class="item-inner">
+            <div class="item-title">{{mc_type}} {{mc}} {{ rank }} <br> {{name}} <br>{{unit}}<br>{{phone_no}}</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+
+
+            </div>
+          </div>
+ 
+
+
+          <!-- Index Page-->
+          <div class="page" data-page="index">
+
+            <!-- Search Bar -->
+  <form data-search-list=".list-block-search" data-search-in=".item-title" class="searchbar searchbar-init">
+    <div class="searchbar-input">
+      <input type="search" placeholder="Search"><a href="#" class="searchbar-clear"></a>
+    </div><a href="#" class="searchbar-cancel">Cancel</a>
+  </form>
+ 
+  <!-- Search Bar overlay -->
+  <div class="searchbar-overlay"></div>
+ 
+
+
+<!--div class="page-content infinite-scroll"-->
+<div class="page-content">
+  <div class="content-block searchbar-not-found">
+      <div class="content-block-inner">Nothing found</div>
+    </div>
+
+
+    <!-- This block will be displayed if anything found, and this list block is used a searbar target -->
+    <div class="list-block list-block-search searchbar-found">
+      <ul id="intake_list">
+        <li class="item-content"  onclick="show_detail(1)">
+          <div class="item-inner">
+            <div class="item-title">Acura </div>
+          </div>
+        </li>
+        <li class="item-content">
+          <div class="item-inner">
+            <div class="item-title">Audi</div>
+          </div>
+        </li>
+        <li class="item-content">
+          <div class="item-inner">
+            <div class="item-title">sdfasdf</div>
+          </div>
+        </li>
+        <li class="item-content">
+          <div class="item-inner">
+            <div class="item-title">werweyter</div>
+          </div>
+        </li>
+        <li class="item-content">
+          <div class="item-inner">
+            <div class="item-title">ersdfas fsadfasd</div>
+          </div>
+        </li>
+        <li class="item-content">
+          <div class="item-inner">
+            <div class="item-title">hyi ghsdasdv asvf</div>
+          </div>
+        </li>
+        <li class="item-content">
+          <div class="item-inner">
+            <div class="item-title">sadf ae fa asdasdf</div>
+          </div>
+        </li>
+        <li class="item-content">
+          <div class="item-inner">
+            <div class="item-title">sdv a awfwe asffa</div>
+          </div>
+        </li>
+        <li class="item-content">
+          <div class="item-inner">
+            <div class="item-title">sdfa cvaefaa as fdaf</div>
+          </div>
+        </li>
+        <li class="item-content">
+          <div class="item-inner">
+            <div class="item-title">zcxvas sf e fsavfdsgf</div>
+          </div>
+        </li>
+        <li class="item-content">
+          <div class="item-inner">
+            <div class="item-title">dsfa sfadfasdf</div>
+          </div>
+        </li>
+        <li class="item-content">
+          <div class="item-inner">
+            <div class="item-title">ioykdtjhd</div>
+          </div>
+        </li>
+        <li class="item-content">
+          <div class="item-inner">
+            <div class="item-title">zscvr hdh</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+
+</div> 
+
+          </div>
+        <!-- Bottom Toolbar-->
+        <!--div class="toolbar">
+          <div class="toolbar-inner"><a href="#" class="link">Link 1</a><a href="#" class="link">Link 2</a></div>
+        </div-->
+      </div>
+    </div>
+
+
+<!-- Should be a direct child of BODY -->
+  <div class="login-screen">
+      <!-- Default view-page layout -->
+      <div class="view">
+        <div class="page">
+          <!-- page-content has additional login-screen content -->
+          <div class="page-content login-screen-content">
+            <div class="login-screen-title">Intake Book</div>
+            <!-- Login form -->
+            <!--form-->
+              <div class="list-block">
+                <ul>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">ျပန္တမ္းဝင္အမွတ္</div>
+                      <div class="item-input">
+                        <input type="number" name="login_mc_input"  id="login_mc_input" placeholder="MC">
+                      </div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">စကားဝွက္</div>
+                      <div class="item-input">
+                        <input type="password" name="login_password_input" id="login_password_input" placeholder="Password">
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+
+
+              <div class="list-block">
+                <ul>
+                  <li>
+                    <a href="#" class="item-link list-button" id="sign_in_button">ဝင္ေရာက္မည္</a>
+                  </li>
+                  <li>
+                    <div class="list-block-label">ဝင္ေရာက္ရန္ စကားဝွက္ မရိွပါက ေအာက္တြင္ မွတ္ပံုတင္ႏိုင္ပါသည္</div>
+
+                    <a href="#" class="item-link list-button" id="register_div_show_button">မွတ္ပံုတင္ရန္</a>
+                  </li>
+                </ul>
+                <!--div class="list-block-label">You have to login to enter intake book</div-->
+              </div>
+
+
+
+              </div>
+
+
+
+              <div class="list-block" id="register_div">
+                <ul>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">MC Type</div>
+                      <div class="item-input">
+                        <select id="register_mc_type_select">
+                          <option value="1">ၾကည္း</option>
+                          <option value="2">ေရ</option>
+                          <option value="3">ေလ</option>
+                        </select>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">ျပန္တမ္းဝင္အမွတ္</div>
+                      <div class="item-input">
+                        <input type="number" id="register_mc_input" placeholder="MC (English No.)">
+                      </div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">အဆင့္</div>
+                      <div class="item-input">
+                        <select id="register_rank_select">
+                          <option value="1">ဒုမွဴးၾကီး</option>
+                          <option value="2">ဒုမွဴးၾကီး (Officiating)</option>
+                          <option value="3">မွဴး</option>
+                          <option value="4">မွဴး(Officiating)</option>
+                          <option value="5">ဗက</option>
+                          <option value="6">ဗ</option>
+                          <option value="7">ဒုဗိုလ္</option>
+                        </select>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">အမည္</div>
+                      <div class="item-input">
+                        <input type="text" id="register_name_input" placeholder="Name">
+                      </div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">တပ္ / ဌာန</div>
+                      <div class="item-input">
+                        <input type="text" id="register_unit_input" placeholder="Current Unit">
+                      </div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">ဖုန္းနံပါတ္</div>
+                      <div class="item-input">
+                        <input type="text" id="register_phone_no_input" placeholder="Phone No.">
+                      </div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">ဗလသင္တန္း</div>
+                      <div class="item-input">
+                        <select id="register_academy_select">
+                          <option value="1">DSA</option>
+                          <option value="2">DSTA</option>
+                          <option value="3">DSMA</option>
+                          <option value="4">OTS</option>
+                          <option value="5">အလုပ္သင္ဗိုလ္ေလာင္း</option>
+                        </select>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">အမွတ္စဥ္</div>
+                      <div class="item-input">
+                        <input type="number" id="register_intake_input" placeholder="Intake">
+                      </div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">စကားဝွက္</div>
+                      <div class="item-input">
+                        <input type="password" id="register_password_input" placeholder="Password">
+                      </div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label" title="Type your password again">စကားဝွက္ ထပ္မံထည့္သြင္းပါ</div>
+                      <div class="item-input">
+                        <input type="password" id="register_password_reenter_input" placeholder="Re-enter Password">
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              <div class="list-block">
+                <ul>
+                  <li>
+                    <a href="#" class="item-link list-button" id="register_button">မွတ္ပံုတင္မည္</a>
+                  </li>
+                </ul>
+              </div>
+
+              </div>
+
+            <!--/form-->
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+<!-- template section -->
+<script id="post_template" type="text/template7">
+
+          <div class="card demo-card-header-pic">
+            <div style="background-image:url(https://cdn.framework7.io/placeholder/nature-1000x600-3.jpg)" class="card-header align-items-flex-end">{{title}}
+            </div>
+            <div class="card-content card-content-padding">
+              <div class="post_para">
+              <p>{{content}}</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="link">Like</a>
+              <a href="#" class="link read_more_link" data-read-mode="more" >Read more</a>
+            </div>
+          </div>
+
+
+</script>
+
+
+<script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/backbone/backbone.js"></script>
+    <!-- Path to Framework7 Library JS-->
+    <script type="text/javascript" src="js/framework7.min.js"></script>
+    <!-- Path to your app js-->
+    <script type="text/javascript" src="js/my-app.js"></script>
+    
+    
+  <!-- Babel version 5.8.38 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js"></script>
+
+    <!-- Babel's polyfill fix v5.8.38 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser-polyfill.min.js"></script>
+  </body>
+</html>

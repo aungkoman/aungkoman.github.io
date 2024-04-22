@@ -1,0 +1,740 @@
+<!DOCTYPE html> 
+<html>
+ <head> 
+ 	<title>NORTH GATE</title>
+ 	<meta charset="utf-8" http-equiv="X-UA-Compatible" content="IE=edge">
+ 	<meta name= "viewport"  content= "width=device-width,initial-scale=1.0">
+ 	<link rel='shortcut icon' type='image/x-icon' sizes='16x16 32x32 48x48 64x64' href= "logo/North Gate Engineering Logo.png" >
+ 	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+ 	<style type= "text/css">
+ 	   html ,body{ margin:0; padding: 0; box-sizing: border-box; font-family:  font/CrimsonText-BoldItalic.ttf ;  }  
+ 	   *{ box-sizing: border-box;  }  
+ 	   *{ box-sizing: border-box;  }  
+ 	   .containermta{
+ 	   		 width:100vw;height:100vh;background-color: #F6F7FB;position: relative;overflow-x:hidden;overflow-y: scroll;
+ 	   		 scroll-behavior: smooth;-ms-overflow-style: none; scrollbar-width: none;
+ 	   	}
+ 	   .headingmta{
+ 	   		width:100vw; height: 60px; background-color:#fff; border:1px solid rgba(150,151,160,0.2); 
+ 	   		display: flex;justify-content: center; flex-direction: row; position: sticky; top: 0; z-index: 3;  
+ 	   	}
+ 	   .headingmtaContainer{
+ 	   		width: 70%;height: 100%;display: flex; justify-content: space-between; align-items: center;
+ 	   	}
+ 	   	.logoarea{
+ 	   		width: 30%;
+ 	   		height: 100%;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   		font-size: 14px;
+ 	   		font-family: 'Abril Fatface', cursive;
+ 	   	}
+ 	   	.logoarea div{
+ 	   		width: max-content;
+ 	   		height: max-content;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   	}
+ 	   	.catefunarea{
+ 	   		width: 50%;
+ 	   		height: 100%;
+ 	   		display: flex;
+ 	   		justify-content: space-around;
+ 	   		align-items: center;
+ 	   		font-family: 'Abril Fatface', cursive;
+ 	   	}
+ 	   	.catefunarea div{
+ 	   		width: 20%;
+ 	   		height: 100%;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		color: black;
+ 	   		cursor: pointer;
+ 	   		font-size: 14px;
+ 	   	}
+ 	   	.catefunarea div:nth-child(1){
+ 	   		border-bottom:3px solid #0071FB;
+ 	   	}
+ 	   	.catefunarea a{
+ 	   		text-decoration: none;
+ 	   		color: black;
+ 	   	}
+ 	   	.searcharea , .menuarea{
+ 	   		width: 5%;
+ 	   		height: 100%;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.menuarea{
+ 	   		display: none;
+ 	   	}
+ 	   	.logoNG{
+ 	   		max-height: 60px;
+ 	   	}
+ 	   	.covercontainermta{
+ 	   		width: 100%;
+ 	   		height: 500px;
+ 	   		background-image: url(CATEGO/architect-technical-office-engineer-for-an-engineering-consulting-office-628018d08df38.jpg);
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: cover;
+ 	   		background-attachment: fixed;
+ 	   		background-position: center;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.coverdesInfo{
+ 	   		width: 50%;
+ 	   		height: 200px;
+ 	   		border-radius: 5px;
+ 	   		border: 3px solid rgba(0, 0, 0, 0.0);
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   		font-family: 'Abril Fatface', cursive;
+ 	   		position: relative;
+ 	   	}
+ 	   	.coverdesInfo div{
+ 	   		margin-top: 15px;
+ 	   		font-size: 40px;
+ 	   	}
+ 	   	.desAboutUsContainer{
+ 	   		width: 100%;
+ 	   		height: auto;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		align-items: center;
+ 	   		flex-wrap: wrap-reverse;
+ 	   	}
+ 	   	.aboutusCover , .aboutusDesc{
+ 	   		width: 50%;
+ 	   		height: 400px;
+ 	   	}
+ 	   	.aboutusCover{
+ 	   		background-image: url(CATEGO/services.jpg);
+ 	   		background-size: cover;
+ 	   		background-position: center;
+ 	   	}
+ 	   	.aboutusDesc{
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: left;
+ 	   		flex-direction: column;
+ 	   		padding-left: 30px;
+ 	   	}
+ 	   	.aboutusDesc div:nth-child(1){
+ 	   		font-size: 18px;
+ 	   		font-family: 'Abril Fatface', cursive;
+ 	 		font-weight: bold;
+ 	   	}
+ 	   	.aboutusDesc div:nth-child(2){
+ 	   		width: 60px;
+ 	   		height: 4px;
+ 	   		background-color: #0071FB;
+ 	   		border-radius: 7px;
+ 	   	}
+ 	   	.aboutusDesc div:nth-child(3){
+ 	   		width: 80%;
+ 	   		margin-top: 15px;
+ 	   	}
+ 	   	.aboutusDesc div:nth-child(4){
+ 	   		width: 200px;
+ 	   		height: 40px;
+ 	   		border-radius: 20px;
+ 	   		background-color: #0071FB;
+ 	   		color: #efefef;
+ 	   		cursor: pointer;
+ 	   		box-sizing: border-box;
+ 	   		padding: 8px;
+ 	   		text-align: center;
+ 	   		margin-top: 15px;
+ 	   	}
+ 	   	.serviceHeader{
+ 	   		width: 100%;
+ 	   		height: 30px;
+ 	   		margin-top: 15px;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		font-weight: bold;
+ 	   		font-size: 18px;
+ 	   		font-family: 'Abril Fatface', cursive;
+ 	   		flex-direction: column;
+ 	   	}
+ 	   	.serviceHeader div:nth-child(2){
+ 	   		width: 60px;
+ 	   		height: 4px;
+ 	   		background-color: #0071FB;
+ 	   		border-radius: 7px;
+ 	   	}
+ 	   	.serviceDataContainerOdd{
+ 	   		width: 100%;
+ 	   		height: auto;
+ 	   		margin-top: 25px;
+ 	   		display: flex;
+ 	   		justify-content: flex-start;
+ 	   		flex-wrap: wrap-reverse;
+ 	   	}
+ 	   	.serviceOddImg{
+ 	   		width: 50%;
+ 	   		height: 300px;
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: cover;
+ 	   		background-position: center;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.serviceOddImg div{
+ 	   		width: 180px;
+ 	   		height: 150px;
+ 	   		border-radius: 15px;
+ 	   		background: rgba(0,0,0,0.8);
+ 	   		box-sizing: border-box;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   		color: #efefef;
+ 	   	}
+ 	   	.serviceOddDes{
+ 	   		width:50%;
+ 	   		height: 400px;
+ 	   		overflow: auto;
+ 	   	}
+ 	   	.serviceOddDes div{
+ 	   		width: 60%;
+ 	   		height: auto;
+ 	   		margin-top: 10px;
+ 	   	}
+ 	   	.serviceOddDes div:nth-child(1){
+ 	   		font-size: 18px;
+ 	   		font-family: 'Abril Fatface', cursive;
+ 	 		font-weight: bold;
+ 	   	}
+ 	   	.serviceOddDes div:nth-child(2){
+ 	   		width: 60px;
+ 	   		height: 4px;
+ 	   		background-color: #0071FB;
+ 	   		border-radius: 7px;
+ 	   	}
+ 	    .serviceOddDes div:nth-child(3){
+ 	   		width: 80%;
+ 	   		margin-top: 15px;
+ 	   	}
+ 	   	.serviceOddDes div:nth-child(4) , .loadmoreCate{
+ 	   		width: 200px;
+ 	   		height: 40px;
+ 	   		border-radius: 20px;
+ 	   		background-color: #0071FB;
+ 	   		color: #efefef;
+ 	   		cursor: pointer;
+ 	   		box-sizing: border-box;
+ 	   		padding: 8px;
+ 	   		text-align: center;
+ 	   		margin-top: 15px;
+ 	   	}
+ 	   	.footerContainer{
+ 	   		width: 100%;
+ 	   		height: auto;
+ 	   		background-image: url(CATEGO/MayaHTT_image.jpg);
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: cover;
+ 	   		background-attachment: fixed;
+ 	   		background-position: center;
+ 	   	}
+ 	   	.footerContainerMTACover{
+ 	   		width: 100%;
+ 	   		height: 100%;
+ 	   		background: rgba(0, 0, 0, 0.6);
+ 	   		position: relative;
+ 	   		overflow: auto;
+ 	   	}
+ 	   	.footerHeader{
+ 	   		width: 100%;
+ 	   		height: 70px;
+ 	   		background: rgba(0, 0, 0, 0.6);
+ 	   		display: flex;justify-content: space-between;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.infoFooter{
+ 	   		width:30%;
+ 	   		height: 100%;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		color: #C8C8CA;
+ 	   	}
+ 	   	.infoFooter p{
+ 	   		font-size: 13px;
+ 	   	}
+ 	   	.infoFooter div{
+ 	   		width: 200px;
+ 	   		height: 45px;
+ 	   		border-radius: 25px;
+ 	   		border: 3px solid rgba(22, 72, 210, 0.7);
+ 	   		display: flex;
+ 	   		font-size: 14px;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		cursor: pointer;
+ 	   	}
+ 	   	.infoFooter img{
+ 	   		max-width: 36px;
+ 	   		max-height: 36px;
+ 	   	}
+ 	   	.aboutusContainer{
+ 	   		width: 100%;
+ 	   		height: calc(100% - 90px);
+ 	   		margin-top: 10px;
+ 	   	}
+ 	   	.aboutusTitle{
+ 	   		width: 100%;
+ 	   		height: auto;
+ 	   		color:#efefef;
+ 	   		font-size: 16px;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   		font-family: 'Abril Fatface', cursive;
+ 	   	}
+ 	   	.aboutusTitle div{
+ 	   		width: 60px;
+ 	   		height: 9px;
+ 	   		margin-top: -15px;
+ 	   		border-bottom:2px solid  blue;
+ 	   		border-radius: 20px;
+ 	   	}
+ 	   	.aboutusDescription{
+ 	   		width: 100%;
+ 	   		height: 300px;
+ 	   		margin-top: 10px;
+ 	   		overflow: auto;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		flex-direction: column;
+ 	   	}
+ 	   	.aboutusDescription p , .aboutusDescription h4{
+ 	   		width: 70%;
+ 	   		text-align: center;
+ 	   		color: #C8C8CA;
+ 	   	}
+ 	   	.subscribeContainer{
+ 	   		width: 100%;
+ 	   		height: 70px;
+ 	   		margin-top: 30px;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.subscribecover{
+ 	   		width: 50%;
+ 	   		height: 100%;
+ 	   		background:rgba(22, 72, 210, 0.7);
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	#subemail{
+ 	   		width: 280px;
+ 	   		height: 40px;
+ 	   		border-radius: 5px;
+ 	   		border: none;outline: none;
+ 	   		padding-left: 10px;
+ 	   		background-color: #C8C8CA;
+ 	   	}
+ 	   	#submitSub{
+ 	   		width: 180px;
+ 	   		height: 40px;
+ 	   		margin-left: 20px;
+ 	   		border-radius: 5px;
+ 	   		border: none;
+ 	   		outline: none;
+ 	   		cursor: pointer;
+ 	   		background: rgba(0, 0, 0, 0.8);
+ 	   		box-sizing: border-box;
+ 	   		text-align: center;
+ 	   		padding: 8px;
+ 	   		color: #C8C8CA;
+ 	   	}
+ 	   	.copyRightContainer{
+ 	   		width: 100%;
+ 	   		height: 40px;
+ 	   		background: rgba(0, 0, 0, 0.8);
+ 	   		text-align: center;
+ 	   		box-sizing: border-box;
+ 	   		padding: 6px;
+ 	   		color: #C8C8CA;
+ 	   		bottom: 0;
+ 	   	    font-size: 12px;
+ 	   	    margin-top: 15px;
+ 	   	}
+ 	   	.listingContainer{
+ 	   		width: 100%;
+ 	   		height: 300px;
+ 	   		background-image: url('LED_LIGHTING_PHILIPS/Untitled-1.jpg');
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: cover;
+ 	   		background-position: center;
+ 	   	}
+ 	   	.listingCover{
+ 	   		width: 100%;
+ 	   		height: auto;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.listingResult{
+ 	   		width: 70%;
+ 	   		height: max-content;
+ 	   		padding: 10px;
+ 	   		text-align: justify;
+ 	   	}
+ 	   	.amazingContainer{
+ 	   		width: 100%;
+ 	   		height: auto;
+ 	   		display: flex;
+ 	   		justify-content: space-around;
+ 	   		align-items: center;
+ 	   		flex-wrap: wrap;
+ 	   	}
+ 	   	.amazingCard{
+ 	   		width: 30%;
+ 	   		height: 300px;
+ 	   		background-color: #F2F2F2;
+ 	   		margin: 5px;
+ 	   		position: relative;
+ 	   		display: inline-block;
+ 	   	}
+ 	   	.amazingText{
+ 	   		background-color: #EEF0EF;/* #EEF0EF */
+ 	   		color: #868783;
+ 	   		font-size: 13px;
+ 	   		position: absolute;
+ 	   		letter-spacing: 5px;
+			  position: absolute;
+			  bottom: 0;
+			  left: 0;
+			  text-align: center;
+			  box-sizing: border-box;
+			  padding: 5px;
+			  max-width: 200px;
+			  overflow-wrap: break-word;
+			  -webkit-transform: rotate(270deg);
+			  -moz-transform: rotate(270deg);
+			  -ms-transform: rotate(270deg);
+			  -o-transform: rotate(270deg);
+			  transform: rotate(270deg);
+			  -webkit-transform-origin: 0 0;
+			  -moz-transform-origin: 0 0;
+			  -ms-transform-origin: 0 0;
+			  -o-transform-origin: 0 0;
+			  transform-origin: 0 0;
+ 	   	}
+ 	   	.amazingCover{
+ 	   		width: 98%;
+ 	   		height: 100%;
+ 	   		background-repeat: no-repeat;
+ 	   		background-size: cover;
+ 	   		background-position: center;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	.readAmazing{
+ 	   		width: 200px;
+ 	   		height: 40px;
+ 	   		background: rgba(0, 0, 0, 0.7);
+ 	   		color: #efefef;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   		cursor: pointer;
+ 	   	}
+ 	   	.loading{
+ 	   		width: 100%;
+ 	   		height: 100%;
+ 	   		position: fixed;
+ 	   		background: rgba(0,0,0,0.6);
+ 	   	}
+ 	   	.loaderDiv{
+ 	   		width: 100%;
+ 	   		height: 100%;
+ 	   		display: flex;
+ 	   		justify-content: center;
+ 	   		align-items: center;
+ 	   	}
+ 	   	@media only screen and (max-width:900px){
+ 	   		.headingmtaContainer{
+ 	   			width: 90%;
+ 	   		}
+ 	   		.logoarea{
+ 	   			width: 40%;
+ 	   		}
+ 	   		.catefunarea{
+ 	   			width: 55%;
+ 	   			font-size: 14px;
+ 	   		}
+ 	   		.coverdesInfo{
+ 	   			width: 80%;
+ 	   		}
+ 	   		.footerHeader{
+ 	   			height: 90px;
+ 	   		}
+ 	   		div.infoFooter:nth-child(1){
+ 	   			width: 50%;
+ 	   		}
+ 	   		.subscribecover{
+ 	   			width: 70%;
+ 	   		}
+ 	   		.listingResult{
+		 		width: 90%;
+		 	}
+		 } 
+		@media only screen and (max-width: 500px){
+			.headingmtaContainer{
+				width: 100%;
+			}
+			.logoarea{
+				width: 80%;
+			}
+			.logoarea div{
+				width: 80%;
+			}
+			.logoarea div span{
+				width: 90%;
+				font-size: 13px;
+			}
+		 	.catefunarea{
+		 		display: none;
+		 	}
+		 	.amazingCard{
+		 		width: 80%;
+		 	}
+		 	.readAmazing{
+		 		font-size: 11px;
+		 	}
+		 	.listingResult{
+		 		width: 100%;
+		 		font-size: 12px;
+		 	}
+		 	.searcharea{
+		 		display: none;
+		 	}
+		 	.menuarea{
+		 		display: block;
+		 		width: 10%;
+		 		display: flex;
+		 	}
+		 	.coverdesInfo div{
+		 		width: 70%;
+		 		font-size: 20px;
+		 	}
+		 	.covercontainermta{
+		 		height: 350px;
+		 	}
+		 	.aboutusCover , .aboutusDesc , .serviceOddImg , .serviceOddDes{
+		 		width: 100%;
+		 		font-size: 13px;
+		 	}
+		 	.aboutusCover{
+		 		height: 200px;
+		 		background-repeat: no-repeat;
+		 		background-size: contain;
+		 	}
+		 	.serviceHeader{
+		 		font-size: 14px;
+		 	}
+		 	.serviceOddDes div:nth-child(1){
+		 		font-size: 14px;
+		 	}
+		 	.footerHeader{
+		 		height: auto;
+		 		flex-wrap: wrap;
+		 	}
+		 	.infoFooter{
+		 		width: 50%;
+		 		height: 90px;
+		 	}
+		 	.infoFooter div{
+		 		font-size: 12px;
+		 	}
+		 	.aboutusDescription{
+		 		height: 300px;font-size: 13px;
+		 	}
+		 	.subscribecover{
+		 		width: 100%;
+		 	}
+		 	#subemail{
+		 		width: 55%;
+		 	}
+		 	#submitSub{
+		 		width: 35%;
+		 		font-size: 12px;
+		 	}
+		 	.copyRightContainer{
+		 		margin-top: 10px;
+		 	}
+		}
+ 	   </style> 
+ 	    </head> 
+<body>
+<div class="loading">
+	<div class="loaderDiv">
+		<img src="logo/loader.gif">
+	</div>
+</div>
+<div class='containermta'>
+    <div class='headingmta' > 
+    	<div class="headingmtaContainer">
+    		<div class="logoarea">
+    			<img src="logo/North Gate Engineering Logo.png" class="logoNG">
+    			<div>
+					<span>NORTH GATE</span>
+					<span>ENGINNERING & THECHNOLOGY</span>
+				</div>
+    		</div>
+    		<div class="catefunarea">
+    			<div>HOME</div>
+    			<div><a href='#desAboutUsContainer'>WHO WE ARE?</a></div>
+    			<div><a href='#serviceDataContainer'>OUR SERVICES</a></div>
+    			<div>CONTACT US</div>
+    		</div>
+    		<div class="searcharea">
+    			<img src="logo/modermSearch.png" style="max-width: 40px;max-height: 40px;cursor: pointer;">
+    		</div>
+    		<div class="menuarea">
+    			<img src="logo/Entypo_2630(0)_48.png" style="max-width: 50px;max-height: 50px;cursor: pointer;">
+    		</div>
+    	</div>
+    </div>
+    <div class="listingContainer"></div>
+    <div class="serviceHeader" id='serviceHeader'><div>LED LIGHTING</div><div></div></div>
+    <div class="listingCover">
+    	<div class="listingResult">
+    		NIKKO SINCE 1908 - JOHKASOU Systems are designed for treating the domestic wastewater of houses and buildings at a decentralized manner, and are generally divided into “small-scale Johkasou” and “medium/large- scale Johkasou”, using the power of microorganisms that occur naturally within the Johkasou System. All our Johkasou Wastewater Treatment Systems are Made in Japan with the highest quality and comply with YCDC building construction guidelines and water sanitation standards.
+			NIKKO JOHKASOU Systems with advanced treatment Johkasou Technology can reduce the Biochemical Oxygen Demand to BOD 10 before discharging the wastewater into municipal sewage systems and rivers, where NIKKO Johkasou Systems create greener, cleaner and safer environment.
+			North Gate Engineering & Technology Co.Ltd is our official sales and solution services partner in Myanmar.
+			<br>
+			What are LEDs and how do they work?
+			LED stands for light emitting diode. LED lighting products produce light up to 90% more efficiently than incandescent light bulbs. How do they work? An electrical current passes through a microchip, which illuminates the tiny light sources we call LEDs and the result is visible light. To prevent performance issues, the heat LEDs produce is absorbed into a heat sink.
+			<br>
+			Lifetime of LED Lighting Products
+			The useful life of LED lighting products is defined differently than that of other light sources, such as incandescent or compact fluorescent lighting (CFL). LEDs typically do not “burn out” or fail. Instead, they experience ‘lumen depreciation’, wherein the brightness of the LED dims slowly over time. Unlike incandescent bulbs, LED “lifetime” is established on a prediction of when the light output decreases by 30 percent.
+			<br>
+    	</div>
+    </div>
+    <div class="serviceHeader" id='serviceHeader'><div>AMAZING FEATURES</div><div></div></div>
+    <br>
+    <div class="amazingContainer">
+    	<div class="amazingCard">
+    		<div class="amazingText">LAMP DESIGN</div>
+    		<div class="amazingCover" style="background-image: url('LED_LIGHTING_PHILIPS/For_Design/6a675079ecae24e2629ed3fc1cd276c4.jpg');">
+    			<div class="readAmazing">LEARN MORE</div>
+    		</div>
+    	</div>
+    	<div class="amazingCard">
+    		<div class="amazingText">BAR DECORATION</div>
+    		<div class="amazingCover" style="background-image: url('LED_LIGHTING_PHILIPS/For_Design/corente.jpg');">
+    			<div class="readAmazing">LEARN MORE</div>
+    		</div>
+    	</div>
+    	<div class="amazingCard">
+    		<div class="amazingText">GUARDEN LIGHT</div>
+    		<div class="amazingCover" style="background-image: url('LED_LIGHTING_PHILIPS/For_Design/garden-hue-light-1.jpg');">
+    			<div class="readAmazing">LEARN MORE</div>
+    		</div>
+    	</div>
+    	<div class="amazingCard">
+    		<div class="amazingText">HUE OUTDOOR</div>
+    		<div class="amazingCover" style="background-image: url('LED_LIGHTING_PHILIPS/For_Design/hue-outdoor-1.jpg');">
+    			<div class="readAmazing">LEARN MORE</div>
+    		</div>
+    	</div>
+    	<div class="amazingCard">
+    		<div class="amazingText">HUE PLAY</div>
+    		<div class="amazingCover" style="background-image: url('LED_LIGHTING_PHILIPS/For_Design/hue-play-2.jpg');">
+    			<div class="readAmazing">LEARN MORE</div>
+    		</div>
+    	</div>
+    	<div class="amazingCard">
+    		<div class="amazingText">LITERATURE</div>
+    		<div class="amazingCover" style="background-image: url('LED_LIGHTING_PHILIPS/For_Design/literature.jpg');">
+    			<div class="readAmazing">LEARN MORE</div>
+    		</div>
+    	</div>
+    </div>
+    <br>
+    <div class="footerContainer">
+    	<div class="footerContainerMTACover">
+    		<div class="footerHeader">
+    			<div class="infoFooter">
+    				<img src="logo/location.png">
+    				<p>91 1-2 Sri Poom Rd, Tambon Si Phum, Mueang Chiang Mai District, Chiang Mai 50200, Thailand</p>
+    			</div>
+    			<div class="infoFooter">
+    				<img src="logo/phone.png">
+    				<p>(+959)43100878 <br>info@northgate.com</p>
+    			</div>
+    			<div class="infoFooter">
+    				<img src="logo/facebook.png">
+    				<img src="logo/twitter.png">
+    				<img src="logo/instragram.png">
+    				<img src="logo/google.png">
+    			</div>
+    			<div class="infoFooter">
+    				<div>CONTACT US</div>
+    			</div>
+    		</div>
+    		<div class="aboutusContainer">
+    			<div class="aboutusTitle">
+    				<p>ABOUT US</p>
+    				<div></div>
+    			</div>
+    			<div class="aboutusDescription">
+    				<h4>NORTHGATE Engineering & Technology , we provide services & Enginerring </h4>
+    				<p>
+    					Engineering is the Digital Transformation Company, leader in Italy and expanding its global footprint, with around 12,000 associates, with over 60 offices spread across Europe, the United States, and South America and global delivery.
+						The Engineering Group, consisting of over 20 companies in 12 countries, has been supporting the continuous evolution of companies and organizations for more than 40 years, thanks to a deep understanding of business processes in all market segments, fully leveraging the opportunities offered by advanced digital technologies and proprietary solutions.
+					</p>
+    			</div>
+    			<div class="subscribeContainer">
+    				<div class="subscribecover">
+    					<input type="text" name="" id="subemail" placeholder="your email address">
+    					<input type="button" name="" id="submitSub" value="SUBSCRIBE">
+    				</div>
+    			</div>
+    			<div class="copyRightContainer">
+    				2022@copyright NORTHGATE All rights reserved.
+    			</div>
+    		</div>
+    	</div>
+    </div>
+</div>
+ 	<script type="text/javascript"  src="js/jquery.js"></script> 
+	<script type='text/javascript'>
+	  (function($) {
+	  	const api_url = "https://northgate/my/api/path";
+	  	async function goListiningDataByCate(cate){
+	  		const response = await fetch(url);
+			var data = await response.json();
+			console.log(data);
+			if (response) {
+				hideloader();
+			}
+			show(data);
+	  	}
+	  }(jQuery));
+	</script>
+ </body> 
+</html>

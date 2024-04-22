@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>How to deploy TURN server? –  – Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="How to deploy TURN server in linux?
+
+Since TURN server is essential for WEB RTC app. we need to deploy our own TURN Server.
+When we search on Google we saw
+
+https://github.com/coturn/coturn
+
+sudo apt-get install coturn
+turnserver -a -o -v -n -u user:root -p 3478 -L INT_IP -r someRealm -X EXT_IP/INT_IP  –no-dtls –no-tls
+
+command description:
+
+-X - your amazon instance’s external IP, internal IP: EXT_IP/INT_IP
+-p - port to be used, default 3478
+-a - Use long-term credentials mechanism
+-o - Run server process as daemon
+-v - ‘Moderate’ verbose mode.
+-n - no configuration file
+–no-dtls - Do not start DTLS listeners
+–no-tls - Do not start TLS listeners
+-u - user credentials to be used
+-r - default realm to be used, need for TURN REST API
+
+in your WebRTC app, you can use trun server like:
+
+{
+    url: ‘turn:user@EXT_IP:3478’,
+    credential: ‘root’
+}
+
+" />
+    <meta property="og:description" content="How to deploy TURN server in linux?
+
+Since TURN server is essential for WEB RTC app. we need to deploy our own TURN Server.
+When we search on Google we saw
+
+https://github.com/coturn/coturn
+
+sudo apt-get install coturn
+turnserver -a -o -v -n -u user:root -p 3478 -L INT_IP -r someRealm -X EXT_IP/INT_IP  –no-dtls –no-tls
+
+command description:
+
+-X - your amazon instance’s external IP, internal IP: EXT_IP/INT_IP
+-p - port to be used, default 3478
+-a - Use long-term credentials mechanism
+-o - Run server process as daemon
+-v - ‘Moderate’ verbose mode.
+-n - no configuration file
+–no-dtls - Do not start DTLS listeners
+–no-tls - Do not start TLS listeners
+-u - user credentials to be used
+-r - default realm to be used, need for TURN REST API
+
+in your WebRTC app, you can use trun server like:
+
+{
+    url: ‘turn:user@EXT_IP:3478’,
+    credential: ‘root’
+}
+
+" />
+    
+    <meta name="author" content="" />
+
+    
+    <meta property="og:title" content="How to deploy TURN server?" />
+    <meta property="twitter:title" content="How to deploy TURN server?" />
+    
+
+    <!-- facebook Open Graph Metadatas -->
+    <meta content="your_facebook_app_id" property="fb:app_id">
+    <meta content="Your awesome title" property="og:site_name">
+    
+    <meta content="How to deploy TURN server?" property="og:title">
+    
+    
+    <meta content="article" property="og:type">
+    
+    
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." property="og:description">
+    
+    
+    <meta content="http://localhost:4000/2023/03/22/deploy-TURN-server.html" property="og:url">
+    
+    
+    <meta content="2023-03-22T00:00:00+06:30" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    <meta content="/img/logo-high-resolution.png" property="og:image">
+    
+    
+    
+    
+    
+    
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title=" - Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/"></a></h1>
+            <p class="site-description">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>How to deploy TURN server?</h1>
+
+  <div class="entry">
+    <p>How to deploy TURN server in linux?</p>
+
+<p>Since TURN server is essential for WEB RTC app. we need to deploy our own TURN Server.
+When we search on Google we saw</p>
+
+<p>https://github.com/coturn/coturn</p>
+
+<p>sudo apt-get install coturn
+turnserver -a -o -v -n -u user:root -p 3478 -L INT_IP -r someRealm -X EXT_IP/INT_IP  –no-dtls –no-tls</p>
+
+<p>command description:</p>
+
+<p>-X - your amazon instance’s external IP, internal IP: EXT_IP/INT_IP
+-p - port to be used, default 3478
+-a - Use long-term credentials mechanism
+-o - Run server process as daemon
+-v - ‘Moderate’ verbose mode.
+-n - no configuration file
+–no-dtls - Do not start DTLS listeners
+–no-tls - Do not start TLS listeners
+-u - user credentials to be used
+-r - default realm to be used, need for TURN REST API</p>
+
+<p>in your WebRTC app, you can use trun server like:</p>
+
+<p>{
+    url: ‘turn:user@EXT_IP:3478’,
+    credential: ‘root’
+}</p>
+
+
+  </div>
+
+  <div class="date">
+    Written on March 22, 2023
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+    <script>
+	window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '608464966533110',
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v9.0'
+	  });
+		
+	  FB.AppEvents.logPageView();   
+		
+	};
+  
+	(function(d, s, id){
+	   var js, fjs = d.getElementsByTagName(s)[0];
+	   if (d.getElementById(id)) {return;}
+	   js = d.createElement(s); js.id = id;
+	   js.src = "https://connect.facebook.net/en_US/sdk.js";
+	   fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+
+	 
+FB.getLoginStatus(function(response) {
+	console.log("getLoginStatus");
+	console.log(response);
+    statusChangeCallback(response);
+});
+
+function statusChangeCallback(response){
+	console.log('response is');
+	console.log(response);
+	if(response.status == "connected"){
+		console.log("user is logged in ");
+	}
+	else{
+		console.log("user need to login");
+		//FB.login();
+	}
+}
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+  </script>
+
+  
+<fb:login-button 
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
+  </body>
+</html>

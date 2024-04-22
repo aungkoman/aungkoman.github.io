@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Xpath select on Flutter webview JS –  – Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="Xpath select on Flutter webview JS
+Flutter Webview မှာ jquery လည်း မရ၊ ရိုးရိုး js က id,class selector တွေလည်း မရတော့ xpath ကို သုံးကြည့်တာ အဆင်ပြေသွားတယ်။
+" />
+    <meta property="og:description" content="Xpath select on Flutter webview JS
+Flutter Webview မှာ jquery လည်း မရ၊ ရိုးရိုး js က id,class selector တွေလည်း မရတော့ xpath ကို သုံးကြည့်တာ အဆင်ပြေသွားတယ်။
+" />
+    
+    <meta name="author" content="" />
+
+    
+    <meta property="og:title" content="Xpath select on Flutter webview JS" />
+    <meta property="twitter:title" content="Xpath select on Flutter webview JS" />
+    
+
+    <!-- facebook Open Graph Metadatas -->
+    <meta content="your_facebook_app_id" property="fb:app_id">
+    <meta content="Your awesome title" property="og:site_name">
+    
+    <meta content="Xpath select on Flutter webview JS" property="og:title">
+    
+    
+    <meta content="article" property="og:type">
+    
+    
+    <meta content="fluuter weview js evaluation" property="og:description">
+    
+    
+    <meta content="http://localhost:4000/2022/03/26/xpath-selector-on-flutter-webview.html" property="og:url">
+    
+    
+    <meta content="2022-03-26T00:00:00+06:30" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    <meta content="/img/posts/../images/fcc/kfc.jpg" property="og:image">
+    
+    
+    
+    
+    
+    
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title=" - Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/"></a></h1>
+            <p class="site-description">Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>Xpath select on Flutter webview JS</h1>
+
+  <div class="entry">
+    <h3 id="xpath-select-on-flutter-webview-js">Xpath select on Flutter webview JS</h3>
+<p>Flutter Webview မှာ jquery လည်း မရ၊ ရိုးရိုး js က id,class selector တွေလည်း မရတော့ xpath ကို သုံးကြည့်တာ အဆင်ပြေသွားတယ်။</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">function</span> <span class="nf">getElementByXpath</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">document</span><span class="p">.</span><span class="nf">evaluate</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span> <span class="nb">document</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">XPathResult</span><span class="p">.</span><span class="nx">FIRST_ORDERED_NODE_TYPE</span><span class="p">,</span> <span class="kc">null</span><span class="p">).</span><span class="nx">singleNodeValue</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">try</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">acceptCookie</span> <span class="o">=</span> <span class="nf">getElementByXpath</span><span class="p">(</span><span class="dl">'</span><span class="s1">//*[@id="onetrust-accept-btn-handler"]</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">acceptCookie</span><span class="p">.</span><span class="nf">click</span><span class="p">();</span>
+<span class="p">}</span> <span class="nf">catch </span><span class="p">(</span><span class="nx">exp</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">exp</span><span class="p">);</span> <span class="p">}</span>
+
+
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">notNowApp</span> <span class="o">=</span> <span class="nf">getElementByXpath</span><span class="p">(</span><span class="dl">'</span><span class="s1">//*[@id="__livescore"]/div[4]/div/div[2]/button</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">notNowApp</span><span class="p">.</span><span class="nf">click</span><span class="p">();</span>
+<span class="p">}</span> <span class="nf">catch </span><span class="p">(</span><span class="nx">exp</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">exp</span><span class="p">);</span> <span class="p">}</span>
+
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">footerAds</span> <span class="o">=</span> <span class="nf">getElementByXpath</span><span class="p">(</span><span class="dl">'</span><span class="s1">//*[@id="content-sticky-footer"]</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">footerAds</span><span class="p">.</span><span class="nf">remove</span><span class="p">();</span>
+<span class="p">}</span> <span class="nf">catch </span><span class="p">(</span><span class="nx">exp</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">exp</span><span class="p">);</span> <span class="p">}</span>
+
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">burgerMenu</span> <span class="o">=</span> <span class="nf">getElementByXpath</span><span class="p">(</span><span class="dl">'</span><span class="s1">//*[@id="burger-menu-open"]</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">burgerMenu</span><span class="p">.</span><span class="nf">remove</span><span class="p">();</span>
+<span class="p">}</span> <span class="nf">catch </span><span class="p">(</span><span class="nx">exp</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">exp</span><span class="p">);</span> <span class="p">}</span>
+
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">footerSection</span> <span class="o">=</span> <span class="nf">getElementByXpath</span><span class="p">(</span><span class="dl">'</span><span class="s1">//*[@id="footer-wrapper"]</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">footerSection</span><span class="p">.</span><span class="nf">remove</span><span class="p">();</span>
+<span class="p">}</span> <span class="nf">catch </span><span class="p">(</span><span class="nx">exp</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">exp</span><span class="p">);</span> <span class="p">}</span>
+
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">bottomMenu</span> <span class="o">=</span> <span class="nf">getElementByXpath</span><span class="p">(</span><span class="dl">'</span><span class="s1">//*[@id="bottom-menu"]</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">bottomMenu</span><span class="p">.</span><span class="nf">remove</span><span class="p">();</span>
+<span class="p">}</span> <span class="nf">catch </span><span class="p">(</span><span class="nx">exp</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">exp</span><span class="p">);</span> <span class="p">}</span>
+
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">topNavigation</span> <span class="o">=</span> <span class="nf">getElementByXpath</span><span class="p">(</span><span class="dl">'</span><span class="s1">//*[@id="horizontal-navigation-container"]</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">topNavigation</span><span class="p">.</span><span class="nf">remove</span><span class="p">();</span>
+<span class="p">}</span> <span class="nf">catch </span><span class="p">(</span><span class="nx">exp</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">exp</span><span class="p">);</span> <span class="p">}</span>
+
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">headingBar</span> <span class="o">=</span> <span class="nf">getElementByXpath</span><span class="p">(</span><span class="dl">'</span><span class="s1">//*[@id="top-menu-holder"]</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">headingBar</span><span class="p">.</span><span class="nf">remove</span><span class="p">();</span>
+<span class="p">}</span> <span class="nf">catch </span><span class="p">(</span><span class="nx">exp</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">exp</span><span class="p">);</span> <span class="p">}</span>
+
+</code></pre></div></div>
+
+
+  </div>
+
+  <div class="date">
+    Written on March 26, 2022
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+    <script>
+	window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '608464966533110',
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v9.0'
+	  });
+		
+	  FB.AppEvents.logPageView();   
+		
+	};
+  
+	(function(d, s, id){
+	   var js, fjs = d.getElementsByTagName(s)[0];
+	   if (d.getElementById(id)) {return;}
+	   js = d.createElement(s); js.id = id;
+	   js.src = "https://connect.facebook.net/en_US/sdk.js";
+	   fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+
+	 
+FB.getLoginStatus(function(response) {
+	console.log("getLoginStatus");
+	console.log(response);
+    statusChangeCallback(response);
+});
+
+function statusChangeCallback(response){
+	console.log('response is');
+	console.log(response);
+	if(response.status == "connected"){
+		console.log("user is logged in ");
+	}
+	else{
+		console.log("user need to login");
+		//FB.login();
+	}
+}
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+  </script>
+
+  
+<fb:login-button 
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
+  </body>
+</html>

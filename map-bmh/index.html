@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MYANMAR LINK</title>
+    <link rel="stylesheet" href="Style/mdb.min.css" />
+    <link rel="stylesheet" href="Style/leaflet.css" />
+    <link rel="stylesheet" href="Style/easybutton.css" />
+    <link rel="stylesheet" href="Style/font-awesome.min.css" />
+    <style>
+        .sidenav {
+            height: 85%;
+            width: 0;
+            position: fixed;
+            z-index: 999;
+            top: 20;
+            right: 0;
+            background-color: #1111119a;
+            overflow-x: hidden;
+            transition: 0.5s;
+        }
+
+       
+        .leaflet-control-layers-toggle {
+            background-image: url(Images/layers.png) !important;
+            background-size: 30px 30px;
+            width: 36px;
+            height: 36px;
+        }
+
+        .leaflet-container.crosshair-cursor-enabled {
+            cursor: crosshair;
+        }
+    </style>
+</head>
+
+<body style="background-color: black;">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+            <!-- Toggle button -->
+            <button class="navbar-toggler" type="button">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Navbar brand -->
+                <a class="navbar-brand mt-2 mt-lg-0" href="#">
+                    MYANMAR LINK
+                </a>
+            </div>
+            <!-- Collapsible wrapper -->
+
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+    <main id="main">
+        <!-- Modal -->
+        <div class="modal fade mt-5" id="NewUser" role="dialog" data-mdb-backdrop="static">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title center">New User</h4>
+                    </div>
+                    <div class="modal-body p-5">
+                        <div class="form-group m-1">
+                            <label for="user_name">UserName</label>
+                            <input type="text" class="form-control" id="user_name" />
+                        </div>
+                        <div class="form-group m-1">
+                            <label for="phone_number">Phone Number</label>
+                            <input type="text" class="form-control" id="phone_number" />
+                        </div>
+                        <div class="form-group m-1">
+                            <label for="lat">Latitude</label>
+                            <input type="text" class="form-control" id="lat" />
+                        </div>
+                        <div class="form-group m-1">
+                            <label for="lng">Longitude</label>
+                            <input type="text" class="form-control" id="lng" />
+                        </div>
+                        <div class="form-group m-2 text-end">
+                            <input type="button" class="btn btn-danger" value="Cancel" data-mdb-dismiss="modal" />
+                            <input type="button" class="btn btn-success" value="Add" id="new_user" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="" class="topenav">
+
+        </div>
+        <div id="User_List" class="sidenav">
+            <table id="user_table" class="table border text-white" style="font-size: 13px;margin-right: 20px;">
+                <thead class="text-center">
+                    <th>No</th>
+                    <th>UserName</th>
+                    <!--
+                    <th>Name</th>
+                    <th>PhoneNumber</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    -->
+                    <th>Options</th>
+                </thead>
+                <tbody class="text-center">
+                </tbody>
+            </table>
+        </div>
+        <div id="map"
+            style="height:85vh;margin:10px;border: 1px white solid;box-shadow: rgba(255, 255, 255, 0.24) 0px 3px 8px;">
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade mt-5" id="login" role="dialog" data-mdb-backdrop="static">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title center">Login</h4>
+                    </div>
+                    <div class="modal-body p-5">
+                        <button type="button" class="btn btn-block btn-default" onclick="signInWithGoogle()"><img
+                                src="Images/google.png" style="width: 20px;height: 20px;margin-right: 10px;" />Login
+                            with google</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+    <!-- Footer -->
+    <footer class="text-center text-lg-start bg-dark text-white">
+        <!-- Section: Social media -->
+        <section class="justify-content-center p-4 border-top border-bottom">
+
+        </section>
+        <!-- Section: Links  -->
+
+        <!-- Copyright -->
+        <!-- <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+            © 2021 Copyright:
+            <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        </div> -->
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+    <script type="text/javascript" src="Script/mdb.min.js"></script>
+    <script type="text/javascript" src="Script/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="Script/leaflet.js"></script>
+    <script type="text/javascript" src="Script/easybutton.js"></script>
+    <script type="text/javascript" src="Script/firebase-app.js"></script>
+    <script type="text/javascript" src="Script/firebase-database.js"></script>
+    <script type="text/javascript" src="Script/firebases-auth.js"></script>
+    <script>
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBFuQI4JTm04WVUPeJzIqm1eCIQzc3kF04",
+            authDomain: "my-place-1a38a.firebaseapp.com",
+            databaseURL: "https://my-place-1a38a-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "my-place-1a38a",
+            storageBucket: "my-place-1a38a.appspot.com",
+            messagingSenderId: "634843586019",
+            appId: "1:634843586019:web:a048f635da31894ae054d6",
+            measurementId: "G-F95ZSSL42T"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+
+        //userIcon
+        var userIcon = L.icon({
+            iconUrl: 'Images/usericon.png',
+            iconSize: [90, 95], // size of the icon
+            iconAnchor: [45, 65], // point of the icon which will correspond to marker's location
+            popupAnchor: [0, -30] // point from which the popup should open relative to the iconAnchor
+        });
+
+        //stationIcon
+        var stationIcon = L.icon({
+            iconUrl: 'Images/station.png',
+            iconSize: [110, 95], // size of the icon
+            // shadowSize: [50, 64], // size of the shadow
+            iconAnchor: [45, 60], // point of the icon which will correspond to marker's location
+            // shadowAnchor: [4, 62],  // the same for the shadow
+            popupAnchor: [20, -60] // point from which the popup should open relative to the iconAnchor
+        });
+
+
+        //LayerIcon
+        var stationIcon = L.icon({
+            iconUrl: 'Images/layers.png',
+            iconSize: [110, 95], // size of the icon
+            // shadowSize: [50, 64], // size of the shadow
+            iconAnchor: [45, 60], // point of the icon which will correspond to marker's location
+            // shadowAnchor: [4, 62],  // the same for the shadow
+            popupAnchor: [20, -60] // point from which the popup should open relative to the iconAnchor
+        });
+
+
+
+        let osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+
+        let osmHOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png');
+
+        let googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+            maxZoom: 13,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        });
+
+        let googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+            maxZoom: 13,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        });
+
+        let googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            maxZoom: 13,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        });
+
+        let googleTerrain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
+            maxZoom: 13,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        });
+
+
+        var mapOptions = {
+            center: [16.810539, 96.176570],
+            zoom: 13,
+            'attributionControl': false,
+            layers:[googleStreets, googleHybrid, googleSat, googleTerrain,osmHOT,osm]
+        }
+
+        var map = L.map('map', mapOptions);
+        let openstreetmap = {
+            "GoogleStreets": googleStreets,
+            "GoogleHybrid": googleHybrid,
+            "GoogleSatellite": googleSat,
+            "GoogleTerrain": googleTerrain,           
+            "OpenStreetMapHOT": osmHOT,
+            "OpenStreetMap": osm           
+        };
+
+
+
+        var layerControl = L.control.layers(openstreetmap).addTo(map);
+
+        function signInWithGoogle() {
+            var provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(provider)
+                .then(function (result) {
+                    var user = result.user;
+                    console.log("Signed in user:", user);
+                })
+                .catch(function (error) {
+                    var errorMessage = error.message;
+                    console.error(errorMessage);
+                });
+        }
+
+        function signOut() {
+            firebase.auth().signOut()
+                .then(function () {
+                    console.log("User signed out successfully.");
+                })
+                .catch(function (error) {
+                    var errorMessage = error.message;
+                    console.error(errorMessage);
+                });
+        }
+
+        var user_list = [];
+        var user_list_layer = [];
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                $('#login').modal('hide');
+                //get data from firebase
+                firebase.database().ref('users').on('value', function (snapshot) {
+                    map.removeLayer(user_list_layer);
+                    $('#user_table tbody').empty();
+                    let num = 1;
+                    snapshot.forEach(
+                        function (ChildSnapshot) {
+                            let marker = L.marker([parseFloat(ChildSnapshot.val().lat), parseFloat(ChildSnapshot.val().lng)], { icon: userIcon }).bindPopup(ChildSnapshot.val().name + '<br/>' + ChildSnapshot.val().phone);
+                            user_list.push(marker);
+                            $('#user_table tbody').append(
+                                '<tr>' +
+                                '<td>' + num + '</td>' +
+                                '<td>' + ChildSnapshot.key + '</td>' +
+                                '<td>' + ChildSnapshot.val().name + '</td>' +
+                                //'<td>' + ChildSnapshot.val().phone + '</td>' +
+                                //'<td>' + ChildSnapshot.val().lat + '</td>' +
+                                //'<td>' + ChildSnapshot.val().lng + '</td>' +
+                                '<td>' +
+                                '<span class="btn btn-info fa fa-eye" onclick=SpecialViewUser("' + $('#user_table tbody tr').length + '")></span>' +
+                                '<span class="btn btn-danger fa fa-trash" onclick=DeleteUser("' + $('#user_table tbody tr').length + '")></span>' +
+                                '</td>' +
+                                '</tr>'
+                            )
+                            num++;
+                        }
+                    )
+                    user_list_layer = L.layerGroup(user_list);
+                    map.addLayer(user_list_layer);
+                })
+
+                var UserToggle = L.easyButton({
+                    id: 'user-marker-toggle',
+                    type: 'animate',
+                    states: [{
+                        stateName: 'user-markers',
+                        icon: 'fa fa-map-marker',
+                        title: 'View Users',
+                        onClick: function (control) {
+                            map.addLayer(user_list_layer);
+                            control.state('remove-markers');
+                            map.setView([16.810539, 96.176570], 13);
+                            $("#User_List").css("width", "0");
+                        }
+                    }, {
+                        stateName: 'remove-markers',
+                        title: 'Hide Users',
+                        icon: 'fa fa-user',
+                        onClick: function (control) {
+                            map.removeLayer(user_list_layer);
+                            control.state('user-markers');
+                            map.setView([16.810539, 96.176570], 13);
+                            $("#User_List").css("width", "0");
+                        }
+                    }]
+                });
+                UserToggle.addTo(map);
+
+                var Show_User_List = L.easyButton({
+                    id: 'user-list-toggle',
+                    type: 'animate',
+                    states: [{
+                        stateName: 'show-user-list',
+                        icon: 'fa fa-users',
+                        title: 'View User List',
+                        onClick: function (control) {
+                            $("#User_List").css("width", "800px");
+                            control.state('hide-user-list');
+                        }
+                    }, {
+                        stateName: 'hide-user-list',
+                        title: 'Hide Users List',
+                        icon: 'fa fa-undo',
+                        onClick: function (control) {
+                            $("#User_List").css("width", "0");
+                            control.state('show-user-list');
+                        }
+                    }]
+                }).addTo(map);
+
+
+                var NewUser = L.easyButton({
+                    id: 'user-list-toggle',
+                    type: 'animate',
+                    states: [{
+                        stateName: 'new-user',
+                        icon: 'fa fa-user-plus',
+                        title: 'View User List',
+                        onClick: function (control) {
+                            $("#NewUser").modal('show');
+                            control.state('cancel-user');
+                        }
+                    }, {
+                        stateName: 'cancel-user',
+                        title: 'Hide Users List',
+                        icon: 'fa fa-undo',
+                        onClick: function (control) {
+                            $("#NewUser").modal('hide');
+                            control.state('new-user');
+                        }
+                    }]
+                }).addTo(map);
+
+                // L.easyButton('fa-user-plus', function () {
+                //     $("#NewUser").css("height", "800px");
+                // }).addTo(map);
+
+
+                // var NewUser = L.easyButton({
+                //     id: 'new-user-marker-toggle',
+                //     type: 'animate',
+                //     states: [{
+                //         stateName: 'new-user',
+                //         icon: 'fa fa-user-plus',
+                //         title: 'New User',
+                //         onClick: function (control) {
+                //             L.DomUtil.addClass(map._container, 'crosshair-cursor-enabled');
+                //             crosshairs_enabled = true;
+                //             control.state('finish-user');
+                //         }
+                //     }, {
+                //         stateName: 'finish-user',
+                //         title: 'Users List',
+                //         icon: 'fa fa-undo',
+                //         onClick: function (control) {
+                //             L.DomUtil.removeClass(map._container, 'crosshair-cursor-enabled');
+                //             crosshairs_enabled = false;
+                //             control.state('new-user');
+                //         }
+                //     }]
+                // }).addTo(map);
+
+                // map.on('click', function (e) {
+                //     if ($('#map').hasClass("crosshair-cursor-enabled") == true) {
+                //         L.DomUtil.removeClass(map._container, 'crosshair-cursor-enabled');
+                //         let new_marker = new L.marker(e.latlng, { icon: userIcon, draggable: true });
+                //         new_marker.addTo(map);
+                //         new_marker.clicked = 0;
+                //         new_marker.on('click', function (e) {
+                //             new_marker.clicked += 1;
+                //             if (new_marker.clicked == 1) {
+                //                 new_marker.clicked = 0;
+                //                 console.log(e.latlng);   
+                //                 new_marker.dragging.disable();
+                //             }
+
+                //         });
+                //     }
+                // });
+
+
+            } else {
+                $('#login').modal('show');
+            }
+        });
+
+        //Create New User
+        $('#new_user').on('click', function () {
+            let name = document.getElementById('user_name').value;
+            let phone = document.getElementById('phone_number').value;
+            let lat = document.getElementById('lat').value;
+            let lng = document.getElementById('lng').value;
+
+            let obj = {
+                "name": name,
+                "phone": phone,
+                "lat": lat,
+                "lng": lng,
+                "updatedate": Date()
+            }
+
+            firebase.database().ref('users/user' + user_list.length).set(obj);
+            let marker = L.marker([lat, lng], { icon: userIcon }).bindPopup(name + '<br/>' + phone);
+            user_list.push(marker);
+            user_list_layer = L.layerGroup(user_list);
+            map.addLayer(user_list_layer);
+            map.panTo([lat, lng]).setZoom(18);
+            user_list[user_list.length - 1].openPopup();
+            document.getElementById('user_name').value = "";
+            document.getElementById('phone_number').value = "";
+            document.getElementById('lat').value = "";
+            document.getElementById('lng').value = "";
+            $("#NewUser").modal('hide');
+        })
+
+        //Choose One User 
+        function SpecialViewUser(i) {
+            map.addLayer(user_list_layer).panTo(user_list[i].getLatLng()).setZoom(18);
+            user_list[i].openPopup();
+            $("#User_List").css("width", "0");
+        }
+
+        //Delete User
+        function DeleteUser(user) {
+            if (confirm("Are You Delete User ---'" + user + "'") == true) {
+                firebase.database().ref('users/' + user).remove();
+                $("#User_List").css("width", "0");
+            }
+
+        }
+
+    </script>
+</body>
+
+</html>
