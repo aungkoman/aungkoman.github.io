@@ -5,6 +5,13 @@ date:   2024-04-29 08:45:00 +0630
 categories: diary
 ---
 
+
+https://en.wikipedia.org/wiki/Arthur_(dog)
+
+https://en.wikipedia.org/wiki/Arthur_the_King
+
+
+
 Lyrics: OneRepublic - Run
 
 [Verse 1]
