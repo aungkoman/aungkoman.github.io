@@ -15,3 +15,10 @@ categories: note
 ကိုယ်မလုပ်နိုင်တာ
 သိရက်နဲ့
 ခေါင်းဆင်နင်းတဲ့ ကိန်းပါပဲ။
+
+- [x] Font ပြောင်းရန်။ default font ထားမည်။
+- [x] App Name ပြောင်းရန်။  
+- [x] App Icon ပြောင်းရန်။ 
+- [x] Minimum Android Version - 5.0 
+- [x] Block api က ဖျတ်လို့မရ ဖြစ်နေတာ။
+
