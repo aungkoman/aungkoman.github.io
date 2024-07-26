@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exchange Rates</title>
+    <style>
+      body {
+    font-family: 'Arial', sans-serif;
+    background-color: #eef2f3;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+header {
+    background-color: #4CAF50;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #3a9d42;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.date {
+    margin: 0;
+    font-size: 14px;
+}
+
+main {
+    padding: 20px;
+}
+
+.exchange-rate-card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.exchange-rate-card:hover {
+    transform: scale(1.02);
+}
+
+.currency {
+    display: flex;
+    align-items: center;
+}
+
+.currency img {
+    width: 30px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.currency p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.rate {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+footer {
+    padding: 20px;
+    text-align: center;
+    background-color: #4CAF50;
+    color: #ffffff;
+}
+
+footer a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.social-media a {
+    margin: 0 10px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.social-media a:hover {
+    text-decoration: underline;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Exchange Rates</h1>
+            <p class="date">Date: 16.6.2024</p>
+        </header>
+        <main>
+            <div class="exchange-rate-card">
+                <div class="currency">
+                    <img src="us-flag.png" alt="US Flag">
+                    <p>1 Dollar</p>
+                </div>
+                <p class="rate">4,250 MMK</p>
+            </div>
+            <div class="exchange-rate-card">
+                <div class="currency">
+                    <img src="thailand-flag.png" alt="Thailand Flag">
+                    <p>809 Bahts</p>
+                </div>
+                <p class="rate">100,000 MMK</p>
+            </div>
+            <div class="exchange-rate-card">
+                <div class="currency">
+                    <img src="malaysia-flag.png" alt="Malaysia Flag">
+                    <p>1 RM</p>
+                </div>
+                <p class="rate">9.62 MMK</p>
+            </div>
+        </main>
+        <footer>
+            <p>Banking/Payment Info: <a href="tel:+09790922069">09 790 922 069</a></p>
+            <div class="social-media">
+                <a href="#">Facebook</a>
+                <a href="#">WhatsApp</a>
+                <a href="#">Viber</a>
+            </div>
+        </footer>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>

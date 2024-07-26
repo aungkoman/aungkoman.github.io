@@ -1,0 +1,482 @@
+[
+  {
+    "id": "1",
+    "name": "Will I get engaged soon?",
+    "type": "l"
+  },
+  {
+    "id": "2",
+    "name": "Are you thinking about me?",
+    "type": "l"
+  },
+  {
+    "id": "3",
+    "name": "Why is it weird to be around someone you love so much?",
+    "type": "l"
+  },
+  {
+    "id": "4",
+    "name": "Will I have to move soon?",
+    "type": "p"
+  },
+  {
+    "id": "5",
+    "name": "Can you get the love of the one you want",
+    "type": "l"
+  },
+  {
+    "id": "6",
+    "name": "Would it be appropriate to reply to this message?",
+    "type": "l"
+  },
+  {
+    "id": "7",
+    "name": "What will happen if the appointment stays?",
+    "type": "l"
+  },
+  {
+    "id": "8",
+    "name": "Should you trust a woman you want to get acquainted with",
+    "type": "l"
+  },
+  {
+    "id": "9",
+    "name": "Is your husband young?",
+    "type": "l"
+  },
+  {
+    "id": "10",
+    "name": "Are you married?",
+    "type": "l"
+  },
+  {
+    "id": "11",
+    "name": "Will you recover?",
+    "type": "h"
+  },
+  {
+    "id": "12",
+    "name": "How does your boyfriend see you?",
+    "type": "l"
+  },
+  {
+    "id": "13",
+    "name": "Will the trip be a success?",
+    "type": "p"
+  },
+  {
+    "id": "14",
+    "name": "Should you believe what he said?",
+    "type": "l"
+  },
+  {
+    "id": "15",
+    "name": "Why did your friend not write?",
+    "type": "p"
+  },
+  {
+    "id": "16",
+    "name": "Is there anyone jealous of him or her?",
+    "type": "l"
+  },
+  {
+    "id": "17",
+    "name": "Will you get married at a young age?",
+    "type": "p"
+  },
+  {
+    "id": "18",
+    "name": "Will there be any adventures?",
+    "type": "p"
+  },
+  {
+    "id": "19",
+    "name": "Will your husband make you happy?",
+    "type": "l"
+  },
+  {
+    "id": "20",
+    "name": "() will () be true?",
+    "type": "l"
+  },
+  {
+    "id": "21",
+    "name": "Will the secret of life remain?",
+    "type": "p"
+  },
+  {
+    "id": "22",
+    "name": "Will your husband be willing?",
+    "type": "l"
+  },
+  {
+    "id": "23",
+    "name": "Will you have a baby?",
+    "type": "p"
+  },
+  {
+    "id": "24",
+    "name": "Will you always be rich?",
+    "type": "e"
+  },
+  {
+    "id": "25",
+    "name": "Is your husband a cat?",
+    "type": "l"
+  },
+  {
+    "id": "26",
+    "name": "How do people think of you?",
+    "type": "p"
+  },
+  {
+    "id": "27",
+    "name": "What is the special feature of a wife to meet?",
+    "type": "l"
+  },
+  {
+    "id": "28",
+    "name": "What does the future hold for the future?",
+    "type": "p"
+  },
+  {
+    "id": "29",
+    "name": "Would your friends like to hear the news of your engagement?",
+    "type": "p"
+  },
+  {
+    "id": "30",
+    "name": "Do you have to marry ()?",
+    "type": "l"
+  },
+  {
+    "id": "31",
+    "name": "How do you know a prospective husband?",
+    "type": "l"
+  },
+  {
+    "id": "32",
+    "name": "Should ideas be implemented?",
+    "type": "e"
+  },
+  {
+    "id": "33",
+    "name": "Will your desires be fulfilled?",
+    "type": "p"
+  },
+  {
+    "id": "34",
+    "name": "Should I be happy in love",
+    "type": "l"
+  },
+  {
+    "id": "35",
+    "name": "What can happen in the next 12 months?",
+    "type": "p"
+  },
+  {
+    "id": "36",
+    "name": "Will you marry someone who has money?",
+    "type": "e"
+  },
+  {
+    "id": "37",
+    "name": "How is your husband?",
+    "type": "l"
+  },
+  {
+    "id": "38",
+    "name": "() Why do you hate me?",
+    "type": "p"
+  },
+  {
+    "id": "39",
+    "name": "Will my husband be educated?",
+    "type": "p"
+  },
+  {
+    "id": "40",
+    "name": "Are there any competitors?",
+    "type": "e"
+  },
+  {
+    "id": "41",
+    "name": "Will you find a pound of justice?",
+    "type": "e"
+  },
+  {
+    "id": "42",
+    "name": "Are you lucky in business?",
+    "type": "e"
+  },
+  {
+    "id": "43",
+    "name": "Are there any risks in the future?",
+    "type": "p"
+  },
+  {
+    "id": "44",
+    "name": "Have you ever met a future spouse?",
+    "type": "p"
+  },
+  {
+    "id": "45",
+    "name": "Will the disagreement last?",
+    "type": "p"
+  },
+  {
+    "id": "46",
+    "name": "Would it be nice to be reconciled?",
+    "type": "p"
+  },
+  {
+    "id": "47",
+    "name": "Do you still love me as much as you did when you were engaged?",
+    "type": "l"
+  },
+  {
+    "id": "48",
+    "name": "Are you famous?",
+    "type": "p"
+  },
+  {
+    "id": "49",
+    "name": "Will I ever get to know someone who is weak?",
+    "type": "l"
+  },
+  {
+    "id": "50",
+    "name": "() Will you be back soon?",
+    "type": "p"
+  },
+  {
+    "id": "51",
+    "name": "() Do you always tell the truth?",
+    "type": "p"
+  },
+  {
+    "id": "52",
+    "name": "Will the stress you are experiencing last?",
+    "type": "p"
+  },
+  {
+    "id": "53",
+    "name": "When will I get the expected news?",
+    "type": "p"
+  },
+  {
+    "id": "54",
+    "name": "When will my interests end?",
+    "type": "l"
+  },
+  {
+    "id": "55",
+    "name": "Which of my two friends prefers you?",
+    "type": "p"
+  },
+  {
+    "id": "56",
+    "name": "When will you receive the expected gift?",
+    "type": "p"
+  },
+  {
+    "id": "57",
+    "name": "Do you have to travel a lot?",
+    "type": "e"
+  },
+  {
+    "id": "58",
+    "name": "Should I stay in the same house with ()?",
+    "type": "p"
+  },
+  {
+    "id": "59",
+    "name": "Will the situation change soon?",
+    "type": "p"
+  },
+  {
+    "id": "60",
+    "name": "What are the consequences of this concern?",
+    "type": "e"
+  },
+  {
+    "id": "61",
+    "name": "() should be excused?",
+    "type": "p"
+  },
+  {
+    "id": "62",
+    "name": "Are you going to protest?",
+    "type": "p"
+  },
+  {
+    "id": "63",
+    "name": "() Are you really sorry about what happened?",
+    "type": "p"
+  },
+  {
+    "id": "64",
+    "name": "Should I told anything to him / her ?",
+    "type": "p"
+  },
+  {
+    "id": "65",
+    "name": "Should we start reconciliation?",
+    "type": "p"
+  },
+  {
+    "id": "66",
+    "name": "Should you go against your husband's plans for the future?",
+    "type": "l"
+  },
+  {
+    "id": "67",
+    "name": "() Will it be fully explained?",
+    "type": "p"
+  },
+  {
+    "id": "68",
+    "name": "Are you sad for me",
+    "type": "l"
+  },
+  {
+    "id": "69",
+    "name": "Are you going to lose money?",
+    "type": "e"
+  },
+  {
+    "id": "70",
+    "name": "What is () thinking now ",
+    "type": "p"
+  },
+  {
+    "id": "71",
+    "name": "Is there anyone jealous?",
+    "type": "e"
+  },
+  {
+    "id": "72",
+    "name": "Can you be yourself",
+    "type": "e"
+  },
+  {
+    "id": "73",
+    "name": "Where can a village be more successful with its homeland",
+    "type": "e"
+  },
+  {
+    "id": "74",
+    "name": "Do you gossip about yourself?",
+    "type": "p"
+  },
+  {
+    "id": "75",
+    "name": "What will the world be like for you",
+    "type": "h"
+  },
+  {
+    "id": "76",
+    "name": "Will my favorite job succeed?",
+    "type": "e"
+  },
+  {
+    "id": "77",
+    "name": "What is the status of the missing item",
+    "type": "e"
+  },
+  {
+    "id": "78",
+    "name": "Will life be peaceful?",
+    "type": "p"
+  },
+  {
+    "id": "79",
+    "name": "Should I settle in the forest or in the city?",
+    "type": "e"
+  },
+  {
+    "id": "80",
+    "name": "Is fear always justified?",
+    "type": "e"
+  },
+  {
+    "id": "81",
+    "name": "What to look out for if you were born in April",
+    "type": "e"
+  },
+  {
+    "id": "82",
+    "name": "Can I find the truth about ()?",
+    "type": "e"
+  },
+  {
+    "id": "83",
+    "name": "Is it true that () is in doubt?",
+    "type": "e"
+  },
+  {
+    "id": "84",
+    "name": "What will my husband do for a living?",
+    "type": "l"
+  },
+  {
+    "id": "85",
+    "name": "What is the best way to give birth in February?",
+    "type": "p"
+  },
+  {
+    "id": "86",
+    "name": "If you were born in seven months, what are the unique features that will shape your future",
+    "type": "p"
+  },
+  {
+    "id": "87",
+    "name": "If you were born in March, what should you do to succeed?",
+    "type": "p"
+  },
+  {
+    "id": "88",
+    "name": "If you were born at eight months, where would you be lucky",
+    "type": "p"
+  },
+  {
+    "id": "89",
+    "name": "How are you?",
+    "type": "p"
+  },
+  {
+    "id": "90",
+    "name": "How to succeed in the future",
+    "type": "e"
+  },
+  {
+    "id": "91",
+    "name": "Do you have any enemies?",
+    "type": "e"
+  },
+  {
+    "id": "92",
+    "name": "How do you know you are the enemy",
+    "type": "e"
+  },
+  {
+    "id": "93",
+    "name": "Do you own a house",
+    "type": "e"
+  },
+  {
+    "id": "94",
+    "name": "Will it be your favorite home",
+    "type": "e"
+  },
+  {
+    "id": "95",
+    "name": "Can you escape the overwhelming grief?",
+    "type": "e"
+  },
+  {
+    "id": "96",
+    "name": "Will the financial situation improve?",
+    "type": "e"
+  }
+]
