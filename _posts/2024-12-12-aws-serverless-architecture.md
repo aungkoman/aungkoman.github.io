@@ -288,3 +288,12 @@ Lambda Proxy : True လို့ ခေါ်ကြတယ်။
 }
 ```
 
+
+ဘယ်ဟာကို ဘယ် key နဲ့ ဘယ်လို ပုံစံ pass သွားတယ်ဆိုတာ သိရရင် အဆင်ပြေပြီ
+
+  body['event_routeKey'] = event.routeKey;
+  body['event_pathParameters'] = event.pathParameters;
+  body['event_body'] = event.body;
+
+  
+
