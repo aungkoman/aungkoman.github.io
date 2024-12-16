@@ -173,3 +173,118 @@ https://gcpvfn8vig.execute-api.ap-southeast-1.amazonaws.com/production/tasks?gre
 
 https://r275xc9bmd.execute-api.us-east-1.amazonaws.com/test/helloworld?greeter=John
 
+
+API Gateway က ကြားခံ ဘာတစ်ခုမှ မလုပ်ပဲ http request object တစ်ခုလုံးကို labmda ဘက်ကို pass လုပ်ပေးလိုက်တဲ့အခါ
+
+Lambda Proxy : True လို့ ခေါ်ကြတယ်။
+
+ဒါမျိုး ရလာမယ်။
+
+
+```json
+{
+    "event_pathParameters": null,
+    "event_body": "----------------------------995844642570680575084089\r\nContent-Disposition: form-data; name=\"form\"\r\n\r\nkey\r\n----------------------------995844642570680575084089--\r\n",
+    "event": {
+        "resource": "/tasks",
+        "path": "/tasks",
+        "httpMethod": "POST",
+        "headers": {
+            "Accept": "*/*",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Cache-Control": "no-cache",
+            "Content-Type": "multipart/form-data; boundary=--------------------------995844642570680575084089",
+            "Host": "gcpvfn8vig.execute-api.ap-southeast-1.amazonaws.com",
+            "Postman-Token": "dd19765b-8562-4763-8de2-ad24d7979311",
+            "User-Agent": "PostmanRuntime/7.43.0",
+            "X-Amzn-Trace-Id": "Root=1-675fc670-633fbf2066055c6267a50c49",
+            "X-Forwarded-For": "203.81.84.12",
+            "X-Forwarded-Port": "443",
+            "X-Forwarded-Proto": "https"
+        },
+        "multiValueHeaders": {
+            "Accept": [
+                "*/*"
+            ],
+            "Accept-Encoding": [
+                "gzip, deflate, br"
+            ],
+            "Cache-Control": [
+                "no-cache"
+            ],
+            "Content-Type": [
+                "multipart/form-data; boundary=--------------------------995844642570680575084089"
+            ],
+            "Host": [
+                "gcpvfn8vig.execute-api.ap-southeast-1.amazonaws.com"
+            ],
+            "Postman-Token": [
+                "dd19765b-8562-4763-8de2-ad24d7979311"
+            ],
+            "User-Agent": [
+                "PostmanRuntime/7.43.0"
+            ],
+            "X-Amzn-Trace-Id": [
+                "Root=1-675fc670-633fbf2066055c6267a50c49"
+            ],
+            "X-Forwarded-For": [
+                "203.81.84.12"
+            ],
+            "X-Forwarded-Port": [
+                "443"
+            ],
+            "X-Forwarded-Proto": [
+                "https"
+            ]
+        },
+        "queryStringParameters": {
+            "get_p": "one",
+            "set_d": "two"
+        },
+        "multiValueQueryStringParameters": {
+            "get_p": [
+                "one"
+            ],
+            "set_d": [
+                "two"
+            ]
+        },
+        "pathParameters": null,
+        "stageVariables": null,
+        "requestContext": {
+            "resourceId": "7au61k",
+            "resourcePath": "/tasks",
+            "httpMethod": "POST",
+            "extendedRequestId": "C3vxrHRryQ0EVxQ=",
+            "requestTime": "16/Dec/2024:06:19:28 +0000",
+            "path": "/production/tasks",
+            "accountId": "194722404241",
+            "protocol": "HTTP/1.1",
+            "stage": "production",
+            "domainPrefix": "gcpvfn8vig",
+            "requestTimeEpoch": 1734329968784,
+            "requestId": "c0408af7-702a-42b2-ad83-db79f2f1d9d5",
+            "identity": {
+                "cognitoIdentityPoolId": null,
+                "accountId": null,
+                "cognitoIdentityId": null,
+                "caller": null,
+                "sourceIp": "203.81.84.12",
+                "principalOrgId": null,
+                "accessKey": null,
+                "cognitoAuthenticationType": null,
+                "cognitoAuthenticationProvider": null,
+                "userArn": null,
+                "userAgent": "PostmanRuntime/7.43.0",
+                "user": null
+            },
+            "domainName": "gcpvfn8vig.execute-api.ap-southeast-1.amazonaws.com",
+            "deploymentId": "w3mhsu",
+            "apiId": "gcpvfn8vig"
+        },
+        "body": "----------------------------995844642570680575084089\r\nContent-Disposition: form-data; name=\"form\"\r\n\r\nkey\r\n----------------------------995844642570680575084089--\r\n",
+        "isBase64Encoded": false
+    }
+}
+```
+
