@@ -26,6 +26,7 @@ Create new folder.
 
 ```bash
 composer create-project laravel/laravel example-app
+composer create-project laravel/laravel .
 
 php artisan serve
 
@@ -35,8 +36,13 @@ git remote add origin https://github.com/mmsoftware100/drtoken-backend.git
 
 
 php artisan make:model Todo -mcs
-php artisan make:model Role -mcs
+php artisan make:model Role -ms
 php artisan make:seeder UserSeeder
+
+composer require laravel/passport
+
+
+
 
 ```
 
