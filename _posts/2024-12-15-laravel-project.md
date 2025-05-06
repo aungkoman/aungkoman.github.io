@@ -41,8 +41,18 @@ php artisan make:seeder UserSeeder
 
 composer require laravel/passport
 
+composer require filament/filament:"^3.2" -W
+
+php artisan filament:install --panels
+
+php artisan make:filament-resource Customer
+
+php artisan make:filament-resource Customer --generate
+
+php artisan make:filament-resource Customer --view
 
 
+https://filamentphp.com/docs/3.x/panels/resources/getting-started
 
 ```
 
