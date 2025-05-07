@@ -216,6 +216,11 @@ Route::get('/fun-fact', function () {
 
 နောက် တစ်ပိုင်းမှာ Controller ဆိုတဲ့ concept အကြောင်း ဆက်လက်ဆွေးနွေးကြပါမယ်။
 
+အပိုင်း (၃) အတွက် ကုတ်အပြည့်အစုံကို အောက်က repo မှာ ကြည့်နိုင်ပါတယ်။
+
+https://github.com/mmsoftware100/laravel-hello-world/tree/part-3
+
+
 Exercises အနေနဲ့ ကိုယ့်ရဲ့ ကိုယ်ရေးအကျဉ်း ကို ပြပေးတဲ့ laravel project လေး တစ်ခု ရေးကြည့်ပါ။
 
 - laravel project တစ်ခု create လုပ်မယ်။

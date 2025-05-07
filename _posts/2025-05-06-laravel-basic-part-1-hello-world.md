@@ -79,6 +79,12 @@ app/resources/welcome.blade.php ဖိုင်ကို ဖွင့်ပြ�
 Congratulations!
 Hello World ပရိုဂရမ်ကို Laravel နဲ့ ေရးနိုင်ခဲ့တဲ့အတွက် ဂုဏ်ယူပါတယ်ဗျား။
 
+
+အပိုင်း (၁) အတွက် ကုတ်အပြည့်အစုံကို အောက်က repo မှာ ကြည့်နိုင်ပါတယ်။
+
+https://github.com/mmsoftware100/laravel-hello-world/tree/part-1-hello-world
+
+
 အပေါ်က အဆင့်တွေကို လိုက်လုပ်ရာမှာ အခက်အခဲရှိရင် ေအာက်ပါ  Communication Channel တွေ ကတဆင့် ဆက်သွယ်မေးမြန်းနိုင်ပါတယ်။
 
 Facebook Group
