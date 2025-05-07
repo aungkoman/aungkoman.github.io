@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Laravel Basic - အပိုင်း (၁)"
+title: "Laravel Basic - အပိုင်း (၁) Hello World"
 date: 2025-05-06
 categories: productivity programming
 ---
@@ -37,6 +37,9 @@ cd D:/Code/hello-world
 composer create-project laravel/laravel .
 # လက်ရှိ directory ထဲမှာပဲ laravel project တစ်ခု တည်ဆောက်ခိုင်းလိုက်တာပါ။
 
+
+
+
 # ဒါဆိုရင် laravel project တစ်ခုမှာ ပါတဲ့ ကုတ်တွေ အကုန်လုံး အဆင်သင့်ဖြစ်ပါပြီ။
 
 # project ကို run ကြည့်ဖို့အတွက်
@@ -45,6 +48,15 @@ php artisan serve
 # ဒီလိုပေါ်လာရင် Browser (Chrome ) မှာ http://localhost:8000 လို့ ရိုက်ထည့်ကြည့်ပါ။
 # Laravel Webpage ကို မြင်တွေ့ ရမှာ ဖြစ်ပါတယ်
 ```
+
+Tips : composer create-project laravel/laravel . လို့ run တဲ့အချိန် 
+
+```bash
+A connection timeout was encountered. If you intend to run Composer without connecting to the internet, run the command again prefixed with COMPOSER_DISABLE_NETWORK=1 to make Composer run in offline mode.
+https://repo.packagist.org could not be fully loaded (curl error 28 while downloading https://repo.packagist.org/packages.json: Resolving timed out after 10004 milliseconds), package information was loaded from the local cache and may be out of date
+
+```
+ဒီလို Error Message ပေါ်လာရင် VPN ဖွင့်ပါ၊ ဒါမှ မဟုတ် VPN ပြောင်းပြီး ပြန် run ကြည့်ပါ။
 
 ဒါဆိုရင်တော့ "Hello World" ကို Laravel နဲ့ ေရးသားပြီးပြီလို့ မှတ်ယူနိုင်ပါပြီ။
 တကယ် Hello World လို့ မြင်ချင်ရင်တော့ 
