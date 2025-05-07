@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "Laravel Basic - အပိုင်း (၃) Views"
+title: "Laravel Basic - အပိုင်း (၂) Routing"
 date: 2025-05-07
 categories: productivity programming
 ---
-Views in Laravel
+Routing and Views in Laravel
 
 Laravel Project တစ်ခုမှာ ကုတ်ဖိုင်တွေ ရာနဲ့ချီရှိပြီး စစချင်း ကြည့်လိုက်ရင် စိတ်ဖိစီးသွားနိုင်ပါတယ်။
 
