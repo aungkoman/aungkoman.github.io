@@ -10,7 +10,7 @@ Laravel Project တစ်ခုမှာ ကုတ်ဖိုင်တွေ �
 
 Hey, relax.
 
-အေးဆေး စိတ်အေးအေးထားပါ။ အခု တစ်ခေါက် ကြည့်ရမယ့် ဖိုင် နဲ့ directory က နှစ်ခုပဲ ရှိပါတယ်။
+အေးဆေး စိတ်အေးအေးထားပါ။ အခု တစ်ခေါက် ကြည့်ရမယ့် ဖိုင် က တစ်ခုပဲ ရှိပါတယ်။
 
 pre requested : အပိုင်း (၁) က အဆက်ဖြစ်တဲ့အတွက် php artisan serve လုပ်ပြီးသား အနေအထား ဖြစ်နေမယ်လို့ ယူဆပါမယ်။
 
@@ -57,7 +57,6 @@ laravel project ရဲ့ ``` routes\web.php``` ဖိုင် ထဲက line n
 ```php
 Route::get('/', function () {
 ```
-
 Route::get() ဆိုတာ function call တစ်ခု ဖြစ်ပါတယ်။
 
 စကားမစပ် အခုလိုက်ဖတ်နေရင်းနဲ့ ကိုယ်နဲ့ စိမ်းတဲ့ အခေါ်အဝေါ်တွေ မြင်ရတဲ့အခါ စိတ်ညစ်မသွားပါနဲ့ဉီး ကိုယ်မသိတဲ့ စကားလုံးတွေကို မှတ်စုစာအုပ်ထဲမှာ ချရေးထားလိုက်ပါ။ ပြီးမှ Google မှာ ရှာ / ဆရာ တစ်ယောက်ကို ချဉ်းကပ်ပြီး ပြန်လည်မေးမြန်း ဆွေးနွေးပါ။ ဉပမာ အခု ဆိုရင် function , function call ဆိုတာ ဘာလဲ မသိရင် ခန ချမှတ်ထားလိုက်ပါ။
@@ -127,25 +126,6 @@ broswer မှာ ရိုက်ထည့်ပေးလိုက်တဲ့ r
 
 
 
-
-### Bouns:
-http://localhost:8000/ 
-http://127.0.0.1:8000/ 
-
-ဘာကွာလဲ?
-
-php artisan serve လို့ run တဲ့အခါ 
-
-```bash
-   INFO  Server running on [http://127.0.0.1:8000].
-```
-
-လို့ မြင်ရပါလိမ့်မယ်။ 
-
-ဒါပေမယ့် Broswer မှာ ရိုက်ထည့်တဲ့အခါ http://locahost:8000 လို့ ရိုက်ထည့်တာလဲ?
-
-
-
 --------
 
 အပေါ်က အဆင့်တွေကို လိုက်လုပ်ရာမှာ အခက်အခဲရှိရင် ေအာက်ပါ  Communication Channel တွေ ကတဆင့် ဆက်သွယ်မေးမြန်းနိုင်ပါတယ်။
@@ -156,9 +136,14 @@ https://www.facebook.com/groups/587868458743965/
 Facebook Page
 https://www.facebook.com/mmsoftware100
 
+Medium 
+https://aungkoman.medium.com
+
 Email 
 info@software100.com.mm
 
 Website
 https://software100.com.mm
+
+
 
