@@ -4,6 +4,11 @@ title: "Docker Basic"
 date: 2025-05-08
 categories: productivity programming
 ---
+
+##  Ref
+https://www.freecodecamp.org/news/the-docker-handbook/
+
+
 ## Install docker desktop
 
 - install from official website
@@ -70,6 +75,79 @@ docker container rm e7a3d7e140c5
 
 # remove when stoped
 docker container run --rm --detach --publish 8888:80 --name hello-dock-volatile fhsinchy/hello-dock
+
+
+# interactive mode
+docker container run ubuntu -it
+docker container run --rm -it ubuntu
+docker container run -it ubuntu
+docker container run -it node
+docker container run -it node --interactive --tty
+docker run alpine uname -a
+
+# run command
+docker container run <image name> <command>
+
+
+# mounting
+docker container run --rm -v $(pwd):/zone fhsinchy/rmbyext pdf
+
+--volume <local file system directory absolute path>:<container file system directory absolute path>:<read write access>
+
+
+docker container run --rm --detach --name default-nginx --publish 8080:80 nginx
+
+
+# create image
+docker image <command> <options>
+docker image build .
+
+# run created image
+docker container run --rm --detach --name custom-nginx-packaged --publish 8080:80 3199372aa3fc
+docker container run  --detach --name custom-nginx-packaged --publish 8080:80 92d4ee56c62c
+
+
+<none>                     <none>    92d4ee56c62c   5 minutes ago   110MB
+
+# tag image
+docker tag 92d4ee56c62c hello-world:latest
+
+
+# build 
+docker build -t hello-nginx .
+
+#Dockerfile 
+FROM ubuntu:latest
+
+EXPOSE 80
+
+RUN apt-get update && \
+    apt-get install nginx -y && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+CMD ["nginx", "-g", "daemon off;"]
+
+# Build Image
+docker build -t hello-nginx .
+# Run Image
+docker run -p 8080:80 hello-nginx
+
+
+# Tag
+--tag <image repository>:<image tag>
+
+
+docker image build --tag custom-nginx:packaged .
+
+
+# List Images
+docker image ls
+# delete images
+docker image prune --force
+# get image history
+docker image history custom-nginx:packaged
+
+docker image build --tag custom-nginx:built .
 
 ```
 
@@ -141,4 +219,52 @@ msd@MSDs-Mac-mini-3 ~ % docker container create --publish 8080:80 fhsinchy/hello
 WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
 e7a3d7e140c524a51d0c2eaa5091aaf507fcc879da8ff65df5bccf3fb0b1251a
 msd@MSDs-Mac-mini-3 ~ % 
+```
+
+## Create Image
+
+```bash
+msd@MSDs-Mac-mini-3 hello-world % ls
+Dockerfile
+msd@MSDs-Mac-mini-3 hello-world % docker image build .
+[+] Building 9.3s (4/5)                                                                                                                               docker:desktop-linux
+ => [internal] load build definition from Dockerfile                                                                                                                  0.0s
+ => => transferring dockerfile: 213B                                                                                                                                  0.0s
+ => WARN: JSONArgsRecommended: JSON arguments recommended for CMD to prevent unintended behavior related to OS signals (line 9)                                       0.0s
+ => [internal] load metadata for docker.io/library/ubuntu:latest                                                                                                      0.0s
+ => [internal] load .dockerignore                                                                                                                                     0.0s
+ => => transferring context: 2B                                                                                                                                       0.0s
+ => [1/2] FROM docker.io/library/ubuntu:latest                                                                                                                        0.0s
+ => [2/2] RUN apt-get update &&     apt-get install nginx -y &&     apt-get clean && rm -rf /var/lib/apt/lists/*                                                      9.3s
+ => => # Get:2 http://ports.ubuntu.com/ubuntu-ports noble-updates InRelease [126 kB]                                                                                      
+ => => # Get:3 http://ports.ubuntu.com/ubuntu-ports noble-backports InRelease [126 kB]                                                                                    
+ => => # Get:4 http://ports.ubuntu.com/ubuntu-ports noble-security InRelease [126 kB]                                                                                     
+ => => # Get:5 http://ports.ubuntu.com/ubuntu-ports noble/multiverse arm64 Packages [274 kB]                                                                              
+ => => # Get:6 http://ports.ubuntu.com/ubuntu-ports noble/main arm64 Packages [1776 kB]                                                                                   
+ => => # Get:7 http://ports.ubuntu.com/ubuntu-ports noble/universe arm64 Packages [19.0 MB]         
+ ```
+
+## Result on creating image
+
+```bash
+msd@MSDs-Mac-mini-3 hello-world % docker image build .
+[+] Building 22.6s (6/6) FINISHED                                                                                                                     docker:desktop-linux
+ => [internal] load build definition from Dockerfile                                                                                                                  0.0s
+ => => transferring dockerfile: 213B                                                                                                                                  0.0s
+ => WARN: JSONArgsRecommended: JSON arguments recommended for CMD to prevent unintended behavior related to OS signals (line 9)                                       0.0s
+ => [internal] load metadata for docker.io/library/ubuntu:latest                                                                                                      0.0s
+ => [internal] load .dockerignore                                                                                                                                     0.0s
+ => => transferring context: 2B                                                                                                                                       0.0s
+ => [1/2] FROM docker.io/library/ubuntu:latest                                                                                                                        0.0s
+ => [2/2] RUN apt-get update &&     apt-get install nginx -y &&     apt-get clean && rm -rf /var/lib/apt/lists/*                                                     22.5s
+ => exporting to image                                                                                                                                                0.0s 
+ => => exporting layers                                                                                                                                               0.0s 
+ => => writing image sha256:92d4ee56c62c848f890433bbeba5509d85a4ba08d0e67c91b52f58702936b669                                                                          0.0s 
+                                                                                                                                                                           
+ 1 warning found (use docker --debug to expand):                                                                                                                           
+ - JSONArgsRecommended: JSON arguments recommended for CMD to prevent unintended behavior related to OS signals (line 9)                                                   
+
+What's next:
+    View a summary of image vulnerabilities and recommendations → docker scout quickview 
+msd@MSDs-Mac-mini-3 hello-world % 
 ```
