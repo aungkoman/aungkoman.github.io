@@ -7,14 +7,11 @@ categories: productivity programming
 Controller in Laravel
 
 ဒီတစ်ပိုင်းမှာတော့ Controller အကြောင်း ဆွေးနွေးကြပါမယ်။
-Controller ဆိုတာကတော့ ကိုယ့်ပရောဂျက်နဲ့ တကယ့် Business Logic တွေ ချရေးတဲ့ နေရာလို့ အကြမ်းဖျဉ်း မှတ်ထားနိုင်ပါတယ်။ 
+Controller ဆိုတာကတော့ ကိုယ့်ပရောဂျက်ရဲ့  Business Logic တွေ ချရေးတဲ့ နေရာလို့ အကြမ်းဖျဉ်း မှတ်ထားနိုင်ပါတယ်။ 
 
-Business Logic ဆိုတာ ဘယ် route တွေ လာရင် ဘယ် UI ပြန်ပေးမယ် စသည်ဖြင့်ပေါ့။
+Business Logic ဆိုတာ ဘယ် route တွေ လာရင် ဘယ် UI ပြန်ပေးမယ် စသည်ဖြင့်ပေါ့ အသေးစိတ်တွက်ချက်‌ပေးတဲ့နေရာကို ဆိုလိုတာပါ။
 
 အရင်က ကျွန်တော်တို့ web.php ဆိုတဲ့ Routing File မှာ အဲ့ logic တွေကို ချရေးခဲ့ပါတယ်။
-အခုတော့ Controller နဲ့ ပြန်ပြောင်းရေးကြည့်ပါမယ်။
-
-
 လက်ရှိ web.php က ဒီလို ရှိပါတယ်။
 
 ```php
@@ -40,7 +37,8 @@ Route::get('/fun-fact', function () {
 
 ```
 
-Controller တစ်ခု ပရောဂျက်ထဲကို စထည့်မယ် ဆိုရင် 
+အခုတော့ Controller နဲ့ ပြန်ပြောင်းရေးကြည့်ပါမယ်။
+Controller တစ်ခု ပရောဂျက်ထဲကို ထည့်ဖို့အတွက် အောက်က command ကို ရိုက်ထည့်ပါမယ်။
 
 ```bash
 php artisan make:controller OurController
@@ -54,258 +52,111 @@ FirstController
 
 ဒီ command ရိုက်ထည့်လိုက်ပြီ ဆိုရင် 
 
-
-
 ```bash
-routes\web.php
+app\Http\Controllers\OurController.php
 ```
-ဖိုင်ကို ပြန်ကြည့်မယ် ဆိုရင် 
+
+ဆိုပြီး ဖိုင် တစ်ခု ပေါ်လာပါလိမ့်မယ်။
+
+```php
+
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class OurController extends Controller
+{
+    //
+}
+
+```
+
+ထုံးစံအတိုင်း hello world အတွက် စရေးကြပါမယ်။ web.php က ကုတ်အတိုင်းပါပဲ။
 
 ```php
 <?php
 
-use Illuminate\Support\Facades\Route;
+namespace App\Http\Controllers;
 
-Route::get('/', function () {
-    // return view('welcome');
-    return "<h2>Hello, We're at get / route </h2>";
-});
+use Illuminate\Http\Request;
 
-Route::get('/greeting', function () {
-    return "<h2>Good Morning</h2>";
-});
-
-Route::get('/bye', function () {
-    return "<h2>See you</h2>";
-});
-
-Route::get('/fun-fact', function () {
-    return "<h2>Coding has over 700 languages.</h2>";
-});
-
+class OurController extends Controller
+{
+    public function helloWorld()
+    {
+        return view('hello');
+    }
+}
 
 ```
 
-UI မှန်သမျှကို Html တစ်ကြောင်းတည်းနဲ့ ပြပေးတာကို တွေ့ရပါလိမ့်မယ်။
-အခုအပိုင်းမှာတော့ UI ကို html တစ်ကြောင်းနဲ့ မဟုတ်ပဲ ဖိုင် အပြည့်အစုံနဲ့ ဘယ်လို ပြန်ကြလဲ ဆိုတာကို ဆက်လက် ဆွေးနွေးသွားပါမယ်။
-
-ကျွန်တော်တို့ ပြချင်တဲ့ HTML Code က ဒီလိုပါ။
-
-```html
-<!DOCTYPE html>
-        <html>
-        <head>
-            <title>My First HTML Page</title>
-        </head>
-        <body>
-            <h1>Hello, World!</h1>
-            <p>This is a basic HTML file returned from a Laravel route.</p>
-        </body>
-        </html>
-```
-
-ဒါကို web.php မှာ အခုလို ပြင်ရေးပေးနိုင်ပါတယ်။
+ဒီမှာ helloWorld ဆိုတဲ့ method တစ်ခု ထည့်လိုက်တာပါပဲ။ ဒီ method ကို web.php က ဒီလို ခေါ်ပါမယ်။
 
 ```php
-
-Route::get('/', function () {
-    // return view('welcome');
-    // return "<h2>Hello, We're at get / route </h2>";
-    $html = <<<HTML
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>My First HTML Page</title>
-        </head>
-        <body>
-            <h1>Hello, World!</h1>
-            <p>This is a basic HTML file returned from a Laravel route.</p>
-        </body>
-        </html>
-        HTML;
-    return $html;
-});
+Route::get('/', [OurController::class, 'helloWorld']);
+// Route::get('/', function () {
+//     return view('hello');
+// });
 ```
 
-အခုချိန် http://localhost:8000 ကို refresh လုပ်ကြည့်ရင် 
+အရင်က Route::get method ကို ခေါ်တဲ့အချိန် function အစား ဘယ် Controller က ဘယ် Method ကို ခေါ်ပါလို့ ပြောင်းရေးလိုက်တာပါပဲ။ ရလဒ်ကတော့ အတူတူပါပဲ။ 
 
-```bash
-Hello, World!
-This is a basic HTML file returned from a Laravel route.
-```
+localhost:8000 ကို ခေါ်ရင် အရင်အတိုင်းပဲ မြင်ရမှာ ဖြစ်ပါတယ်။
 
-ဒီလို မြင်ရပါမယ်။
-
-ဒါပေမယ့် အခုလို Html Code နဲ့ PHP Code တွေ ရောပြီး ရေးရတာက သိပ်ပြီး သက်တောင့်သက်သာ မရှိလှပါဘူး။ ဒီတော့ HTML Code တွေကို သီးခြား ဖိုင်တစ်ခုမှာ ခွဲပြီးရေးကြပါမယ်။
-
-Laravel မှာတော့ ဒီလို UI နဲ့ ပက်သက်ပြီး ခွဲထားမယ့် ဖိုင်တွေကို 
-```bash
-resources/views/ 
-```
-ဆိုတဲ့ Directory အောက်မှာ ထားကြပါတယ်။
-
-ဒီတော့ resources/views directory အောက်မှာ html file တစ်ခု ဆောက်ကြပါမယ်။
-html file name ကို ကိုယ်ကြိုက်တာ ပေးလို့ရပေမယ့် extension ကိုတော့ .blade.php လို့ ပေးရပါတယ်။
-ဉပမာ ကျွန်တော်တို့ အပေါ်က HTML Code တွေကို hello.blade.php လို့ နာမည်ပေးပြီး ဖိုင်တစ်ခု ဆောက်လိုက်ပါမယ်။
-
-```bash
-resources/views/hello.blade.php
-```
-
-
-```html
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>My First HTML Page</title>
-    </head>
-    <body>
-        <h1>Hello, World!</h1>
-        <p>This is a basic HTML file returned from a Laravel route.</p>
-    </body>
-</html>
-```
-
-ဒီဖိုင်ကို ခေါ်ပြဖို့အတွက် web.php မှာ ဒီလို ပြင်လိုက်ပါမယ်။
-
-```php
-Route::get('/', function () {
-    // return view('welcome');
-    // return "<h2>Hello, We're at get / route </h2>";
-    // $html = <<<HTML
-    //     <!DOCTYPE html>
-    //     <html lang="en">
-    //     <head>
-    //         <meta charset="UTF-8">
-    //         <meta name="viewport" content="width=device-width, initial-scale=1">
-    //         <title>My First HTML Page</title>
-    //     </head>
-    //     <body>
-    //         <h1>Hello, World!</h1>
-    //         <p>This is a basic HTML file returned from a Laravel route.</p>
-    //     </body>
-    //     </html>
-    //     HTML;
-    // return $html;
-    return view('hello');
-});
-```
-
-ဒီမှာဆိုရင် 
-```php
-return view('hello');
-```
-
-ဆိုတဲ့ တစ်ကြောင်းရေးလိုက်တာနဲ့ စောနက HTML File ကို ယူပြပေးမှာပဲ ဖြစ်ပါတယ်။
-ဒီလို view function ကို ခေါ်သုံးတဲ့အခါမှာ file name ကိုပဲ ပေးလိုက်ရင် ရပါပြီ
-view('hello.blade.php') ဆိုပြီး ဖိုင်အပြည့်အစုံကို ထည့်ပေးစရာ မလိုပါဘူး။
-
-နောက်ပိုင်းမှာတော့ HTML File လို့ မသုံးတော့ပဲ Blade Template File လို့ ဆက်လက် ခေါ်ဆို အသုံးပြုသွားပါမယ်။
-
-လက်ရှိ web.php ရဲ့ အခြေအနေက အောက်ပါအတိုင်းဖြစ်နေပါမယ်။
+web.php မှာ ရေးထားတဲံ တစ်ခြား function တွေ အကုန်လုံးကိုလည်း controller ဘက်ကို အခုလိုမျိုး ရွေ့နိုင်ပါတယ်။
 
 ```php
 <?php
 
-use Illuminate\Support\Facades\Route;
+namespace App\Http\Controllers;
 
-Route::get('/', function () {
-    // return view('welcome');
-    // return "<h2>Hello, We're at get / route </h2>";
-    // $html = <<<HTML
-    //     <!DOCTYPE html>
-    //     <html lang="en">
-    //     <head>
-    //         <meta charset="UTF-8">
-    //         <meta name="viewport" content="width=device-width, initial-scale=1">
-    //         <title>My First HTML Page</title>
-    //     </head>
-    //     <body>
-    //         <h1>Hello, World!</h1>
-    //         <p>This is a basic HTML file returned from a Laravel route.</p>
-    //     </body>
-    //     </html>
-    //     HTML;
-    // return $html;
-    return view('hello');
-});
+use Illuminate\Http\Request;
 
-Route::get('/greeting', function () {
-    return "<h2>Good Morning</h2>";
-});
-
-Route::get('/bye', function () {
-    return "<h2>See you</h2>";
-});
-
-Route::get('/fun-fact', function () {
-    return "<h2>Coding has over 700 languages.</h2>";
-});
-
+class OurController extends Controller
+{
+    public function helloWorld()
+    {
+        return view('hello');
+    }
+    public function greeting()
+    {
+       return "<h2>Good Morning</h2>";
+    }
+    public function bye()
+    {
+       return "<h2>See you</h2>";
+    }
+    public function funFact()
+    {
+       return "<h2>Coding has over 700 languages.</h2>";
+    }
+}
 ```
 
-ဒါဆို ကျန်တဲ့ routing တွေကိုလည်း သက်ဆိုင်ရာ Blade Template File တွေ ရေးပြီး ချိတ်ဆက် အသုံးပြုကြည့်ကြပါ။
+Controller ဘက်ကို ပြောင်းရေးထားတဲ့ method တွေကို web ဘက်က ဒီလို ပြန်ခေါ်နိုင်ပါတယ်။
 
-အဓိက မှတ်ဖို့က 
-- UI / Template File တွေကို resources/views ဆိုတဲ့ Directory ထဲမှာ သိမ်းရတယ်။ 
-- သိမ်းတဲ့အခါ .blade.php ဆိုတဲ့ Extension နဲ့ သိမ်းရပြီး 
-- ပြန်ခေါ်သုံးချင်ရင် web.php မှာ view() function နဲ့ ခေါ်သုံးနိုင်မယ် 
-- view() function ခေါ်တဲ့အခါ ဖိုင် နာမည်လေးပဲ ထည့်ပေးဖို့ လိုပြီး extension အပြည့်အစုံထည့်စရာမလို။ hello.blade.php ကို ပြချင်ရင် view('hello') လို့ ရေးရုံပဲ။
-စတဲ့ concept ကို သိရင် ရပါပြီ။
+```php
+<?php
 
-အခု အပိုင်း (၃) ထိ ရောက်တဲ့အခါ
-
-- Laravel Project တစ်ခု Create လုပ်နိုင်မယ်။
-- Routing တွေ စိတ်ကြိုက် ထည့်နိုင် run နိင်မယ်။
-- View ( HTML / Temaplte ) file တွေ နဲ့ UI စပြီး ပြနိုင်လာမယ်။
-
-နောက် တစ်ပိုင်းမှာ Controller ဆိုတဲ့ concept အကြောင်း ဆက်လက်ဆွေးနွေးကြပါမယ်။
-
-အပိုင်း (၃) အတွက် ကုတ်အပြည့်အစုံကို အောက်က repo မှာ ကြည့်နိုင်ပါတယ်။
-
-https://github.com/mmsoftware100/laravel-hello-world/tree/part-3
+use App\Http\Controllers\OurController;
+use Illuminate\Support\Facades\Route;
 
 
-Exercises အနေနဲ့ ကိုယ့်ရဲ့ ကိုယ်ရေးအကျဉ်း ကို ပြပေးတဲ့ laravel project လေး တစ်ခု ရေးကြည့်ပါ။
+Route::get('/', [OurController::class, 'helloWorld']);
+Route::get('/greeting', [OurController::class, 'greeting']);
+Route::get('/bye', [OurController::class, 'bye']);
+Route::get('/fun-fact', [OurController::class, 'funFact']);
+```
 
-- laravel project တစ်ခု create လုပ်မယ်။
-- routes ငါး ခု ထည့်မယ်။
-/ -> ကိုယ့် နာမည် နဲ့ အသက် 
-/parents -> မိဘ နှစ်ပါး အမည်
-/siblings -> ညီအစ်ကို မောင်နှမ အမည် စာရင်း
-/educations -> ပညာအရည်အချင်း
-/skills -> ကိုယ်မှာ ရှိတဲ့ skill list
-- broswer က မဟုတ်ပဲ route တစ်ခုက တစ်ခုကို <a href=> သုံးပြီး ကူးနိုင်အောင် လုပ်ပါ။
+အခု ဆိုရင် ကုတ်က ပိုပြီး ကျစ်ကျစ်လစ်လစ် နဲ့ စနစ်တကျ ရှိလာတာကို တွေ့ရပါမယ်။
 
+web.php မှာ routing အပိုင်း ရေး
+controller အပိုင်းမှာ business logic တွေ ရေးပြီး
+views အပိုင်းမှာ ပြချင်တဲ့ UI ရေးကာ 
 
---------
-
-အပေါ်က အဆင့်တွေကို လိုက်လုပ်ရာမှာ အခက်အခဲရှိရင် ေအာက်ပါ  Communication Channel တွေ ကတဆင့် ဆက်သွယ်မေးမြန်းနိုင်ပါတယ်။
-
-Facebook Group
-https://www.facebook.com/groups/587868458743965/
-
-Facebook Page
-https://www.facebook.com/mmsoftware100
-
-Medium 
-https://aungkoman.medium.com
-
-Email 
-info@software100.com.mm
-
-Website
-https://software100.com.mm
-
-
-
-
-
-
-
-
-
-
+Routing - Controller - View ဆိုတဲ့ အပိုင်း (၃) ပိုင်းကို ချိတ်ဆက် ရေးသားနိုင်မယ်လို့ မျှော်လင့်ပါတယ်။
 
 --------
 
