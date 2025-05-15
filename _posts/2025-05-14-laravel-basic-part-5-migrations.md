@@ -4,9 +4,18 @@ title: "Laravel Basic - အပိုင်း (၅) Migrations"
 date: 2025-05-08
 categories: productivity programming
 ---
-Migrations in Laravel
+Migration
 
-ဒီအပိုင်းမှာ Laravel Project နဲ့ Database ချိတ်ဆက်တဲ့အပိုင်း နဲ့ အခြေခံ Table / Model တစ်ခု ဘယ်လို create လုပ်လဲဆိုတာ ဆွေးနွေးသွားပါမယ်။
+ဒီတစ်ပိုင်းမှာတော့ Laravel မှာ Database ကိုချိတ်ဆက် အသုံးပြုဖို့အတွက် လိုအပ်တဲ့
+
+- Migration
+- Model
+- Seeder
+- Controller 
+
+စတဲ့အကြောင်းတွေကို ဆွေးနွေးသွားမှာ ဖြစ်ပါတယ်။
+
+
 
 
 --------
