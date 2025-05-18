@@ -73,7 +73,7 @@ command ကို ရိုက်ထည့်ပါ။
 ### Table အသစ် တည်ဆောက်ခြင်း , migration, model
 
 database ချိတ်ဆက်တဲ့ အပိုင်းပြီးတဲ့နောက်မှာ တကယ့် အချက်အလက်ကို သုံးမယ့် Table တွေကို ဆက်လက် ဖန်တီးပါမယ်။
-အခု Busket List ပရောဂျက်မှာတော့ ကိုယ်လုပ်ချင်တဲ့ အလုပ်တွေကို သိမ်းပေးထားမယ့် Table တစ်ခုပဲ လိုပါတယ်။ Table ရဲ့ ဖွဲ့စည်းပုံကတော့ ဒီလိုမျိုး ဖြစ်သင့်ပါတယ်။
+အခု Busket List ပရောဂျက်မှာတော့ ကိုယ်လုပ်ချင်တဲ့ အလုပ် (Wish ) တွေကို သိမ်းပေးထားမယ့် Table တစ်ခုပဲ လိုပါတယ်။ Table ရဲ့ ဖွဲ့စည်းပုံကတော့ ဒီလိုမျိုး ဖြစ်သင့်ပါတယ်။
 | id | name | completed |
 |----|------|-----------|
 | 1  | Travel to another country | 1 |
@@ -84,14 +84,14 @@ database ချိတ်ဆက်တဲ့ အပိုင်းပြီးတ�
 
 ဒီလို Table မျိုး ဆောက်မယ်ဆိုရင် ရိုက်ထည့်ရမယ့် command ကတော့
 ```bash
-php artisan make:model Busket -mcs
+php artisan make:model Wish -mcs
 ```
 ဒီ command ရိုက်ထည့်တဲ့အခါ ေအာက်ကအတိုင်း ဖိုင် (၄) ဖိုင် ထွက်လာပါလိမ့်မယ်။
 
 ### migration file
 
 ```bash
-./database/migrations/2025_05_15_162208_create_buskets_table.php
+./database/migrations/2025_05_15_162208_create_wishes_table.php
 ```
 ဒါကတော့ Table Structure ကို သတ်မှတ်ရမယ့် ဖိုင်ဖြစ်ပါတယ်။ 
 စာတွေသိမ်းမယ့် name ကော်လံနဲ့
@@ -110,7 +110,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('buskets', function (Blueprint $table) {
+        Schema::create('wishes', function (Blueprint $table) {
             $table->id();
             # ကိုယ်သိမ်းချင်တဲ့ column တွေကို ထည့်ပေးရမယ်။
             # name column
@@ -126,7 +126,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('buskets');
+        Schema::dropIfExists('wishes');
     }
 };
 
@@ -137,9 +137,9 @@ return new class extends Migration
 
 ### model file
 ```bash
-./app/Models/Busket.php
+./app/Models/Wish.php
 ```
-ဒါကတော့ ပရောဂျက် တစ်ခုလုံးမှာ Busket တွေ သိမ်းစည်း၊ ပြင်ဆင်၊​ ပယ်ဖျတ်တာတွေ လုပ်တဲ့အခါ အသုံးပြုရမယ့် Class တစ်ခု ဖြစ်ပါတယ်။
+ဒါကတော့ ပရောဂျက် တစ်ခုလုံးမှာ Wish တွေ သိမ်းစည်း၊ ပြင်ဆင်၊​ ပယ်ဖျတ်တာတွေ လုပ်တဲ့အခါ အသုံးပြုရမယ့် Class တစ်ခု ဖြစ်ပါတယ်။
 လောလောဆယ်တော့ နဂိုပါလာတဲ့အတိုင်းပဲ ထားထားပါမယ်။
 
 ```php
@@ -150,7 +150,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Busket extends Model
+class Wish extends Model
 {
     use HasFactory;
 }
@@ -161,9 +161,9 @@ class Busket extends Model
 
 ### controller file
 ```bash
-./app/Http/Controllers/BusketController.php 
+./app/Http/Controllers/WishController.php 
 ```
-အရင်အပိုင်းမှာ သုံးခဲ့သလိုပဲ Busket နဲ့ ပက်သက်တဲ့ Business Logic တွေကို တာဝန်ယူ ရေးသားမယ့် Class တစ်ခု ဖြစ်ပါတယ်။
+အရင်အပိုင်းမှာ သုံးခဲ့သလိုပဲ Wish နဲ့ ပက်သက်တဲ့ Business Logic တွေကို တာဝန်ယူ ရေးသားမယ့် Class တစ်ခု ဖြစ်ပါတယ်။
 ထုံစံအတိုင်း နဂိုအတိုင်းပဲ ထားလိုက်ပါဉီးမယ်။ 
 
 ```php
@@ -173,7 +173,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class BusketController extends Controller
+class WishController extends Controller
 {
     //
 }
@@ -184,21 +184,21 @@ class BusketController extends Controller
 
 ### seeder file
 ```bash
-./database/seeders/BusketSeeder.php
+./database/seeders/WishSeeder.php
 ```
 ဒါကတော့ Table ထဲမှာ ဒေတာတွေ ကြိုဖြည့်ထားနိုင်မယ့် Class တစ်ခု ဖြစ်ပါတယ်။ 
-အခုလိုမျိုး Busket ငါးခုေလာက် ကြိုထည့်ထားပါမယ်။
+အခုလိုမျိုး Wish ငါးခုေလာက် ကြိုထည့်ထားပါမယ်။
 
 ```php
 <?php
 
 namespace Database\Seeders;
 
-use App\Models\Busket;
+use App\Models\Wish;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class BusketSeeder extends Seeder
+class WishSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -206,23 +206,23 @@ class BusketSeeder extends Seeder
     public function run(): void
     {
         // database ထဲမှာ ကြိုထည့်ထားချင်တဲ့ data တွေ။
-        Busket::create([
+        Wish::create([
             'name' => 'Travel to another country',
             'completed' => true,
         ]);
-        Busket::create([
+        Wish::create([
             'name' => 'Learn a new language',
             'completed' => true,
         ]);
-        Busket::create([
+        Wish::create([
             'name' => 'Watch the sunrise at the beach',
             'completed' => true,
         ]);
-        Busket::create([
+        Wish::create([
             'name' => 'Go on a road trip with friends or family',
             'completed' => false,
         ]);
-        Busket::create([
+        Wish::create([
             'name' => 'Try a new extreme sport (like ziplining or scuba diving)',
             'completed' => false,
         ]);
@@ -236,11 +236,11 @@ class BusketSeeder extends Seeder
 # migration file ထဲကအတိုင်း Database ထဲမှာ table သွားဆောက်ပေးပါ။
 php artisan migrate
 # BusketSeeder file ထဲကအတိုင်း Table ထဲမှာ data တွေ ဖြည့်ပေးပါ။
-php artisan db:seed --class=BusketSeeder
+php artisan db:seed --class=WishSeeder
 ```
 ဒါဆိုရင် Table ဆောက်တာနဲ့ Table ထဲမှာ ဒေတာ တွေ ဖြည့်တာ အောင်မြင်ပါပြီ။
 
-အချိန် PHPMyAdmin ကို refresh လုပ်ပြီး busket_list Database ကို ဝင်ကြည့်ရင် buskets ဆိုတဲ့ Table တစ်ခု တိုးလာပြီး record ကလည်း (၅) ခု ရှိေနတာကို မြင်တွေ့ရပါလိမ့်မယ်။
+အချိန် PHPMyAdmin ကို refresh လုပ်ပြီး busket_list Database ကို ဝင်ကြည့်ရင် wishes ဆိုတဲ့ Table တစ်ခု တိုးလာပြီး record ကလည်း (၅) ခု ရှိေနတာကို မြင်တွေ့ရပါလိမ့်မယ်။
 
 
 အခုတစ်ပိုင်းကတော့ 
