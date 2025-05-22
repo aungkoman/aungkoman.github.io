@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Music Visualizer</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #000;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    #controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 10;
+      color: white;
+      font-family: sans-serif;
+    }
+
+    input[type="file"], button {
+      margin-top: 10px;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="controls">
+  <label>Select Music File</label><br>
+  <input type="file" id="audioFile" accept="audio/*" />
+  <button onclick="useMic()">Use Microphone</button>
+</div>
+
+<canvas id="canvas"></canvas>
+
+<script>
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  let audioCtx, analyser, source, audio;
+  let dataArray, bufferLength;
+  let particles = [];
+  let colorShift = 0;
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+
+  class Particle {
+    constructor(x, y, dx, dy, size, hue) {
+      this.x = x;
+      this.y = y;
+      this.dx = dx;
+      this.dy = dy;
+      this.size = size;
+      this.hue = hue;
+    }
+
+    update(volume) {
+      this.x += this.dx;
+      this.y += this.dy;
+      this.size *= 0.96;
+      this.hue += 1;
+
+      if (this.size < 0.5) {
+        this.x = canvas.width / 2;
+        this.y = canvas.height / 2;
+        this.size = 5 + Math.random() * 10;
+        this.dx = (Math.random() - 0.5) * 2;
+        this.dy = (Math.random() - 0.5) * 2;
+        this.hue = colorShift;
+      }
+    }
+
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = `hsl(${this.hue}, 100%, 50%)`;
+      ctx.fill();
+    }
+  }
+
+  function initParticles(count = 200) {
+    particles = [];
+    for (let i = 0; i < count; i++) {
+      particles.push(new Particle(
+        canvas.width / 2,
+        canvas.height / 2,
+        (Math.random() - 0.5) * 3,
+        (Math.random() - 0.5) * 3,
+        5 + Math.random() * 10,
+        Math.random() * 360
+      ));
+    }
+  }
+
+  function animate() {
+    requestAnimationFrame(animate);
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    if (analyser) {
+      analyser.getByteFrequencyData(dataArray);
+      let avg = dataArray.reduce((a, b) => a + b) / dataArray.length;
+      colorShift += 0.5;
+
+      particles.forEach(p => {
+        p.update(avg);
+        p.draw();
+      });
+
+      drawWaveform();
+    }
+  }
+
+  function drawWaveform() {
+    analyser.getByteTimeDomainData(dataArray);
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = `hsl(${colorShift}, 100%, 60%)`;
+    ctx.moveTo(0, canvas.height / 2);
+    for (let i = 0; i < bufferLength; i++) {
+      let y = (dataArray[i] / 128.0) * (canvas.height / 2);
+      ctx.lineTo(i * (canvas.width / bufferLength), y);
+    }
+    ctx.stroke();
+  }
+
+  function setupAudioNodes(audioSource) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 512;
+    bufferLength = analyser.frequencyBinCount;
+    dataArray = new Uint8Array(bufferLength);
+
+    source = audioCtx.createMediaElementSource(audioSource);
+    source.connect(analyser);
+    analyser.connect(audioCtx.destination);
+  }
+
+  document.getElementById('audioFile').addEventListener('change', function () {
+    if (audio) {
+      audio.pause();
+    }
+
+    const file = this.files[0];
+    if (!file) return;
+
+    const url = URL.createObjectURL(file);
+    audio = new Audio(url);
+    audio.crossOrigin = 'anonymous';
+    audio.loop = true;
+    audio.play();
+
+    setupAudioNodes(audio);
+    initParticles();
+  });
+
+  function useMic() {
+    navigator.mediaDevices.getUserMedia({ audio: true })
+      .then(stream => {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 512;
+        bufferLength = analyser.frequencyBinCount;
+        dataArray = new Uint8Array(bufferLength);
+
+        source = audioCtx.createMediaStreamSource(stream);
+        source.connect(analyser);
+
+        initParticles();
+      }).catch(err => {
+        alert('Microphone access denied.');
+        console.error(err);
+      });
+  }
+
+  animate();
+</script>
+
+</body>
+</html>
