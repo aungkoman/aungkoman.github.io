@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Immersive Visual Experience</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      background: radial-gradient(circle, #1e1e2f, #0c0c1c);
+      font-family: sans-serif;
+    }
+    canvas {
+      display: block;
+    }
+    #moodButton {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 10px 16px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: 1px solid #fff3;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <button id="moodButton">Change Mood</button>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let w, h;
+    let particles = [];
+    let mouse = { x: 0, y: 0, radius: 100, active: false };
+    let colorSetIndex = 0;
+
+    const colorPalettes = [
+      ['#FF6B6B', '#FFE66D', '#4472CA', '#4ECDC4'],
+      ['#9D4EDD', '#F15BB5', '#00BBF9', '#00F5D4'],
+      ['#F72585', '#7209B7', '#3A0CA3', '#4361EE'],
+      ['#2EC4B6', '#FF9F1C', '#E71D36', '#011627']
+    ];
+
+    let colors = colorPalettes[colorSetIndex];
+
+    function resizeCanvas() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+
+    class Particle {
+      constructor(x, y, vx, vy, size, color) {
+        this.x = x;
+        this.y = y;
+        this.vx = vx;
+        this.vy = vy;
+        this.baseSize = size;
+        this.size = size;
+        this.color = color;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+
+      update() {
+        let dx = this.x - mouse.x;
+        let dy = this.y - mouse.y;
+        let dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < mouse.radius && mouse.active) {
+          this.size = this.baseSize + (mouse.radius - dist) * 0.1;
+          this.vx += dx * 0.001;
+          this.vy += dy * 0.001;
+        } else {
+          this.size += (this.baseSize - this.size) * 0.05;
+        }
+
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0 || this.x > w) this.vx *= -1;
+        if (this.y < 0 || this.y > h) this.vy *= -1;
+      }
+    }
+
+    function initParticles(count = 150) {
+      particles = [];
+      for (let i = 0; i < count; i++) {
+        let x = Math.random() * w;
+        let y = Math.random() * h;
+        let vx = (Math.random() - 0.5) * 1.5;
+        let vy = (Math.random() - 0.5) * 1.5;
+        let size = Math.random() * 4 + 2;
+        let color = colors[Math.floor(Math.random() * colors.length)];
+        particles.push(new Particle(x, y, vx, vy, size, color));
+      }
+    }
+
+    function animate() {
+      ctx.fillStyle = 'rgba(12,12,28,0.25)';
+      ctx.fillRect(0, 0, w, h);
+
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    function onPointerMove(e) {
+      mouse.x = e.clientX || e.touches?.[0]?.clientX || 0;
+      mouse.y = e.clientY || e.touches?.[0]?.clientY || 0;
+      mouse.active = true;
+    }
+
+    function onPointerLeave() {
+      mouse.active = false;
+    }
+
+    function changeMood() {
+      colorSetIndex = (colorSetIndex + 1) % colorPalettes.length;
+      colors = colorPalettes[colorSetIndex];
+      initParticles();
+    }
+
+    document.getElementById('moodButton').addEventListener('click', changeMood);
+
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      initParticles();
+    });
+
+    window.addEventListener('mousemove', onPointerMove);
+    window.addEventListener('touchmove', onPointerMove, { passive: true });
+    window.addEventListener('mouseout', onPointerLeave);
+    window.addEventListener('touchend', onPointerLeave);
+
+    // Simulated real-time data: randomly push a burst of particles
+    setInterval(() => {
+      for (let i = 0; i < 5; i++) {
+        let x = Math.random() * w;
+        let y = Math.random() * h;
+        let vx = (Math.random() - 0.5) * 3;
+        let vy = (Math.random() - 0.5) * 3;
+        let size = Math.random() * 6 + 4;
+        let color = colors[Math.floor(Math.random() * colors.length)];
+        particles.push(new Particle(x, y, vx, vy, size, color));
+        if (particles.length > 200) particles.shift();
+      }
+    }, 2000);
+
+    resizeCanvas();
+    initParticles();
+    animate();
+  </script>
+</body>
+</html>
