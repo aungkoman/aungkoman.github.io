@@ -3337,6 +3337,78 @@ https://api.tourismthailand.org/api/article/get_detail?Language=en&timestamp=174
 ```
 
 
+https://api.tourismthailand.org/api/tagword/get_highlight_list?Language=en&timestamp=1747933405026&endpoint=destination&id=219
+```json
+
+```
+
+https://api.tourismthailand.org/api/explore/get_list?Language=en&timestamp=1747933405305&page=1&perpage=6&menu=attraction&destination_id=219
+```json
+
+```
+https://api.tourismthailand.org/api/weather/detail?Language=en&timestamp=1747933405561&destination_id=219
+```json
+
+```
+
+
+https://api.tourismthailand.org/api/destination/get_inspiration?Language=en&timestamp=1747933406287&destination_id=219
+```json
+
+```
+
+
+https://api.tourismthailand.org/api/explore/get_category_list?Language=en&timestamp=1747933410047&menu=attraction
+```json
+
+```
+
+https://api.tourismthailand.org/api/explore/get_list?Language=en&timestamp=1747933410048&keyword=&experience_id=&category_id=&destination_id=&sort_by=datetime_updated_desc&page=1&perpage=15&menu=attraction
+```json
+
+```
+
+https://api.tourismthailand.org/api/explore/get_list?Language=en&timestamp=1747933508342&keyword=test&experience_id=&category_id=&destination_id=&sort_by=datetime_updated_desc&page=1&perpage=15&menu=attraction
+```json
+
+```
+https://api.tourismthailand.org/api/explore/get_list?Language=en&timestamp=1747933540321&keyword=spa&experience_id=&category_id=&destination_id=&sort_by=datetime_updated_desc&page=1&perpage=15&menu=attraction
+```json
+
+```
+
+
+https://api.tourismthailand.org/api/tagword/get_highlight_list?Language=en&timestamp=1747933562455&endpoint=place&id=35642
+```json
+
+```
+https://api.tourismthailand.org/api/favorite/check_favorite?timestamp=1747933562765&id=35642&menu=attraction
+```json
+
+```
+
+https://maps.googleapis.com/maps/api/mapsjs/gen_204?csp_test=true
+```json
+
+```
+https://api.tourismthailand.org/api/data/get_article_type_list?timestamp=1747933615054
+```json
+
+```
+
+https://api.tourismthailand.org/api/account/get_country?Language=en&timestamp=1747933747579
+```json
+
+```
+
+
+https://api.tourismthailand.org/api/traveller_essential/airline/get_list?Language=en&timestamp=1747933856208&type=international&page=1&perpage=25
+
+```json
+
+```
+
+https://api.tourismthailand.org/api/traveller_essential/airline/get_list?Language=en&timestamp=1747933874090&type=domestic&page=1&perpage=25
 ```json
 
 ```
@@ -3345,6 +3417,13 @@ https://api.tourismthailand.org/api/article/get_detail?Language=en&timestamp=174
 
 ```
 
+```json
+
+```
+
+```json
+
+```
 ## Detail API Endpoint
 
 https://api.tourismthailand.org/api/destination/get_detail?Language=en&timestamp=1747931694298&destination_id=219
@@ -17675,3 +17754,102 @@ https://api.tourismthailand.org/api/explore/get_detail?Language=en&timestamp=174
   }
 }
 ```
+
+
+
+Based on the file **"2025-05-18-tourism-in-thailand.md"**, here’s the **API analysis** and a **basic entity list** derived from the responses of the Tourism Thailand APIs:
+
+---
+
+## ✅ API Endpoints & Response Analysis
+
+### 1. **Recommended Trips API**
+
+**Endpoint:**
+`https://api.tourismthailand.org/api/explore/get_recommended_trip?Language=en&timestamp=...`
+
+**Response Summary:**
+Returns a list of recommended trip routes.
+
+**Key Fields:**
+
+* `id`: Unique identifier for the trip.
+* `name`: Title of the recommended trip.
+* `slug`: URL-friendly version of the title.
+* `thumb_image`: Image details (title, description, URL).
+
+---
+
+### 2. **Promotions API**
+
+**Endpoint:**
+`https://api.tourismthailand.org/api/promotion/get_list?Language=en&timestamp=...`
+
+**Response Summary:**
+Returns a paginated list of promotional offers for tourists.
+
+**Key Fields (inside each promotion in `result.list`):**
+
+* `id`: Promotion ID.
+* `name`: Title of the promotion.
+* `description`: Rich HTML description.
+* `condition`: Terms and conditions.
+* `start_date`, `end_date`: Validity period.
+* `discount_type`, `discount_percent`: Type and amount of discount.
+* `thumbnail_file`: Promotion image (with metadata).
+* `category_name`: E.g., “Tour Agent”.
+* `place_name`: E.g., business or organization.
+* `type`: Category/type such as “tour\_agent”.
+* `status`, `datetime_created`, `datetime_updated`: Tracking metadata.
+
+---
+
+## 📦 Basic Entity List
+
+You can derive the following entities for a tourism-related system or database:
+
+### 1. **Trip**
+
+| Field        | Type   | Notes                  |
+| ------------ | ------ | ---------------------- |
+| id           | String | Unique ID for the trip |
+| name         | String | Name/title of the trip |
+| slug         | String | SEO-friendly URL       |
+| image\_title | String | Image title            |
+| image\_desc  | String | Image description      |
+| image\_url   | URL    | Link to the trip image |
+
+---
+
+### 2. **Promotion**
+
+| Field             | Type    | Notes                                  |
+| ----------------- | ------- | -------------------------------------- |
+| id                | String  | Unique promotion ID                    |
+| name              | String  | Promotion name                         |
+| description       | HTML    | Detailed HTML description              |
+| condition         | HTML    | Promotion conditions                   |
+| start\_date       | Date    | Start of promotion                     |
+| end\_date         | Date    | End of promotion                       |
+| discount\_type    | String  | e.g., "percent" or "offer"             |
+| discount\_percent | Integer | % discount (if applicable)             |
+| thumbnail\_url    | URL     | Image representing the promotion       |
+| category\_name    | String  | e.g., “Tour Agent”                     |
+| place\_name       | String  | Company or location name               |
+| type              | String  | Type of promotion, e.g., “tour\_agent” |
+| is\_pin           | Boolean | Whether it is pinned or highlighted    |
+| view              | Integer | Number of views                        |
+
+---
+
+If you'd like, I can also help:
+
+* Generate database models (SQL/NoSQL or Laravel migrations).
+* Create mock data for development.
+* Design a basic UI wireframe for trip/promotion listings.
+
+Let me know what you want to do next.
+
+
+
+### EOF
