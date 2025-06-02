@@ -370,6 +370,77 @@ Form အတွက် ui view တစ်ခု
 
 
 
+----- 
+
+### Editing existing record
+
+create လုပ်ခဲ့တဲ့အတိုင်းပဲ Routes, Controller နဲ့ View တွေ လိုပါမယ်။
+
+view
+
+```html
+
+```
+
+Controller
+
+```php
+
+```
+
+Route
+
+```php
+
+```
+
+Form submit route
+
+```php
+
+```
+
+Form submit route ကို ခေါ်တဲ့အခါ update လုပ်ပေးမယ် controller method တွေ
+
+```php
+
+```
+
+
+ဒီ (၅) ခု ပြင်ပြီးရင် edit ရပါပြီ။
+
+
+
+
+### Deleting existing record
+
+သူကတော့ delete လုပ်တဲ့ route တစ်ခုနဲ့ controller method တစ်ခုပဲ လိုပါမယ်။
+
+Route
+
+```php
+
+```
+
+Controller
+
+```php
+
+```
+
+ဖျတ်ချင်တယ် ဆိုရင် ဒီ route ကို အခုလိုမျိုး သွားလိုက်လို့ ရပါတယ်။
+
+```html
+
+
+```
+
+
+ဒါဆိုရင်တော့ CRUD လို့ ခေါ်တဲ့ data အပြည့်အစုံ စီမံလို့ ရတဲ့ module တစ်ခု ရပါပြီ။
+
+
+
+
 --------
 
 အပေါ်က အဆင့်တွေကို လိုက်လုပ်ရာမှာ အခက်အခဲရှိရင် ေအာက်ပါ  Communication Channel တွေ ကတဆင့် ဆက်သွယ်မေးမြန်းနိုင်ပါတယ်။
