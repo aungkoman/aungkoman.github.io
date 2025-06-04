@@ -315,6 +315,131 @@ Template ဘက်က ဒီ data ကို ယူသုံးမယ် ဆိ�
 
 နောက်တစ်ပိုင်းမှာတော့ Database ထဲကို  UI က တဆင့် ေဒတာဖြည့်သွင်းတဲ့ Create အပိုင်းကို ဆက်လက် ဆွေးနွေးပါမယ်။
 
+------
+
+
+### Creating new record
+
+Feature တစ်ခု ထည့်မယ်ဆိုရင် view, controller နဲ့ routing file တွေမှာ အခုလိုမျိုး လိုက်တိုးနိုင်ပါတယ်။
+
+UI အပိုင်းအတွက် /resources/view directory ထဲမှာ create.blade.php ဆိုပြီး file တစ်ခု ဆောက်ပါမယ်။
+
+
+```html
+
+```
+
+
+Business Logic အတွက် WishController.php မှာ ဒီလို method တစ်ခု တိုးပါမယ်။
+
+```php
+```
+
+နောက်ဆုံးအနေနဲ့ Routing ပိုင်းအတွက် web.php  မှာ route အသစ်တစ်ခုကို အခုလို ထည့်လိုက်ပါမယ်။
+
+```php
+
+```
+
+
+
+/create route ကို ခေါ်တဲ့အခါ create.blade.php ကို ပြပေးပါမယ်။
+
+ဒီ ဖောင်ထဲမှာ ဒေတာ ဖြည့်ပြီး submit နှိပ်တဲ့အခါ database ထဲမှာ သိမ်းချင်ပါတယ်။ ဒီအတွက် နောက်ထပ် route နဲ့ controller method တစ်ခုကို အခုလို ထည့်ပေးပါမယ်။
+
+```php
+
+```
+
+
+submit နှိပ်ရင် ဒေတာ ပို့ရမယ့် route ကို အခုလို ဖောင်မှာ ပြင်ရေးလိုက်ပါမယ်။
+
+
+ဒါဆိုရင်တော့ create process ပြီးပါပြီ။
+
+ပြန်ကြည့်မယ်ဆိုရင်
+
+create လုပ်မယ့် form အတွက် route တစ်ခု
+form ထဲက ဒေတာ တွေကို လက်ခံဖို့အတွက် route တစ်ခု 
+
+အဲ့ route တွေရဲ့ နောက်ကွယ်မှာ business logic ကို လုပ်ပေးမယ် controller method နှစ်ခု နဲ့
+
+Form အတွက် ui view တစ်ခု
+
+စုစုပေါင်း အပိုင်း (၅) ပိုင်းနဲ့ create လုပ်တဲ့ လုပ်ငန်းကို လုပ်ပါတယ်။
+
+
+
+----- 
+
+### Editing existing record
+
+create လုပ်ခဲ့တဲ့အတိုင်းပဲ Routes, Controller နဲ့ View တွေ လိုပါမယ်။
+
+view
+
+```html
+
+```
+
+Controller
+
+```php
+
+```
+
+Route
+
+```php
+
+```
+
+Form submit route
+
+```php
+
+```
+
+Form submit route ကို ခေါ်တဲ့အခါ update လုပ်ပေးမယ် controller method တွေ
+
+```php
+
+```
+
+
+ဒီ (၅) ခု ပြင်ပြီးရင် edit ရပါပြီ။
+
+
+
+
+### Deleting existing record
+
+သူကတော့ delete လုပ်တဲ့ route တစ်ခုနဲ့ controller method တစ်ခုပဲ လိုပါမယ်။
+
+Route
+
+```php
+
+```
+
+Controller
+
+```php
+
+```
+
+ဖျတ်ချင်တယ် ဆိုရင် ဒီ route ကို အခုလိုမျိုး သွားလိုက်လို့ ရပါတယ်။
+
+```html
+
+
+```
+
+
+ဒါဆိုရင်တော့ CRUD လို့ ခေါ်တဲ့ data အပြည့်အစုံ စီမံလို့ ရတဲ့ module တစ်ခု ရပါပြီ။
+
+
+
 
 --------
 
