@@ -16,3 +16,6 @@ layout: default
     </article>
   {% endfor %}
 </div>
+
+
+MainTicket::where('main_ticket_type_id', 1)->where('main_ticket_status_id', 1)->count()

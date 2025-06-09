@@ -1,0 +1,76 @@
+{
+    "video_url" : "https://www.youtube.com/watch?v=example",
+    "destinations" : [
+        {
+            "destination_region" : "Middle East",
+            "destionations" :[
+                {
+                    "name" : "Dubai",
+                    "description" : "A city known for luxury shopping, ultramodern architecture, and a lively nightlife scene.",
+                    "image_url" : "https://example.com/images/dubai.jpg"
+                },
+                {
+                    "name" : "Abu Dhabi",
+                    "description" : "The capital of the UAE, known for its modern architecture and cultural landmarks.",
+                    "image_url" : "https://example.com/images/abu_dhabi.jpg"
+                }
+            ]
+        }
+    ],
+    "carouseal" : [
+        {
+            "image_url" : "https://example.com/images/carousel1.jpg",
+            "caption" : "Explore the wonders of the Middle East",
+            "url" : "https://example.com/middle-east",
+        }
+    ],
+    "articles" : [
+        {
+            "title" : "Top 10 Destinations in the Middle East",
+            "summary" : "Discover the most popular travel spots in the Middle East.",
+            "image_url" : "https://example.com/images/article1.jpg",
+            "url" : "https://example.com/articles/top-10-middle-east"
+        },
+        {
+            "title" : "Cultural Experiences in Dubai",
+            "summary" : "Experience the rich culture and heritage of Dubai.",
+            "image_url" : "https://example.com/images/article2.jpg",
+            "url" : "https://example.com/articles/cultural-experiences-dubai"
+        }
+    ],
+    "events" : [
+        {
+            "name" : "Dubai Shopping Festival",
+            "date" : "2024-01-15",
+            "description" : "A month-long shopping extravaganza with discounts, entertainment, and cultural events.",
+            "image_url" : "https://example.com/images/event1.jpg"
+        },
+        {
+            "name" : "Abu Dhabi Film Festival",
+            "date" : "2024-02-20",
+            "description" : "An annual film festival showcasing international and local films.",
+            "image_url" : "https://example.com/images/event2.jpg"
+        }
+    ],
+    "highlight_events" : [
+        {
+            "name" : "Dubai Shopping Festival",
+            "date" : "2024-01-15",
+            "description" : "A month-long shopping extravaganza with discounts, entertainment, and cultural events.",
+            "image_url" : "https://example.com/images/event1.jpg"
+        },
+        {
+            "name" : "Abu Dhabi Film Festival",
+            "date" : "2024-02-20",
+            "description" : "An annual film festival showcasing international and local films.",
+            "image_url" : "https://example.com/images/event2.jpg"
+        }
+    ],
+    "myanmar_cultures" : [
+        {
+        "description" : "Experience the rich culture of Myanmar through its festivals, traditions, and cuisine.",
+        "image_url" : "https://example.com/images/myanmar_culture.jpg",
+        "url" : "https://example.com/myanmar-culture"
+        }   
+    ]
+}
