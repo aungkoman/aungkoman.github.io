@@ -13,3 +13,10 @@ Code of Conduct in Software Development at software100.com.mm
 ### Version Control
 
 - [ ] commit every 15 minutes / small features  
+- [ ] create feature branch from dev branch
+- [ ] PR to dev branch
+
+### API , RestFUL Architecture
+
+
+### UI/UX , Don't make me think 
