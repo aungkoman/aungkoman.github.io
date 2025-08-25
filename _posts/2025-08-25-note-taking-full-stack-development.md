@@ -32,7 +32,14 @@ Fullstack Development will include
 - [ ] Postman Collection - https://github.com/aungkoman
 
 
-Buy complete project souce code and databases at https://github.com/aungkoman
+Buy complete project souce code and databases at https://bit.ly/buy-school-management
+
+
+### Steps by Step Video Tutorial
+
+Watch at https://youtube.com/@mdemy
+
+
 
 
 
