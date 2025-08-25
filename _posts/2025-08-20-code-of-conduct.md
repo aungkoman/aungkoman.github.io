@@ -5,6 +5,7 @@ date: 2025-08-20
 categories: life-lessons
 author: Cisco
 tags: [life] # TAG names should always be lowercase
+image: "https://www.eqs.com/assets/2022/03/EQS-Blog_Code-of-conduct.jpg"
 ---
 
 Code of Conduct in Software Development at software100.com.mm
