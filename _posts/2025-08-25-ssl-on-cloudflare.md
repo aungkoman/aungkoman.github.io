@@ -16,3 +16,5 @@ ERR_SSL_VERSION_OR_CIPHER_MISMATCH
 ```
 
 Cloudflare မှာလည်း proxy နဲ့ SSL Flexible ကို သုံးထားတယ်။
+
+အချိန်ပဲ စာ‌ေ့်ကြည့်ရမယ်။
