@@ -33,11 +33,11 @@ Code of Conduct in Software Development at software100.com.mm
 
 - [ ] GET api/v1/users?page=1&q=Test&role_id=1&sort=created_at&order=desc
 
-page -> Pagination page no
-q -> Search parameter
-role_id -> filter 
-sort -> sorting field
-order -> ascending or descending ( asc | desc )
+- page -> Pagination page no
+- q -> Search parameter
+- role_id -> filter 
+- sort -> sorting field
+- order -> ascending or descending ( asc | desc )
 
 
 ### UI/UX , Don't make me think 
