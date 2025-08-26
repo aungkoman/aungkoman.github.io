@@ -24,5 +24,13 @@ Provider, Screen, Components
 
 Personal access client not found. Please create one.
 
+API က စပြီးရွာလည်တယ်။
+
+Local မှာ ပြန်စမ်းကြည့်ရမယ်။
+
+Postman ဖွင့်တယ်။ VPN ပြဿနာတက်တယ်။
+
+
+
 
 
