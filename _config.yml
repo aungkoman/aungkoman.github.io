@@ -21,7 +21,7 @@
 title: Aung Ko Man
 email: admin@mmsoftware100.com
 description: >- # this means to ignore newlines until "baseurl:"
-  I'm a developer, son, big brother and husband.
+  A developer navigating life as a son, big brother, husband, and dad — sharing thoughts on code, family, and everything in between..
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: aungkoman
