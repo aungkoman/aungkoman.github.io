@@ -52,3 +52,27 @@ Issues ရှင်းပြီးတဲ့အခါ Issue ရဲ့ comment sec
 - [x] last updated record ဟာ ထိပ်ဆုံးမှာ ပြထားသင့်တယ်။
 - [x] သင့်တင့်လျောက်ပတ်တဲ့ ကော်လံတိုင်းကို searchable ဖြစ်အောင် လုပ်ပေးထားပါ။
 - [x] သင့်တင့်လျောက်ပတ်တဲ့ Filter တွေ ထည့်ပေးထားရမယ်။
+- [ ] pagination ကို 100 per page အများဆုံးထားရန်။ ဉပမာ။​  ->paginated([10, 25, 50, 100])
+
+```php
+ public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                 TextColumn::make('id')->sortable(),
+            ])
+            ->filters([
+                //
+            ])
+            ->paginated([10, 25, 50, 100])
+            ->defaultSort('updated_at', 'desc') 
+            ->actions([
+                Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
+```
