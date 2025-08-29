@@ -51,3 +51,58 @@ ALTER LOGIN [mssql_username] ENABLE;
 ALTER LOGIN [mssql_username] WITH PASSWORD = 'mssql_password';
 
 
+
+-- Creates the login AbolrousHazem with password '340$Uuxwp7Mcxo7Khy'.
+CREATE LOGIN AbolrousHazem
+WITH PASSWORD = '340$Uuxwp7Mcxo7Khy';
+GO
+
+-- Creates a database user for the login created previously.
+CREATE USER AbolrousHazem
+FOR LOGIN AbolrousHazem;
+GO
+
+
+SELECT 
+    SERVERPROPERTY('IsIntegratedSecurityOnly') as IsWindowsAuthOnly,
+    SERVERPROPERTY('IsMixedAuthentication') as IsMixedAuthenticationEnabled;
+
+-- Check if mixed mode authentication is enabled
+SELECT name, value, value_in_use
+FROM sys.configurations
+WHERE name = 'mixed authentication mode';
+
+-- Check if mixed authentication is enabled
+SELECT 
+    SERVERPROPERTY('IsIntegratedSecurityOnly') as IsWindowsAuthOnly,
+    SERVERPROPERTY('IsMixedAuthentication') as IsMixedAuthenticationEnabled;
+
+-- Alternative check for authentication mode
+SELECT 
+    CASE SERVERPROPERTY('IsIntegratedSecurityOnly')
+        WHEN 0 THEN 'Mixed Authentication Enabled'
+        WHEN 1 THEN 'Windows Authentication Only'
+        ELSE 'Unknown'
+    END as AuthenticationMode;
+
+EXEC xp_readerrorlog 0, 1, N'18456', N'AbolrousHazem';
+
+
+*** Need to restart MS SQL Service ***
+
+
+You Should Now Be Able to Connect!
+Try connecting with these credentials:
+
+Server Name: MERCBS-2-285
+
+Authentication: SQL Server Authentication
+
+User Name: AbolrousHazem
+
+Password: 340$Uuxwp7Mcxo7Khy
+
+
+
+
+
