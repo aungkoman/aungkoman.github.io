@@ -90,23 +90,4 @@ F:\code\web\thank-book-nextjs>npm run dev
 
 
 
--- 1. Create a new database
-CREATE DATABASE mydatabase;
-
--- 2. Create a new user with a password
-CREATE USER 'thankbook'@'localhost' IDENTIFIED BY 'mypassword';
-
--- 3. Grant all privileges on the database to the new user
-GRANT ALL PRIVILEGES ON mydatabase.* TO 'myuser'@'localhost';
-
--- 4. Apply the changes
-FLUSH PRIVILEGES;
-
-
-
-CREATE DATABASE thankbook;
-CREATE USER 'thankbook'@'%' IDENTIFIED BY 'YUljChanNKT4ahotpAsYUGbuKO3nFYKOCusivnuCbpzeqsxSby';
-GRANT ALL PRIVILEGES ON thankbook.* TO 'thankbook'@'localhost';
-
-
 
