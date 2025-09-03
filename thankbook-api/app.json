@@ -1,0 +1,20 @@
+{
+    "user": {
+        "id": 1,
+        "name": "Michael Brown",
+        "email": "one@email.com",
+        "phone": "+959681148977",
+        "password": "password",
+        "email_verified_at": true,
+        "phone_verified_at": true,
+        "role_id": 2,
+        "role" : {
+            "id": "1",
+            "name": "admin",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        "created_at": "2025-09-02 20:02:05",
+        "updated_at": "2025-09-02 20:02:05"
+    }
+}
