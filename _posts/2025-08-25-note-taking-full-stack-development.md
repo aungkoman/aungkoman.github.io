@@ -41,5 +41,18 @@ Watch at https://youtube.com/@mdemy
 
 
 
+### Note Taking Promo Video
+
+
+Mobile App both Android , iOS , 
+Website
+API - postman collection , with great animation. Request, Response in action.
+
+
+
+sync three platform ( Web, Android, iOS)
+
+
+
 
 
