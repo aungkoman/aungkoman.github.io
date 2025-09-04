@@ -1,0 +1,925 @@
+{
+    "contacts": [
+        {
+            "id": "1",
+            "name": "John Smith",
+            "image": "contacts/john.jpg",
+            "user_id": "1",
+            "dob": "1985-07-15",
+            "dod": null,
+            "gender_id": "1",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "2",
+            "name": "Sarah Johnson",
+            "image": "contacts/sarah.jpg",
+            "user_id": "1",
+            "dob": "1990-03-22",
+            "dod": null,
+            "gender_id": "2",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "3",
+            "name": "Michael Brown",
+            "image": "contacts/michael.jpg",
+            "user_id": "2",
+            "dob": "1978-11-05",
+            "dod": "2023-05-10",
+            "gender_id": "1",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "4",
+            "name": "Emily Davis",
+            "image": "contacts/emily.jpg",
+            "user_id": "2",
+            "dob": "1992-09-18",
+            "dod": null,
+            "gender_id": "2",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "5",
+            "name": "Robert Wilson",
+            "image": "contacts/robert.jpg",
+            "user_id": "3",
+            "dob": "1988-12-03",
+            "dod": null,
+            "gender_id": "1",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        }
+    ],
+    "contact_emails": [
+        {
+            "id": "1",
+            "contact_id": "1",
+            "email_type_id": "1",
+            "address": "john.smith@example.com",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "2",
+            "contact_id": "1",
+            "email_type_id": "2",
+            "address": "john.smith@company.com",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "3",
+            "contact_id": "2",
+            "email_type_id": "1",
+            "address": "sarah.j@example.com",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "4",
+            "contact_id": "3",
+            "email_type_id": "2",
+            "address": "michael.b@company.org",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "5",
+            "contact_id": "4",
+            "email_type_id": "1",
+            "address": "emily.davis@example.com",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "6",
+            "contact_id": "4",
+            "email_type_id": "2",
+            "address": "e.davis@business.com",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "7",
+            "contact_id": "5",
+            "email_type_id": "1",
+            "address": "robert.wilson@example.com",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        }
+    ],
+    "contact_phones": [
+        {
+            "id": "1",
+            "contact_id": "1",
+            "phone_type_id": "1",
+            "number": "+1234567890",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "2",
+            "contact_id": "1",
+            "phone_type_id": "2",
+            "number": "+1234567891",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "3",
+            "contact_id": "2",
+            "phone_type_id": "1",
+            "number": "+1987654321",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "4",
+            "contact_id": "3",
+            "phone_type_id": "2",
+            "number": "+1555123456",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "5",
+            "contact_id": "4",
+            "phone_type_id": "1",
+            "number": "+1444555666",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "6",
+            "contact_id": "4",
+            "phone_type_id": "2",
+            "number": "+1444555667",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "7",
+            "contact_id": "5",
+            "phone_type_id": "1",
+            "number": "+1777888999",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        }
+    ],
+    "contact_profiles": [
+        {
+            "id": "1",
+            "contact_id": "1",
+            "profile_id": "2",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "2",
+            "contact_id": "2",
+            "profile_id": "3",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "3",
+            "contact_id": "3",
+            "profile_id": "1",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "4",
+            "contact_id": "4",
+            "profile_id": "4",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "5",
+            "contact_id": "5",
+            "profile_id": "5",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        }
+    ],
+    "contact_thank_notes": [
+        {
+            "id": "1",
+            "contact_id": "1",
+            "thank_note_id": "1",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "2",
+            "contact_id": "2",
+            "thank_note_id": "4",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "3",
+            "contact_id": "3",
+            "thank_note_id": "2",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "4",
+            "contact_id": "5",
+            "thank_note_id": "3",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "5",
+            "contact_id": "4",
+            "thank_note_id": "5",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        }
+    ],
+    "email_types": [
+        {
+            "id": "1",
+            "name": "personal",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "2",
+            "name": "professional",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        }
+    ],
+    "friends": [
+        {
+            "id": "1",
+            "from_user_id": "1",
+            "to_user_id": "2",
+            "status": "accepted",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "2",
+            "from_user_id": "1",
+            "to_user_id": "3",
+            "status": "accepted",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "3",
+            "from_user_id": "3",
+            "to_user_id": "5",
+            "status": "pending",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        }
+    ],
+    "genders": [
+        {
+            "id": "1",
+            "name": "male",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "2",
+            "name": "female",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        }
+    ],
+    "media_messages": [
+        {
+            "id": "1",
+            "message_id": "4",
+            "media_type_id": "1",
+            "path": "messages/images/vacation.jpg",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "2",
+            "message_id": "6",
+            "media_type_id": "2",
+            "path": "messages/videos/birthday_wish.mp4",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        }
+    ],
+    "media_thank_notes": [
+        {
+            "id": "1",
+            "thank_note_id": "1",
+            "media_type_id": "1",
+            "path": "thank_notes/images/thank_you1.jpg",
+            "created_at": "2025-09-02 20:02:06",
+            "updated_at": "2025-09-02 20:02:06"
+        },
+        {
+            "id": "2",
+            "thank_note_id": "2",
+            "media_type_id": "1",
+            "path": "thank_notes/images/appreciation.jpg",
+            "created_at": "2025-09-02 20:02:06",
+            "updated_at": "2025-09-02 20:02:06"
+        },
+        {
+            "id": "3",
+            "thank_note_id": "3",
+            "media_type_id": "2",
+            "path": "thank_notes/videos/thank_you_video1.mp4",
+            "created_at": "2025-09-02 20:02:06",
+            "updated_at": "2025-09-02 20:02:06"
+        },
+        {
+            "id": "4",
+            "thank_note_id": "4",
+            "media_type_id": "1",
+            "path": "thank_notes/images/event1.jpg",
+            "created_at": "2025-09-02 20:02:06",
+            "updated_at": "2025-09-02 20:02:06"
+        },
+        {
+            "id": "5",
+            "thank_note_id": "4",
+            "media_type_id": "1",
+            "path": "thank_notes/images/event2.jpg",
+            "created_at": "2025-09-02 20:02:06",
+            "updated_at": "2025-09-02 20:02:06"
+        },
+        {
+            "id": "6",
+            "thank_note_id": "5",
+            "media_type_id": "1",
+            "path": "thank_notes/images/gift1.jpg",
+            "created_at": "2025-09-02 20:02:06",
+            "updated_at": "2025-09-02 20:02:06"
+        },
+        {
+            "id": "7",
+            "thank_note_id": "6",
+            "media_type_id": "2",
+            "path": "thank_notes/videos/gratitude.mp4",
+            "created_at": "2025-09-02 20:02:06",
+            "updated_at": "2025-09-02 20:02:06"
+        },
+        {
+            "id": "8",
+            "thank_note_id": "7",
+            "media_type_id": "3",
+            "path": "thank_notes/documents/thank_you_letter.pdf",
+            "created_at": "2025-09-02 20:02:06",
+            "updated_at": "2025-09-02 20:02:06"
+        },
+        {
+            "id": "9",
+            "thank_note_id": "8",
+            "media_type_id": "1",
+            "path": "thank_notes/images/memories.jpg",
+            "created_at": "2025-09-02 20:02:06",
+            "updated_at": "2025-09-02 20:02:06"
+        }
+    ],
+    "media_types": [
+        {
+            "id": "1",
+            "name": "image",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "2",
+            "name": "video",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "3",
+            "name": "file",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        }
+    ],
+    "messages": [
+        {
+            "id": "1",
+            "friend_id": "1",
+            "user_id": "1",
+            "message_type_id": "1",
+            "message": "Hey there! How are you doing?",
+            "created_at": "2025-09-02 15:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "2",
+            "friend_id": "1",
+            "user_id": "2",
+            "message_type_id": "1",
+            "message": "Hi! I\\'m doing great",
+            "created_at": "thanks for asking. How about you?",
+            "updated_at": "2025-09-02 16:02:05"
+        },
+        {
+            "id": "3",
+            "friend_id": "1",
+            "user_id": "1",
+            "message_type_id": "1",
+            "message": "I\\'m good too! Just wanted to share this with you.",
+            "created_at": "2025-09-02 16:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "4",
+            "friend_id": "1",
+            "user_id": "1",
+            "message_type_id": "2",
+            "message": null,
+            "created_at": "2025-09-02 16:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "5",
+            "friend_id": "2",
+            "user_id": "1",
+            "message_type_id": "1",
+            "message": "Hello! Do you have a minute to talk about the project?",
+            "created_at": "2025-09-01 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "6",
+            "friend_id": "2",
+            "user_id": "3",
+            "message_type_id": "3",
+            "message": null,
+            "created_at": "2025-09-01 20:12:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "7",
+            "friend_id": "2",
+            "user_id": "3",
+            "message_type_id": "1",
+            "message": "Sure",
+            "created_at": "what would you like to discuss?",
+            "updated_at": "2025-09-01 20:12:05"
+        }
+    ],
+    "message_types": [
+        {
+            "id": "1",
+            "name": "text",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "2",
+            "name": "image",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "3",
+            "name": "video",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "4",
+            "name": "file",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        }
+    ],
+    "phone_types": [
+        {
+            "id": "1",
+            "name": "mobile",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "2",
+            "name": "landline",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        }
+    ],
+    "profiles": [
+        {
+            "id": "1",
+            "user_id": "1",
+            "image": "profiles/user1.jpg",
+            "bio": "Software Developer",
+            "profession": "Developer",
+            "address": "456 Dev Ave",
+            "dob": "Code City",
+            "dod": "1992-05-15",
+            "gender": null,
+            "created_at": "male",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "2",
+            "user_id": "2",
+            "image": "profiles/user2.jpg",
+            "bio": "Web Designer",
+            "profession": "UI/UX Designer",
+            "address": "789 Design St",
+            "dob": "Art City",
+            "dod": "1993-08-22",
+            "gender": null,
+            "created_at": "female",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "3",
+            "user_id": "3",
+            "image": "profiles/user3.jpg",
+            "bio": "Project Manager",
+            "profession": "Senior PM",
+            "address": "101 Project Rd",
+            "dob": "Manage City",
+            "dod": "1988-11-30",
+            "gender": null,
+            "created_at": "male",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "4",
+            "user_id": "4",
+            "image": "profiles/user4.jpg",
+            "bio": "Quality Assurance Engineer",
+            "profession": "QA Lead",
+            "address": "202 Test Ln",
+            "dob": "Debug City",
+            "dod": "1991-03-18",
+            "gender": "2023-12-15",
+            "created_at": "female",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "5",
+            "user_id": "5",
+            "image": "profiles/user5.jpg",
+            "bio": "System Administrator",
+            "profession": "System Admin",
+            "address": "123 Admin St",
+            "dob": "Tech City",
+            "dod": "1990-01-01",
+            "gender": null,
+            "created_at": "male",
+            "updated_at": "2025-09-02 20:02:05"
+        }
+    ],
+    "reaction_types": [
+        {
+            "id": "1",
+            "name": "like",
+            "icon": "👍",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "2",
+            "name": "love",
+            "icon": "❤️",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "3",
+            "name": "care",
+            "icon": "🥰",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "4",
+            "name": "haha",
+            "icon": "😄",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "5",
+            "name": "wow",
+            "icon": "😲",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "6",
+            "name": "sad",
+            "icon": "😢",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "7",
+            "name": "angry",
+            "icon": "😠",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "8",
+            "name": "thanks",
+            "icon": "🙏",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "9",
+            "name": "congrats",
+            "icon": "🎉",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "10",
+            "name": "support",
+            "icon": "🤝",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        }
+    ],
+    "roles": [
+        {
+            "id": "1",
+            "name": "admin",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "2",
+            "name": "user",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        }
+    ],
+    "thank_notes": [
+        {
+            "id": "1",
+            "user_id": "1",
+            "title": "Exceptional Support",
+            "note": "Thank you for your exceptional support during the project. Your dedication was invaluable!",
+            "date": "2025-08-20",
+            "privacy": "public",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "2",
+            "user_id": "2",
+            "title": "Client Presentation",
+            "note": "I really appreciate your help with the client presentation. Your insights made all the difference.",
+            "date": "2025-08-22",
+            "privacy": "private",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "3",
+            "user_id": "3",
+            "title": "Mentorship",
+            "note": "Just wanted to say thank you for the mentorship. Your guidance has been incredibly helpful in my career growth.",
+            "date": "2025-08-25",
+            "privacy": "contact",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "4",
+            "user_id": "1",
+            "title": "Product Launch",
+            "note": "Huge thanks to the entire team for the successful product launch! Your hard work is truly appreciated.",
+            "date": "2025-08-28",
+            "privacy": "public",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "5",
+            "user_id": "2",
+            "title": "Challenging Times",
+            "note": "Thank you for being there during the challenging times. Your support means the world to me.",
+            "date": "2025-08-30",
+            "privacy": "private",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        }
+    ],
+    "thank_note_comments": [
+        {
+            "id": "1",
+            "thank_note_id": "1",
+            "comment": "You\\'re welcome! It was a pleasure working with you on this project.",
+            "user_id": "2",
+            "created_at": "2025-08-20 08:00:00",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "2",
+            "thank_note_id": "1",
+            "comment": "Thank you for your kind words! Looking forward to more collaborations.",
+            "user_id": "3",
+            "created_at": "2025-08-20 09:15:00",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "3",
+            "thank_note_id": "2",
+            "comment": "Glad I could help! The client was really happy with the presentation.",
+            "user_id": "1",
+            "created_at": "2025-08-22 03:45:00",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "4",
+            "thank_note_id": "3",
+            "comment": "It was my pleasure to mentor you. You\\'re a fast learner!",
+            "user_id": "5",
+            "created_at": "2025-08-25 09:50:00",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "5",
+            "thank_note_id": "4",
+            "comment": "The launch was a team effort! Couldn\\'t have done it without everyone\\'s hard work.",
+            "user_id": "2",
+            "created_at": "2025-08-28 05:00:00",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "6",
+            "thank_note_id": "4",
+            "comment": "Proud to be part of this amazing team!",
+            "user_id": "4",
+            "created_at": "2025-08-28 06:15:00",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "7",
+            "thank_note_id": "5",
+            "comment": "Anytime! That\\'s what friends are for.",
+            "user_id": "1",
+            "created_at": "2025-08-30 02:50:00",
+            "updated_at": "2025-09-02 20:02:05"
+        }
+    ],
+    "thank_note_reactions": [
+        {
+            "id": "1",
+            "thank_note_id": "1",
+            "reaction_id": "1",
+            "user_id": "2",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "2",
+            "thank_note_id": "1",
+            "reaction_id": "2",
+            "user_id": "3",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "3",
+            "thank_note_id": "1",
+            "reaction_id": "8",
+            "user_id": "4",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "4",
+            "thank_note_id": "2",
+            "reaction_id": "2",
+            "user_id": "1",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "5",
+            "thank_note_id": "3",
+            "reaction_id": "10",
+            "user_id": "5",
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "6",
+            "thank_note_id": "4",
+            "reaction_id": "9",
+            "user_id": "2",
+            "created_at": "2025-09-02 20:02:06",
+            "updated_at": "2025-09-02 20:02:06"
+        },
+        {
+            "id": "7",
+            "thank_note_id": "4",
+            "reaction_id": "1",
+            "user_id": "3",
+            "created_at": "2025-09-02 20:02:06",
+            "updated_at": "2025-09-02 20:02:06"
+        },
+        {
+            "id": "8",
+            "thank_note_id": "4",
+            "reaction_id": "4",
+            "user_id": "5",
+            "created_at": "2025-09-02 20:02:06",
+            "updated_at": "2025-09-02 20:02:06"
+        },
+        {
+            "id": "9",
+            "thank_note_id": "5",
+            "reaction_id": "2",
+            "user_id": "1",
+            "created_at": "2025-09-02 20:02:06",
+            "updated_at": "2025-09-02 20:02:06"
+        }
+    ],
+    "users": [
+        {
+            "id": "1",
+            "name": "Michael Brown",
+            "email": "one@email.com",
+            "email_verified_at": null,
+            "password": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+            "role_id": "2",
+            "remember_token": null,
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "2",
+            "name": "John Smith",
+            "email": "two@email.com",
+            "email_verified_at": null,
+            "password": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+            "role_id": "2",
+            "remember_token": null,
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "3",
+            "name": "Sarah Johnson",
+            "email": "three@email.com",
+            "email_verified_at": null,
+            "password": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+            "role_id": "2",
+            "remember_token": null,
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "4",
+            "name": "Emily Davis",
+            "email": "four@email.com",
+            "email_verified_at": null,
+            "password": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+            "role_id": "2",
+            "remember_token": null,
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "5",
+            "name": "Robert Wilson",
+            "email": "five@email.com",
+            "email_verified_at": null,
+            "password": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+            "role_id": "2",
+            "remember_token": null,
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        },
+        {
+            "id": "6",
+            "name": "admin",
+            "email": "admin@email.com",
+            "email_verified_at": null,
+            "password": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+            "role_id": "1",
+            "remember_token": null,
+            "created_at": "2025-09-02 20:02:05",
+            "updated_at": "2025-09-02 20:02:05"
+        }
+    ]
+}
