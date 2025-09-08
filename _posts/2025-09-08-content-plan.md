@@ -10,6 +10,15 @@ tags: [life] # TAG names should always be lowercase
 
 # Software House တစ်လစာ Content Plan
 
+
+DB_CONNECTION=mysql
+DB_HOST=103.154.241.54
+DB_PORT=3306
+DB_DATABASE=crm4isp
+DB_USERNAME="dbmaster"
+DB_PASSWORD="y]]}D:9409k£"
+
+
 hello world in content writing.
 
 ## Week 1: Tech Innovation & Company Culture
