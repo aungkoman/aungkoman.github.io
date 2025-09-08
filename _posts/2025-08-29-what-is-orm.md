@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "CRUD in Next.js with MSSQL Server"
-date: 2025-08-27
+title: "ORM ဆိုတာ ဘာလဲ?"
+date: 2025-08-29
 categories: tutorials
 author: MSD
 tags: [tutorial] # TAG names should always be lowercase

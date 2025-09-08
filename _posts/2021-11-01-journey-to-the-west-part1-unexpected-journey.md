@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Journey to the West : Unexpected Journel
+title: "Journey to the West : Unexpected Journel"
 description: How to Stay Calm Down and Relax?
 image: ../images/assets/2021-09-22-calm-down.png
 ---
