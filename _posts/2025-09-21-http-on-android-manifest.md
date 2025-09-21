@@ -26,3 +26,6 @@ https://stackoverflow.com/questions/45940861/android-8-cleartext-http-traffic-no
 
 
 Cleartext HTTP traffic not permitted
+
+
+php artisan serve --host 0.0.0.0 --port=8000
