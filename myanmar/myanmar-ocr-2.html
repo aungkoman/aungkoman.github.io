@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR for Myanmar Printed Documents (OCRMPD)</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3, h4 {
+            color: #0056b3;
+        }
+        h1, h2 {
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        h4 {
+            margin-bottom: 10px;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .step {
+            background-color: #f0f7ff;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+        .step h3 {
+            margin-top: 0;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            background-color: #fdfdfd;
+        }
+        #output-area {
+            border: 1px solid #ccc;
+            background-color: #fdfdfd;
+            padding: 15px;
+            min-height: 100px;
+            border-radius: 4px;
+            font-size: 1.2em;
+            white-space: pre-wrap;
+            margin-top: 10px;
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        input[type="file"] {
+            border: 1px solid #ccc;
+            padding: 8px;
+            border-radius: 5px;
+        }
+        #spinner {
+            display: none;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #007bff;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        #segments-output-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px dashed #b0c4de;
+            background-color: #f8f9fa;
+            min-height: 50px;
+            border-radius: 4px;
+        }
+        #segments-output-container canvas {
+            border: 1px solid #999;
+            background-color: #fff;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Optical Character Recognition System for Myanmar Printed Documents (OCRMPD) 🇲🇲</h1>
+    <p>This is a web-based demonstration of the OCRMPD system. Upload an image of Myanmar text to see a simulation of the recognition process based on the proposed algorithms.</p>
+
+    <div class="section">
+        <h2>1. Upload Document Image</h2>
+        <div class="controls">
+            <input type="file" id="image-loader" name="imageLoader" accept="image/*">
+            <button id="process-btn">Recognize Text</button>
+            <div id="spinner"></div>
+        </div>
+        <canvas id="image-canvas"></canvas>
+    </div>
+
+    <div class="section">
+        <h2>2. Algorithm Processing Stages</h2>
+
+        <div class="step">
+            <h3>Stage A: Segmentation Algorithm</h3>
+            <p>The system first isolates individual characters. A vertical projection histogram (X-Y cut) makes initial cuts. Then, a crucial <strong>Structural Analysis</strong> step refines these cuts, checking pixel density and connected components (CCs) to accurately segment complex, overlapping Myanmar characters. Red boxes show the detected segment boundaries on the image below.</p>
+            <canvas id="segment-canvas"></canvas>
+            
+            <h4>Extracted Character Segments:</h4>
+            <div id="segments-output-container">
+                <p style="color: #666;">Segments from the original image will be displayed here after processing.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>Stage B: Feature Extraction Algorithm</h3>
+            <p>After segmentation, each character image is normalized. A hybrid statistical method extracts unique features using <strong>Zone Density</strong> (pixel density in 3 horizontal zones) and <strong>Projection Area</strong> (area from top/bottom/left/right profiles). This creates a feature vector for each character.</p>
+        </div>
+
+        <div class="step">
+            <h3>Stage C: Classification Algorithm</h3>
+            <p>Finally, a <strong>Hierarchical Multi-class Support Vector Machine (SVM)</strong> classifier receives the feature vector. The hierarchical model efficiently navigates the large and visually similar Myanmar character set to determine the final text output.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>3. Recognized Text Output</h2>
+        <div id="output-area">The recognized text will appear here...</div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const imageLoader = document.getElementById('image-loader');
+    const processBtn = document.getElementById('process-btn');
+    const imageCanvas = document.getElementById('image-canvas');
+    const segmentCanvas = document.getElementById('segment-canvas');
+    const segmentsContainer = document.getElementById('segments-output-container');
+    const outputArea = document.getElementById('output-area');
+    const spinner = document.getElementById('spinner');
+
+    const ctxImage = imageCanvas.getContext('2d');
+    const ctxSegment = segmentCanvas.getContext('2d');
+    let originalImage = null;
+
+    imageLoader.addEventListener('change', (e) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+                originalImage = img;
+                // Scale canvas for display if image is very large
+                const maxWidth = 800;
+                const scale = Math.min(1, maxWidth / img.width);
+                const w = img.width * scale;
+                const h = img.height * scale;
+
+                imageCanvas.width = w;
+                imageCanvas.height = h;
+                segmentCanvas.width = w;
+                segmentCanvas.height = h;
+
+                // Draw original image scaled
+                ctxImage.drawImage(img, 0, 0, w, h);
+                // Clear other canvases/outputs
+                ctxSegment.clearRect(0, 0, segmentCanvas.width, segmentCanvas.height);
+                segmentsContainer.innerHTML = '<p style="color: #666;">Segments from the original image will be displayed here after processing.</p>';
+                outputArea.textContent = 'The recognized text will appear here...';
+            }
+            img.src = event.target.result;
+        }
+        if (e.target.files[0]) {
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    });
+
+    processBtn.addEventListener('click', () => {
+        if (!originalImage) {
+            alert('Please upload an image first.');
+            return;
+        }
+
+        spinner.style.display = 'block';
+        outputArea.textContent = 'Processing...';
+        segmentsContainer.innerHTML = ''; // Clear previous segments
+
+        // Simulate the OCR pipeline with a delay to show processing
+        setTimeout(() => {
+            // 1. Pre-processing (Binarization on full-res image)
+            const { binarizedImageData, scale } = preprocessImage(originalImage);
+
+            // 2. Segmentation (Simplified Simulation)
+            // Draw the preprocessed image on the segmentation canvas (scaled)
+            ctxSegment.drawImage(originalImage, 0, 0, segmentCanvas.width, segmentCanvas.height);
+            simulateSegmentation(binarizedImageData, originalImage, scale);
+
+            // 3. Feature Extraction & Classification (Simulated)
+            simulateRecognition();
+
+            spinner.style.display = 'none';
+        }, 1500); // 1.5 second delay for effect
+    });
+
+    function preprocessImage(img) {
+        // Use full resolution for processing
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = img.width;
+        tempCanvas.height = img.height;
+        const tempCtx = tempCanvas.getContext('2d');
+        tempCtx.drawImage(img, 0, 0);
+        
+        const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
+        const data = imageData.data;
+
+        // Simple grayscale and thresholding (binarization)
+        for (let i = 0; i < data.length; i += 4) {
+            const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+            const color = avg > 128 ? 255 : 0; // Threshold
+            data[i] = color; data[i + 1] = color; data[i + 2] = color;
+        }
+        
+        const scale = segmentCanvas.width / img.width;
+        return { binarizedImageData: imageData, scale: scale };
+    }
+
+    function simulateSegmentation(imageData, sourceImage, scale) {
+        // This is a highly simplified simulation of the vertical projection method.
+        const { width, height, data } = imageData;
+        const verticalProjection = new Array(width).fill(0);
+
+        // Calculate vertical histogram
+        for (let x = 0; x < width; x++) {
+            for (let y = 0; y < height; y++) {
+                const pixelIndex = (y * width + x) * 4;
+                if (data[pixelIndex] === 0) { // Black pixel
+                    verticalProjection[x]++;
+                }
+            }
+        }
+
+        // Find gaps to segment characters
+        ctxSegment.strokeStyle = 'rgba(255, 0, 0, 0.9)';
+        ctxSegment.lineWidth = 2;
+        let inChar = false;
+        let startX = 0;
+
+        for (let x = 0; x < width; x++) {
+            const isPixelPresent = verticalProjection[x] > 2;
+            if (isPixelPresent && !inChar) {
+                startX = x;
+                inChar = true;
+            } else if ((!isPixelPresent || x === width - 1) && inChar) {
+                const endX = x;
+                // Draw bounding box on the scaled canvas
+                ctxSegment.strokeRect((startX - 2) * scale, 0, (endX - startX + 4) * scale, height * scale);
+
+                // Find tight vertical bounds for the segment
+                let minY = height, maxY = 0, hasContent = false;
+                for (let col = startX; col < endX; col++) {
+                    for (let row = 0; row < height; row++) {
+                        if (data[(row * width + col) * 4] === 0) { // Black pixel
+                            if (row < minY) minY = row;
+                            if (row > maxY) maxY = row;
+                            hasContent = true;
+                        }
+                    }
+                }
+
+                // Create and append the segment canvas if content was found
+                if (hasContent) {
+                    const segmentWidth = endX - startX;
+                    const segmentHeight = maxY - minY + 1;
+                    
+                    const segmentCanvas = document.createElement('canvas');
+                    segmentCanvas.width = segmentWidth;
+                    segmentCanvas.height = segmentHeight;
+                    const segmentCtx = segmentCanvas.getContext('2d');
+                    
+                    // Draw the corresponding part of the ORIGINAL image onto the new canvas
+                    segmentCtx.drawImage(
+                        sourceImage,
+                        startX, minY,             // Source X, Y
+                        segmentWidth, segmentHeight, // Source Width, Height
+                        0, 0,                     // Destination X, Y
+                        segmentWidth, segmentHeight   // Destination Width, Height
+                    );
+                    segmentsContainer.appendChild(segmentCanvas);
+                }
+                inChar = false;
+            }
+        }
+    }
+
+    function simulateRecognition() {
+        // In a real application, this function would send feature vectors
+        // to a trained SVM model. Here, we just return a placeholder result.
+        outputArea.textContent = " डेमो စာသားကို ဤနေရာတွင် ပြသပါမည်။\n" +
+            "ဤသည်မှာ မြန်မာစာပုံနှိပ်စနစ်အတွက် သရုပ်ပြတစ်ခုဖြစ်သည်။";
+    }
+});
+</script>
+
+</body>
+</html>
