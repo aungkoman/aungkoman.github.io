@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myanmar Syllable Segmenter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Using Padauk font for Myanmar script for better rendering */
+        .font-myanmar {
+            font-family: 'Padauk', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-2xl mx-auto p-6 md:p-8 bg-white rounded-xl shadow-lg">
+        <div class="text-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-900">Myanmar Syllable Segmenter</h1>
+            <p class="text-gray-500 mt-2">Based on "A Rule-based Syllable Segmentation of Myanmar Text"</p>
+        </div>
+
+        <div class="space-y-4">
+            <div>
+                <label for="inputText" class="block text-sm font-medium text-gray-700 mb-1">Input Myanmar Text</label>
+                <textarea id="inputText" rows="5" class="font-myanmar p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-lg" placeholder="မင်္ဂလာပါ..."></textarea>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+                <button id="segmentButton" class="w-full sm:w-auto flex-grow bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200">Segment Syllables</button>
+                <button id="exampleButton" class="w-full sm:w-auto bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-colors duration-200">Load Example</button>
+            </div>
+            
+            <div>
+                <label for="outputText" class="block text-sm font-medium text-gray-700 mb-1">Segmented Output</label>
+                <div id="outputText" class="font-myanmar p-3 w-full h-auto min-h-[10rem] bg-gray-50 border border-gray-300 rounded-lg text-lg whitespace-pre-wrap"></div>
+            </div>
+        </div>
+
+        <div class="text-center mt-6">
+            <p class="text-xs text-gray-400">Created by implementing the logic from the research paper by Zin Maung Maung & Yoshiki Mikami.</p>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA AND RULES FROM THE RESEARCH PAPER ---
+
+        /**
+         * Returns the character category based on its Unicode code point.
+         * The classification follows Table 1 in the paper.
+         * @param {string} char - The character to classify.
+         * @returns {string} The category code (e.g., 'C', 'V', 'M').
+         */
+        function getCategory(char) {
+            const code = char.charCodeAt(0);
+
+            if (code >= 0x1000 && code <= 0x1021) return 'C'; // Consonants
+            if (code >= 0x103B && code <= 0x103E) return 'M'; // Medials
+            if (code >= 0x102B && code <= 0x1032) return 'V'; // Dependent Vowel Signs
+            if (code === 0x1039) return 'S'; // Myanmar Sign Virama
+            if (code === 0x103A) return 'A'; // Myanmar Sign Asat
+            if (code >= 0x1036 && code <= 0x1038) return 'F'; // Dependent Various Signs
+            if ([0x1024, 0x1027, 0x102A, 0x104C, 0x104D, 0x104F].includes(code)) return 'I'; // Independent Vowels, Various Signs
+            if ([0x1023, 0x1025, 0x1026, 0x1029, 0x104E].includes(code)) return 'E'; // Independent Vowels, Symbol Aforementioned
+            if (code === 0x103F) return 'G'; // Myanmar Letter Great Sa
+            if (code >= 0x1040 && code <= 0x1049) return 'D'; // Myanmar Digits
+            if (code >= 0x104A && code <= 0x104B) return 'P'; // Punctuation Marks
+            if (code === 0x0020) return 'W'; // White space
+            
+            // Fallback for any other characters
+            return 'X'; 
+        }
+
+        // Letter Sequence Table 1 from the paper (Table 4)
+        // Defines break status for pairs of character categories. 'U' is undefined.
+        const rules2 = {
+            'A': { 'A': -1, 'C': 'U', 'D': 1, 'E': 1, 'F': 0, 'G': -1, 'I': 1, 'M': 0, 'P': 1, 'S': 0, 'V': 0, 'W': 1 },
+            'C': { 'A': 0, 'C': 'U', 'D': 1, 'E': 1, 'F': 0, 'G': 0, 'I': 1, 'M': 0, 'P': 1, 'S': 0, 'V': 0, 'W': 1 },
+            'D': { 'A': -1, 'C': 1, 'D': 0, 'E': 1, 'F': -1, 'G': -1, 'I': 1, 'M': -1, 'P': 1, 'S': -1, 'V': -1, 'W': 1 },
+            'E': { 'A': -1, 'C': 'U', 'D': 1, 'E': 1, 'F': 2, 'G': 0, 'I': 1, 'M': -1, 'P': 1, 'S': -1, 'V': 0, 'W': 1 },
+            'F': { 'A': -1, 'C': 'U', 'D': 1, 'E': 1, 'F': 2, 'G': -1, 'I': 1, 'M': -1, 'P': 1, 'S': -1, 'V': -1, 'W': 1 },
+            'G': { 'A': -1, 'C': 1, 'D': 1, 'E': 1, 'F': 0, 'G': -1, 'I': 1, 'M': -1, 'P': 1, 'S': -1, 'V': 0, 'W': 1 },
+            'I': { 'A': -1, 'C': 1, 'D': 1, 'E': 1, 'F': -1, 'G': -1, 'I': 1, 'M': -1, 'P': 1, 'S': -1, 'V': -1, 'W': 1 },
+            'M': { 'A': 2, 'C': 'U', 'D': 1, 'E': 1, 'F': 0, 'G': 0, 'I': 1, 'M': 0, 'P': 1, 'S': -1, 'V': 0, 'W': 1 },
+            'P': { 'A': -1, 'C': 1, 'D': 1, 'E': 1, 'F': -1, 'G': -1, 'I': 1, 'M': -1, 'P': 1, 'S': -1, 'V': -1, 'W': 1 },
+            'S': { 'A': -1, 'C': 0, 'D': -1, 'E': -1, 'F': -1, 'G': -1, 'I': -1, 'M': -1, 'P': -1, 'S': -1, 'V': -1, 'W': -1 },
+            'V': { 'A': 2, 'C': 'U', 'D': 1, 'E': 1, 'F': 0, 'G': 0, 'I': 1, 'M': -1, 'P': 1, 'S': -1, 'V': 0, 'W': 1 },
+            'W': { 'A': -1, 'C': 1, 'D': 1, 'E': 1, 'F': -1, 'G': -1, 'I': 1, 'M': -1, 'P': 1, 'S': -1, 'V': -1, 'W': 0 }
+        };
+
+        // Letter Sequence Table 2 from the paper (Table 5)
+        // Defines break status for triplets of character categories.
+        const rules3 = {
+            'AC': { 'A': 3, 'C': 1, 'D': 1, 'E': 1, 'F': 1, 'G': 1, 'I': 1, 'M': 1, 'P': 1, 'S': 0, 'V': 1, 'W': 1 },
+            'CC': { 'A': 3, 'C': 1, 'D': 1, 'E': 1, 'F': 1, 'G': 1, 'I': 1, 'M': 'U', 'P': 1, 'S': 0, 'V': 1, 'W': 1 },
+            'EC': { 'A': 0, 'C': 1, 'D': 1, 'E': 1, 'F': 1, 'G': 1, 'I': 1, 'M': 1, 'P': 1, 'S': 0, 'V': 1, 'W': 1 },
+            'FC': { 'A': 3, 'C': 1, 'D': 1, 'E': 1, 'F': 1, 'G': 1, 'I': 1, 'M': 'U', 'P': 1, 'S': 0, 'V': 1, 'W': 1 },
+            'MC': { 'A': 3, 'C': 1, 'D': 1, 'E': 1, 'F': 1, 'G': 1, 'I': 1, 'M': 'U', 'P': 1, 'S': 0, 'V': 1, 'W': 1 },
+            'VC': { 'A': 0, 'C': 1, 'D': 1, 'E': 1, 'F': 1, 'G': 1, 'I': 1, 'M': 'U', 'P': 1, 'S': 0, 'V': 1, 'W': 1 }
+        };
+
+        // Letter Sequence Table 3 from the paper (Table 6)
+        // Defines break status for quadruplets of character categories.
+        const rules4 = {
+            'ACM': { 'A': 4, 'C': 1, 'D': 1, 'E': 1, 'F': 1, 'G': 1, 'I': 1, 'M': 1, 'P': 1, 'S': 1, 'V': 1, 'W': 1 },
+            'FCM': { 'A': 4, 'C': 1, 'D': 1, 'E': 1, 'F': 1, 'G': 1, 'I': 1, 'M': 1, 'P': 1, 'S': 1, 'V': 1, 'W': 1 },
+            'VCM': { 'A': 4, 'C': 1, 'D': 1, 'E': 1, 'F': 1, 'G': 1, 'I': 1, 'M': 1, 'P': 1, 'S': 1, 'V': 1, 'W': 1 }
+        };
+
+
+        // --- SEGMENTATION ALGORITHM ---
+
+        /**
+         * Segments the input Myanmar text into syllables.
+         * Implements the flowchart from Figure 2 of the paper.
+         * @param {string} text - The input text.
+         * @returns {string} The segmented text.
+         */
+        function segment(text) {
+            if (!text) return '';
+
+            let L = ''; // Processed (left) part of the string
+            let R = text; // Remaining (right) part of the string
+            const breakSymbol = '|';
+
+            while (R.length > 0) {
+                // If only one character is left, append and finish
+                if (R.length === 1) {
+                    L += R;
+                    R = '';
+                    continue;
+                }
+
+                // Get categories for the next up to 4 characters
+                const cat1 = getCategory(R[0]);
+                const cat2 = getCategory(R[1]);
+                const cat3 = R.length > 2 ? getCategory(R[2]) : null;
+                const cat4 = R.length > 3 ? getCategory(R[3]) : null;
+                
+                let breakStatus = null;
+
+                // 1. Check 4-character rules (Table 6)
+                if (cat4) {
+                    const key3 = cat1 + cat2 + cat3;
+                    if (rules4[key3] && rules4[key3][cat4] !== undefined) {
+                        breakStatus = rules4[key3][cat4];
+                    }
+                }
+
+                // 2. Check 3-character rules (Table 5)
+                if (breakStatus === null && cat3) {
+                    const key2 = cat1 + cat2;
+                    if (rules3[key2] && rules3[key2][cat3] !== undefined) {
+                        const status = rules3[key2][cat3];
+                        if (status !== 'U') {
+                            breakStatus = status;
+                        }
+                    }
+                }
+
+                // 3. Check 2-character rules (Table 4)
+                if (breakStatus === null) {
+                    if (rules2[cat1] && rules2[cat1][cat2] !== undefined) {
+                        const status = rules2[cat1][cat2];
+                        if (status !== 'U') {
+                            breakStatus = status;
+                        }
+                    }
+                }
+                
+                // 4. Default rule: if no other rule applies, break after 1 character.
+                if (breakStatus === null) {
+                    breakStatus = 1;
+                }
+                
+                // Process R and append to L based on the break status
+                switch (breakStatus) {
+                    case -1: // Illegal spelling order
+                        L += R.substring(0, 2) + '?';
+                        R = R.substring(2);
+                        break;
+                    case 0: // No break after 1st character
+                        L += R.substring(0, 1);
+                        R = R.substring(1);
+                        break;
+                    case 1: // Break after 1st character
+                        L += R.substring(0, 1) + breakSymbol;
+                        R = R.substring(1);
+                        break;
+                    case 2: // Break after 2nd character
+                        L += R.substring(0, 2) + breakSymbol;
+                        R = R.substring(2);
+                        break;
+                    case 3: // Break after 3rd character
+                        L += R.substring(0, 3) + breakSymbol;
+                        R = R.substring(3);
+                        break;
+                    case 4: // Break after 4th character
+                        L += R.substring(0, 4) + breakSymbol;
+                        R = R.substring(4);
+                        break;
+                    default: // Failsafe
+                        L += R.substring(0, 1);
+                        R = R.substring(1);
+                }
+            }
+            
+            // Clean up any trailing break symbol
+            if (L.endsWith(breakSymbol)) {
+                L = L.slice(0, -breakSymbol.length);
+            }
+            if (L.startsWith(breakSymbol)) {
+                L = L.slice(breakSymbol.length);
+            }
+
+            return L.replace(/ \| /g, '|').replace(/\|/g, ' | ');
+        }
+
+        // --- EVENT LISTENERS ---
+        const inputTextElem = document.getElementById('inputText');
+        const outputTextElem = document.getElementById('outputText');
+        const segmentButton = document.getElementById('segmentButton');
+        const exampleButton = document.getElementById('exampleButton');
+
+        segmentButton.addEventListener('click', () => {
+            const result = segment(inputTextElem.value);
+            outputTextElem.textContent = result;
+        });
+
+        exampleButton.addEventListener('click', () => {
+            const exampleText = "ကျွန်ုပ်၏ကားသည်အလွန်ကောင်း၏။";
+            inputTextElem.value = exampleText;
+            const result = segment(exampleText);
+            outputTextElem.textContent = result;
+        });
+        
+        // Initial example on page load
+        const initialText = "မင်္ဂလာပါ။";
+        inputTextElem.value = initialText;
+        outputTextElem.textContent = segment(initialText);
+
+    </script>
+</body>
+</html>
