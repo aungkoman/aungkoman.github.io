@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Family Tree Pathfinder (Dijkstra)</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --muted: #94a3b8;
+      --text: #e5e7eb;
+      --primary: #22d3ee;
+      --accent: #8b5cf6;
+      --danger: #ef4444;
+      --success: #22c55e;
+      --border: #1f2937;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 10% -10%, #111827, transparent),
+                  radial-gradient(900px 700px at 110% 10%, #0b1020, transparent),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+    }
+    header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(0deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02)), #0b1220;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: 0.3px;
+      font-weight: 600;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 16px;
+      padding: 16px;
+    }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    .card h2 {
+      margin: 0 0 10px 0;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    input[type="text"], select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #0b1020;
+      color: var(--text);
+      outline: none;
+    }
+    input[type="text"]:focus, select:focus { border-color: #263448; box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.15); }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    button {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: #0b1020;
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button.primary { border-color: #1f3a4a; background: linear-gradient(180deg, #0e1a28, #0c1520); color: var(--primary); }
+    button.accent { border-color: #2e1d57; color: var(--accent); }
+    button.danger { border-color: #3a1b1b; color: var(--danger); }
+    button.success { border-color: #14321f; color: var(--success); }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    .list { max-height: 250px; overflow: auto; border: 1px dashed var(--border); border-radius: 10px; padding: 8px; }
+    .list-item { font-size: 13px; padding: 6px 8px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; }
+    .list-item:nth-child(odd) { background: rgba(255,255,255,0.02); }
+    .muted { color: var(--muted); font-size: 12px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .pill { padding: 2px 8px; border-radius: 999px; background: rgba(139, 92, 246, 0.18); color: #bda6ff; font-size: 11px; border: 1px solid rgba(139,92,246,0.25); }
+    .result { white-space: pre-wrap; background: #0b1020; border: 1px solid var(--border); border-radius: 10px; padding: 10px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; }
+    .footer-note { color: var(--muted); font-size: 12px; }
+    .hr { height: 1px; background: var(--border); margin: 10px 0; }
+    .tag { font-size: 10px; color: var(--muted); }
+    .link { color: var(--primary); text-decoration: underline; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Family Tree Pathfinder · Dijkstra</h1>
+    <div class="tag">Single-file app (HTML+CSS+JS). Data persists to localStorage.</div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>People</h2>
+      <label for="personName">Full name</label>
+      <input id="personName" type="text" placeholder="e.g., Aung Ko" />
+      <div class="actions">
+        <button id="addPersonBtn" class="primary">Add Person</button>
+        <button id="clearAllBtn" class="danger">Clear All</button>
+        <button id="seedBtn" class="accent">Load Sample Data</button>
+      </div>
+      <div class="hr"></div>
+      <div class="list" id="peopleList"></div>
+    </section>
+
+    <section class="card">
+      <div class="grid-2">
+        <div>
+          <h2>Relationships</h2>
+          <div class="row">
+            <div>
+              <label for="relFrom">From</label>
+              <select id="relFrom"></select>
+            </div>
+            <div>
+              <label for="relTo">To</label>
+              <select id="relTo"></select>
+            </div>
+          </div>
+          <div class="row" style="margin-top:10px;">
+            <div>
+              <label for="relType">Type</label>
+              <select id="relType">
+                <option value="parent">Parent</option>
+                <option value="child">Child</option>
+                <option value="spouse">Spouse</option>
+                <option value="sibling">Sibling</option>
+                <option value="relative">Relative (generic)</option>
+              </select>
+            </div>
+            <div>
+              <label for="relWeight">Weight</label>
+              <select id="relWeight">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+          </div>
+          <div class="actions">
+            <button id="addRelBtn" class="primary">Add Relationship</button>
+          </div>
+          <div class="hr"></div>
+          <div class="list" id="relsList"></div>
+        </div>
+        <div>
+          <h2>Find Shortest Path</h2>
+          <div class="row">
+            <div>
+              <label for="pathFrom">From</label>
+              <select id="pathFrom"></select>
+            </div>
+            <div>
+              <label for="pathTo">To</label>
+              <select id="pathTo"></select>
+            </div>
+          </div>
+          <div class="actions">
+            <button id="findPathBtn" class="success">Run Dijkstra</button>
+          </div>
+          <div class="hr"></div>
+          <div class="result" id="pathResult">No path computed yet.</div>
+          <p class="footer-note">Dijkstra computes the minimum total weight path over the relationship graph. By default, edges are added in both directions so pathfinding works between any two connected people.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="card" style="margin: 0 16px 16px 16px;">
+    <h2>How to Use</h2>
+    <ol>
+      <li>Add people by name.</li>
+      <li>Create relationships between people (type + weight). Edges are stored undirected.</li>
+      <li>Pick two people and click Run Dijkstra to see the shortest relationship path.</li>
+      <li>Data is saved in your browser (localStorage). Use Clear All to reset.</li>
+      <li>Click Load Sample Data to explore a prebuilt mini family tree.</li>
+    </ol>
+  </section>
+
+  <script>
+    (function () {
+      "use strict";
+
+      const STORAGE_KEY = "family-tree-graph-v1";
+
+      /**
+       * Graph model held entirely in-memory and persisted to localStorage.
+       * - people: Map personId -> { id, name }
+       * - edges: Array<{ fromId, toId, weight, type }>
+       * - adjacency: Map personId -> Array<{ toId, weight, type }>
+       */
+      class FamilyGraph {
+        constructor() {
+          this.peopleById = new Map();
+          this.edges = [];
+          this.adjacency = new Map();
+        }
+
+        static fromObject(obj) {
+          const graph = new FamilyGraph();
+          if (obj && obj.people && obj.edges) {
+            // People
+            for (const person of obj.people) {
+              graph.peopleById.set(person.id, { id: person.id, name: person.name });
+            }
+            // Edges
+            for (const e of obj.edges) {
+              graph.addEdge(e.fromId, e.toId, e.weight, e.type, false);
+            }
+          }
+          return graph;
+        }
+
+        toObject() {
+          return {
+            people: Array.from(this.peopleById.values()),
+            edges: this.edges.map(e => ({ fromId: e.fromId, toId: e.toId, weight: e.weight, type: e.type }))
+          };
+        }
+
+        upsertPerson(name) {
+          const id = generateId(name);
+          if (!this.peopleById.has(id)) {
+            this.peopleById.set(id, { id, name: name.trim() });
+            this._ensureNode(id);
+          }
+          return id;
+        }
+
+        removeAll() {
+          this.peopleById.clear();
+          this.edges = [];
+          this.adjacency.clear();
+        }
+
+        addEdge(fromId, toId, weight, type, addReverse = true) {
+          if (!this.peopleById.has(fromId) || !this.peopleById.has(toId)) return;
+          const w = Number.isFinite(Number(weight)) ? Number(weight) : 1;
+          const t = String(type || "relative");
+
+          // Store canonical edge list (single direction entries)
+          this.edges.push({ fromId, toId, weight: w, type: t });
+
+          // Update adjacency (directed)
+          if (!this.adjacency.has(fromId)) this.adjacency.set(fromId, []);
+          this.adjacency.get(fromId).push({ toId, weight: w, type: t });
+
+          // For family graph, treat as undirected by default (mirror edge)
+          if (addReverse) {
+            this.addEdge(toId, fromId, w, t, false);
+          }
+        }
+
+        _ensureNode(id) {
+          if (!this.adjacency.has(id)) this.adjacency.set(id, []);
+        }
+      }
+
+      /** Dijkstra shortest path on weighted graph */
+      function dijkstraShortestPath(graph, startId, targetId) {
+        if (startId === targetId) return { distance: 0, path: [startId] };
+        const distances = new Map();
+        const previous = new Map();
+        const visited = new Set();
+
+        // Min-heap via simple array for small graphs
+        const queue = [];
+        for (const id of graph.peopleById.keys()) {
+          const d = id === startId ? 0 : Number.POSITIVE_INFINITY;
+          distances.set(id, d);
+          queue.push({ id, d });
+        }
+
+        const popMin = () => {
+          let idx = -1, best = Number.POSITIVE_INFINITY;
+          for (let i = 0; i < queue.length; i++) {
+            if (queue[i].d < best) { best = queue[i].d; idx = i; }
+          }
+          if (idx === -1) return null;
+          const item = queue.splice(idx, 1)[0];
+          return item;
+        };
+
+        const decreaseKey = (id, newD) => {
+          for (let i = 0; i < queue.length; i++) {
+            if (queue[i].id === id) { queue[i].d = newD; return; }
+          }
+        };
+
+        while (queue.length > 0) {
+          const u = popMin();
+          if (!u) break;
+          if (u.d === Number.POSITIVE_INFINITY) break;
+          visited.add(u.id);
+          if (u.id === targetId) break;
+
+          const neighbors = graph.adjacency.get(u.id) || [];
+          for (const edge of neighbors) {
+            if (visited.has(edge.toId)) continue;
+            const alt = distances.get(u.id) + edge.weight;
+            if (alt < distances.get(edge.toId)) {
+              distances.set(edge.toId, alt);
+              previous.set(edge.toId, { id: u.id, via: edge });
+              decreaseKey(edge.toId, alt);
+            }
+          }
+        }
+
+        if (!previous.has(targetId) && startId !== targetId) {
+          return { distance: Number.POSITIVE_INFINITY, path: [] };
+        }
+
+        // Reconstruct path
+        const path = [];
+        let cur = targetId;
+        path.unshift(cur);
+        while (previous.has(cur)) {
+          const prev = previous.get(cur);
+          path.unshift(prev.id);
+          cur = prev.id;
+        }
+        return { distance: distances.get(targetId), path };
+      }
+
+      /** Utilities */
+      function generateId(name) {
+        const base = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+        const rand = Math.random().toString(36).slice(2, 6);
+        return `${base || "person"}-${rand}`;
+      }
+
+      function save(graph) {
+        const obj = graph.toObject();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+      }
+
+      function load() {
+        try {
+          const txt = localStorage.getItem(STORAGE_KEY);
+          if (!txt) return new FamilyGraph();
+          const obj = JSON.parse(txt);
+          return FamilyGraph.fromObject(obj);
+        } catch (e) {
+          console.error("Failed to load graph:", e);
+          return new FamilyGraph();
+        }
+      }
+
+      /** DOM Binding */
+      const els = {
+        personName: document.getElementById("personName"),
+        addPersonBtn: document.getElementById("addPersonBtn"),
+        clearAllBtn: document.getElementById("clearAllBtn"),
+        seedBtn: document.getElementById("seedBtn"),
+        peopleList: document.getElementById("peopleList"),
+
+        relFrom: document.getElementById("relFrom"),
+        relTo: document.getElementById("relTo"),
+        relType: document.getElementById("relType"),
+        relWeight: document.getElementById("relWeight"),
+        addRelBtn: document.getElementById("addRelBtn"),
+        relsList: document.getElementById("relsList"),
+
+        pathFrom: document.getElementById("pathFrom"),
+        pathTo: document.getElementById("pathTo"),
+        findPathBtn: document.getElementById("findPathBtn"),
+        pathResult: document.getElementById("pathResult")
+      };
+
+      let graph = load();
+
+      function refreshPeopleOptions() {
+        const opts = Array.from(graph.peopleById.values())
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map(p => `<option value="${p.id}">${escapeHtml(p.name)}</option>`) // eslint-disable-line
+          .join("");
+        els.relFrom.innerHTML = opts;
+        els.relTo.innerHTML = opts;
+        els.pathFrom.innerHTML = opts;
+        els.pathTo.innerHTML = opts;
+      }
+
+      function renderPeople() {
+        const items = Array.from(graph.peopleById.values())
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map(p => `<div class="list-item"><span>${escapeHtml(p.name)}</span><span class="muted">${p.id}</span></div>`) // eslint-disable-line
+          .join("");
+        els.peopleList.innerHTML = items || `<div class="muted">No people yet.</div>`;
+      }
+
+      function renderRels() {
+        const items = graph.edges
+          .filter((_, idx) => idx % 2 === 0) // show each undirected pair once
+          .map(e => {
+            const from = graph.peopleById.get(e.fromId)?.name || e.fromId;
+            const to = graph.peopleById.get(e.toId)?.name || e.toId;
+            return `<div class="list-item"><span>${escapeHtml(from)} <span class="muted">(${escapeHtml(e.type)})</span> → ${escapeHtml(to)}</span><span class="pill">w=${e.weight}</span></div>`; // eslint-disable-line
+          })
+          .join("");
+        els.relsList.innerHTML = items || `<div class="muted">No relationships yet.</div>`;
+      }
+
+      function escapeHtml(s) {
+        return String(s)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function showPathResult(result, startId, targetId) {
+        if (!result || !Array.isArray(result.path) || result.path.length === 0 || !isFinite(result.distance)) {
+          els.pathResult.textContent = "No path found.";
+          return;
+        }
+        const names = result.path.map(id => graph.peopleById.get(id)?.name || id);
+        const steps = names.join("  →  ");
+        els.pathResult.textContent = `Distance: ${result.distance}\nPath: ${steps}`;
+      }
+
+      function addPerson() {
+        const name = (els.personName.value || "").trim();
+        if (!name) return;
+        graph.upsertPerson(name);
+        els.personName.value = "";
+        save(graph);
+        refreshPeopleOptions();
+        renderPeople();
+      }
+
+      function addRelationship() {
+        const from = els.relFrom.value;
+        const to = els.relTo.value;
+        if (!from || !to || from === to) return;
+        const type = els.relType.value || "relative";
+        const weight = Number(els.relWeight.value || 1);
+        graph.addEdge(from, to, weight, type, true);
+        save(graph);
+        renderRels();
+      }
+
+      function findPath() {
+        const from = els.pathFrom.value;
+        const to = els.pathTo.value;
+        if (!from || !to) return;
+        const res = dijkstraShortestPath(graph, from, to);
+        showPathResult(res, from, to);
+      }
+
+      function clearAll() {
+        if (!confirm("This will clear all people and relationships. Continue?")) return;
+        graph.removeAll();
+        save(graph);
+        refreshPeopleOptions();
+        renderPeople();
+        renderRels();
+        els.pathResult.textContent = "No path computed yet.";
+      }
+
+      function seedSample() {
+        graph.removeAll();
+        // People
+        const aung = graph.upsertPerson("Aung Ko");
+        const thin = graph.upsertPerson("Thinzar");
+        const su = graph.upsertPerson("Su Su");
+        const min = graph.upsertPerson("Min Thu");
+        const nyi = graph.upsertPerson("Nyi Nyi");
+        const zaw = graph.upsertPerson("Zaw Zaw");
+
+        // Relationships (undirected, weight=1 unless noted)
+        graph.addEdge(aung, thin, 1, "spouse");
+        graph.addEdge(aung, su, 1, "parent");
+        graph.addEdge(thin, su, 1, "parent");
+        graph.addEdge(su, min, 1, "sibling");
+        graph.addEdge(min, nyi, 2, "relative");
+        graph.addEdge(nyi, zaw, 1, "relative");
+
+        save(graph);
+        refreshPeopleOptions();
+        renderPeople();
+        renderRels();
+        els.pathFrom.value = aung;
+        els.pathTo.value = zaw;
+        showPathResult(dijkstraShortestPath(graph, aung, zaw), aung, zaw);
+      }
+
+      // Event bindings
+      els.addPersonBtn.addEventListener("click", addPerson);
+      els.addRelBtn.addEventListener("click", addRelationship);
+      els.findPathBtn.addEventListener("click", findPath);
+      els.clearAllBtn.addEventListener("click", clearAll);
+      els.seedBtn.addEventListener("click", seedSample);
+
+      // Initial render
+      refreshPeopleOptions();
+      renderPeople();
+      renderRels();
+    })();
+  </script>
+</body>
+</html>
