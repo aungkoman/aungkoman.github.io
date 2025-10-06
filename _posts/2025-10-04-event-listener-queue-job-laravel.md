@@ -193,3 +193,32 @@ redis for
 - job
 - event
 
+
+brew install redis
+redis-server
+
+
+### Redis on Linux
+
+
+sudo apt install redis-server -y
+
+
+$ sudo systemctl status redis-server
+● redis-server.service - Advanced key-value store
+     Loaded: loaded (/usr/lib/systemd/system/redis-server.service; enabled; preset: enabled)
+     Active: active (running) since Sat 2025-10-04 15:50:46 UTC; 1min 18s ago
+       Docs: http://redis.io/documentation,
+             man:redis-server(1)
+   Main PID: 136040 (redis-server)
+     Status: "Ready to accept connections"
+      Tasks: 5 (limit: 2213)
+     Memory: 4.4M (peak: 4.9M)
+        CPU: 239ms
+     CGroup: /system.slice/redis-server.service
+             └─136040 "/usr/bin/redis-server 127.0.0.1:6379"
+
+Oct 04 15:50:46 ip-172-26-1-183 systemd[1]: Starting redis-server.service - Advanced key-value store...
+Oct 04 15:50:46 ip-172-26-1-183 systemd[1]: Started redis-server.service - Advanced key-value store.
+
+
