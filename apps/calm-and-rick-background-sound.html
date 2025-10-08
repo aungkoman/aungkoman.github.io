@@ -28,6 +28,7 @@
             padding: 20px;
             cursor: pointer;
             transition: opacity 1.5s ease;
+            opacity: 0; /* Start hidden */
         }
         #story-overlay h1 {
             font-size: 2.5em;
@@ -167,7 +168,7 @@
             scene.add(particles);
             window.addEventListener('resize', onWindowResize, false);
             document.body.addEventListener('pointerdown', nextStep, false);
-            nextStep();
+            // The automatic nextStep() call is REMOVED from here.
         }
 
         function onWindowResize() {
@@ -207,22 +208,30 @@
         }
 
         function nextStep() {
+            // This now only runs after a user tap
             if (!musicStarted) {
-                music.play().catch(e => console.error("Autoplay was blocked.", e));
+                music.play().catch(e => console.error("Music play failed:", e));
                 musicStarted = true;
             }
+
             stopBreathingExercise();
+            
             if (currentStep < story.length - 1) {
                 currentStep++;
             } else {
                 currentStep = 0;
             }
-            if (currentStep > 0) prompt.style.display = 'none';
+
+            if (currentStep >= 0) {
+                 prompt.style.display = 'none';
+            }
             if (currentStep === story.length - 1) {
                 prompt.textContent = "ပြန်စရန် နှိပ်ပါ";
                 prompt.style.display = 'block';
             }
+            
             storyOverlay.style.opacity = 0;
+
             setTimeout(() => {
                 storyTitle.textContent = story[currentStep].title;
                 storyText.textContent = story[currentStep].text;
@@ -230,9 +239,11 @@
                     storyOverlay.style.opacity = 1;
                 }
             }, 1000);
+
             if (currentStep === 2) {
                 setTimeout(startBreathingExercise, 1500);
             }
+            
             transitionScene(currentStep);
         }
 
@@ -268,4 +279,3 @@
     </script>
 </body>
 </html>
-```
