@@ -1,8 +1,3 @@
-Of course. Here is a single `index.html` file that implements a lightweight, interactive 3D open-world game using Three.js, with all requirements met.
-
-You can **copy the code below, save it as `index.html`, and open it directly in a modern web browser** (like Chrome, Firefox, or Safari) to play. No server or build tools are needed.
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -170,7 +165,7 @@ You can **copy the code below, save it as `index.html`, and open it directly in 
     <script type="importmap">
     {
         "imports": {
-            "three": "https://unpkg.com/three@0.164.1/build/three.module.js"
+            "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js"
         }
     }
     </script>
@@ -193,7 +188,8 @@ You can **copy the code below, save it as `index.html`, and open it directly in 
             state: 'idle', // idle, walking, running, jumping, sitting, laying, punching, kicking
             health: 100,
             maxHealth: 100,
-            collisionCapsule: new THREE.Capsule(new THREE.Vector3(0, 0.3, 0), new THREE.Vector3(0, 1.3, 0), 0.3),
+            // **FIX**: Removed the abstract THREE.Capsule which is not a constructor. Collision will use bounding boxes.
+            collisionBox: new THREE.Box3(),
             joints: {},
             animation: {
                 targetPose: {},
@@ -380,6 +376,7 @@ You can **copy the code below, save it as `index.html`, and open it directly in 
             neck.add(head);
             player.joints.neck = neck;
 
+            // **FIX**: Corrected THREE.Capsule to THREE.CapsuleGeometry
             const torsoGeo = new THREE.CapsuleGeometry(0.35, 0.8, 4, 8);
             const torso = new THREE.Mesh(torsoGeo, new THREE.MeshStandardMaterial({ color: 0x4169E1 }));
             torso.position.y = 0.95;
@@ -389,6 +386,7 @@ You can **copy the code below, save it as `index.html`, and open it directly in 
             player.body.add(neck);
 
             // Arms
+            // **FIX**: Corrected THREE.Capsule to THREE.CapsuleGeometry
             const armGeo = new THREE.CapsuleGeometry(0.1, 0.4, 4, 8);
             const handGeo = new THREE.SphereGeometry(0.12, 8, 6);
             const rightArm = new THREE.Mesh(armGeo, new THREE.MeshStandardMaterial({ color: 0xffdbac }));
@@ -413,6 +411,7 @@ You can **copy the code below, save it as `index.html`, and open it directly in 
             player.body.add(leftShoulder);
 
             // Legs
+            // **FIX**: Corrected THREE.Capsule to THREE.CapsuleGeometry
             const legGeo = new THREE.CapsuleGeometry(0.15, 0.7, 4, 8);
             const footGeo = new THREE.BoxGeometry(0.2, 0.1, 0.4);
             const rightLeg = new THREE.Mesh(legGeo, new THREE.MeshStandardMaterial({ color: 0x333333 }));
@@ -785,13 +784,10 @@ You can **copy the code below, save it as `index.html`, and open it directly in 
         }
         
         function handleCollisions(intendedMove) {
-            // Player collision capsule
-            const capsule = player.collisionCapsule.clone();
-            capsule.translate(player.mesh.position);
+            // **FIX**: Using a bounding box for collision instead of the non-existent Capsule helper.
+            const playerBox = player.collisionBox.setFromObject(player.mesh);
+            const nextPosBox = playerBox.clone().translate(intendedMove);
             
-            const nextPosCapsule = capsule.clone();
-            nextPosCapsule.translate(intendedMove);
-
             let collisionDetected = false;
             let moveAdjustment = new THREE.Vector3(1, 1, 1);
 
@@ -799,22 +795,23 @@ You can **copy the code below, save it as `index.html`, and open it directly in 
 
             for (const obj of objectsToCheck) {
                 if (obj === player.mesh) continue;
-                if (!obj.geometry) continue; // Skip groups without geometry for this simple check
+                if (!obj.geometry && !obj.children.length) continue;
 
-                obj.geometry.computeBoundingBox();
                 const objBBox = new THREE.Box3().setFromObject(obj);
 
-                if (nextPosCapsule.intersectsBox(objBBox)) {
+                if (nextPosBox.intersectsBox(objBBox)) {
                     collisionDetected = true;
-                    // Simple collision response: stop movement towards the object
-                    const pushback = new THREE.Vector3();
-                    objBBox.getCenter(pushback).sub(player.mesh.position).normalize();
-                    
-                    if (Math.abs(intendedMove.x) > 0.001 && Math.sign(intendedMove.x) === Math.sign(pushback.x)) {
-                        moveAdjustment.x = 0;
+                    // Simple collision response: prevent movement into the object
+                    const pushbackX = nextPosBox.max.x > objBBox.min.x && playerBox.max.x <= objBBox.min.x;
+                    const pushbackNegX = nextPosBox.min.x < objBBox.max.x && playerBox.min.x >= objBBox.max.x;
+                    const pushbackZ = nextPosBox.max.z > objBBox.min.z && playerBox.max.z <= objBBox.min.z;
+                    const pushbackNegZ = nextPosBox.min.z < objBBox.max.z && playerBox.min.z >= objBBox.max.z;
+
+                    if ((pushbackX && intendedMove.x > 0) || (pushbackNegX && intendedMove.x < 0)) {
+                         moveAdjustment.x = 0;
                     }
-                    if (Math.abs(intendedMove.z) > 0.001 && Math.sign(intendedMove.z) === Math.sign(pushback.z)) {
-                        moveAdjustment.z = 0;
+                    if ((pushbackZ && intendedMove.z > 0) || (pushbackNegZ && intendedMove.z < 0)) {
+                         moveAdjustment.z = 0;
                     }
                 }
             }
@@ -1108,4 +1105,3 @@ You can **copy the code below, save it as `index.html`, and open it directly in 
     </script>
 </body>
 </html>
-```
