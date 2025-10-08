@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive 3D Guide to Techniques from Dr. Barbara Keesling</title>
+    <style>
+        body { 
+            margin: 0; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #111;
+            color: #ddd;
+        }
+        canvas { 
+            display: block; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        .content {
+            padding: 2em;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.75);
+        }
+        .collapsible {
+            background-color: #0077ff;
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 20px;
+            margin-bottom: 1em;
+            border-radius: 5px;
+        }
+        .collapsible:hover {
+            background-color: #0055bb;
+        }
+        .guide-content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: #222;
+            border-radius: 5px;
+        }
+        .technique-item {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .technique-item:hover {
+            background-color: #333;
+        }
+        h1, h2, h3 { color: #00aaff; }
+        ul { list-style-type: none; padding-left: 0; }
+        li { margin-bottom: 0.5em; }
+        p strong { color: #00c3ff; }
+    </style>
+</head>
+<body>
+
+    <div class="content">
+        <h1>Guided Techniques for Prolonged Lovemaking</h1>
+        <p>From "How to Make Love All Night" by Barbara Keesling, Ph.D.</p>
+
+        <button type="button" class="collapsible">Click to View Interactive Guide</button>
+        <div class="guide-content">
+            <p style="padding-top: 15px;"><strong>Interactive Guide:</strong> Click on a technique below to see a symbolic 3D representation.</p>
+            
+            <hr>
+
+            <div id="step1" class="technique-item">
+                <h3>Step 1: The PC Muscle Workout</h3>
+                <p>This foundational step is about building strength and control. The 3D animation shows a slow, controlled pulse, symbolizing muscle contraction.</p>
+            </div>
+
+            <hr>
+
+            <h3>Step 2: Understanding and Controlling Arousal</h3>
+            <div id="step2-peaking" class="technique-item">
+                <h4>Peaking</h4>
+                <p>This technique involves letting arousal rise to a peak and then letting it fall. The animation shows the cube quickly growing and shrinking.</p>
+            </div>
+            <div id="step2-plateauing" class="technique-item">
+                <h4>Plateauing</h4>
+                <p>This technique is about extending a peak to "ride" a high level of arousal. The animation shows the cube staying enlarged while its color oscillates.</p>
+            </div>
+
+            <hr>
+
+            <div id="step3" class="technique-item">
+                <h3>Step 3: Achieving Multiple Orgasms</h3>
+                <p>The final step involves using your control to separate orgasm from ejaculation. The animation represents this climactic event with a burst of particles.</p>
+            </div>
+            <p style="padding-bottom: 15px;"></p>
+        </div>
+    </div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+
+        // --- SCENE SETUP ---
+        let scene, camera, renderer, cube, particles;
+        let isAnimating = false;
+
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            // --- OBJECTS ---
+            const geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+            const material = new THREE.MeshStandardMaterial({ color: 0x0077ff, metalness: 0.5, roughness: 0.5 });
+            cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
+
+            // --- LIGHTING ---
+            const ambientLight = new THREE.AmbientLight(0x404040, 2);
+            scene.add(ambientLight);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+            directionalLight.position.set(5, 5, 5);
+            scene.add(directionalLight);
+
+            camera.position.z = 5;
+
+            // --- EVENT LISTENERS for GUIDE ---
+            document.getElementById('step1').addEventListener('click', () => triggerAnimation(animatePCWorkout));
+            document.getElementById('step2-peaking').addEventListener('click', () => triggerAnimation(animatePeaking));
+            document.getElementById('step2-plateauing').addEventListener('click', () => triggerAnimation(animatePlateauing));
+            document.getElementById('step3').addEventListener('click', () => triggerAnimation(animateClimax));
+
+            window.addEventListener('resize', onWindowResize, false);
+        }
+
+        function mainLoop() {
+            requestAnimationFrame(mainLoop);
+            if (!isAnimating) {
+                cube.rotation.x += 0.005;
+                cube.rotation.y += 0.005;
+            }
+            if (particles) {
+                particles.rotation.y += 0.002;
+            }
+            renderer.render(scene, camera);
+        }
+
+        // --- SYMBOLIC ANIMATION FUNCTIONS ---
+
+        function triggerAnimation(animationFunction) {
+            if (isAnimating) return; // Prevent overlapping animations
+            isAnimating = true;
+            resetState();
+            animationFunction();
+        }
+
+        function resetState() {
+            cube.scale.set(1, 1, 1);
+            cube.material.color.set(0x0077ff);
+            if (particles) {
+                scene.remove(particles);
+                particles.geometry.dispose();
+                particles.material.dispose();
+                particles = null;
+            }
+        }
+
+        // 1. PC Muscle Workout: A slow, controlled pulse.
+        function animatePCWorkout() {
+            let t = 0;
+            function animate() {
+                t += 0.05;
+                const scale = 1 + Math.sin(t) * 0.1;
+                cube.scale.set(scale, scale, scale);
+                if (t > Math.PI * 4) { // 2 full pulses
+                    resetState();
+                    isAnimating = false;
+                    return;
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // 2a. Peaking: Quickly grow and shrink.
+        function animatePeaking() {
+            let t = 0;
+            function animate() {
+                t += 0.1;
+                const scale = 1 + Math.sin(t) * 0.5;
+                cube.scale.set(scale, scale, scale);
+                if (t > Math.PI) {
+                    resetState();
+                    isAnimating = false;
+                    return;
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // 2b. Plateauing: Stay large and oscillate color.
+        function animatePlateauing() {
+            let t = 0;
+            cube.scale.set(1.5, 1.5, 1.5);
+            const originalColor = new THREE.Color(0x0077ff);
+            const targetColor = new THREE.Color(0xff4500);
+
+            function animate() {
+                t += 0.03;
+                cube.material.color.lerpColors(originalColor, targetColor, (Math.sin(t) + 1) / 2);
+                if (t > Math.PI * 6) { // 3 color shifts
+                    resetState();
+                    isAnimating = false;
+                    return;
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+        
+        // 3. Climax: A particle burst.
+        function animateClimax() {
+            const particleCount = 1000;
+            const points = [];
+            for (let i = 0; i < particleCount; i++) {
+                const vertex = new THREE.Vector3();
+                vertex.x = Math.random() * 2 - 1;
+                vertex.y = Math.random() * 2 - 1;
+                vertex.z = Math.random() * 2 - 1;
+                vertex.normalize();
+                vertex.multiplyScalar(Math.random() * 10 + 2);
+                points.push(vertex.x, vertex.y, vertex.z);
+            }
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(points, 3));
+            
+            const material = new THREE.PointsMaterial({ color: 0xffffff, size: 0.05, transparent: true });
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+
+            let t = 0;
+            function animate() {
+                t += 0.02;
+                particles.material.opacity = Math.max(0, 1 - t);
+                if (particles.material.opacity <= 0) {
+                    resetState();
+                    isAnimating = false;
+                    return;
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+        
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // --- UI SCRIPT for Collapsible content ---
+        const coll = document.querySelector(".collapsible");
+        coll.addEventListener("click", function() {
+            this.classList.toggle("active");
+            const content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+
+        // --- INITIALIZE AND START ---
+        init();
+        mainLoop();
+    </script>
+</body>
+</html>
