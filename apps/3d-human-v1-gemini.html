@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Procedural World - A Three.js Game</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 300;
+        }
+        canvas {
+            display: block;
+        }
+        #hud {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        }
+        .hud-element {
+            position: absolute;
+            padding: 10px;
+        }
+        #player-health {
+            top: 10px;
+            left: 10px;
+        }
+        #enemy-health {
+            top: 10px;
+            right: 10px;
+            text-align: right;
+            display: none; /* Hidden by default */
+        }
+        #status-text {
+            bottom: 10px;
+            left: 10px;
+        }
+        .health-bar {
+            width: 200px;
+            height: 20px;
+            background-color: rgba(255, 0, 0, 0.3);
+            border: 1px solid #fff;
+            margin-top: 5px;
+        }
+        .health-bar-fill {
+            width: 100%;
+            height: 100%;
+            background-color: #4CAF50; /* Green */
+            transition: width 0.3s ease-in-out;
+        }
+        #instructions-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: left;
+            z-index: 10;
+            cursor: pointer;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+        .controls-column {
+            display: inline-block;
+            vertical-align: top;
+            margin: 0 25px;
+        }
+        #virtual-joystick-container {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 120px;
+            height: 120px;
+            display: none; /* Hidden on desktop */
+            z-index: 5;
+            pointer-events: auto;
+        }
+        #joystick-base {
+            width: 100%;
+            height: 100%;
+            background: rgba(128, 128, 128, 0.4);
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+        #joystick-handle {
+            position: absolute;
+            top: 35px;
+            left: 35px;
+            width: 50px;
+            height: 50px;
+            background: rgba(200, 200, 200, 0.6);
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="instructions-overlay">
+        <div>
+            <h2>Welcome to Procedural World!</h2>
+            <div style="display: flex;">
+                <div class="controls-column">
+                    <b>Movement:</b><br>
+                    W / S: Forward / Backward<br>
+                    A / D: Strafe Left / Right<br>
+                    Q / E: Turn Left / Right<br>
+                    Mouse Drag/Lock: Look<br>
+                    Shift: Run<br>
+                    Space: Jump
+                </div>
+                <div class="controls-column">
+                    <b>Actions:</b><br>
+                    F: Punch<br>
+                    G: Kick<br>
+                    C: Sit<br>
+                    X: Lie Down<br>
+                    1 / 2: Right Arm Up / Down<br>
+                    3 / 4: Left Arm Up / Down<br>
+                    5 / 6: Head Left / Right
+                </div>
+                <div class="controls-column">
+                    <b>Camera & System:</b><br>
+                    Z: Zoom Camera<br>
+                    L: Toggle Day/Night<br>
+                    H: Show/Hide this help<br>
+                    Touch: Use on-screen joystick and swipe to look.
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 30px;">Click anywhere to begin</p>
+        </div>
+    </div>
+
+    <div id="hud">
+        <div id="player-health" class="hud-element">
+            Player Health
+            <div class="health-bar"><div id="player-health-fill" class="health-bar-fill"></div></div>
+        </div>
+        <div id="enemy-health" class="hud-element">
+            Enemy Health
+            <div class="health-bar"><div id="enemy-health-fill" class="health-bar-fill"></div></div>
+        </div>
+        <div id="status-text" class="hud-element">
+            State: Idle
+        </div>
+    </div>
+
+    <div id="virtual-joystick-container">
+        <div id="joystick-base"></div>
+        <div id="joystick-handle"></div>
+    </div>
+
+    <canvas id="game-canvas"></canvas>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js"
+        }
+    }
+    </script>
+    <script type="module">
+        import * as THREE from 'three';
+
+        // --- GAME SETUP ---
+        let scene, camera, renderer, clock, directionalLight;
+        const worldObjects = []; // For collision detection
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+        // --- PLAYER SETUP ---
+        const player = {
+            mesh: new THREE.Group(),
+            body: new THREE.Group(),
+            velocity: new THREE.Vector3(),
+            velocityY: 0,
+            onGround: false,
+            run: false,
+            state: 'idle', // idle, walking, running, jumping, sitting, laying, punching, kicking
+            health: 100,
+            maxHealth: 100,
+            // **FIX**: Removed the abstract THREE.Capsule which is not a constructor. Collision will use bounding boxes.
+            collisionBox: new THREE.Box3(),
+            joints: {},
+            animation: {
+                targetPose: {},
+                mixer: {},
+                alpha: 0
+            }
+        };
+
+        // --- ENEMY SETUP ---
+        const enemies = [];
+        let targetedEnemy = null;
+
+        // --- INPUT & CONTROLS ---
+        const keys = {};
+        const mouse = { x: 0, y: 0, dx: 0, dy: 0, down: false };
+        let cameraDistanceIndex = 1;
+        const CAMERA_DISTANCES = [3, 5, 8];
+        const CAMERA_HEIGHT = 2;
+
+        // --- PHYSICS & CONSTANTS ---
+        const GRAVITY = 18;
+        const MOVE_SPEED = 5;
+        const RUN_MULTIPLIER = 2;
+        const JUMP_FORCE = 8;
+        
+        // --- AUDIO ---
+        let audioContext;
+        const sounds = {};
+
+        // --- INITIALIZE ---
+        init();
+
+        function init() {
+            // Scene
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x87ceeb);
+            scene.fog = new THREE.Fog(0x87ceeb, 0, 200);
+
+            // Renderer
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('game-canvas'), antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+            // Camera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            
+            // Clock
+            clock = new THREE.Clock();
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+            scene.add(ambientLight);
+
+            directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+            directionalLight.position.set(50, 50, 50);
+            directionalLight.castShadow = true;
+            directionalLight.shadow.mapSize.width = 2048;
+            directionalLight.shadow.mapSize.height = 2048;
+            directionalLight.shadow.camera.left = -50;
+            directionalLight.shadow.camera.right = 50;
+            directionalLight.shadow.camera.top = 50;
+            directionalLight.shadow.camera.bottom = -50;
+            directionalLight.shadow.camera.near = 0.5;
+            directionalLight.shadow.camera.far = 200;
+            scene.add(directionalLight);
+            scene.add(directionalLight.target);
+
+            // Create World
+            createWorld();
+            
+            // Create Player
+            createPlayer();
+            player.mesh.position.set(0, 0, 5);
+            scene.add(player.mesh);
+
+            // Create Enemies
+            createEnemy(-10, 0, -10);
+            createEnemy(15, 0, -20);
+            
+            // Setup Controls
+            setupControls();
+
+            // Initial UI Update
+            updateHUD();
+
+            // Start Game Loop
+            renderer.setAnimationLoop(animate);
+
+            window.addEventListener('resize', onWindowResize);
+        }
+        
+        // --- WORLD CREATION ---
+        function createWorld() {
+            // Ground
+            const groundGeometry = new THREE.PlaneGeometry(500, 500);
+            const groundMaterial = new THREE.MeshStandardMaterial({ color: 0x55aa55, roughness: 0.8, metalness: 0.2 });
+            const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+            ground.rotation.x = -Math.PI / 2;
+            ground.receiveShadow = true;
+            scene.add(ground);
+            worldObjects.push(ground);
+
+            // Props (Boxes, Rocks, Trees)
+            for (let i = 0; i < 50; i++) {
+                const type = Math.random();
+                const x = (Math.random() - 0.5) * 200;
+                const z = (Math.random() - 0.5) * 200;
+                
+                if (Math.abs(x) < 10 && Math.abs(z) < 10) continue; // Keep starting area clear
+
+                if (type < 0.33) createBox(x, z);
+                else if (type < 0.66) createRock(x, z);
+                else createTree(x, z);
+            }
+        }
+
+        function createBox(x, z) {
+            const size = Math.random() * 2 + 1;
+            const box = new THREE.Mesh(
+                new THREE.BoxGeometry(size, size, size),
+                new THREE.MeshStandardMaterial({ color: 0x8B4513 })
+            );
+            box.position.set(x, size / 2, z);
+            box.castShadow = true;
+            box.receiveShadow = true;
+            scene.add(box);
+            worldObjects.push(box);
+        }
+
+        function createRock(x, z) {
+            const size = Math.random() * 1.5 + 0.5;
+            const geometry = new THREE.IcosahedronGeometry(size, 1);
+            const positionAttribute = geometry.getAttribute('position');
+            for (let i = 0; i < positionAttribute.count; i++) {
+                const vertex = new THREE.Vector3().fromBufferAttribute(positionAttribute, i);
+                vertex.multiplyScalar(1 + (Math.random() - 0.5) * 0.4);
+                positionAttribute.setXYZ(i, vertex.x, vertex.y, vertex.z);
+            }
+            geometry.computeVertexNormals();
+
+            const rock = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({ color: 0x808080, flatShading: true }));
+            rock.position.set(x, size * 0.4, z);
+            rock.castShadow = true;
+            rock.receiveShadow = true;
+            scene.add(rock);
+            worldObjects.push(rock);
+        }
+
+        function createTree(x, z) {
+            const tree = new THREE.Group();
+            const trunkHeight = Math.random() * 4 + 3;
+            const trunk = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.2, 0.4, trunkHeight, 8),
+                new THREE.MeshStandardMaterial({ color: 0x654321 })
+            );
+            trunk.position.y = trunkHeight / 2;
+            trunk.castShadow = true;
+
+            const leavesHeight = Math.random() * 3 + 2;
+            const leaves = new THREE.Mesh(
+                new THREE.ConeGeometry(1.5, leavesHeight, 8),
+                new THREE.MeshStandardMaterial({ color: 0x228B22 })
+            );
+            leaves.position.y = trunkHeight + leavesHeight * 0.4;
+            leaves.castShadow = true;
+            
+            tree.add(trunk);
+            tree.add(leaves);
+            tree.position.set(x, 0, z);
+            scene.add(tree);
+            worldObjects.push(tree); // Add group for simpler collision bounds
+        }
+
+        // --- PLAYER CREATION ---
+        function createPlayer() {
+            const head = new THREE.Mesh(new THREE.SphereGeometry(0.25, 16, 12), new THREE.MeshStandardMaterial({ color: 0xffdbac }));
+            head.position.y = 0.35;
+            player.joints.head = head;
+
+            const neck = new THREE.Group();
+            neck.position.y = 1.45;
+            neck.add(head);
+            player.joints.neck = neck;
+
+            // **FIX**: Corrected THREE.Capsule to THREE.CapsuleGeometry
+            const torsoGeo = new THREE.CapsuleGeometry(0.35, 0.8, 4, 8);
+            const torso = new THREE.Mesh(torsoGeo, new THREE.MeshStandardMaterial({ color: 0x4169E1 }));
+            torso.position.y = 0.95;
+            player.joints.torso = torso;
+
+            player.body.add(torso);
+            player.body.add(neck);
+
+            // Arms
+            // **FIX**: Corrected THREE.Capsule to THREE.CapsuleGeometry
+            const armGeo = new THREE.CapsuleGeometry(0.1, 0.4, 4, 8);
+            const handGeo = new THREE.SphereGeometry(0.12, 8, 6);
+            const rightArm = new THREE.Mesh(armGeo, new THREE.MeshStandardMaterial({ color: 0xffdbac }));
+            const rightHand = new THREE.Mesh(handGeo, new THREE.MeshStandardMaterial({ color: 0xffdbac }));
+            rightArm.position.y = -0.25;
+            rightHand.position.y = -0.25;
+            rightArm.add(rightHand);
+            player.joints.rightArm = rightArm;
+
+            const rightShoulder = new THREE.Group();
+            rightShoulder.position.set(-0.45, 1.3, 0);
+            rightShoulder.add(rightArm);
+            player.joints.rightShoulder = rightShoulder;
+            player.body.add(rightShoulder);
+
+            const leftArm = rightArm.clone();
+            player.joints.leftArm = leftArm;
+            const leftShoulder = new THREE.Group();
+            leftShoulder.position.set(0.45, 1.3, 0);
+            leftShoulder.add(leftArm);
+            player.joints.leftShoulder = leftShoulder;
+            player.body.add(leftShoulder);
+
+            // Legs
+            // **FIX**: Corrected THREE.Capsule to THREE.CapsuleGeometry
+            const legGeo = new THREE.CapsuleGeometry(0.15, 0.7, 4, 8);
+            const footGeo = new THREE.BoxGeometry(0.2, 0.1, 0.4);
+            const rightLeg = new THREE.Mesh(legGeo, new THREE.MeshStandardMaterial({ color: 0x333333 }));
+            const rightFoot = new THREE.Mesh(footGeo, new THREE.MeshStandardMaterial({ color: 0x222222 }));
+            rightLeg.position.y = -0.4;
+            rightFoot.position.set(0, -0.45, 0.1);
+            rightLeg.add(rightFoot);
+            player.joints.rightLeg = rightLeg;
+
+            const rightHip = new THREE.Group();
+            rightHip.position.set(-0.18, 0.5, 0);
+            rightHip.add(rightLeg);
+            player.joints.rightHip = rightHip;
+            player.body.add(rightHip);
+
+            const leftLeg = rightLeg.clone();
+            player.joints.leftLeg = leftLeg;
+            const leftHip = new THREE.Group();
+            leftHip.position.set(0.18, 0.5, 0);
+            leftHip.add(leftLeg);
+            player.joints.leftHip = leftHip;
+            player.body.add(leftHip);
+
+            player.mesh.add(player.body);
+            player.mesh.traverse(obj => {
+                if (obj.isMesh) {
+                    obj.castShadow = true;
+                    obj.receiveShadow = true;
+                }
+            });
+        }
+        
+        // --- ENEMY CREATION & AI ---
+        function createEnemy(x, z) {
+            const enemy = {
+                mesh: new THREE.Group(),
+                state: 'patrol', // patrol, chase, attack
+                health: 50,
+                maxHealth: 50,
+                speed: 2.5,
+                detectionRadius: 15,
+                attackRadius: 1.5,
+                attackDamage: 5,
+                attackCooldown: 1.5,
+                lastAttackTime: 0,
+                patrolPoints: [new THREE.Vector3(x, 0, z), new THREE.Vector3(x + Math.random() * 10 - 5, 0, z + Math.random() * 10 - 5)],
+                patrolIndex: 0
+            };
+
+            const body = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshStandardMaterial({ color: 0xff4500 }));
+            body.position.y = 0.5;
+            body.castShadow = true;
+            enemy.mesh.add(body);
+            enemy.mesh.position.copy(enemy.patrolPoints[0]);
+            
+            enemies.push(enemy);
+            scene.add(enemy.mesh);
+            worldObjects.push(enemy.mesh);
+        }
+
+        function updateEnemies(deltaTime) {
+            enemies.forEach(enemy => {
+                if (enemy.health <= 0) return;
+
+                const distanceToPlayer = player.mesh.position.distanceTo(enemy.mesh.position);
+                const isPlayerAlive = player.health > 0;
+
+                // State transitions
+                if (isPlayerAlive && distanceToPlayer < enemy.attackRadius) {
+                    enemy.state = 'attack';
+                } else if (isPlayerAlive && distanceToPlayer < enemy.detectionRadius) {
+                    enemy.state = 'chase';
+                } else {
+                    enemy.state = 'patrol';
+                }
+
+                // Execute state behavior
+                switch (enemy.state) {
+                    case 'patrol':
+                        const targetPoint = enemy.patrolPoints[enemy.patrolIndex];
+                        if (enemy.mesh.position.distanceTo(targetPoint) < 0.5) {
+                            enemy.patrolIndex = (enemy.patrolIndex + 1) % enemy.patrolPoints.length;
+                        }
+                        const direction = targetPoint.clone().sub(enemy.mesh.position).normalize();
+                        enemy.mesh.position.add(direction.multiplyScalar(enemy.speed * 0.5 * deltaTime));
+                        enemy.mesh.lookAt(targetPoint);
+                        break;
+                    
+                    case 'chase':
+                        const playerPos = player.mesh.position.clone();
+                        playerPos.y = enemy.mesh.position.y;
+                        const chaseDirection = playerPos.sub(enemy.mesh.position).normalize();
+                        enemy.mesh.position.add(chaseDirection.multiplyScalar(enemy.speed * deltaTime));
+                        enemy.mesh.lookAt(player.mesh.position);
+                        break;
+
+                    case 'attack':
+                        enemy.mesh.lookAt(player.mesh.position);
+                        const now = clock.getElapsedTime();
+                        if (now - enemy.lastAttackTime > enemy.attackCooldown) {
+                            enemy.lastAttackTime = now;
+                            player.health -= enemy.attackDamage;
+                            player.health = Math.max(0, player.health);
+                            updateHUD();
+                            playSound('hit');
+                            if (player.health <= 0) {
+                                // Player defeat logic
+                                player.state = 'laying';
+                                setStateText('Defeated');
+                            }
+                        }
+                        break;
+                }
+            });
+        }
+        
+        // --- CONTROLS SETUP ---
+        function setupControls() {
+            const canvas = renderer.domElement;
+            const instructions = document.getElementById('instructions-overlay');
+            const joystickContainer = document.getElementById('virtual-joystick-container');
+            
+            const startHandler = () => {
+                instructions.style.display = 'none';
+                if (isMobile) {
+                    joystickContainer.style.display = 'block';
+                } else {
+                    canvas.requestPointerLock();
+                }
+                
+                // Initialize Web Audio on first user interaction
+                if (!audioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    createSounds();
+                }
+            };
+
+            instructions.addEventListener('click', startHandler);
+            document.getElementById('hud').addEventListener('click', () => { // Allow clicking through HUD
+                if (!document.pointerLockElement) canvas.requestPointerLock();
+            });
+
+
+            document.addEventListener('keydown', e => keys[e.code] = true);
+            document.addEventListener('keyup', e => keys[e.code] = false);
+
+            document.addEventListener('pointermove', e => {
+                if (document.pointerLockElement === canvas || mouse.down) {
+                    mouse.dx = e.movementX || 0;
+                    mouse.dy = e.movementY || 0;
+                }
+            });
+            
+            canvas.addEventListener('pointerdown', e => {
+                mouse.down = true;
+            });
+            canvas.addEventListener('pointerup', e => {
+                mouse.down = false;
+            });
+            
+            // --- Special key handlers ---
+            document.addEventListener('keyup', e => {
+                if(player.health <= 0) return;
+                
+                if (e.code === 'KeyC') player.state = (player.state === 'sitting') ? 'idle' : 'sitting';
+                if (e.code === 'KeyX') player.state = (player.state === 'laying') ? 'idle' : 'laying';
+                if (e.code === 'KeyF') triggerAttack('punching');
+                if (e.code === 'KeyG') triggerAttack('kicking');
+                if (e.code === 'KeyZ') cameraDistanceIndex = (cameraDistanceIndex + 1) % CAMERA_DISTANCES.length;
+                if (e.code === 'KeyL') toggleDayNight();
+                if (e.code === 'KeyH') instructions.style.display = 'flex';
+            });
+            
+            // --- Touch Controls ---
+            if (isMobile) {
+                const joystickHandle = document.getElementById('joystick-handle');
+                const joystickBase = joystickContainer;
+                let joystickActive = false;
+                let joystickStart = { x: 0, y: 0 };
+                let touchLookStart = { x: 0, y: 0 };
+                let lookTouchId = null;
+
+                const getJoystickCenter = () => {
+                    const rect = joystickBase.getBoundingClientRect();
+                    return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+                };
+
+                const handleTouchStart = (e) => {
+                    e.preventDefault();
+                    for (let i = 0; i < e.changedTouches.length; i++) {
+                        const touch = e.changedTouches[i];
+                        if (touch.clientX < window.innerWidth / 2) { // Left side for movement
+                            joystickActive = true;
+                            joystickStart = { x: touch.clientX, y: touch.clientY };
+                        } else { // Right side for looking
+                            if (lookTouchId === null) {
+                                lookTouchId = touch.identifier;
+                                touchLookStart = { x: touch.clientX, y: touch.clientY };
+                                mouse.down = true;
+                            }
+                        }
+                    }
+                };
+                
+                const handleTouchMove = (e) => {
+                    e.preventDefault();
+                    for (let i = 0; i < e.changedTouches.length; i++) {
+                        const touch = e.changedTouches[i];
+                        if (joystickActive && touch.clientX < window.innerWidth / 2) {
+                            const center = getJoystickCenter();
+                            const dx = touch.clientX - center.x;
+                            const dy = touch.clientY - center.y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            const maxDist = joystickBase.clientWidth / 2 - joystickHandle.clientWidth / 2;
+                            
+                            const clampedDist = Math.min(dist, maxDist);
+                            const angle = Math.atan2(dy, dx);
+                            
+                            const joyX = Math.cos(angle) * clampedDist;
+                            const joyY = Math.sin(angle) * clampedDist;
+
+                            joystickHandle.style.transform = `translate(${joyX}px, ${joyY}px)`;
+
+                            // Map to W/A/S/D
+                            const power = clampedDist / maxDist;
+                            keys['KeyW'] = (joyY / maxDist < -0.3) && power > 0.3;
+                            keys['KeyS'] = (joyY / maxDist > 0.3) && power > 0.3;
+                            keys['KeyA'] = (joyX / maxDist < -0.3) && power > 0.3;
+                            keys['KeyD'] = (joyX / maxDist > 0.3) && power > 0.3;
+
+                        } else if (lookTouchId === touch.identifier) {
+                             mouse.dx = touch.clientX - touchLookStart.x;
+                             mouse.dy = touch.clientY - touchLookStart.y;
+                             touchLookStart = { x: touch.clientX, y: touch.clientY };
+                        }
+                    }
+                };
+                
+                const handleTouchEnd = (e) => {
+                    for (let i = 0; i < e.changedTouches.length; i++) {
+                        const touch = e.changedTouches[i];
+                        if (touch.clientX < window.innerWidth / 2) {
+                           joystickActive = false;
+                           joystickHandle.style.transform = `translate(0px, 0px)`;
+                           keys['KeyW'] = keys['KeyS'] = keys['KeyA'] = keys['KeyD'] = false;
+                        }
+                        if (lookTouchId === touch.identifier) {
+                            lookTouchId = null;
+                            mouse.down = false;
+                        }
+                    }
+                };
+
+                canvas.addEventListener('touchstart', handleTouchStart);
+                canvas.addEventListener('touchmove', handleTouchMove);
+                canvas.addEventListener('touchend', handleTouchEnd);
+                joystickContainer.addEventListener('touchstart', handleTouchStart);
+                joystickContainer.addEventListener('touchmove', handleTouchMove);
+                joystickContainer.addEventListener('touchend', handleTouchEnd);
+            }
+        }
+
+        // --- GAME LOOP & UPDATES ---
+        function animate() {
+            const deltaTime = Math.min(0.05, clock.getDelta()); // Cap delta to prevent physics glitches
+            
+            if (player.health > 0) {
+                updatePlayer(deltaTime);
+            }
+            updateEnemies(deltaTime);
+            updateCamera(deltaTime);
+            updateAnimations(deltaTime);
+            
+            renderer.render(scene, camera);
+            
+            // Reset mouse delta
+            mouse.dx = 0;
+            mouse.dy = 0;
+        }
+
+        function updatePlayer(deltaTime) {
+            const speed = (keys['ShiftLeft'] || keys['ShiftRight'] ? RUN_MULTIPLIER : 1) * MOVE_SPEED;
+            player.run = keys['ShiftLeft'] || keys['ShiftRight'];
+            
+            const isMoving = keys['KeyW'] || keys['KeyA'] || keys['KeyS'] || keys['KeyD'];
+            const isPosing = player.state === 'sitting' || player.state === 'laying';
+            
+            if (isPosing) {
+                player.velocity.set(0, 0, 0);
+            } else {
+                // Get forward and right vectors from player mesh
+                const forward = new THREE.Vector3();
+                player.mesh.getWorldDirection(forward);
+                forward.y = 0;
+                forward.normalize();
+
+                const right = new THREE.Vector3();
+                right.crossVectors(player.mesh.up, forward).normalize();
+                
+                let moveDirection = new THREE.Vector3();
+                if (keys['KeyW']) moveDirection.sub(forward);
+                if (keys['KeyS']) moveDirection.add(forward);
+                if (keys['KeyA']) moveDirection.add(right);
+                if (keys['KeyD']) moveDirection.sub(right);
+                moveDirection.normalize();
+                
+                player.velocity.x = moveDirection.x * speed;
+                player.velocity.z = moveDirection.z * speed;
+            }
+
+            // Turning
+            if (keys['KeyQ']) player.mesh.rotation.y += 2 * deltaTime;
+            if (keys['KeyE']) player.mesh.rotation.y -= 2 * deltaTime;
+            if (document.pointerLockElement || mouse.down) {
+                player.mesh.rotation.y -= mouse.dx * 0.002;
+                player.body.rotation.x = Math.max(-Math.PI/4, Math.min(Math.PI/4, player.body.rotation.x - mouse.dy * 0.002));
+            }
+
+            // Apply gravity
+            if (!player.onGround) {
+                player.velocityY -= GRAVITY * deltaTime;
+            }
+
+            // Jump
+            if (keys['Space'] && player.onGround && !isPosing) {
+                player.velocityY = JUMP_FORCE;
+                player.onGround = false;
+                player.state = 'jumping';
+                playSound('jump');
+            }
+
+            // Calculate intended next position
+            const intendedMove = new THREE.Vector3(player.velocity.x * deltaTime, player.velocityY * deltaTime, player.velocity.z * deltaTime);
+            
+            // Collision detection
+            handleCollisions(intendedMove);
+            
+            // Ground detection
+            const groundRaycaster = new THREE.Raycaster(player.mesh.position, new THREE.Vector3(0, -1, 0));
+            const groundIntersects = groundRaycaster.intersectObjects(worldObjects);
+            
+            if (groundIntersects.length > 0 && groundIntersects[0].distance < 1.0) {
+                if (!player.onGround) {
+                   player.mesh.position.y = groundIntersects[0].point.y + 0.9;
+                   player.velocityY = 0;
+                   player.onGround = true;
+                   if (player.state === 'jumping') player.state = 'idle';
+                }
+            } else {
+                player.onGround = false;
+            }
+
+            // Limb posing
+            if (keys['Digit1']) player.joints.rightShoulder.rotation.x -= 3 * deltaTime;
+            if (keys['Digit2']) player.joints.rightShoulder.rotation.x += 3 * deltaTime;
+            if (keys['Digit3']) player.joints.leftShoulder.rotation.x -= 3 * deltaTime;
+            if (keys['Digit4']) player.joints.leftShoulder.rotation.x += 3 * deltaTime;
+            if (keys['Digit5']) player.joints.head.rotation.y += 3 * deltaTime;
+            if (keys['Digit6']) player.joints.head.rotation.y -= 3 * deltaTime;
+            
+            // Update state
+            if (player.state !== 'jumping' && player.state !== 'sitting' && player.state !== 'laying' && !player.animation.mixer.punching && !player.animation.mixer.kicking) {
+                if (isMoving && player.onGround) {
+                    player.state = player.run ? 'running' : 'walking';
+                } else if (player.onGround) {
+                    player.state = 'idle';
+                }
+            }
+            setStateText(`State: ${player.state}`);
+        }
+        
+        function handleCollisions(intendedMove) {
+            // **FIX**: Using a bounding box for collision instead of the non-existent Capsule helper.
+            const playerBox = player.collisionBox.setFromObject(player.mesh);
+            const nextPosBox = playerBox.clone().translate(intendedMove);
+            
+            let collisionDetected = false;
+            let moveAdjustment = new THREE.Vector3(1, 1, 1);
+
+            const objectsToCheck = worldObjects.filter(obj => obj.position.distanceTo(player.mesh.position) < 10);
+
+            for (const obj of objectsToCheck) {
+                if (obj === player.mesh) continue;
+                if (!obj.geometry && !obj.children.length) continue;
+
+                const objBBox = new THREE.Box3().setFromObject(obj);
+
+                if (nextPosBox.intersectsBox(objBBox)) {
+                    collisionDetected = true;
+                    // Simple collision response: prevent movement into the object
+                    const pushbackX = nextPosBox.max.x > objBBox.min.x && playerBox.max.x <= objBBox.min.x;
+                    const pushbackNegX = nextPosBox.min.x < objBBox.max.x && playerBox.min.x >= objBBox.max.x;
+                    const pushbackZ = nextPosBox.max.z > objBBox.min.z && playerBox.max.z <= objBBox.min.z;
+                    const pushbackNegZ = nextPosBox.min.z < objBBox.max.z && playerBox.min.z >= objBBox.max.z;
+
+                    if ((pushbackX && intendedMove.x > 0) || (pushbackNegX && intendedMove.x < 0)) {
+                         moveAdjustment.x = 0;
+                    }
+                    if ((pushbackZ && intendedMove.z > 0) || (pushbackNegZ && intendedMove.z < 0)) {
+                         moveAdjustment.z = 0;
+                    }
+                }
+            }
+            
+            player.mesh.position.add(intendedMove.multiply(moveAdjustment));
+        }
+
+        function updateCamera(deltaTime) {
+            const targetPos = player.mesh.position;
+            const camDistance = CAMERA_DISTANCES[cameraDistanceIndex];
+
+            // Ideal camera position is behind the player
+            const idealOffset = new THREE.Vector3(0, CAMERA_HEIGHT, camDistance);
+            idealOffset.applyQuaternion(player.mesh.quaternion);
+            const idealCamPos = targetPos.clone().add(idealOffset);
+
+            // Camera collision detection
+            const cameraRay = new THREE.Raycaster(targetPos, idealCamPos.clone().sub(targetPos).normalize(), 0, camDistance);
+            const camIntersects = cameraRay.intersectObjects(worldObjects);
+
+            let finalCamPos = idealCamPos;
+            if (camIntersects.length > 0) {
+                finalCamPos = camIntersects[0].point.clone().sub(idealCamPos.clone().sub(targetPos).normalize().multiplyScalar(0.2));
+            }
+            
+            // Smoothly move camera to final position
+            camera.position.lerp(finalCamPos, deltaTime * 10);
+            
+            const lookAtTarget = targetPos.clone().add(new THREE.Vector3(0, 1.2, 0));
+            camera.lookAt(lookAtTarget);
+
+            // Update light to follow camera
+            directionalLight.position.copy(camera.position);
+            directionalLight.target.position.copy(targetPos);
+        }
+
+        // --- ANIMATIONS ---
+        const poses = {
+            idle: {
+                rightShoulder: { x: 0, y: 0, z: 0.2 },
+                leftShoulder: { x: 0, y: 0, z: -0.2 },
+                rightHip: { x: 0.1, y: 0, z: 0 },
+                leftHip: { x: 0.1, y: 0, z: 0 },
+            },
+            walking1: {
+                rightShoulder: { x: -0.5 }, leftShoulder: { x: 0.5 },
+                rightHip: { x: 0.5 }, leftHip: { x: -0.5 },
+            },
+            walking2: {
+                rightShoulder: { x: 0.5 }, leftShoulder: { x: -0.5 },
+                rightHip: { x: -0.5 }, leftHip: { x: 0.5 },
+            },
+            running1: {
+                rightShoulder: { x: -0.8 }, leftShoulder: { x: 0.8 },
+                rightHip: { x: 0.8 }, leftHip: { x: -0.8 },
+            },
+            running2: {
+                rightShoulder: { x: 0.8 }, leftShoulder: { x: -0.8 },
+                rightHip: { x: -0.8 }, leftHip: { x: 0.8 },
+            },
+            sitting: {
+                body: { y: -0.5 },
+                rightHip: { x: -1.57 }, leftHip: { x: -1.57 },
+                rightLeg: { x: 1.57 }, leftLeg: { x: 1.57 }
+            },
+            laying: {
+                body: { y: -0.8, x: 1.57 },
+                rightShoulder: { x: 0 }, leftShoulder: { x: 0 },
+                rightHip: { x: 0 }, leftHip: { x: 0 }
+            },
+            punching: {
+                rightShoulder: { x: -1.5, y: -0.5, z: 0.5 },
+            },
+            kicking: {
+                rightHip: { x: -1.5 },
+            }
+        };
+
+        function updateAnimations(deltaTime) {
+            const time = clock.getElapsedTime();
+            let targetPose;
+            let lerpSpeed = 5 * deltaTime;
+
+            // Handle one-shot animations like punch/kick
+            if (player.animation.mixer.punching) {
+                targetPose = { ...poses.idle, ...poses.punching };
+                lerpSpeed = 15 * deltaTime;
+            } else if (player.animation.mixer.kicking) {
+                targetPose = { ...poses.idle, ...poses.kicking };
+                lerpSpeed = 15 * deltaTime;
+            } else {
+                switch (player.state) {
+                    case 'walking':
+                    case 'running':
+                        const cycleSpeed = player.run ? 15 : 8;
+                        const phase = Math.sin(time * cycleSpeed);
+                        const pose1 = player.run ? poses.running1 : poses.walking1;
+                        const pose2 = player.run ? poses.running2 : poses.walking2;
+                        targetPose = {};
+                        for (const joint in pose1) {
+                            targetPose[joint] = {};
+                            for (const axis in pose1[joint]) {
+                                targetPose[joint][axis] = THREE.MathUtils.lerp(pose1[joint][axis], pose2[joint][axis], (phase + 1) / 2);
+                            }
+                        }
+                        break;
+                    case 'sitting':
+                        targetPose = poses.sitting;
+                        lerpSpeed = 3 * deltaTime;
+                        break;
+                    case 'laying':
+                        targetPose = poses.laying;
+                        lerpSpeed = 3 * deltaTime;
+                        break;
+                    case 'jumping':
+                    case 'idle':
+                    default:
+                        targetPose = poses.idle;
+                        break;
+                }
+            }
+
+            // Interpolate joints to target pose
+            for (const jointName in player.joints) {
+                const joint = player.joints[jointName];
+                const targetRot = (targetPose[jointName] || {});
+                const targetPos = (targetPose[jointName] || {});
+
+                const quat = new THREE.Quaternion().setFromEuler(new THREE.Euler(
+                    targetRot.x !== undefined ? targetRot.x : joint.rotation.x,
+                    targetRot.y !== undefined ? targetRot.y : joint.rotation.y,
+                    targetRot.z !== undefined ? targetRot.z : joint.rotation.z
+                ));
+                joint.quaternion.slerp(quat, lerpSpeed);
+                
+                if (jointName === 'body') { // Special case for body position
+                    const targetBodyPos = new THREE.Vector3(0, targetPos.y || 0, 0);
+                    player.body.position.lerp(targetBodyPos, lerpSpeed);
+                }
+            }
+        }
+        
+        function triggerAttack(type) {
+            if (player.animation.mixer.punching || player.animation.mixer.kicking || player.state === 'sitting' || player.state === 'laying') return;
+
+            player.animation.mixer[type] = true;
+            playSound('swing');
+
+            setTimeout(() => {
+                // Collision check at the peak of the animation
+                let attackBox;
+                if (type === 'punching') {
+                    const handPos = new THREE.Vector3();
+                    player.joints.rightArm.children[0].getWorldPosition(handPos);
+                    attackBox = new THREE.Box3().setFromCenterAndSize(handPos, new THREE.Vector3(0.5, 0.5, 0.5));
+                } else { // kicking
+                    const footPos = new THREE.Vector3();
+                    player.joints.rightLeg.children[0].getWorldPosition(footPos);
+                    attackBox = new THREE.Box3().setFromCenterAndSize(footPos, new THREE.Vector3(0.6, 0.6, 0.6));
+                }
+
+                enemies.forEach(enemy => {
+                    if (enemy.health <= 0) return;
+                    const enemyBBox = new THREE.Box3().setFromObject(enemy.mesh);
+                    if (attackBox.intersectsBox(enemyBBox)) {
+                        enemy.health -= 15;
+                        enemy.health = Math.max(0, enemy.health);
+                        playSound('hit');
+                        
+                        // Simple knockback
+                        const knockbackDir = enemy.mesh.position.clone().sub(player.mesh.position).normalize();
+                        enemy.mesh.position.add(knockbackDir.multiplyScalar(0.5));
+
+                        if (enemy.health <= 0) {
+                            scene.remove(enemy.mesh);
+                            const index = worldObjects.indexOf(enemy.mesh);
+                            if (index > -1) worldObjects.splice(index, 1);
+                            if (targetedEnemy === enemy) {
+                                targetedEnemy = null;
+                                document.getElementById('enemy-health').style.display = 'none';
+                            }
+                        }
+                    }
+                });
+                
+                // Find closest living enemy to show health bar
+                let closestEnemy = null;
+                let minDistance = Infinity;
+                enemies.forEach(enemy => {
+                    if (enemy.health > 0) {
+                        const distance = player.mesh.position.distanceTo(enemy.mesh.position);
+                        if (distance < minDistance) {
+                            minDistance = distance;
+                            closestEnemy = enemy;
+                        }
+                    }
+                });
+                targetedEnemy = (minDistance < 20) ? closestEnemy : null;
+                updateHUD();
+
+
+                setTimeout(() => { player.animation.mixer[type] = false; }, 150); // Animation duration
+            }, 100);
+        }
+
+        // --- UTILITY & UI ---
+        function updateHUD() {
+            // Player health
+            const playerHealthFill = document.getElementById('player-health-fill');
+            playerHealthFill.style.width = `${(player.health / player.maxHealth) * 100}%`;
+            playerHealthFill.style.backgroundColor = player.health > 50 ? '#4CAF50' : (player.health > 25 ? '#FFC107' : '#F44336');
+
+            // Enemy health
+            const enemyHealthElement = document.getElementById('enemy-health');
+            if (targetedEnemy && targetedEnemy.health > 0) {
+                enemyHealthElement.style.display = 'block';
+                const enemyHealthFill = document.getElementById('enemy-health-fill');
+                enemyHealthFill.style.width = `${(targetedEnemy.health / targetedEnemy.maxHealth) * 100}%`;
+            } else {
+                enemyHealthElement.style.display = 'none';
+            }
+        }
+        
+        function setStateText(text) {
+            document.getElementById('status-text').textContent = text;
+        }
+
+        function toggleDayNight() {
+            const isDay = scene.background.getHex() === 0x87ceeb;
+            if (isDay) { // Change to night
+                scene.background.set(0x000033);
+                scene.fog.color.set(0x000033);
+                directionalLight.intensity = 0.3;
+                scene.children.find(c => c.isAmbientLight).intensity = 0.2;
+            } else { // Change to day
+                scene.background.set(0x87ceeb);
+                scene.fog.color.set(0x87ceeb);
+                directionalLight.intensity = 1.5;
+                scene.children.find(c => c.isAmbientLight).intensity = 0.7;
+            }
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // --- AUDIO ---
+        function createSounds() {
+            sounds.swing = () => {
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                osc.type = 'white-noise';
+                gain.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.15);
+                osc.connect(gain).connect(audioContext.destination);
+                osc.start();
+                osc.stop(audioContext.currentTime + 0.15);
+            };
+            sounds.hit = () => {
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(120, audioContext.currentTime);
+                gain.gain.setValueAtTime(0.4, audioContext.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.2);
+                osc.connect(gain).connect(audioContext.destination);
+                osc.start();
+                osc.stop(audioContext.currentTime + 0.2);
+            };
+            sounds.jump = () => {
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(200, audioContext.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1);
+                gain.gain.setValueAtTime(0.2, audioContext.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.1);
+                osc.connect(gain).connect(audioContext.destination);
+                osc.start();
+                osc.stop(audioContext.currentTime + 0.1);
+            };
+        }
+
+        function playSound(soundName) {
+            if (audioContext && sounds[soundName]) {
+                sounds[soundName]();
+            }
+        }
+    </script>
+</body>
+</html>

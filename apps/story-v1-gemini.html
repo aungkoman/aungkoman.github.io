@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Whispered Choice</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&display=swap');
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000;
+            font-family: 'Playfair Display', serif;
+            color: white;
+        }
+
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        #start-screen {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        #game-screen {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .start-button, .choice-button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-family: 'Playfair Display', serif;
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            margin-top: 20px;
+        }
+
+        .start-button:hover, .choice-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        #story-container {
+            max-width: 600px;
+            padding: 20px;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            backdrop-filter: blur(3px);
+        }
+
+        #story-text {
+            font-size: 1.8em;
+            font-style: italic;
+            text-shadow: 0 0 7px #fff, 0 0 15px #fff, 0 0 25px #ff8ac5, 0 0 35px #ff8ac5;
+            line-height: 1.6;
+            min-height: 150px; /* To prevent layout shift */
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        #choices-container {
+            margin-top: 40px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .ripple {
+            position: absolute;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: ripple-effect 0.75s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-effect {
+            from {
+                width: 0;
+                height: 0;
+                opacity: 0.7;
+            }
+            to {
+                width: 100px;
+                height: 100px;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- The canvas for Three.js background animations -->
+    <canvas id="canvas"></canvas>
+
+    <!-- The initial screen with the start button -->
+    <div id="start-screen" class="overlay">
+        <div>
+            <h1 style="font-size: 3em; text-shadow: 0 0 10px #ff8ac5;">A Whispered Choice</h1>
+            <button id="start-button" class="start-button">Begin the Story</button>
+        </div>
+    </div>
+
+    <!-- The main game screen where the story unfolds -->
+    <div id="game-screen" class="overlay">
+        <div id="story-container">
+            <p id="story-text"></p>
+            <div id="choices-container"></div>
+        </div>
+    </div>
+
+    <!-- The end screen with the restart button -->
+    <div id="end-screen" class="overlay hidden">
+        <div>
+            <h1 style="font-size: 3em; text-shadow: 0 0 10px #ff8ac5;">The End</h1>
+            <button id="restart-button" class="start-button">Restart Story</button>
+        </div>
+    </div>
+
+    <!-- Three.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const startButton = document.getElementById('start-button');
+        const storyContainer = document.getElementById('story-container');
+        const storyTextElement = document.getElementById('story-text');
+        const choicesContainer = document.getElementById('choices-container');
+        const canvas = document.getElementById('canvas');
+        const endScreen = document.getElementById('end-screen');
+        const restartButton = document.getElementById('restart-button');
+
+        // --- Three.js Setup ---
+        let scene, camera, renderer;
+        let particles, lightBalloons;
+        const colorPalette = [new THREE.Color(0xff8ac5), new THREE.Color(0x8a9fff), new THREE.Color(0xc58aff)];
+        let colorIndex = 0;
+
+        // --- Audio Context for Sounds ---
+        let audioContext;
+        let ambientOscillator, gainNode;
+
+        // --- Game State ---
+        let currentSceneKey = 'intro';
+        let isTransitioning = false;
+        let canAdvance = false;
+
+        // --- Story Definition ---
+        const story = {
+            'intro': {
+                text: "The city hummed a quiet tune, but in the old library, silence reigned. A soft rain tapped against the tall arched windows...",
+                next: 'scene1'
+            },
+            'scene1': {
+                text: "That's when you saw them. Half-hidden by a towering shelf of forgotten lore, with a book held delicately in their hands.",
+                next: 'scene2'
+            },
+            'scene2': {
+                text: "A faint smile played on their lips as they read, and the world outside seemed to fade away. Your heart gave a gentle, unfamiliar flutter.",
+                choices: [
+                    { text: "Approach them", next: 'approach' },
+                    { text: "Watch from afar", next: 'watch' }
+                ]
+            },
+            'approach': {
+                text: "You walked over, your footsteps softer than a whisper. 'That's a good one,' you said, your voice barely breaking the silence.",
+                next: 'approach2'
+            },
+            'approach2': {
+                text: "They looked up, their eyes holding a universe of surprise and curiosity. A genuine, radiant smile bloomed. 'It is, isn't it?'",
+                next: 'conversation'
+            },
+            'watch': {
+                text: "You stayed where you were, an admirer of a beautiful, fleeting moment. Content in the quiet observation.",
+                next: 'watch2'
+            },
+            'watch2': {
+                text: "After a while, they closed the book with a soft sigh and stood up to leave. As they passed, their eyes met yours for a fraction of a second.",
+                next: 'glance'
+            },
+            'glance': {
+                text: "In that brief glance, there was a question, a hint of a shared secret. Then, they were gone, leaving only the scent of old paper and rain.",
+                next: 'conversation' // Converge paths
+            },
+            'conversation': {
+                text: "Hours melted away as you talked about everything and nothing. Fictional worlds, distant stars, and the simple magic of a rainy day.",
+                next: 'parting'
+            },
+            'parting': {
+                text: "The library was closing. At the grand entrance, the rain had softened to a fine mist. An unspoken question hung in the air between you.",
+                choices: [
+                    { text: "Ask to see them again", next: 'ask_again' },
+                    { text: "Say a simple goodbye", next: 'goodbye' },
+                ]
+            },
+            'ask_again': {
+                text: "A hopeful smile was your answer. 'I'd like that,' they said. This felt less like an ending, and more like the first page of a new chapter.",
+                next: 'ending'
+            },
+            'goodbye': {
+                text: "You smiled and wished them a good night. Sometimes, a perfect moment is meant to be just that—a moment. Beautiful and complete on its own.",
+                next: 'ending'
+            },
+            'ending': {
+                text: "As you walked into the misty night, the quiet melody of the city felt different. It was now a soundtrack to a memory, or perhaps, a promise...",
+                next: null // End of story
+            }
+        };
+
+        // --- Initialization ---
+        function init() {
+            // Three.js Scene
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 50;
+
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // Create particle systems
+            createParticles();
+            createLightBalloonParticles();
+
+            // Event Listeners
+            startButton.addEventListener('click', startGame);
+            restartButton.addEventListener('click', restartGame);
+            window.addEventListener('resize', onWindowResize, false);
+            storyContainer.addEventListener('click', advanceStory);
+            document.body.addEventListener('click', createRipple);
+
+            // Start animation loop
+            animate();
+        }
+
+        // --- Sound Generation ---
+        function initAudio() {
+            if (audioContext) return;
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // Ambient sound
+            ambientOscillator = audioContext.createOscillator();
+            gainNode = audioContext.createGain();
+            
+            ambientOscillator.type = 'sine';
+            ambientOscillator.frequency.setValueAtTime(80, audioContext.currentTime); // Low hum
+            gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.05, audioContext.currentTime + 2); // Fade in
+            
+            ambientOscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            ambientOscillator.start();
+        }
+
+        function playSoundEffect() {
+            if (!audioContext) return;
+            const oscillator = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            oscillator.type = 'triangle';
+            oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
+            gain.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.5);
+            
+            oscillator.connect(gain);
+            gain.connect(audioContext.destination);
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 0.5);
+        }
+
+        // --- Ripple Effect ---
+        function createRipple(event) {
+            // Don't create ripple on button clicks
+            if (event.target.tagName === 'BUTTON') return;
+
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple';
+            document.body.appendChild(ripple);
+
+            ripple.style.left = `${event.clientX}px`;
+            ripple.style.top = `${event.clientY}px`;
+
+            ripple.addEventListener('animationend', () => {
+                ripple.remove();
+            });
+        }
+
+        // --- Game Flow ---
+        function startGame() {
+            // Initialize audio on user interaction
+            initAudio();
+
+            startScreen.style.opacity = '0';
+            gameScreen.style.opacity = '1';
+            gameScreen.style.pointerEvents = 'auto';
+
+            setTimeout(() => {
+                startScreen.classList.add('hidden');
+                displayScene(currentSceneKey);
+            }, 1500);
+        }
+
+        function restartGame() {
+            endScreen.style.opacity = '0';
+            setTimeout(() => {
+                endScreen.classList.add('hidden');
+                gameScreen.style.opacity = '1';
+                gameScreen.style.pointerEvents = 'auto';
+                currentSceneKey = 'intro';
+                displayScene(currentSceneKey);
+            }, 1500); // Wait for fade out
+        }
+
+        function displayScene(key) {
+            const sceneData = story[key];
+            if (!sceneData) return;
+
+            isTransitioning = true;
+            canAdvance = false;
+            
+            // Fade out current text and choices
+            storyTextElement.style.opacity = 0;
+            choicesContainer.style.opacity = 0;
+
+            setTimeout(() => {
+                // Update content while invisible
+                storyTextElement.innerHTML = sceneData.text;
+                choicesContainer.innerHTML = '';
+
+                // Fade in new text
+                storyTextElement.style.opacity = 1;
+
+                if (sceneData.choices) {
+                    createChoices(sceneData.choices);
+                    choicesContainer.style.opacity = 1;
+                    isTransitioning = false;
+                    canAdvance = false; // Can only advance via choice
+                } else {
+                    // Wait for fade-in to finish before allowing next advance
+                    setTimeout(() => {
+                        isTransitioning = false;
+                        canAdvance = true;
+                    }, 800);
+                }
+            }, 800); // Match CSS transition time
+        }
+
+        function advanceStory() {
+            if (isTransitioning || !canAdvance) return;
+
+            playSoundEffect();
+            const currentScene = story[currentSceneKey];
+            if (currentScene && currentScene.next) {
+                currentSceneKey = currentScene.next;
+                displayScene(currentSceneKey);
+            } else if (currentScene.next === null) { // End of the story
+                // Show the end screen
+                gameScreen.style.opacity = '0';
+                gameScreen.style.pointerEvents = 'none';
+                endScreen.classList.remove('hidden');
+                setTimeout(() => {
+                     endScreen.style.opacity = '1';
+                }, 100);
+            }
+        }
+
+        function createChoices(choices) {
+            choices.forEach(choice => {
+                const button = document.createElement('button');
+                button.textContent = choice.text;
+                button.classList.add('choice-button');
+                button.onclick = () => {
+                    playSoundEffect();
+                    currentSceneKey = choice.next;
+                    displayScene(currentSceneKey);
+                };
+                choicesContainer.appendChild(button);
+            });
+        }
+
+        // --- Three.js Visuals ---
+        function createParticles() {
+            const particleCount = 2000; // Reduced for a dimmer feel
+            const vertices = [];
+            for (let i = 0; i < particleCount; i++) {
+                const x = THREE.MathUtils.randFloatSpread(200);
+                const y = THREE.MathUtils.randFloatSpread(200);
+                const z = THREE.MathUtils.randFloatSpread(100);
+                vertices.push(x, y, z);
+            }
+
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+
+            const material = new THREE.PointsMaterial({
+                color: 0xffffff,
+                size: 0.2,
+                transparent: true,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false,
+                map: createGlowTexture()
+            });
+
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+        }
+        
+        function createLightBalloonParticles() {
+            const particleCount = 40;
+            
+            const vertices = [];
+            for (let i = 0; i < particleCount; i++) {
+                const x = THREE.MathUtils.randFloatSpread(150);
+                const y = THREE.MathUtils.randFloatSpread(150);
+                const z = THREE.MathUtils.randFloatSpread(50);
+                vertices.push(x, y, z);
+            }
+
+            const balloonGeometry = new THREE.BufferGeometry();
+            balloonGeometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+
+            const material = new THREE.PointsMaterial({
+                color: 0xffeebf, // Soft warm glow
+                size: 1.5,
+                transparent: true,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false,
+                map: createBalloonTexture()
+            });
+            
+            lightBalloons = new THREE.Points(balloonGeometry, material);
+            scene.add(lightBalloons);
+        }
+
+        function createGlowTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 64;
+            canvas.height = 64;
+            const context = canvas.getContext('2d');
+            const gradient = context.createRadialGradient(
+                canvas.width / 2, canvas.height / 2, 0,
+                canvas.width / 2, canvas.height / 2, canvas.width / 2
+            );
+            gradient.addColorStop(0, 'rgba(255,255,255,1)');
+            gradient.addColorStop(0.2, 'rgba(255,255,255,0.8)');
+            gradient.addColorStop(0.8, 'rgba(255,255,255,0.1)');
+            gradient.addColorStop(1, 'rgba(255,255,255,0)');
+            context.fillStyle = gradient;
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            return new THREE.CanvasTexture(canvas);
+        }
+        
+        function createBalloonTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 128;
+            canvas.height = 128;
+            const context = canvas.getContext('2d');
+            const gradient = context.createRadialGradient(
+                canvas.width / 2, canvas.height / 2, 0,
+                canvas.width / 2, canvas.height / 2, canvas.width / 2
+            );
+            gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+            gradient.addColorStop(0.3, 'rgba(255, 230, 200, 0.8)');
+            gradient.addColorStop(1, 'rgba(255, 230, 200, 0)');
+            context.fillStyle = gradient;
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            return new THREE.CanvasTexture(canvas);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // --- Animation Loop ---
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const time = Date.now() * 0.0001;
+
+            // Animate background particles
+            particles.rotation.y = time * 0.2;
+            const positions = particles.geometry.attributes.position.array;
+            for (let i = 1; i < positions.length; i += 3) {
+                 positions[i] += Math.sin(time * 2 + i) * 0.01;
+            }
+            particles.geometry.attributes.position.needsUpdate = true;
+            
+            // Animate light balloons
+            lightBalloons.rotation.y = time * 0.3;
+            const balloonPositions = lightBalloons.geometry.attributes.position.array;
+             for (let i = 0; i < balloonPositions.length; i+=3) {
+                balloonPositions[i+1] += 0.05; // Move up
+                if(balloonPositions[i+1] > 75) {
+                    balloonPositions[i+1] = -75; // Reset when offscreen
+                }
+            }
+            lightBalloons.geometry.attributes.position.needsUpdate = true;
+
+
+            // Animate camera position for depth effect
+            camera.position.x = Math.sin(time * 0.5) * 2;
+            camera.position.z = 50 + Math.cos(time * 0.5) * 5;
+            camera.lookAt(scene.position);
+
+            // Animate background color transition
+            const timeColor = Date.now() * 0.0002;
+            const nextColorIndex = (colorIndex + 1) % colorPalette.length;
+            const lerpFactor = (timeColor % 1);
+            scene.background = new THREE.Color().lerpColors(colorPalette[colorIndex], colorPalette[nextColorIndex], lerpFactor);
+
+            if (lerpFactor > 0.99) {
+                 colorIndex = (colorIndex + 1) % colorPalette.length;
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        // --- Start the experience ---
+        init();
+    </script>
+</body>
+</html>

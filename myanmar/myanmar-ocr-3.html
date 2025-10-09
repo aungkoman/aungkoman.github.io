@@ -138,6 +138,12 @@
         <h2>1. Upload Document Image</h2>
         <div class="controls">
             <input type="file" id="image-loader" name="imageLoader" accept="image/*">
+            <select id="sample-image-selector">
+                <option value="">-- Select a sample image --</option>
+                <option value="2021-02-08-Announcement_No.1-bu-red.pdf-page_1-line_10">Sample 1 (ပြည်ထောင်စုလှတ်တော်ကိုယ်စားပြုကော်မတီ)</option>
+                <option value="2021-04-12_Razel-Bec_update-bu.pdf-page_1-line_10">Sample 2</option>
+                <option value="2021-06-11-KHRG_joint_statement_bu.pdf-page_1-line_10">Sample 3</option>
+            </select>
             <button id="process-btn">Recognize Text</button>
             <div id="spinner"></div>
         </div>
@@ -184,19 +190,54 @@ document.addEventListener('DOMContentLoaded', () => {
     const segmentsContainer = document.getElementById('segments-output-container');
     const outputArea = document.getElementById('output-area');
     const spinner = document.getElementById('spinner');
+    const sampleImageSelector = document.getElementById('sample-image-selector');
 
     const ctxImage = imageCanvas.getContext('2d');
     const ctxSegment = segmentCanvas.getContext('2d');
     let originalImage = null;
+    let currentGroundTruth = '';
 
     imageLoader.addEventListener('change', (e) => {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            const img = new Image();
-            img.onload = () => {
-                originalImage = img;
-                const maxWidth = 800;
-                const scale = Math.min(1, maxWidth / img.width);
+        if (e.target.files[0]) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                loadImage(event.target.result);
+            }
+            reader.readAsDataURL(e.target.files[0]);
+            sampleImageSelector.value = ''; // Clear sample selection
+            currentGroundTruth = ''; // Clear ground truth for uploaded image
+        }
+    });
+
+    sampleImageSelector.addEventListener('change', (e) => {
+        const selectedValue = e.target.value;
+        if (selectedValue) {
+            imageLoader.value = ''; // Clear file input
+            const imagePath = `./ocr-dataset/burmese_ocr_data/cleaned/cleaned/pic/${selectedValue}.png`;
+            const gtPath = `./ocr-dataset/burmese_ocr_data/cleaned/cleaned/gt/${selectedValue}.gt.txt`;
+            
+            // Load image
+            loadImage(imagePath);
+
+            // Load ground truth
+            fetch(gtPath)
+                .then(response => response.text())
+                .then(text => {
+                    currentGroundTruth = text.trim();
+                })
+                .catch(error => {
+                    console.error('Error loading ground truth:', error);
+                    currentGroundTruth = 'Error loading ground truth.';
+                });
+        }
+    });
+
+    function loadImage(src) {
+        const img = new Image();
+        img.onload = () => {
+            originalImage = img;
+            const maxWidth = 800;
+            const scale = Math.min(1, maxWidth / img.width);
                 const w = img.width * scale;
                 const h = img.height * scale;
 
@@ -210,16 +251,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 segmentsContainer.innerHTML = '<p style="color: #666;">Segments from the original image will be displayed here after processing.</p>';
                 outputArea.textContent = 'The recognized text will appear here...';
             }
-            img.src = event.target.result;
+            img.src = src;
         }
-        if (e.target.files[0]) {
-            reader.readAsDataURL(e.target.files[0]);
-        }
-    });
 
     processBtn.addEventListener('click', () => {
         if (!originalImage) {
-            alert('Please upload an image first.');
+            alert('Please upload an image or select a sample first.');
             return;
         }
 
@@ -236,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Run the full segmentation pipeline
             processSegmentation(binarizedImageData, originalImage, scale);
 
-            simulateRecognition();
+            simulateRecognition(currentGroundTruth);
             spinner.style.display = 'none';
         }, 1500);
     });
@@ -376,9 +413,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function simulateRecognition() {
-        outputArea.textContent = " डेमो စာသားကို ဤနေရာတွင် ပြသပါမည်။\n" +
-            "ဤသည်မှာ မြန်မာစာပုံနှိပ်စနစ်အတွက် သရုပ်ပြတစ်ခုဖြစ်သည်။";
+    function simulateRecognition(groundTruth) {
+        outputArea.textContent = groundTruth || "No ground truth available for this sample.";
     }
 });
 </script>
