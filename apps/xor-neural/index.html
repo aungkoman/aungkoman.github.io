@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XOR Neural Network - Live Training</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Use Inter, a clean sans-serif font */
+        body { font-family: 'Inter', sans-serif; }
+        /* Custom scrollbar for output log */
+        #output-log {
+            max-height: 200px; /* Limit height */
+            overflow-y: auto; /* Enable scroll */
+            scrollbar-width: thin;
+            scrollbar-color: #38b2ac #374151; /* teal-500 gray-700 */
+        }
+        #output-log::-webkit-scrollbar {
+            width: 8px;
+        }
+        #output-log::-webkit-scrollbar-track {
+            background: #374151; /* gray-700 */
+            border-radius: 10px;
+        }
+        #output-log::-webkit-scrollbar-thumb {
+            background-color: #38b2ac; /* teal-500 */
+            border-radius: 10px;
+            border: 2px solid #374151; /* gray-700 */
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-2xl shadow-2xl w-full max-w-4xl">
+        <h1 class="text-3xl font-bold text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-500">
+            Live XOR Neural Network
+        </h1>
+        
+        <!-- Main Result Display -->
+        <div id="main-result-display" class="text-center mb-8 p-6 bg-gray-800 rounded-xl shadow-lg">
+            <span class="text-2xl font-medium text-gray-500">Press "Train Network" to begin.</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Left Column (Controls & Weights) -->
+            <div class="lg:col-span-1 space-y-6">
+                
+                <!-- Controls -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
+                    <h2 class="text-xl font-semibold mb-4 text-yellow-300">Controls</h2>
+                    <!-- Train Button -->
+                    <button id="btn-train" class="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-gray-900 font-bold p-4 rounded-lg shadow-md transition-all mb-6 flex items-center justify-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Train Network (10k Epochs)</span>
+                    </button>
+                    <!-- Test Buttons -->
+                    <p class="text-center text-gray-400 mb-2 text-sm">Test Network:</p>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button id="btn-00" class="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold p-3 rounded-lg shadow-md transition-all">Input: [0, 0]</button>
+                        <button id="btn-01" class="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold p-3 rounded-lg shadow-md transition-all">Input: [0, 1]</button>
+                        <button id="btn-10" class="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold p-3 rounded-lg shadow-md transition-all">Input: [1, 0]</button>
+                        <button id="btn-11" class="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold p-3 rounded-lg shadow-md transition-all">Input: [1, 1]</button>
+                    </div>
+                </div>
+
+                <!-- Live Weights Display -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg font-mono text-xs">
+                    <h2 class="text-xl font-semibold mb-4 text-yellow-300">Live Weights & Biases</h2>
+                    <div id="weights-display">Network not initialized.</div>
+                </div>
+
+            </div>
+
+            <!-- Right Column (Progress & Output) -->
+            <div class="lg:col-span-2 bg-gray-800 p-6 rounded-xl shadow-lg space-y-6">
+                
+                <!-- Training Progress -->
+                <div>
+                    <h2 class="text-xl font-semibold mb-4 text-yellow-300">Training Progress</h2>
+                    <div class="flex items-center space-x-4 mb-2">
+                        <div class="w-full bg-gray-700 rounded-full h-4 shadow-inner">
+                            <div id="progress-bar" class="bg-gradient-to-r from-cyan-400 to-teal-500 h-4 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                        <span id="progress-percent" class="font-bold text-lg text-cyan-400">0%</span>
+                    </div>
+                    <div id="error-log" class="text-sm text-gray-400 font-mono">
+                        Total Error: N/A
+                    </div>
+                </div>
+
+                <!-- Network Output -->
+                <div class="font-mono text-sm">
+                    <h2 class="text-xl font-semibold mb-4 text-yellow-300">Network Output Log</h2>
+                    <div id="output-log" class="bg-gray-900 p-4 rounded-lg shadow-inner h-full">
+                        <span class="text-gray-500">Press "Train Network" to begin.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. Activation Functions ---
+        
+        // Sigmoid: Squashes any number to be between 0 and 1
+        function sigmoid(x) {
+            return 1 / (1 + Math.exp(-x));
+        }
+
+        // Derivative of Sigmoid: Used in backpropagation to calculate gradients
+        // 'x' here is the *already computed* sigmoid output
+        function sigmoidDerivative(x) {
+            return x * (1 - x);
+        }
+
+        // --- 2. The Neural Network Class ---
+        class NeuralNetwork {
+            constructor() {
+                this.initializeWeights();
+                this.learningRate = 0.1;
+                this.intermediate = {};
+            }
+
+            initializeWeights() {
+                // --- RANDOM INITIALIZATION ---
+                this.weights = {
+                    h1: [Math.random() * 2 - 1, Math.random() * 2 - 1], // w1, w2 for h1
+                    h2: [Math.random() * 2 - 1, Math.random() * 2 - 1], // w1, w2 for h2
+                    y:  [Math.random() * 2 - 1, Math.random() * 2 - 1]  // w1, w2 for y
+                };
+                this.biases = {
+                    h1: Math.random() * 2 - 1,
+                    h2: Math.random() * 2 - 1,
+                    y:  Math.random() * 2 - 1
+                };
+            }
+
+            // --- 3. "USING" (Feed-Forward Prediction) ---
+            predict(input) {
+                const [x1, x2] = input;
+
+                const signal_h1 = (x1 * this.weights.h1[0]) + (x2 * this.weights.h1[1]) + this.biases.h1;
+                const output_h1 = sigmoid(signal_h1);
+
+                const signal_h2 = (x1 * this.weights.h2[0]) + (x2 * this.weights.h2[1]) + this.biases.h2;
+                const output_h2 = sigmoid(signal_h2);
+
+                const signal_y = (output_h1 * this.weights.y[0]) + (output_h2 * this.weights.y[1]) + this.biases.y;
+                const output_y = sigmoid(signal_y);
+
+                // Store these values for the training step
+                this.intermediate = {
+                    input: [x1, x2],
+                    h1_signal: signal_h1, // <-- FIX: Use explicit property assignment
+                    output_h1: output_h1,
+                    h2_signal: signal_h2, // <-- FIX: Use explicit property assignment
+                    output_h2: output_h2,
+                    y_signal: signal_y,   // <-- FIX: Use explicit property assignment
+                    output_y: output_y
+                };
+                
+                return this.intermediate;
+            }
+
+            // --- 4. "LEARNING" (Backpropagation) ---
+            train(input, target) {
+                const outputs = this.predict(input);
+                const { output_h1, output_h2, output_y } = outputs;
+                const [x1, x2] = input;
+                const [target_y] = target;
+
+                const error_y = target_y - output_y;
+                const gradient_y = error_y * sigmoidDerivative(output_y);
+
+                const error_h1 = gradient_y * this.weights.y[0];
+                const gradient_h1 = error_h1 * sigmoidDerivative(output_h1);
+                
+                const error_h2 = gradient_y * this.weights.y[1];
+                const gradient_h2 = error_h2 * sigmoidDerivative(output_h2);
+
+                this.weights.y[0] += this.learningRate * gradient_y * output_h1;
+                this.weights.y[1] += this.learningRate * gradient_y * output_h2;
+                this.biases.y += this.learningRate * gradient_y;
+                
+                this.weights.h1[0] += this.learningRate * gradient_h1 * x1;
+                this.weights.h1[1] += this.learningRate * gradient_h1 * x2;
+                this.biases.h1 += this.learningRate * gradient_h1;
+                
+                this.weights.h2[0] += this.learningRate * gradient_h2 * x1;
+                this.weights.h2[1] += this.learningRate * gradient_h2 * x2;
+                this.biases.h2 += this.learningRate * gradient_h2;
+                
+                return error_y ** 2; // Return squared error
+            }
+        }
+
+        // --- 5. Event Listeners to run the network ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const outputLog = document.getElementById('output-log');
+            const weightsEl = document.getElementById('weights-display');
+            const trainBtn = document.getElementById('btn-train');
+            const progressBar = document.getElementById('progress-bar');
+            const progressPercent = document.getElementById('progress-percent');
+            const errorLog = document.getElementById('error-log');
+            const testButtons = ['btn-00', 'btn-01', 'btn-10', 'btn-11'].map(id => document.getElementById(id));
+            const mainResultDisplay = document.getElementById('main-result-display'); // Get the new display
+
+            const nn = new NeuralNetwork();
+            const trainingData = [
+                { input: [0, 0], target: [0] }, { input: [0, 1], target: [1] },
+                { input: [1, 0], target: [1] }, { input: [1, 1], target: [0] }
+            ];
+
+            function logToOutput(message, type = 'info') {
+                const color = {
+                    info: 'text-gray-400',
+                    success: 'text-green-400',
+                    error: 'text-red-400',
+                    test: 'text-cyan-300'
+                }[type];
+                outputLog.innerHTML += `<div class="${color}">${message}</div>`;
+                outputLog.scrollTop = outputLog.scrollHeight; // Auto-scroll to bottom
+            }
+
+            function updateWeightsDisplay() {
+                weightsEl.innerHTML = `
+                    <div class="space-y-2">
+                        <div>
+                            <span class="text-gray-400">// Hidden 1</span><br>
+                            w: [<span class="text-pink-400">${nn.weights.h1[0].toFixed(3)}</span>, <span class="text-pink-400">${nn.weights.h1[1].toFixed(3)}</span>]<br>
+                            b: <span class="text-pink-400">${nn.biases.h1.toFixed(3)}</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-400">// Hidden 2</span><br>
+                            w: [<span class="text-pink-400">${nn.weights.h2[0].toFixed(3)}</span>, <span class="text-pink-400">${nn.weights.h2[1].toFixed(3)}</span>]<br>
+                            b: <span class="text-pink-400">${nn.biases.h2.toFixed(3)}</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-400">// Output</span><br>
+                            w: [<span class="text-pink-400">${nn.weights.y[0].toFixed(3)}</span>, <span class="text-pink-400">${nn.weights.y[1].toFixed(3)}</span>]<br>
+                            b: <span class="text-pink-400">${nn.biases.y.toFixed(3)}</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            function runTest(input) {
+                console.log("runTest called with input:", input); // DEBUG
+                try {
+                    const result = nn.predict(input);
+                    const finalResult = Math.round(result.output_y);
+
+                    // --- NEW: Update main display ---
+                    const resultColor = finalResult === 1 ? 'text-green-400' : 'text-red-400';
+                    const inputString = `[${input[0]}, ${input[1]}]`;
+                    mainResultDisplay.innerHTML = `
+                        <span class="text-3xl font-medium text-gray-400">Input: </span>
+                        <span class="text-4xl font-bold text-cyan-400">${inputString}</span>
+                        <span class="text-3xl font-medium text-gray-400"> → Result: </span>
+                        <span class="text-5xl font-bold ${resultColor}">${finalResult}</span>
+                    `;
+
+                    // --- Log to console as before ---
+                    logToOutput(`> Test Input: ${inputString}`, 'test');
+                    logToOutput(`  h1: ${result.output_h1.toFixed(4)}, h2: ${result.output_h2.toFixed(4)}`);
+                    logToOutput(`  y: ${result.output_y.toFixed(4)} -> <span class="text-2xl font-bold text-yellow-300">${finalResult}</span>`);
+                } catch (e) {
+                    console.error("Error in runTest:", e); // DEBUG
+                    logToOutput(`Error during test: ${e.message}`, 'error');
+                    mainResultDisplay.innerHTML = `<span class="text-2xl font-medium text-red-500">Error: ${e.message}</span>`;
+                }
+            }
+            
+            function setControlsEnabled(enabled) {
+                trainBtn.disabled = !enabled;
+                testButtons.forEach(btn => btn.disabled = !enabled);
+                trainBtn.classList.toggle('opacity-50', !enabled);
+                testButtons.forEach(btn => btn.classList.toggle('opacity-50', !enabled));
+            }
+
+            // --- Async Training Function ---
+            async function startTraining() {
+                setControlsEnabled(false);
+                trainBtn.innerText = "Training...";
+                logToOutput("--- Starting New Training Session ---", "success");
+                
+                // --- NEW: Reset main display ---
+                mainResultDisplay.innerHTML = `<span class="text-2xl font-medium text-yellow-400">Training...</span>`;
+
+                nn.initializeWeights(); // Re-randomize weights for each new training
+
+                const totalEpochs = 10000;
+                const epochsPerBatch = 100; // Train 100 epochs at a time
+                const numBatches = totalEpochs / epochsPerBatch;
+
+                for (let batch = 0; batch < numBatches; batch++) {
+                    let batchError = 0;
+                    for (let i = 0; i < epochsPerBatch; i++) {
+                        let epochError = 0;
+                        for (const data of trainingData) {
+                            epochError += nn.train(data.input, data.target);
+                        }
+                        batchError = epochError / trainingData.length;
+                    }
+
+                    // --- Update UI in real-time ---
+                    const percentComplete = (batch + 1) / numBatches * 100;
+                    progressBar.style.width = `${percentComplete}%`;
+                    progressPercent.innerText = `${Math.round(percentComplete)}%`;
+                    errorLog.innerText = `Total Error: ${batchError.toFixed(10)}`;
+                    updateWeightsDisplay();
+
+                    // Yield to browser to update UI
+                    await new Promise(resolve => setTimeout(resolve, 5)); 
+                }
+
+                logToOutput("--- Training Complete! ---", "success");
+                logToOutput("Network is ready to test.");
+                
+                // --- NEW: Update main display on complete ---
+                mainResultDisplay.innerHTML = `<span class="text-2xl font-medium text-green-400">Training Complete. Ready to Test!</span>`;
+
+                setControlsEnabled(true);
+                trainBtn.innerText = "Re-Train Network";
+            }
+
+            // --- Hook up Buttons ---
+            trainBtn.onclick = startTraining;
+            
+            document.getElementById('btn-00').onclick = () => {
+                console.log("Button [0, 0] clicked"); // DEBUG
+                runTest([0, 0]);
+            };
+            document.getElementById('btn-01').onclick = () => {
+                console.log("Button [0, 1] clicked"); // DEBUG
+                runTest([0, 1]);
+            };
+            document.getElementById('btn-10').onclick = () => {
+                console.log("Button [1, 0] clicked"); // DEBUG
+                runTest([1, 0]);
+            };
+            document.getElementById('btn-11').onclick = () => {
+                console.log("Button [1, 1] clicked"); // DEBUG
+                runTest([1, 1]);
+            };
+            
+            // --- Initial State ---
+            updateWeightsDisplay();
+            logToOutput("Network is untrained. Press 'Train Network'.");
+            // --- NEW: Reset main display on load ---
+            mainResultDisplay.innerHTML = `<span class="text-2xl font-medium text-gray-500">Press "Train Network" to begin.</span>`;
+            setControlsEnabled(true);
+        });
+    </script>
+</body>
+</html>
