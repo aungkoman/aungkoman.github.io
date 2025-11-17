@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Gem Collector</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            background-color: #111;
+        }
+        canvas {
+            display: block;
+        }
+        #ui-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 24px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+        #restart-button {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 25px;
+            font-size: 18px;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 5px #999;
+            transition: all 0.1s ease-in-out;
+        }
+        #restart-button:active {
+            box-shadow: 0 2px #666;
+            transform: translate(-50%, 2px);
+        }
+        #game-over-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ff4757;
+            font-size: 6vw;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px #000;
+            display: none;
+            text-align: center;
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+    </style>
+</head>
+<body>
+    <div id="ui-container">
+        <span>Gems: </span><span id="score">0</span>
+    </div>
+
+    <div id="game-over-message">
+        GAME OVER
+    </div>
+
+    <button id="restart-button">Restart</button>
+
+    <!-- Import Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Optional: Tone.js for sound effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+
+    <script>
+        // Game variables
+        let scene, camera, renderer, player, clock;
+        let ground, gemsGroup, pitsGroup;
+        let targetPosition = new THREE.Vector3();
+        let playerVelocity = new THREE.Vector3();
+        const playerSpeed = 8;
+        const worldSize = 200;
+        const gemCount = 50;
+        const pitCount = 25;
+        let score = 0;
+        let gameOver = false;
+        
+        // Raycasting for input
+        const raycaster = new THREE.Raycaster();
+        const pointer = new THREE.Vector2();
+
+        // UI Elements
+        const scoreElement = document.getElementById('score');
+        const restartButton = document.getElementById('restart-button');
+        const gameOverMessage = document.getElementById('game-over-message');
+        
+        let soundSynth;
+
+        // Initialize the game
+        init();
+        animate();
+
+        function init() {
+            // Scene setup
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x87ceeb);
+            scene.fog = new THREE.Fog(0x87ceeb, 50, 150);
+            clock = new THREE.Clock();
+
+            // Camera setup
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 15, 20);
+
+            // Renderer setup
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            document.body.appendChild(renderer.domElement);
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+            scene.add(ambientLight);
+
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(50, 50, 50);
+            directionalLight.castShadow = true;
+            directionalLight.shadow.mapSize.width = 2048;
+            directionalLight.shadow.mapSize.height = 2048;
+            directionalLight.shadow.camera.left = -worldSize / 2;
+            directionalLight.shadow.camera.right = worldSize / 2;
+            directionalLight.shadow.camera.top = worldSize / 2;
+            directionalLight.shadow.camera.bottom = -worldSize / 2;
+            scene.add(directionalLight);
+
+            // Player character
+            const playerGeometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+            const playerMaterial = new THREE.MeshStandardMaterial({ color: 0xff4757 });
+            player = new THREE.Mesh(playerGeometry, playerMaterial);
+            player.castShadow = true;
+            player.position.y = 0.75;
+            scene.add(player);
+            targetPosition.copy(player.position);
+
+            // Ground
+            const groundGeometry = new THREE.PlaneGeometry(worldSize, worldSize);
+            const groundMaterial = new THREE.MeshStandardMaterial({ color: 0x27ae60 });
+            ground = new THREE.Mesh(groundGeometry, groundMaterial);
+            ground.rotation.x = -Math.PI / 2;
+            ground.receiveShadow = true;
+            scene.add(ground);
+
+            // Gems and Pits
+            gemsGroup = new THREE.Group();
+            pitsGroup = new THREE.Group();
+            scene.add(gemsGroup);
+            scene.add(pitsGroup);
+            
+            spawnObjects();
+
+            // Event Listeners
+            window.addEventListener('resize', onWindowResize);
+            window.addEventListener('pointerdown', onPointerDown);
+            restartButton.addEventListener('click', resetGame);
+
+            // Initialize sound synth (optional)
+            if (typeof Tone !== 'undefined') {
+                soundSynth = new Tone.Synth().toDestination();
+            }
+        }
+
+        function spawnObjects() {
+            // Create gems
+            const gemGeometry = new THREE.IcosahedronGeometry(0.7, 0);
+            const gemMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0xf1c40f, 
+                emissive: 0xf1c40f, 
+                emissiveIntensity: 0.3 
+            });
+            for (let i = 0; i < gemCount; i++) {
+                const gem = new THREE.Mesh(gemGeometry, gemMaterial);
+                gem.position.set(
+                    (Math.random() - 0.5) * worldSize,
+                    0.7,
+                    (Math.random() - 0.5) * worldSize
+                );
+                gem.castShadow = true;
+                gemsGroup.add(gem);
+            }
+
+            // Create pits
+            const pitGeometry = new THREE.CircleGeometry(2.5, 32);
+            const pitMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
+            for (let i = 0; i < pitCount; i++) {
+                const pit = new THREE.Mesh(pitGeometry, pitMaterial);
+                pit.rotation.x = -Math.PI / 2;
+                pit.position.set(
+                    (Math.random() - 0.5) * worldSize,
+                    0.01, // Slightly above ground to prevent z-fighting
+                    (Math.random() - 0.5) * worldSize
+                );
+                // Don't add pits too close to the starting point
+                if (pit.position.distanceTo(new THREE.Vector3(0, 0.01, 0)) < 10) {
+                    i--; // retry
+                    continue;
+                }
+                pitsGroup.add(pit);
+            }
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function onPointerDown(event) {
+            if (gameOver) return;
+
+            // Normalize pointer coordinates
+            pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+            pointer.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
+            raycaster.setFromCamera(pointer, camera);
+            const intersects = raycaster.intersectObject(ground);
+
+            if (intersects.length > 0) {
+                targetPosition.copy(intersects[0].point);
+                targetPosition.y = player.position.y; // Keep player on the ground plane
+            }
+        }
+        
+        function updatePlayer(deltaTime) {
+            if (gameOver) {
+                // If game is over, make the player fall
+                player.position.y -= 5 * deltaTime;
+                return;
+            };
+
+            const distanceToTarget = player.position.distanceTo(targetPosition);
+
+            if (distanceToTarget > 0.1) {
+                const direction = new THREE.Vector3().subVectors(targetPosition, player.position).normalize();
+                playerVelocity.copy(direction).multiplyScalar(playerSpeed);
+            } else {
+                playerVelocity.set(0, 0, 0);
+            }
+
+            player.position.add(playerVelocity.clone().multiplyScalar(deltaTime));
+
+            // Simple player rotation animation
+            player.rotation.y += deltaTime * 2;
+        }
+
+        function updateCamera() {
+            const cameraOffset = new THREE.Vector3(0, 10, 12);
+            const targetCameraPosition = player.position.clone().add(cameraOffset);
+            camera.position.lerp(targetCameraPosition, 0.05);
+            camera.lookAt(player.position);
+        }
+
+        function checkCollisions() {
+            if (gameOver) return;
+
+            // Gem collision
+            for (let i = gemsGroup.children.length - 1; i >= 0; i--) {
+                const gem = gemsGroup.children[i];
+                if (player.position.distanceTo(gem.position) < 1.5) {
+                    gemsGroup.remove(gem);
+                    score++;
+                    scoreElement.textContent = score;
+                    if (soundSynth) {
+                        soundSynth.triggerAttackRelease("C5", "8n");
+                    }
+                }
+            }
+
+            // Pit collision
+            for (const pit of pitsGroup.children) {
+                if (player.position.distanceTo(pit.position) < 2) { // 2 is slightly less than pit radius
+                    triggerGameOver();
+                    break;
+                }
+            }
+        }
+
+        function triggerGameOver() {
+            gameOver = true;
+            gameOverMessage.style.display = 'block';
+            if (soundSynth) {
+                soundSynth.triggerAttackRelease("C2", "1n");
+            }
+        }
+
+        function resetGame() {
+            gameOver = false;
+            score = 0;
+            scoreElement.textContent = score;
+            gameOverMessage.style.display = 'none';
+
+            player.position.set(0, 0.75, 0);
+            targetPosition.copy(player.position);
+            playerVelocity.set(0,0,0);
+            
+            // Remove old objects
+            while(gemsGroup.children.length > 0){ 
+                gemsGroup.remove(gemsGroup.children[0]); 
+            }
+            while(pitsGroup.children.length > 0){ 
+                pitsGroup.remove(pitsGroup.children[0]); 
+            }
+
+            // Spawn new objects
+            spawnObjects();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const deltaTime = clock.getDelta();
+
+            // Animate gems
+            gemsGroup.children.forEach(gem => {
+                gem.rotation.y += deltaTime;
+            });
+
+            updatePlayer(deltaTime);
+            checkCollisions();
+            updateCamera();
+
+            renderer.render(scene, camera);
+        }
+    </script>
+</body>
+</html>

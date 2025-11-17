@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "iOS Debug and Release Mode"
-date: 2025-09-004
+date: 2025-09-04
 categories: tutorials
 author: MSD
 tags: [tutorial] # TAG names should always be lowercase

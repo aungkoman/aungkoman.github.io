@@ -23,14 +23,65 @@ email: admin@mmsoftware100.com
 description: >- # this means to ignore newlines until "baseurl:"
   A developer navigating life as a son, big brother, husband, and dad — sharing thoughts on code, family, and everything in between..
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://aungkoman.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: aungkoman
 github_username:  aungkoman
 
 # Build settings
-theme: minima
+remote_theme: "mmistakes/minimal-mistakes"
 plugins:
   - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-gist
+  - jekyll-avatar
+  - jemoji
+
+# SEO settings
+include:
+  - _pages
+
+# Default author
+author:
+  name   : "Aung Ko Man"
+  avatar : "/images/avatar.jpg" # Add your avatar image to the /images folder
+  bio    : "A developer navigating life as a son, big brother, husband, and dad — sharing thoughts on code, family, and everything in between."
+  links:
+    - label: "Website"
+      icon: "fas fa-fw fa-link"
+      url: "https://aungkoman.github.io"
+    - label: "Twitter"
+      icon: "fab fa-fw fa-twitter-square"
+      url: "https://twitter.com/aungkoman"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/aungkoman"
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:admin@mmsoftware100.com"
+
+# Site settings
+minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+locale                   : "en-US"
+search                   : true
+search_full_content      : true
+search_provider          : "lunr"
+lunr:
+  search_within_pages    : true
+
+# Defaults for posts
+defaults:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
 
 # Exclude from processing.
 # The following items will not be processed, by default.

@@ -1,15 +1,16 @@
 ---
-layout: page
-title: About
+layout: single
+author_profile: true
+title: "About"
 permalink: /about/
 ---
 
-A programmer.
+# About Me
 
-### More Information
+Hi, I'm Aung Ko Man, a developer navigating life as a son, big brother, husband, and dad. This blog is where I share my thoughts on code, family, and everything in between.
 
-A place to include any other types of information that you'd like to include about yourself.
+I write about various topics including software development, Flutter, Android development, web technologies, and personal reflections on the journey of life.
 
-### Contact me
+## Contact
 
-[aungkoman@gmail.com](mailto:aungkoman@gmail.com)
+Feel free to connect with me on [Twitter](https://twitter.com/aungkoman) or [GitHub](https://github.com/aungkoman), or send me an [email](mailto:admin@mmsoftware100.com).

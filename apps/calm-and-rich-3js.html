@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>The Path Forward: An Immersive Guide</title>
+    <meta charset="utf-g">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000;
+            font-family: 'Nunito', sans-serif;
+            color: white;
+        }
+        #story-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            z-index: 1;
+            padding: 20px;
+            cursor: pointer;
+            transition: opacity 1.5s ease;
+        }
+        #story-overlay h1 {
+            font-size: 2.5em;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(0,0,0,0.7);
+        }
+        #story-overlay p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-top: 15px;
+            text-shadow: 0 0 8px rgba(0,0,0,0.7);
+        }
+        #prompt {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: bold;
+            animation: pulse 2s infinite;
+            z-index: 2;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="story-overlay">
+        <h1 id="story-title"></h1>
+        <p id="story-text"></p>
+    </div>
+    <div id="prompt">Tap to begin</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // --- NARRATIVE CONTENT ---
+        const story = [
+            {
+                title: "Feeling Lost?",
+                text: "Life can feel like a chaotic storm of pressure. The need to make money, the desire for peace... it's easy to feel adrift."
+            },
+            {
+                title: "Find Your Anchor",
+                text: "The first step is not to calm the storm, but to calm yourself. Peace is an internal state. Let's start there. This is the Path to Calm."
+            },
+            {
+                title: "Control Your Breath",
+                text: "Breathe in slowly... hold... and breathe out. Your breath is an anchor to the present moment, a tool you can use anytime, anywhere, to find stillness."
+            },
+            {
+                title: "Your Worth is Not Your Wallet",
+                text: "Remember this above all: Your value as a person has nothing to do with your bank account. You are more than your struggle. Be kind to yourself."
+            },
+            {
+                title: "Build Your Foundation",
+                text: "With a calmer mind, you can start laying the bricks for a more secure future. This is the Path to Security. It starts small."
+            },
+            {
+                title: "Knowledge is Power",
+                text: "First, understand where you are. Look at your finances without judgment. You cannot plan a journey without knowing your starting point."
+            },
+            {
+                title: "Invest in Yourself",
+                text: "Your greatest asset is your ability to learn. Every new skill you acquire increases your value and opens new doors. This is the surest path to growth."
+            },
+            {
+                title: "A New Dawn",
+                text: "By calming your mind and taking small, consistent steps, you create a new reality. The path is long, but you are the one walking it. You have the power to move forward."
+            },
+        ];
+
+        // --- THREE.JS SETUP ---
+        let scene, camera, renderer, particles, material;
+        let currentStep = -1;
+        const storyOverlay = document.getElementById('story-overlay');
+        const storyTitle = document.getElementById('story-title');
+        const storyText = document.getElementById('story-text');
+        const prompt = document.getElementById('prompt');
+
+        // Target state for our scene animations
+        const sceneState = {
+            particleSpeed: 0.005,
+            targetColor: new THREE.Color(0x555555), // Initial grey
+            cameraZ: 5
+        };
+
+        function init() {
+            // Scene
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x000000, 0.001);
+
+            // Camera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
+            camera.position.z = sceneState.cameraZ;
+
+            // Renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            // Particles
+            const geometry = new THREE.BufferGeometry();
+            const vertices = [];
+            const particleCount = 5000;
+
+            for (let i = 0; i < particleCount; i++) {
+                const x = (Math.random() - 0.5) * 20;
+                const y = (Math.random() - 0.5) * 20;
+                const z = (Math.random() - 0.5) * 20;
+                vertices.push(x, y, z);
+            }
+
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+
+            material = new THREE.PointsMaterial({
+                color: sceneState.targetColor,
+                size: 0.05,
+                transparent: true,
+                blending: THREE.AdditiveBlending
+            });
+
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+
+            // Event Listeners
+            window.addEventListener('resize', onWindowResize, false);
+            document.body.addEventListener('pointerdown', nextStep, false);
+            
+            nextStep(); // Start the story
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function nextStep() {
+            if (currentStep < story.length - 1) {
+                currentStep++;
+            } else {
+                // Optional: loop back to the beginning
+                currentStep = 0;
+            }
+
+            if (currentStep > 0) {
+                 prompt.style.display = 'none';
+            }
+            if (currentStep === story.length -1) {
+                 prompt.textContent = "Tap to restart";
+                 prompt.style.display = 'block';
+            }
+
+
+            // Fade out text
+            storyOverlay.style.opacity = 0;
+
+            setTimeout(() => {
+                // Update text content
+                storyTitle.textContent = story[currentStep].title;
+                storyText.textContent = story[currentStep].text;
+                // Fade in new text
+                storyOverlay.style.opacity = 1;
+            }, 1000);
+
+            transitionScene(currentStep);
+        }
+
+        function transitionScene(step) {
+            switch (step) {
+                case 0: // Intro
+                    sceneState.particleSpeed = 0.005;
+                    sceneState.targetColor.set(0x555555); // Dim grey
+                    sceneState.cameraZ = 5;
+                    break;
+                case 1: // Find Anchor
+                    sceneState.particleSpeed = 0.002;
+                    sceneState.targetColor.set(0x4a69bd); // Calming blue
+                    break;
+                case 2: // Breathe
+                    sceneState.particleSpeed = 0.0005; // Very slow
+                    sceneState.cameraZ = 8; // Zoom out
+                    break;
+                case 3: // Your Worth
+                    sceneState.particleSpeed = 0.001;
+                    sceneState.targetColor.set(0x7ab5a3); // Calming green
+                    break;
+                case 4: // Build Foundation
+                    sceneState.particleSpeed = 0.003; // More purpose
+                    sceneState.targetColor.set(0xbd934a); // Earthy gold
+                    sceneState.cameraZ = 6;
+                    break;
+                case 5: // Knowledge
+                    sceneState.particleSpeed = 0.001;
+                    // Add a light source to represent a bright idea
+                    const light = new THREE.PointLight(0xffffff, 0.5, 100);
+                    light.position.set(0, 0, 0);
+                    scene.add(light);
+                    break;
+                case 6: // Invest
+                    sceneState.particleSpeed = -0.002; // Particles start coming together
+                    sceneState.targetColor.set(0xffd700); // Bright Gold
+                    break;
+                case 7: // New Dawn
+                    sceneState.particleSpeed = 0.005;
+                    sceneState.targetColor.set(0xffffff); // Bright White
+                    sceneState.cameraZ = 12; // Wide, expansive view
+                    break;
+            }
+        }
+        
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Animate particles
+            const positions = particles.geometry.attributes.position.array;
+            for (let i = 0; i < positions.length; i += 3) {
+                positions[i + 1] += sceneState.particleSpeed; // Move along y-axis
+                if (positions[i + 1] > 10) {
+                    positions[i + 1] = -10; // Loop particles
+                } else if (positions[i + 1] < -10) {
+                    positions[i+1] = 10;
+                }
+            }
+            particles.geometry.attributes.position.needsUpdate = true;
+            
+            // Smoothly transition values (lerp)
+            material.color.lerp(sceneState.targetColor, 0.05);
+            camera.position.z += (sceneState.cameraZ - camera.position.z) * 0.05;
+
+            renderer.render(scene, camera);
+        }
+
+        init();
+        animate();
+    </script>
+</body>
+</html>

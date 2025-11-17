@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>3D Dice Betting Game</title>
+  <style>
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial}
+    .wrap{display:flex;gap:20px;height:100%;padding:18px;box-sizing:border-box}
+    .left{flex:1;display:flex;flex-direction:column;gap:12px}
+    .canvas-wrap{flex:1;background:#0f1724;border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:center}
+    canvas{display:block}
+    .controls{width:320px;display:flex;flex-direction:column;gap:12px}
+    .card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 6px 18px rgba(2,6,23,0.08)}
+    .row{display:flex;gap:8px;align-items:center}
+    .wallet{font-weight:700;font-size:18px}
+    .bet-input,input[type=number]{width:100%}
+    button{cursor:pointer;padding:8px 12px;border-radius:8px;border:0;background:#0ea5a4;color:white;font-weight:600}
+    button.secondary{background:#64748b}
+    .numbers{display:flex;gap:6px;justify-content:space-between}
+    .num-btn{flex:1;padding:10px;border-radius:8px;border:1px solid #e2e8f0;background:white}
+    .num-btn.selected{background:#fde047}
+    .results{display:flex;gap:8px;justify-content:center;font-size:18px}
+    .small{font-size:13px;color:#475569}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="left">
+      <div class="canvas-wrap card" id="viewer"></div>
+      <div class="card row" style="justify-content:space-between">
+        <div>
+          <div class="small">Wallet</div>
+          <div class="wallet" id="wallet">100</div>
+        </div>
+        <div style="text-align:right">
+          <div class="small">Last result</div>
+          <div id="lastResult">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="card">
+        <div class="small">Bet amount</div>
+        <input id="betAmount" class="bet-input" type="number" min="1" step="1" value="10">
+      </div>
+
+      <div class="card">
+        <div class="small">Choose number (1–6)</div>
+        <div class="numbers" id="numberButtons">
+          <!-- buttons injected -->
+        </div>
+      </div>
+
+      <div class="card row">
+        <button id="rollBtn">Roll Dice</button>
+        <button id="resetBtn" class="secondary">Reset Wallet</button>
+      </div>
+
+      <div class="card">
+        <div class="small">Dice results</div>
+        <div class="results" id="diceResults">— — —</div>
+        <div id="message" style="margin-top:8px;font-weight:700"></div>
+      </div>
+
+      <div class="card small">
+        Rules: You start with <strong>100</strong>. If your chosen number appears on any die you win <em>bet × 2</em> per match. If none match you lose the bet.
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+  <script>
+    // Basic game state
+    let wallet = 100;
+    let chosenNumber = 1;
+    const walletEl = document.getElementById('wallet');
+    const betInput = document.getElementById('betAmount');
+    const diceResultsEl = document.getElementById('diceResults');
+    const messageEl = document.getElementById('message');
+    const lastResultEl = document.getElementById('lastResult');
+
+    // setup number buttons
+    const numberButtonsWrap = document.getElementById('numberButtons');
+    for (let i=1;i<=6;i++){
+      const b = document.createElement('button');
+      b.className='num-btn'+(i===chosenNumber?' selected':'');
+      b.textContent = i;
+      b.addEventListener('click', ()=>{
+        chosenNumber = i;
+        document.querySelectorAll('.num-btn').forEach(n=>n.classList.remove('selected'));
+        b.classList.add('selected');
+      });
+      numberButtonsWrap.appendChild(b);
+    }
+
+    function updateWalletDisplay(){walletEl.textContent = wallet}
+    updateWalletDisplay();
+
+    // THREE.js scene
+    const container = document.getElementById('viewer');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(35, container.clientWidth/container.clientHeight, 0.1, 100);
+    camera.position.set(0,3,8);
+    const renderer = new THREE.WebGLRenderer({antialias:true,alpha:true});
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+    container.appendChild(renderer.domElement);
+
+    const light = new THREE.DirectionalLight(0xffffff,1);
+    light.position.set(5,10,7);
+    scene.add(light);
+    scene.add(new THREE.AmbientLight(0xffffff,0.4));
+
+    // Create dice textures: draw numbers as pip-style circles
+    function makeFaceTexture(num){
+      const size = 256;
+      const c = document.createElement('canvas'); c.width=size; c.height=size;
+      const ctx = c.getContext('2d');
+      // bg
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0,0,size,size);
+      ctx.fillStyle = '#111827';
+      // draw pips depending on num
+      const pip = (x,y)=>{ctx.beginPath();ctx.arc(x,y,14,0,Math.PI*2);ctx.fill()}
+      const cx=size/2, cy=size/2, gap=60;
+      if(num===1){pip(cx,cy)}
+      if(num===2){pip(cx-gap,cy-gap); pip(cx+gap,cy+gap)}
+      if(num===3){pip(cx-gap,cy-gap); pip(cx,cy); pip(cx+gap,cy+gap)}
+      if(num===4){pip(cx-gap,cy-gap); pip(cx-gap,cy+gap); pip(cx+gap,cy-gap); pip(cx+gap,cy+gap)}
+      if(num===5){pip(cx-gap,cy-gap); pip(cx-gap,cy+gap); pip(cx+gap,cy-gap); pip(cx+gap,cy+gap); pip(cx,cy)}
+      if(num===6){pip(cx-gap,cy-gap); pip(cx-gap,cy); pip(cx-gap,cy+gap); pip(cx+gap,cy-gap); pip(cx+gap,cy); pip(cx+gap,cy+gap)}
+      return new THREE.CanvasTexture(c);
+    }
+
+    // create one dice mesh factory
+    function createDie(){
+      const size = 1.4;
+      const geom = new THREE.BoxGeometry(size,size,size);
+      // assign textures 1..6 to faces (+X,-X,+Y,-Y,+Z,-Z)
+      const materials = [];
+      for(let i=1;i<=6;i++){
+        materials.push(new THREE.MeshStandardMaterial({map:makeFaceTexture(i)}));
+      }
+      const mesh = new THREE.Mesh(geom,materials);
+      mesh.castShadow=true;
+      return mesh;
+    }
+
+    // create three dice
+    const dice = [];
+    for(let i=0;i<3;i++){
+      const d = createDie();
+      d.position.x = (i-1)*2.2;
+      scene.add(d); dice.push(d);
+    }
+
+    // simple floor
+    const floorG = new THREE.PlaneGeometry(20,20);
+    const floorM = new THREE.MeshStandardMaterial({color:0xe6eef8,transparent:true,opacity:0.06});
+    const floor = new THREE.Mesh(floorG,floorM);
+    floor.rotation.x = -Math.PI/2; floor.position.y = -1.1;
+    scene.add(floor);
+
+    // handle resize
+    window.addEventListener('resize', ()=>{
+      camera.aspect = container.clientWidth/container.clientHeight; camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    });
+
+    // animation loop
+    function animate(){requestAnimationFrame(animate); renderer.render(scene,camera)}
+    animate();
+
+    // roll animation helper
+    function spinAndSet(die, result, duration=1500){
+      return new Promise(resolve=>{
+        const start = performance.now();
+        const startRot = {x:die.rotation.x, y:die.rotation.y, z:die.rotation.z};
+        // random start angular velocities
+        const vx = (Math.random()*8+6) * (Math.random()<0.5?1:-1);
+        const vy = (Math.random()*8+6) * (Math.random()<0.5?1:-1);
+        const vz = (Math.random()*8+6) * (Math.random()<0.5?1:-1);
+        function frame(t){
+          const p = Math.min(1, (t-start)/duration);
+          // ease out
+          const ease = 1 - Math.pow(1-p,3);
+          die.rotation.x = startRot.x + vx * (1-ease);
+          die.rotation.y = startRot.y + vy * (1-ease);
+          die.rotation.z = startRot.z + vz * (1-ease);
+          if(p<1) requestAnimationFrame(frame);
+          else {
+            // snap to upright (0 rotation) for clarity
+            die.rotation.set(0,0,0);
+            // set top face (+Y -> index 2) to show `result`
+            const tex = makeFaceTexture(result);
+            die.material[2].map = tex; die.material[2].map.needsUpdate = true;
+            // optionally set other faces too (keep some variety)
+            // leave them as-is
+            resolve();
+          }
+        }
+        requestAnimationFrame(frame);
+      });
+    }
+
+    // Roll button logic
+    const rollBtn = document.getElementById('rollBtn');
+    rollBtn.addEventListener('click', async ()=>{
+      const bet = Math.max(1, Math.floor(Number(betInput.value) || 0));
+      if(bet<=0){messageEl.textContent='Enter a valid bet'; return}
+      if(bet>wallet){messageEl.textContent='Bet exceeds wallet'; return}
+      if(wallet<=0){messageEl.textContent='Wallet empty — reset to play'; return}
+      rollBtn.disabled = true; messageEl.textContent='Rolling...';
+
+      // generate results for 3 dice
+      const results = [randDice(), randDice(), randDice()];
+      // animate spins in parallel
+      await Promise.all(dice.map((d,i)=>spinAndSet(d, results[i], 1400 + i*200)));
+
+      // update UI
+      diceResultsEl.textContent = results.join('  ');
+      lastResultEl.textContent = results.join(',');
+
+      // compute matches
+      const matches = results.filter(r=>r===chosenNumber).length;
+      if(matches>0){
+        const gain = matches * bet * 2;
+        wallet += gain;
+        messageEl.textContent = `You matched ${matches} time(s)! +${gain}`;
+      } else {
+        wallet -= bet;
+        messageEl.textContent = `No matches — you lost ${bet}`;
+      }
+      updateWalletDisplay();
+      rollBtn.disabled = false;
+    });
+
+    function randDice(){return Math.floor(Math.random()*6)+1}
+
+    // reset
+    document.getElementById('resetBtn').addEventListener('click', ()=>{
+      wallet = 100; updateWalletDisplay(); messageEl.textContent='Wallet reset to 100';
+    });
+
+  </script>
+</body>
+</html>

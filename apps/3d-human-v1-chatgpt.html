@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Single-file Three.js — Mini Open World</title>
+<style>
+  html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial;}
+  canvas{display:block}
+  #overlay{
+    position:fixed; left:12px; top:12px; z-index:20;
+    background:rgba(0,0,0,0.45); color:#fff; padding:10px; border-radius:8px;
+    font-size:13px; line-height:1.3; max-width:310px;
+  }
+  #hud{
+    position:fixed; right:12px; top:12px; z-index:20; color:#fff;
+    font-size:13px; text-align:right;
+  }
+  .bar{background:rgba(255,255,255,0.12); width:180px; height:12px; border-radius:8px; overflow:hidden; margin-bottom:6px;}
+  .fill{height:100%; background:linear-gradient(90deg,#4caf50,#8bc34a);}
+  #enemyBar .fill{background:linear-gradient(90deg,#f44336,#ff9800);}
+  #controls{font-size:12px; opacity:0.95;}
+  #helpOverlay{
+    position:fixed; left:50%; top:50%; transform:translate(-50%,-50%);
+    z-index:30; background:rgba(0,0,0,0.75); color:#fff; padding:18px; border-radius:12px;
+    max-width:720px; text-align:left;
+  }
+  #startBtn{margin-top:8px; padding:8px 12px; border-radius:6px; cursor:pointer; background:#1976d2; color:#fff; border:none;}
+  #touchControls{position:fixed; left:50%; transform:translateX(-50%); bottom:18px; z-index:25; display:none;}
+  .btn{display:inline-block; padding:10px 14px; margin:4px; border-radius:8px; background:rgba(255,255,255,0.08); color:#fff; border:1px solid rgba(255,255,255,0.06);}
+  @media (max-width:700px){ #touchControls{display:block} }
+  #fps{position:fixed; left:12px; bottom:12px; color:#fff; z-index:20; font-size:12px; opacity:0.9}
+</style>
+</head>
+<body>
+<div id="overlay">
+  <div style="font-weight:600">Mini Open World — Three.js (single file)</div>
+  <div id="controls">
+    Movement: W A S D • Turn: Q/E or mouse-drag • Run: Shift • Jump: Space<br>
+    Sit: C • Lay down: X • Punch: F • Kick: G • Limb pose: 1–6 • Camera zoom: Z
+  </div>
+</div>
+
+<div id="hud">
+  <div>Player</div>
+  <div class="bar"><div id="playerHP" class="fill" style="width:100%"></div></div>
+  <div id="enemyHUD" style="display:none">
+    <div>Enemy</div>
+    <div class="bar" id="enemyBar"><div id="enemyHP" class="fill" style="width:100%"></div></div>
+  </div>
+</div>
+
+<div id="helpOverlay">
+  <h3 style="margin:0 0 8px 0">Controls & Tips</h3>
+  <div>Use the keyboard & mouse to move the humanoid around the plain. Try punching (F) or kicking (G) near the red cube enemy. Sit (C) and Lay (X) perform smooth pose transitions. Toggle camera distance with Z. Touch devices: use the on-screen buttons at bottom.</div>
+  <button id="startBtn">Start Game</button>
+</div>
+
+<div id="touchControls">
+  <div style="text-align:center;">
+    <button class="btn" data-act="forward">▲</button><br>
+    <button class="btn" data-act="left">◀</button>
+    <button class="btn" data-act="back">▼</button>
+    <button class="btn" data-act="right">▶</button>
+    <button class="btn" id="touchJump">Jump</button>
+    <button class="btn" id="touchPunch">Punch</button>
+  </div>
+</div>
+
+<div id="fps">FPS: --</div>
+
+<script type="module">
+import * as THREE from 'https://unpkg.com/three@0.159.0/build/three.module.js';
+
+/*
+  Single-file mini open-world:
+  - Low-poly humanoid with joints
+  - Movement, run, jump, sit, lay, limb pose keys
+  - Punch & kick with simple collision vs enemy
+  - Enemy with patrol & chase AI, HP
+  - Third-person camera with smoothing
+  - Simple gravity and ground collision
+*/
+
+/* ---------- Global / scene setup ---------- */
+const canvas = document.createElement('canvas');
+document.body.appendChild(canvas);
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0xa8c0ff, 0.0009);
+
+const camera = new THREE.PerspectiveCamera(60, innerWidth/innerHeight, 0.1, 1000);
+camera.position.set(0,4,8);
+
+window.addEventListener('resize', onResize, false);
+onResize();
+
+function onResize(){
+  renderer.setSize(innerWidth, innerHeight);
+  camera.aspect = innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+}
+
+/* ---------- Lighting ---------- */
+const hemi = new THREE.HemisphereLight(0xffffff, 0x444455, 0.6);
+scene.add(hemi);
+
+const sun = new THREE.DirectionalLight(0xffffff, 0.9);
+sun.position.set(15,25,10);
+sun.castShadow = true;
+sun.shadow.camera.left = -30; sun.shadow.camera.right = 30;
+sun.shadow.camera.top = 30; sun.shadow.camera.bottom = -30;
+sun.shadow.mapSize.set(1024,1024);
+scene.add(sun);
+
+/* ---------- Ground & props ---------- */
+const groundMat = new THREE.MeshStandardMaterial({color:0x6fbf73, roughness:1});
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(500,500), groundMat);
+ground.rotation.x = -Math.PI/2;
+ground.receiveShadow = true;
+scene.add(ground);
+
+// simple rocks / boxes
+const props = [];
+const boxGeo = new THREE.BoxGeometry(1,1,1);
+for(let i=0;i<40;i++){
+  const m = new THREE.Mesh(boxGeo, new THREE.MeshStandardMaterial({color:0x7d5a4f}));
+  m.scale.setScalar(0.5+Math.random()*2);
+  m.position.set((Math.random()-0.5)*80, m.scale.y*0.5, (Math.random()-0.5)*80);
+  m.rotation.y = Math.random()*Math.PI;
+  m.castShadow = true;
+  m.receiveShadow = true;
+  scene.add(m);
+  props.push(m);
+}
+
+/* ---------- Simple low-poly humanoid (player) ---------- */
+function makePlayer(){
+  const root = new THREE.Group(); // world pivot
+  // torso
+  const torso = new THREE.Group();
+  const torsoMesh = new THREE.Mesh(new THREE.BoxGeometry(0.9,1.2,0.45), new THREE.MeshStandardMaterial({color:0x5b86a3}));
+  torsoMesh.position.y = 0.6;
+  torso.add(torsoMesh);
+
+  // neck & head
+  const neck = new THREE.Group(); neck.position.y = 1.2;
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.28,8,8), new THREE.MeshStandardMaterial({color:0xffd7b5}));
+  head.position.y = 0.28;
+  head.castShadow = true;
+  neck.add(head);
+
+  // arms
+  const rightShoulder = new THREE.Group(); rightShoulder.position.set(-0.6,0.95,0);
+  const leftShoulder  = new THREE.Group(); leftShoulder.position.set(0.6,0.95,0);
+  const upperArmGeo = new THREE.BoxGeometry(0.25,0.6,0.25);
+  const lowerArmGeo = new THREE.BoxGeometry(0.22,0.55,0.22);
+
+  const rightUpper = new THREE.Mesh(upperArmGeo, new THREE.MeshStandardMaterial({color:0x5b86a3}));
+  rightUpper.position.y = -0.3; rightUpper.castShadow = true;
+  const rightLowerGroup = new THREE.Group(); rightLowerGroup.position.y = -0.6;
+  const rightLower = new THREE.Mesh(lowerArmGeo, new THREE.MeshStandardMaterial({color:0x5b86a3}));
+  rightLower.position.y = -0.275; rightLower.castShadow = true;
+  rightLowerGroup.add(rightLower);
+  rightShoulder.add(rightUpper); rightShoulder.add(rightLowerGroup);
+
+  const leftUpper = rightUpper.clone(); leftUpper.castShadow = true;
+  const leftLowerGroup = rightLowerGroup.clone(); leftLowerGroup.castShadow = true;
+  leftShoulder.add(leftUpper); leftShoulder.add(leftLowerGroup);
+
+  // hips & legs
+  const hips = new THREE.Group(); hips.position.y = -0.15;
+  const hipMesh = new THREE.Mesh(new THREE.BoxGeometry(0.9,0.4,0.5), new THREE.MeshStandardMaterial({color:0x3b6a7a}));
+  hipMesh.position.y = -0.2; hips.add(hipMesh);
+
+  const rightHip = new THREE.Group(); rightHip.position.set(-0.28,-0.4,0);
+  const leftHip  = new THREE.Group(); leftHip.position.set(0.28,-0.4,0);
+  const upperLegGeo = new THREE.BoxGeometry(0.28,0.7,0.28);
+  const lowerLegGeo = new THREE.BoxGeometry(0.26,0.7,0.26);
+
+  const rightUpperLeg = new THREE.Mesh(upperLegGeo, new THREE.MeshStandardMaterial({color:0x3b6a7a}));
+  rightUpperLeg.position.y = -0.35; rightUpperLeg.castShadow = true;
+  const rightKneeGroup = new THREE.Group(); rightKneeGroup.position.y = -0.7;
+  const rightLowerLeg = new THREE.Mesh(lowerLegGeo, new THREE.MeshStandardMaterial({color:0x3b6a7a}));
+  rightLowerLeg.position.y = -0.35; rightLowerLeg.castShadow = true;
+  rightKneeGroup.add(rightLowerLeg);
+  rightHip.add(rightUpperLeg); rightHip.add(rightKneeGroup);
+
+  const leftUpperLeg = rightUpperLeg.clone(); leftUpperLeg.castShadow = true;
+  const leftKneeGroup = rightKneeGroup.clone(); leftKneeGroup.castShadow = true;
+  leftHip.add(leftUpperLeg); leftHip.add(leftKneeGroup);
+
+  // feet
+  const footGeo = new THREE.BoxGeometry(0.34,0.12,0.5);
+  const rightFoot = new THREE.Mesh(footGeo, new THREE.MeshStandardMaterial({color:0x2b3b3f}));
+  rightFoot.position.set(0,-0.95,0.12); rightFoot.castShadow = true;
+  rightKneeGroup.add(rightFoot);
+
+  const leftFoot = rightFoot.clone(); leftKneeGroup.add(leftFoot);
+
+  // assemble
+  torso.add(neck);
+  torso.add(rightShoulder); torso.add(leftShoulder);
+  torso.add(hips);
+  hips.add(rightHip); hips.add(leftHip);
+
+  root.add(torso);
+
+  // store references for animation/controls
+  return {
+    root, torso, neck, head,
+    rightShoulder, leftShoulder, rightLowerGroup, leftLowerGroup,
+    hips, rightHip, leftHip, rightKneeGroup, leftKneeGroup,
+    rightFoot, leftFoot
+  };
+}
+
+const player = makePlayer();
+scene.add(player.root);
+player.root.position.set(0,0.3,0); // half-sitting on ground
+
+// player colliders
+const PLAYER_RADIUS = 0.4;
+let playerVelocity = new THREE.Vector3(0,0,0);
+let onGround = true;
+
+/* ---------- Enemy (cube) ---------- */
+function makeEnemy(x,z){
+  const g = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.BoxGeometry(0.9,1.2,0.9), new THREE.MeshStandardMaterial({color:0xff5c5c}));
+  body.castShadow = true;
+  g.add(body);
+  g.position.set(x,0.6,z);
+  scene.add(g);
+  return {
+    g, health: 50, max:50,
+    state: 'patrol', // patrol, chase, hit
+    patrolA: new THREE.Vector3(x,0.6,z),
+    patrolB: new THREE.Vector3(x+6,0.6,z+4),
+    targetPoint: null,
+    speed: 1.4
+  };
+}
+
+const enemies = [makeEnemy(8, -6), makeEnemy(-10,14)];
+enemies.forEach(e => e.targetPoint = e.patrolB.clone());
+
+/* ---------- Camera follow logic ---------- */
+const camState = {
+  distance: 6,
+  height: 2.0,
+  damp: 0.08,
+  rotX: 0.15 // head pitch control influence
+};
+
+function updateCamera(dt){
+  // camera target is player's position + offset
+  const targetPos = new THREE.Vector3().copy(player.root.position);
+  targetPos.y += camState.height;
+
+  // desired camera position behind player, based on player's forward
+  const forward = getPlayerForward();
+  const desired = new THREE.Vector3().copy(targetPos).addScaledVector(forward, -camState.distance);
+  desired.y += 1.0;
+
+  // collision avoidance: simple raycast to ensure camera not below ground or inside props
+  // smooth interp
+  camera.position.lerp(desired, 1 - Math.pow(1-camState.damp, dt*60));
+  camera.lookAt(targetPos);
+}
+
+/* ---------- Input handling ---------- */
+const keys = {};
+const touchState = {};
+window.addEventListener('keydown', e => { keys[e.key.toLowerCase()] = true; if(e.key==='Escape') showHelp(); });
+window.addEventListener('keyup', e => { keys[e.key.toLowerCase()] = false; });
+
+let mouseDown = false;
+let lastMouseX = 0;
+window.addEventListener('mousedown', e => { mouseDown=true; lastMouseX = e.clientX; });
+window.addEventListener('mouseup', e => { mouseDown=false; });
+window.addEventListener('mousemove', e => {
+  if(mouseDown){
+    const dx = e.clientX - lastMouseX;
+    rotatePlayerYaw(dx * 0.004);
+    lastMouseX = e.clientX;
+  }
+});
+
+// touch controls (on-screen)
+document.querySelectorAll('#touchControls .btn').forEach(b=>{
+  b.addEventListener('touchstart', (ev)=>{
+    const act = b.dataset.act;
+    touchState[act]=true;
+    ev.preventDefault();
+  });
+  b.addEventListener('touchend', (ev)=>{
+    const act = b.dataset.act;
+    touchState[act]=false; ev.preventDefault();
+  });
+});
+document.getElementById('touchJump').addEventListener('touchstart', ()=>{ touchState.jump=true;});
+document.getElementById('touchJump').addEventListener('touchend', ()=>{ touchState.jump=false;});
+document.getElementById('touchPunch').addEventListener('touchstart', ()=>{ touchState.punch=true;});
+document.getElementById('touchPunch').addEventListener('touchend', ()=>{ touchState.punch=false;});
+
+/* ---------- Player movement helpers ---------- */
+let yaw = 0; // player rotation around Y
+let pitch = 0; // head pitch (for look up/down)
+let walkAnimTime = 0;
+let isSitting = false;
+let isLying = false;
+let actionCooldown = 0;
+
+function getPlayerForward(){
+  const v = new THREE.Vector3(0,0,-1);
+  v.applyAxisAngle(new THREE.Vector3(0,1,0), yaw);
+  v.normalize();
+  return v;
+}
+
+function rotatePlayerYaw(amount){
+  yaw += amount;
+  player.root.rotation.y = yaw;
+}
+
+/* ---------- Simple collision check against props ---------- */
+function willCollide(nextPos){
+  for(const p of props){
+    const d = p.position.clone(); d.y = 0;
+    const dist = Math.hypot(nextPos.x - d.x, nextPos.z - d.z);
+    if(dist < 0.9 + PLAYER_RADIUS * Math.max(p.scale.x,1)) return true;
+  }
+  // world bounds
+  if(Math.abs(nextPos.x) > 240 || Math.abs(nextPos.z) > 240) return true;
+  return false;
+}
+
+/* ---------- Limb pose / animation utilities ---------- */
+function setLimbRotation(obj, x,y,z){
+  obj.rotation.x = x; obj.rotation.y = y; obj.rotation.z = z;
+}
+
+function lerpRot(group, targetEuler, t){
+  group.rotation.x += (targetEuler.x - group.rotation.x) * t;
+  group.rotation.y += (targetEuler.y - group.rotation.y) * t;
+  group.rotation.z += (targetEuler.z - group.rotation.z) * t;
+}
+
+/* ---------- Combat helpers ---------- */
+function worldPosOf(obj){ // compute world position of a child mesh
+  const pos = new THREE.Vector3();
+  obj.getWorldPosition(pos);
+  return pos;
+}
+
+function attemptHit(handWorldPos, range, damage){
+  for(const e of enemies){
+    if(e.health <= 0) continue;
+    const dist = handWorldPos.distanceTo(e.g.position);
+    if(dist < range){
+      e.health = Math.max(0, e.health - damage);
+      e.state = 'hit';
+      e.hitTimer = 0.3;
+      return true;
+    }
+  }
+  return false;
+}
+
+/* ---------- Game state ---------- */
+let playerHP = 100;
+let lastTime = performance.now();
+let helpOverlay = document.getElementById('helpOverlay');
+document.getElementById('startBtn').addEventListener('click', ()=>{ helpOverlay.style.display='none'; });
+
+/* ---------- Simple WebAudio for effects ---------- */
+const audioCtx = typeof AudioContext !== 'undefined' ? new AudioContext() : null;
+function playBeep(freq=440, len=0.08){
+  if(!audioCtx) return;
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  o.type = 'sine'; o.frequency.value = freq;
+  g.gain.value = 0.06;
+  o.connect(g); g.connect(audioCtx.destination);
+  o.start();
+  o.stop(audioCtx.currentTime + len);
+}
+
+/* ---------- Main update loop ---------- */
+function update(t){
+  const now = t/1000;
+  const dt = Math.min(0.05, now - (lastTime/1000 || 0));
+  lastTime = t;
+
+  // input -> desired movement
+  const forward = !!keys['w'] || touchState.forward;
+  const back = !!keys['s'] || touchState.back;
+  const left = !!keys['a'] || touchState.left;
+  const right = !!keys['d'] || touchState.right;
+  const run = !!keys['shift'];
+  const jump = !!keys[' '] || touchState.jump;
+  const punch = !!keys['f'] || touchState.punch;
+  const kick = !!keys['g'] || false;
+  const sit = !!keys['c'];
+  const lay = !!keys['x'];
+  const zoomToggle = !!keys['z'];
+
+  if(zoomToggle){
+    camState.distance = 3.6;
+    // clear key so it's not sticky
+    keys['z'] = false;
+    setTimeout(()=>camState.distance = 6, 300);
+  }
+
+  // movement vector in local space
+  let mx = 0, mz = 0;
+  if(forward) mz -= 1;
+  if(back) mz += 1;
+  if(left) mx -= 1;
+  if(right) mx += 1;
+  const moveLen = Math.hypot(mx,mz);
+  const speed = (run ? 5.8 : 2.4) * (moveLen>0 ? 1 : 0);
+
+  // compute world move direction from yaw
+  const moveDir = new THREE.Vector3(mx,0,mz);
+  if(moveLen>0) moveDir.normalize();
+  const worldDir = moveDir.applyAxisAngle(new THREE.Vector3(0,1,0), yaw);
+
+  // candidate next position (ignoring vertical)
+  const nextPos = player.root.position.clone().addScaledVector(worldDir, speed * dt);
+
+  if(!willCollide(nextPos)){
+    player.root.position.copy(nextPos);
+  }
+
+  // gravity
+  playerVelocity.y -= 12 * dt;
+  player.root.position.y += playerVelocity.y * dt;
+  if(player.root.position.y <= 0.3){
+    player.root.position.y = 0.3;
+    playerVelocity.y = 0;
+    onGround = true;
+  } else onGround = false;
+
+  // jump
+  if(jump && onGround){
+    playerVelocity.y = 6.2;
+    onGround = false;
+    playBeep(440,0.06);
+    // avoid repeat
+    touchState.jump=false;
+  }
+
+  // update yaw from Q/E keys
+  if(keys['q']) rotatePlayerYaw(0.045);
+  if(keys['e']) rotatePlayerYaw(-0.045);
+
+  // sit/lay transitions
+  if(sit){
+    isSitting = true;
+    isLying = false;
+  } else if(lay){
+    isLying = true;
+    isSitting = false;
+  } else {
+    // if player moves, return to stand
+    if(moveLen > 0.01){
+      isSitting = false; isLying = false;
+    }
+  }
+
+  // limb pose keys (1/2 rotate right arm up/down, 3/4 left arm, 5/6 head)
+  if(keys['1']) player.rightShoulder.rotation.x -= 0.06;
+  if(keys['2']) player.rightShoulder.rotation.x += 0.06;
+  if(keys['3']) player.leftShoulder.rotation.x -= 0.06;
+  if(keys['4']) player.leftShoulder.rotation.x += 0.06;
+  if(keys['5']) { player.neck.rotation.y -= 0.04; keys['5']=false; }
+  if(keys['6']) { player.neck.rotation.y += 0.04; keys['6']=false; }
+
+  // animate walk / idle
+  if(moveLen > 0.01 && onGround && !isSitting && !isLying){
+    walkAnimTime += dt * (run ? 8 : 4);
+    const swing = Math.sin(walkAnimTime) * 0.6;
+    lerpRot(player.rightHip, {x: -swing*0.5, y:0, z:0}, 0.25);
+    lerpRot(player.leftHip,  {x: swing*0.5, y:0, z:0}, 0.25);
+    lerpRot(player.rightShoulder, {x: swing*0.6, y:0, z:0}, 0.25);
+    lerpRot(player.leftShoulder,  {x: -swing*0.6, y:0, z:0}, 0.25);
+  } else {
+    // idle return
+    lerpRot(player.rightHip, {x:0, y:0, z:0}, 0.08);
+    lerpRot(player.leftHip,  {x:0, y:0, z:0}, 0.08);
+    lerpRot(player.rightShoulder, {x:0, y:0, z:0}, 0.08);
+    lerpRot(player.leftShoulder, {x:0, y:0, z:0}, 0.08);
+  }
+
+  // sit animation target
+  if(isSitting){
+    // rotate hips/knees to sit pose
+    lerpRot(player.hips, {x: -0.6, y:0, z:0}, 0.12);
+    lerpRot(player.rightHip, {x: -0.6, y:0, z:0}, 0.12);
+    lerpRot(player.leftHip, {x: -0.6, y:0, z:0}, 0.12);
+    // knees
+    lerpRot(player.rightKneeGroup, {x: 1.2, y:0, z:0}, 0.12);
+    lerpRot(player.leftKneeGroup,  {x: 1.2, y:0, z:0}, 0.12);
+  } else if(isLying){
+    // lie down on back: rotate whole torso forward, and legs extended
+    lerpRot(player.hips, {x: -Math.PI/2 + 0.2, y:0, z:0}, 0.12);
+    lerpRot(player.rightHip, {x: -0.1, y:0, z:0}, 0.12);
+    lerpRot(player.leftHip,  {x: -0.1, y:0, z:0}, 0.12);
+    lerpRot(player.rightKneeGroup, {x: 0, y:0, z:0}, 0.12);
+    lerpRot(player.leftKneeGroup, {x: 0, y:0, z:0}, 0.12);
+  } else {
+    // stand neutral
+    lerpRot(player.hips, {x:0,y:0,z:0}, 0.08);
+    lerpRot(player.rightKneeGroup, {x:0,y:0,z:0}, 0.08);
+    lerpRot(player.leftKneeGroup, {x:0,y:0,z:0}, 0.08);
+  }
+
+  // punch/kick actions with cooldown
+  actionCooldown = Math.max(0, actionCooldown - dt);
+  if((punch || keys['f']) && actionCooldown<=0){
+    actionCooldown = 0.36;
+    // quick swing of right arm
+    const swingTime = 0.16;
+    // animate by directly setting rotation, small coroutine via timeout-ish
+    const origRot = player.rightShoulder.rotation.x;
+    player.rightShoulder.rotation.x = origRot - 1.2;
+    setTimeout(()=> { player.rightShoulder.rotation.x = origRot; }, swingTime*1000);
+    // compute world pos of hand (approximate from shoulder)
+    const handPos = worldPosOf(player.rightShoulder);
+    handPos.add(new THREE.Vector3(0,-0.6, -0.2).applyAxisAngle(new THREE.Vector3(0,1,0), yaw));
+    const hit = attemptHit(handPos, 1.5, 18);
+    if(hit){ playBeep(880,0.06); } else playBeep(440,0.04);
+    keys['f'] = false;
+    touchState.punch = false;
+  }
+
+  if((kick || keys['g']) && actionCooldown<=0){
+    actionCooldown = 0.5;
+    // swing right leg
+    const orig = player.rightHip.rotation.x;
+    player.rightHip.rotation.x = orig - 1.4;
+    setTimeout(()=> player.rightHip.rotation.x = orig, 220);
+    // foot pos
+    const footPos = worldPosOf(player.rightFoot);
+    const hit = attemptHit(footPos, 1.8, 22);
+    if(hit){ playBeep(720,0.06); } else playBeep(360,0.04);
+    keys['g'] = false;
+  }
+
+  // update enemy HUD when near first enemy
+  const nearest = enemies.reduce((acc,e)=>{ const d=e.g.position.distanceTo(player.root.position); return d < acc.d ? {d,i:e} : acc; }, {d:999,i:null}).i;
+  if(nearest && nearest.health>0 && nearest.g.position.distanceTo(player.root.position) < 18){
+    document.getElementById('enemyHUD').style.display='block';
+    document.getElementById('enemyHP').style.width = (nearest.health/nearest.max*100) + '%';
+  } else {
+    document.getElementById('enemyHUD').style.display='none';
+  }
+
+  // update enemies
+  for(const e of enemies){
+    if(e.health <= 0){
+      // dead: drop to floor
+      e.g.position.y = Math.max(0.6, e.g.position.y - dt*2);
+      continue;
+    }
+    // simple AI
+    const dist = e.g.position.distanceTo(player.root.position);
+    if(e.state === 'patrol'){
+      // move to targetPoint
+      const dir = e.targetPoint.clone().sub(e.g.position);
+      dir.y = 0;
+      if(dir.length() < 0.6){ // switch
+        e.targetPoint = e.targetPoint.equals(e.patrolA) ? e.patrolB.clone() : e.patrolA.clone();
+      } else {
+        dir.normalize();
+        e.g.position.addScaledVector(dir, e.speed * dt);
+        e.g.lookAt(player.root.position.x, e.g.position.y, player.root.position.z);
+      }
+      if(dist < 8) e.state = 'chase';
+    } else if(e.state === 'chase'){
+      // chase player
+      const dir = player.root.position.clone().sub(e.g.position); dir.y=0;
+      if(dir.length() > 0.4){
+        dir.normalize();
+        e.g.position.addScaledVector(dir, (e.speed+0.6) * dt);
+      }
+      e.g.lookAt(player.root.position.x, e.g.position.y, player.root.position.z);
+      if(dist > 20) e.state = 'patrol';
+      if(dist < 1.6){
+        // attempt to attack
+        if(!e.attackCooldown || e.attackCooldown<=0){
+          e.attackCooldown = 1.8;
+          // simple attack: reduce player HP
+          playerHP = Math.max(0, playerHP - 8);
+          document.getElementById('playerHP').style.width = (playerHP/100*100)+'%';
+          playBeep(160,0.08);
+        }
+      }
+    } else if(e.state === 'hit'){
+      e.hitTimer -= dt;
+      if(e.hitTimer <= 0){
+        e.state = 'chase';
+      } else {
+        // small recoil
+        e.g.position.addScaledVector(new THREE.Vector3().subVectors(e.g.position, player.root.position).setY(0).normalize(), dt*1.6);
+      }
+    }
+    if(e.attackCooldown) e.attackCooldown = Math.max(0, e.attackCooldown - dt);
+  }
+
+  // update cam
+  updateCamera(dt);
+
+  // HUD: player HP
+  document.getElementById('playerHP').style.width = (playerHP/100*100)+'%';
+
+  // fps
+  const fps = Math.round(1/dt);
+  document.getElementById('fps').textContent = 'FPS: '+fps;
+
+  renderer.render(scene, camera);
+  requestAnimationFrame(update);
+}
+
+/* ---------- Initialize scene objects & shadows ---------- */
+renderer.setClearColor(0x9dd1ff, 1);
+
+// enable shadows for relevant meshes in builder
+scene.traverse(o => { if(o.isMesh){ o.castShadow = true; o.receiveShadow = true; } });
+
+/* ---------- Start loop ---------- */
+requestAnimationFrame(update);
+
+/* ---------- Helper: show help overlay ---------- */
+function showHelp(){ helpOverlay.style.display='block'; }
+
+/* ---------- Prevent accidental scroll on touch controls ---------- */
+document.body.addEventListener('touchmove', e => { if(e.target.closest('#touchControls')) e.preventDefault(); }, {passive:false});
+</script>
+</body>
+</html>

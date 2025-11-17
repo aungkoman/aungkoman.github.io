@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Art of Control: An Interactive Journey</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            background-color: #111827;
+            color: #E5E7EB;
+        }
+        #info-panel {
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+        .control-btn {
+            transition: all 0.2s ease-in-out;
+            user-select: none; /* Prevent text selection on hold */
+        }
+        .control-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+        #reset-overlay {
+            transition: opacity 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="w-full h-screen m-0 p-0">
+
+    <!-- Three.js Canvas Container -->
+    <div id="canvas-container" class="absolute top-0 left-0 w-full h-full"></div>
+
+    <!-- UI Overlay -->
+    <div class="absolute top-0 left-0 w-full h-full p-4 sm:p-8 flex flex-col pointer-events-none">
+        <!-- Header Info -->
+        <div id="info-panel" class="w-full max-w-lg">
+            <h1 class="text-2xl sm:text-3xl font-bold text-white">The Art of Control</h1>
+            <p class="mt-2 text-sm sm:text-base text-gray-300">
+                Inspired by the principles of prolonged lovemaking, this experience visualizes managing internal energy. The goal is not to climax, but to master the 'plateau'—sustaining a high energy level without losing control.
+            </p>
+        </div>
+
+        <!-- Main UI Elements -->
+        <div class="flex-grow flex items-center justify-center">
+             <div id="energy-display" class="text-center pointer-events-auto">
+                 <p class="text-lg text-gray-400">Energy Level</p>
+                 <p id="energy-value" class="text-7xl sm:text-8xl font-bold text-white transition-colors duration-500">1.0</p>
+             </div>
+        </div>
+        
+        <!-- Controls -->
+        <div class="w-full grid grid-cols-2 gap-4 max-w-2xl mx-auto pointer-events-auto">
+            <button id="flex-btn" class="control-btn p-4 rounded-lg bg-indigo-600 text-white font-semibold shadow-lg focus:outline-none">
+                Flex (Hold)
+            </button>
+            <button id="breathe-btn" class="control-btn p-4 rounded-lg bg-teal-600 text-white font-semibold shadow-lg focus:outline-none">
+                Breathe (Hold)
+            </button>
+        </div>
+
+        <!-- Goal Description -->
+        <div class="w-full text-center mt-4 text-gray-400 text-sm max-w-md mx-auto">
+            <p><strong>Goal:</strong> Keep the Energy Level between 7.0 and 9.5 for as long as you can. Reaching 10.0 will reset the cycle.</p>
+        </div>
+    </div>
+    
+    <!-- Reset Flash Overlay -->
+    <div id="reset-overlay" class="absolute top-0 left-0 w-full h-full bg-white opacity-0 pointer-events-none"></div>
+
+
+    <!-- Import Three.js and modules -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+        import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+        import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+        // --- Basic Setup ---
+        let scene, camera, renderer, composer;
+        let core, shell; // Our 3D objects
+        const canvasContainer = document.getElementById('canvas-container');
+
+        // --- UI Elements ---
+        const energyValueUI = document.getElementById('energy-value');
+        const flexBtn = document.getElementById('flex-btn');
+        const breatheBtn = document.getElementById('breathe-btn');
+        const resetOverlay = document.getElementById('reset-overlay');
+        
+        // --- State Management ---
+        let energyLevel = 1.0;
+        let energyDrift = 0.001; // How fast energy naturally rises
+        const maxEnergy = 10.0;
+        const minEnergy = 1.0;
+
+        let isFlexing = false;
+        let isBreathing = false;
+        
+        const coolColor = new THREE.Color(0x4f46e5); // Indigo
+        const warmColor = new THREE.Color(0xd946ef); // Fuchsia
+        const hotColor = new THREE.Color(0xfb7185); // Rose
+        const peakColor = new THREE.Color(0xffffff); // White
+        
+        // --- Initialization ---
+        function init() {
+            // Scene
+            scene = new THREE.Scene();
+
+            // Camera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+
+            // Renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            canvasContainer.appendChild(renderer.domElement);
+            
+            // --- 3D Objects ---
+            const coreGeometry = new THREE.IcosahedronGeometry(0.8, 1);
+            const coreMaterial = new THREE.MeshBasicMaterial({ color: coolColor, wireframe: true });
+            core = new THREE.Mesh(coreGeometry, coreMaterial);
+            scene.add(core);
+
+            const shellGeometry = new THREE.IcosahedronGeometry(1.5, 2);
+            const shellMaterial = new THREE.MeshBasicMaterial({ color: coolColor, wireframe: true, transparent: true, opacity: 0.3 });
+            shell = new THREE.Mesh(shellGeometry, shellMaterial);
+            scene.add(shell);
+            
+            // --- Post-processing for Glow Effect ---
+            const renderPass = new RenderPass(scene, camera);
+            const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
+            bloomPass.threshold = 0;
+            bloomPass.strength = 1.5; // Initial strength
+            bloomPass.radius = 0;
+
+            composer = new EffectComposer(renderer);
+            composer.addPass(renderPass);
+            composer.addPass(bloomPass);
+
+            // --- Event Listeners ---
+            window.addEventListener('resize', onWindowResize);
+            
+            // For PC
+            flexBtn.addEventListener('mousedown', () => { isFlexing = true; });
+            flexBtn.addEventListener('mouseup', () => { isFlexing = false; });
+            flexBtn.addEventListener('mouseleave', () => { isFlexing = false; });
+            breatheBtn.addEventListener('mousedown', () => { isBreathing = true; });
+            breatheBtn.addEventListener('mouseup', () => { isBreathing = false; });
+            breatheBtn.addEventListener('mouseleave', () => { isBreathing = false; });
+
+            // For Mobile
+            flexBtn.addEventListener('touchstart', (e) => { e.preventDefault(); isFlexing = true; });
+            flexBtn.addEventListener('touchend', () => { isFlexing = false; });
+            breatheBtn.addEventListener('touchstart', (e) => { e.preventDefault(); isBreathing = true; });
+            breatheBtn.addEventListener('touchend', () => { isBreathing = false; });
+        }
+        
+        // --- Window Resize Handler ---
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            composer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // --- Reset Logic ---
+        function resetExperience() {
+            resetOverlay.style.opacity = '1';
+            setTimeout(() => {
+                energyLevel = 1.0;
+                resetOverlay.style.opacity = '0';
+            }, 500);
+        }
+        
+        // --- Animation Loop ---
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // 1. Update State
+            // --- Control logic based on the book's principles ---
+            if (isFlexing) {
+                // "Flexing PC Muscle" reduces energy level quickly.
+                energyLevel -= 0.05;
+            }
+            if (isBreathing) {
+                // "Breathing" slows down the natural rise of energy, giving more control.
+                energyDrift = 0.0005;
+            } else {
+                // Energy naturally rises, faster at higher levels.
+                energyDrift = 0.001 + (energyLevel / maxEnergy) * 0.005;
+            }
+            
+            energyLevel += energyDrift;
+            energyLevel = Math.max(minEnergy, Math.min(maxEnergy, energyLevel));
+
+            if (energyLevel >= maxEnergy) {
+                resetExperience();
+            }
+
+            // 2. Update Visuals
+            const t = (energyLevel - minEnergy) / (maxEnergy - minEnergy); // Normalized value 0-1
+            
+            let currentColor = new THREE.Color();
+            if (t < 0.5) {
+                currentColor.lerpColors(coolColor, warmColor, t * 2);
+            } else {
+                currentColor.lerpColors(warmColor, hotColor, (t - 0.5) * 2);
+            }
+            
+            core.material.color = currentColor;
+            shell.material.color = currentColor;
+            
+            // Rotation speed increases with energy
+            const rotationSpeed = 0.001 + t * 0.01;
+            core.rotation.x += rotationSpeed;
+            core.rotation.y += rotationSpeed * 0.5;
+            shell.rotation.x -= rotationSpeed * 0.3;
+            shell.rotation.y -= rotationSpeed * 0.2;
+            
+            // Glow effect intensifies
+            composer.passes[1].strength = 1.0 + t * 4.0;
+            
+            // Pulsing effect
+            const pulse = 1 + Math.sin(Date.now() * 0.005 + t * 5) * 0.05 * t;
+            core.scale.set(pulse, pulse, pulse);
+            
+            // Update UI
+            energyValueUI.textContent = energyLevel.toFixed(1);
+            energyValueUI.style.color = t > 0.9 ? peakColor.getStyle() : currentColor.getStyle();
+
+
+            // 3. Render Scene
+            composer.render();
+        }
+
+        // --- Start ---
+        init();
+        animate();
+    </script>
+
+</body>
+</html>

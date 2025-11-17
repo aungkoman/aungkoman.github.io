@@ -1,0 +1,745 @@
+
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <style>
+                body {
+                  background-color: white; /* Ensure the iframe has a white background */
+                }
+    
+                
+              </style>
+                        </head>
+                        <body>
+                            <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whispers of the Heart</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            overflow: hidden;
+            font-family: 'Cormorant Garamond', serif;
+            background: #000;
+            color: #fff;
+            height: 100vh;
+            width: 100vw;
+        }
+        
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        #ui-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            pointer-events: none;
+        }
+        
+        #start-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 1.5s ease;
+        }
+        
+        #start-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        #title {
+            font-size: 4.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 15px rgba(255, 182, 193, 0.8);
+            letter-spacing: 3px;
+            font-weight: 300;
+            color: #ffb6c1;
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(255, 182, 193, 0.6); }
+            to { text-shadow: 0 0 25px rgba(255, 105, 180, 0.9), 0 0 35px rgba(255, 182, 193, 0.7); }
+        }
+        
+        #start-button {
+            background: rgba(255, 182, 193, 0.3);
+            border: 2px solid rgba(255, 105, 180, 0.7);
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.8rem;
+            font-family: 'Cormorant Garamond', serif;
+            border-radius: 50px;
+            cursor: pointer;
+            pointer-events: auto;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 20px rgba(255, 182, 193, 0.4);
+        }
+        
+        #start-button:hover {
+            background: rgba(255, 105, 180, 0.4);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.7);
+        }
+        
+        #story-container {
+            max-width: 800px;
+            padding: 0 2rem;
+            opacity: 0;
+            transition: opacity 1.2s ease;
+        }
+        
+        #story-container.visible {
+            opacity: 1;
+        }
+        
+        #narrative-text {
+            font-size: 2.2rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .choice-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .choice-btn {
+            background: rgba(255, 182, 193, 0.25);
+            border: 1px solid rgba(255, 182, 193, 0.5);
+            color: white;
+            padding: 12px 25px;
+            font-size: 1.4rem;
+            font-family: 'Cormorant Garamond', serif;
+            border-radius: 15px;
+            cursor: pointer;
+            pointer-events: auto;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(3px);
+            min-width: 180px;
+        }
+        
+        .choice-btn:hover {
+            background: rgba(255, 105, 180, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+        }
+        
+        .fade-out {
+            opacity: 0 !important;
+            transition: opacity 0.8s ease !important;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid #ffb6c1;
+            white-space: nowrap;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #ffb6c1 }
+        }
+        
+        #instructions {
+            position: absolute;
+            bottom: 20px;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        
+        #music-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 182, 193, 0.3);
+            color: #ffb6c1;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            pointer-events: auto;
+            font-size: 1.2rem;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="canvas-container"></div>
+    
+    <div id="ui-container">
+        <div id="start-screen">
+            <h1 id="title">Whispers of the Heart</h1>
+            <button id="start-button">Begin Story</button>
+        </div>
+        
+        <div id="story-container">
+            <div id="narrative-text"></div>
+            <div class="choice-container" id="choices"></div>
+        </div>
+        
+        <div id="instructions">Click anywhere to continue</div>
+        <div id="music-toggle">♪</div>
+    </div>
+
+    <script>
+        // Game state
+        const gameState = {
+            currentScene: 0,
+            storyProgress: 0,
+            musicPlaying: true,
+            audioContext: null,
+            bgMusic: null,
+            clickSound: null,
+            transitionSound: null
+        };
+
+        // Story scenes
+        const storyScenes = [
+            {
+                text: "It was a quiet evening when she appeared...",
+                choices: null
+            },
+            {
+                text: "A soft breeze carried her laughter through the autumn air.",
+                choices: null
+            },
+            {
+                text: "She stood by the old oak tree, lost in thought, unaware of my presence.",
+                choices: null
+            },
+            {
+                text: "My heart raced as our eyes met across the park.",
+                choices: [
+                    { text: "Approach her", next: 4 },
+                    { text: "Stay hidden", next: 5 }
+                ]
+            },
+            {
+                text: "I walked toward her, my steps hesitant yet determined.",
+                choices: null
+            },
+            {
+                text: "I remained in the shadows, watching her from afar.",
+                choices: null
+            },
+            {
+                text: "She smiled as I drew near, her eyes reflecting the golden sunset.",
+                choices: [
+                    { text: "Ask about her thoughts", next: 8 },
+                    { text: "Compliment her presence", next: 9 }
+                ]
+            },
+            {
+                text: "She looked away, her expression unreadable.",
+                choices: [
+                    { text: "Leave quietly", next: 10 },
+                    { text: "Wait for her to notice", next: 11 }
+                ]
+            },
+            {
+                text: "\"I was thinking about how fleeting moments like this are,\" she said softly.",
+                choices: null
+            },
+            {
+                text: "\"Your presence here... it feels like a dream,\" I whispered.",
+                choices: null
+            },
+            {
+                text: "I turned and walked away, the autumn leaves crunching under my feet.",
+                choices: null
+            },
+            {
+                text: "After a moment, she turned and saw me. Her eyes widened in surprise.",
+                choices: null
+            },
+            {
+                text: "We talked for hours as the stars emerged in the velvet sky.",
+                choices: null
+            },
+            {
+                text: "A comfortable silence settled between us, filled only by the rustling leaves.",
+                choices: null
+            },
+            {
+                text: "As dawn approached, we knew this moment would change everything.",
+                choices: [
+                    { text: "Ask to see her again", next: 16 },
+                    { text: "Let this be our only meeting", next: 17 }
+                ]
+            },
+            {
+                text: "We parted ways that night, each carrying the other's memory in our hearts.",
+                choices: null
+            },
+            {
+                text: "\"Tomorrow?\" she asked, hope shimmering in her eyes.",
+                choices: [
+                    { text: "Promise to return", next: 18 },
+                    { text: "Remain silent", next: 19 }
+                ]
+            },
+            {
+                text: "I nodded, knowing this was just the beginning of our story.",
+                choices: null
+            },
+            {
+                text: "I smiled but said nothing, leaving our future unwritten.",
+                choices: null
+            },
+            {
+                text: "And so, our paths diverged... yet the memory of that autumn evening remains, a whisper in the heart that never fades.",
+                choices: null
+            }
+        ];
+
+        // Initialize Three.js
+        let scene, camera, renderer, particles, particleSystem;
+        let heartParticles = [];
+        let clock = new THREE.Clock();
+        let targetColor = new THREE.Color(0xffb6c1);
+        let currentColor = new THREE.Color(0x4b0082);
+        let colorTransition = 0;
+
+        function initThreeJS() {
+            // Create scene
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x0a0a1a);
+            
+            // Create camera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+            
+            // Create renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
+            
+            // Create particle system
+            createParticles();
+            
+            // Handle window resize
+            window.addEventListener('resize', onWindowResize);
+            
+            // Start animation loop
+            animate();
+        }
+
+        function createParticles() {
+            // Heart particles
+            const heartGeometry = new THREE.BufferGeometry();
+            const heartPositions = [];
+            const heartColors = [];
+            const heartSizes = [];
+            
+            for (let i = 0; i < 500; i++) {
+                // Create heart shape points
+                const t = Math.random() * Math.PI * 2;
+                const scale = 0.5 + Math.random() * 0.5;
+                const x = 16 * Math.pow(Math.sin(t), 3) * scale;
+                const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t)) * scale;
+                const z = (Math.random() - 0.5) * 2;
+                
+                // Randomize position
+                const offsetX = (Math.random() - 0.5) * 20;
+                const offsetY = (Math.random() - 0.5) * 10;
+                const offsetZ = (Math.random() - 0.5) * 10;
+                
+                heartPositions.push(
+                    x + offsetX,
+                    y + offsetY,
+                    z + offsetZ
+                );
+                
+                // Create color gradient
+                const color = new THREE.Color();
+                color.setHSL(0.95 + Math.random() * 0.1, 0.7, 0.5 + Math.random() * 0.3);
+                heartColors.push(color.r, color.g, color.b);
+                
+                // Random size
+                heartSizes.push(0.5 + Math.random() * 1.5);
+            }
+            
+            heartGeometry.setAttribute('position', new THREE.Float32BufferAttribute(heartPositions, 3));
+            heartGeometry.setAttribute('color', new THREE.Float32BufferAttribute(heartColors, 3));
+            heartGeometry.setAttribute('size', new THREE.Float32BufferAttribute(heartSizes, 1));
+            
+            const heartMaterial = new THREE.PointsMaterial({
+                size: 0.8,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.7,
+                blending: THREE.AdditiveBlending,
+                sizeAttenuation: true
+            });
+            
+            particleSystem = new THREE.Points(heartGeometry, heartMaterial);
+            scene.add(particleSystem);
+            
+            // Floating particles
+            const particleCount = 1000;
+            const positions = new Float32Array(particleCount * 3);
+            const colors = new Float32Array(particleCount * 3);
+            const sizes = new Float32Array(particleCount);
+            
+            for (let i = 0; i < particleCount; i++) {
+                const i3 = i * 3;
+                
+                // Position in a sphere
+                const radius = 10 + Math.random() * 20;
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.acos(2 * Math.random() - 1);
+                
+                positions[i3] = radius * Math.sin(phi) * Math.cos(theta);
+                positions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+                positions[i3 + 2] = radius * Math.cos(phi);
+                
+                // Color
+                const color = new THREE.Color();
+                color.setHSL(0.8 + Math.random() * 0.2, 0.6, 0.5 + Math.random() * 0.3);
+                colors[i3] = color.r;
+                colors[i3 + 1] = color.g;
+                colors[i3 + 2] = color.b;
+                
+                // Size
+                sizes[i] = 0.5 + Math.random() * 1.5;
+            }
+            
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+            
+            const material = new THREE.PointsMaterial({
+                size: 1.2,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.6,
+                blending: THREE.AdditiveBlending,
+                sizeAttenuation: true
+            });
+            
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            const delta = clock.getDelta();
+            const time = clock.getElapsedTime();
+            
+            // Rotate particles
+            if (particles) {
+                particles.rotation.y += delta * 0.05;
+                particles.rotation.x += delta * 0.02;
+            }
+            
+            if (particleSystem) {
+                particleSystem.rotation.y += delta * 0.03;
+                particleSystem.rotation.x += delta * 0.01;
+                
+                // Animate heart particles
+                const positions = particleSystem.geometry.attributes.position.array;
+                for (let i = 0; i < positions.length; i += 3) {
+                    // Gentle floating motion
+                    positions[i + 1] += Math.sin(time * 0.5 + i) * 0.005;
+                    positions[i + 2] += Math.cos(time * 0.7 + i) * 0.003;
+                }
+                particleSystem.geometry.attributes.position.needsUpdate = true;
+            }
+            
+            // Smooth color transition
+            colorTransition = Math.min(colorTransition + delta * 0.2, 1);
+            const currentHSL = {};
+            currentColor.getHSL(currentHSL);
+            const targetHSL = {};
+            targetColor.getHSL(targetHSL);
+            
+            const newH = currentHSL.h + (targetHSL.h - currentHSL.h) * colorTransition;
+            const newS = currentHSL.s + (targetHSL.s - currentHSL.s) * colorTransition;
+            const newL = currentHSL.l + (targetHSL.l - currentHSL.l) * colorTransition;
+            
+            scene.background.setHSL(newH, newS, newL);
+            
+            renderer.render(scene, camera);
+        }
+
+        // Audio functions
+        function initAudio() {
+            try {
+                gameState.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Create background music oscillator
+                gameState.bgMusic = gameState.audioContext.createOscillator();
+                const gainNode = gameState.audioContext.createGain();
+                gameState.bgMusic.connect(gainNode);
+                gainNode.connect(gameState.audioContext.destination);
+                
+                // Soft ambient pad sound
+                gameState.bgMusic.type = 'sine';
+                gameState.bgMusic.frequency.setValueAtTime(110, gameState.audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0.05, gameState.audioContext.currentTime);
+                
+                // Create click sound
+                gameState.clickSound = () => {
+                    if (!gameState.audioContext) return;
+                    const oscillator = gameState.audioContext.createOscillator();
+                    const gain = gameState.audioContext.createGain();
+                    oscillator.connect(gain);
+                    gain.connect(gameState.audioContext.destination);
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(440, gameState.audioContext.currentTime);
+                    gain.gain.setValueAtTime(0.1, gameState.audioContext.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, gameState.audioContext.currentTime + 0.3);
+                    oscillator.start();
+                    oscillator.stop(gameState.audioContext.currentTime + 0.3);
+                };
+                
+                // Create transition sound
+                gameState.transitionSound = () => {
+                    if (!gameState.audioContext) return;
+                    const oscillator = gameState.audioContext.createOscillator();
+                    const gain = gameState.audioContext.createGain();
+                    oscillator.connect(gain);
+                    gain.connect(gameState.audioContext.destination);
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(330, gameState.audioContext.currentTime);
+                    gain.gain.setValueAtTime(0.08, gameState.audioContext.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, gameState.audioContext.currentTime + 0.8);
+                    oscillator.start();
+                    oscillator.stop(gameState.audioContext.currentTime + 0.8);
+                };
+                
+                if (gameState.musicPlaying) {
+                    gameState.bgMusic.start();
+                }
+            } catch (e) {
+                console.warn("Audio not supported in this browser");
+            }
+        }
+
+        // UI Functions
+        function showStartScreen() {
+            document.getElementById('start-screen').classList.remove('hidden');
+            document.getElementById('story-container').classList.remove('visible');
+        }
+
+        function hideStartScreen() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('story-container').classList.add('visible');
+            document.getElementById('instructions').style.display = 'block';
+        }
+
+        function displayText(text, isTypewriter = true) {
+            const textElement = document.getElementById('narrative-text');
+            textElement.textContent = "";
+            textElement.className = "";
+            
+            if (isTypewriter) {
+                textElement.classList.add('typewriter');
+                let i = 0;
+                const typeWriter = () => {
+                    if (i < text.length) {
+                        textElement.textContent += text.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, 30);
+                    }
+                };
+                typeWriter();
+            } else {
+                textElement.textContent = text;
+            }
+        }
+
+        function displayChoices(choices) {
+            const choicesContainer = document.getElementById('choices');
+            choicesContainer.innerHTML = '';
+            
+            if (!choices) {
+                choicesContainer.style.display = 'none';
+                return;
+            }
+            
+            choicesContainer.style.display = 'flex';
+            choices.forEach(choice => {
+                const button = document.createElement('button');
+                button.className = 'choice-btn';
+                button.textContent = choice.text;
+                button.onclick = () => {
+                    if (gameState.clickSound) gameState.clickSound();
+                    gameState.currentScene = choice.next;
+                    advanceStory();
+                };
+                choicesContainer.appendChild(button);
+            });
+        }
+
+        function advanceStory() {
+            // Hide choices
+            document.getElementById('choices').innerHTML = '';
+            
+            // Get current scene
+            const scene = storyScenes[gameState.currentScene];
+            
+            // Play transition sound
+            if (gameState.transitionSound) gameState.transitionSound();
+            
+            // Fade out current text
+            const textElement = document.getElementById('narrative-text');
+            textElement.classList.add('fade-out');
+            
+            setTimeout(() => {
+                // Update background color based on scene
+                if (gameState.currentScene === 4 || gameState.currentScene === 8 || gameState.currentScene === 16) {
+                    targetColor = new THREE.Color(0xff69b4); // Hot pink for romantic moments
+                } else if (gameState.currentScene === 5 || gameState.currentScene === 10 || gameState.currentScene === 19) {
+                    targetColor = new THREE.Color(0x4b0082); // Indigo for melancholic moments
+                } else {
+                    targetColor = new THREE.Color(0xb19cd9); // Light pastel purple for neutral
+                }
+                colorTransition = 0;
+                
+                // Display new text
+                displayText(scene.text);
+                displayChoices(scene.choices);
+                
+                // Remove fade class
+                textElement.classList.remove('fade-out');
+            }, 800);
+        }
+
+        function toggleMusic() {
+            gameState.musicPlaying = !gameState.musicPlaying;
+            const toggleBtn = document.getElementById('music-toggle');
+            
+            if (gameState.bgMusic) {
+                if (gameState.musicPlaying) {
+                    gameState.bgMusic.start();
+                    toggleBtn.textContent = '♪';
+                } else {
+                    gameState.bgMusic.stop();
+                    toggleBtn.textContent = '🔇';
+                }
+            }
+        }
+
+        // Event Listeners
+        document.getElementById('start-button').addEventListener('click', () => {
+            if (gameState.clickSound) gameState.clickSound();
+            hideStartScreen();
+            gameState.currentScene = 0;
+            advanceStory();
+        });
+
+        document.getElementById('ui-container').addEventListener('click', (e) => {
+            // Ignore clicks on buttons
+            if (e.target.classList.contains('choice-btn') || e.target.id === 'start-button' || e.target.id === 'music-toggle') {
+                return;
+            }
+            
+            // If we're on the start screen, don't proceed
+            if (!document.getElementById('start-screen').classList.contains('hidden')) {
+                return;
+            }
+            
+            // If choices are displayed, don't auto-advance
+            if (document.getElementById('choices').children.length > 0) {
+                return;
+            }
+            
+            // Play click sound
+            if (gameState.clickSound) gameState.clickSound();
+            
+            // Advance to next scene
+            gameState.currentScene++;
+            
+            // Check if we've reached the end
+            if (gameState.currentScene >= storyScenes.length) {
+                gameState.currentScene = storyScenes.length - 1;
+                document.getElementById('instructions').style.display = 'none';
+            }
+            
+            advanceStory();
+        });
+
+        document.getElementById('music-toggle').addEventListener('click', toggleMusic);
+
+        // Initialize everything
+        window.addEventListener('load', () => {
+            initThreeJS();
+            initAudio();
+            showStartScreen();
+        });
+    </script>
+</body>
+</html>
+
+
+    
+              <script>
+                              
+              </script>
+                        </body>
+                        </html>
+                    

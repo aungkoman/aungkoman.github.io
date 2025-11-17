@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Dice Betting Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            touch-action: none;
+            overflow: hidden;
+        }
+        #game-canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .btn-number.active {
+            background-color: #4f46e5;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen">
+    <canvas id="game-canvas"></canvas>
+
+    <div class="w-full max-w-md mx-auto p-6 md:p-8 space-y-6 glassmorphism">
+        <div class="text-center">
+            <h1 class="text-3xl md:text-4xl font-bold tracking-tight">Dice Bet</h1>
+            <p class="text-gray-300 mt-2">Bet on a number and roll the dice!</p>
+        </div>
+
+        <!-- Wallet Display -->
+        <div class="flex justify-between items-center bg-gray-800/50 p-4 rounded-lg">
+            <span class="text-lg font-medium text-gray-300">Wallet:</span>
+            <span id="wallet" class="text-2xl font-bold text-green-400">100</span>
+        </div>
+
+        <!-- Betting Controls -->
+        <div class="space-y-4">
+            <div>
+                <label for="bet-amount" class="block text-sm font-medium text-gray-300 mb-2">Bet Amount:</label>
+                <input type="number" id="bet-amount" value="10" min="1" class="w-full bg-gray-700/50 border border-gray-600 rounded-lg p-2 text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
+            </div>
+            <div>
+                <p class="block text-sm font-medium text-gray-300 mb-2">Choose Number:</p>
+                <div id="number-selection" class="grid grid-cols-6 gap-2">
+                    <button class="btn-number p-3 rounded-lg bg-gray-700/50 hover:bg-gray-600/50 transition font-bold text-lg active">1</button>
+                    <button class="btn-number p-3 rounded-lg bg-gray-700/50 hover:bg-gray-600/50 transition font-bold text-lg">2</button>
+                    <button class="btn-number p-3 rounded-lg bg-gray-700/50 hover:bg-gray-600/50 transition font-bold text-lg">3</button>
+                    <button class="btn-number p-3 rounded-lg bg-gray-700/50 hover:bg-gray-600/50 transition font-bold text-lg">4</button>
+                    <button class="btn-number p-3 rounded-lg bg-gray-700/50 hover:bg-gray-600/50 transition font-bold text-lg">5</button>
+                    <button class="btn-number p-3 rounded-lg bg-gray-700/50 hover:bg-gray-600/50 transition font-bold text-lg">6</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4">
+            <button id="roll-button" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
+                Roll Dice
+            </button>
+            <button id="reset-button" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition">
+                Reset
+            </button>
+        </div>
+        
+        <!-- Results Display -->
+        <div class="text-center bg-gray-800/50 p-4 rounded-lg min-h-[100px] flex flex-col justify-center">
+            <p class="text-gray-300">Results:</p>
+            <p id="dice-results" class="text-4xl my-2">🎲 🎲 🎲</p>
+            <p id="message" class="font-semibold h-6">&nbsp;</p>
+        </div>
+    </div>
+
+    <script type="module">
+        import * as THREE from 'https://cdn.skypack.dev/three@0.132.2';
+        import { OrbitControls } from 'https://cdn.skypack.dev/three@0.132.2/examples/jsm/controls/OrbitControls.js';
+        
+        // --- DOM Elements ---
+        const walletEl = document.getElementById('wallet');
+        const betAmountEl = document.getElementById('bet-amount');
+        const numberSelectionEl = document.getElementById('number-selection');
+        const rollButton = document.getElementById('roll-button');
+        const resetButton = document.getElementById('reset-button');
+        const diceResultsEl = document.getElementById('dice-results');
+        const messageEl = document.getElementById('message');
+
+        // --- Game State ---
+        let wallet = 100;
+        let chosenNumber = 1;
+        let isRolling = false;
+
+        // --- Three.js Scene Setup ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 5, 7);
+        
+        const renderer = new THREE.WebGLRenderer({ 
+            canvas: document.getElementById('game-canvas'),
+            alpha: true,
+            antialias: true 
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        // --- Lighting ---
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+        scene.add(ambientLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 10, 7.5);
+        scene.add(directionalLight);
+
+        // --- Controls ---
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableZoom = false;
+        controls.enablePan = false;
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 0.5;
+
+        // --- Dice Creation ---
+        const dice = [];
+        const diceSize = 1.5;
+        const geometry = new THREE.BoxGeometry(diceSize, diceSize, diceSize, 10, 10, 10);
+        
+        // --- Dice Textures ---
+        function createDiceTexture(num) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 128;
+            canvas.height = 128;
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 80px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(num, canvas.width / 2, canvas.height / 2);
+            return new THREE.CanvasTexture(canvas);
+        }
+
+        const textures = [
+            null, // Index 0 is unused
+            createDiceTexture('1'), createDiceTexture('2'), createDiceTexture('3'),
+            createDiceTexture('4'), createDiceTexture('5'), createDiceTexture('6')
+        ];
+
+        const materials = [
+            new THREE.MeshStandardMaterial({ map: textures[1] }), // right face (+x)
+            new THREE.MeshStandardMaterial({ map: textures[6] }), // left face (-x)
+            new THREE.MeshStandardMaterial({ map: textures[2] }), // top face (+y)
+            new THREE.MeshStandardMaterial({ map: textures[5] }), // bottom face (-y)
+            new THREE.MeshStandardMaterial({ map: textures[3] }), // front face (+z)
+            new THREE.MeshStandardMaterial({ map: textures[4] })  // back face (-z)
+        ];
+
+        const dicePositions = [-3, 0, 3];
+        dicePositions.forEach(pos => {
+            const die = new THREE.Mesh(geometry, materials);
+            die.position.x = pos;
+            die.position.y = 1;
+            die.rotation.set(Math.random() * Math.PI * 2, Math.random() * Math.PI * 2, Math.random() * Math.PI * 2);
+            scene.add(die);
+            dice.push(die);
+        });
+
+        // --- Event Listeners ---
+        numberSelectionEl.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                document.querySelector('.btn-number.active').classList.remove('active');
+                e.target.classList.add('active');
+                chosenNumber = parseInt(e.target.textContent);
+            }
+        });
+
+        rollButton.addEventListener('click', () => {
+            if (isRolling) return;
+            const betAmount = parseInt(betAmountEl.value);
+
+            if (betAmount > wallet) {
+                showMessage('Not enough credits!', 'red');
+                return;
+            }
+            if (betAmount <= 0) {
+                showMessage('Bet amount must be positive!', 'red');
+                return;
+            }
+            
+            startRoll(betAmount);
+        });
+        
+        resetButton.addEventListener('click', () => {
+            if (isRolling) return;
+            wallet = 100;
+            updateWallet();
+            showMessage('Wallet Reset!', 'white');
+            diceResultsEl.innerHTML = '🎲 🎲 🎲';
+            rollButton.disabled = false;
+            rollButton.classList.remove('opacity-50', 'cursor-not-allowed');
+        });
+
+        // --- Game Logic ---
+        function startRoll(betAmount) {
+            isRolling = true;
+            rollButton.disabled = true;
+            rollButton.classList.add('opacity-50');
+            
+            wallet -= betAmount;
+            updateWallet();
+            
+            diceResultsEl.textContent = '...';
+            showMessage('Rolling...');
+
+            const rollDuration = 2000; // 2 seconds
+            const startTime = Date.now();
+            
+            const results = [
+                Math.floor(Math.random() * 6) + 1,
+                Math.floor(Math.random() * 6) + 1,
+                Math.floor(Math.random() * 6) + 1
+            ];
+
+            const interval = setInterval(() => {
+                const elapsed = Date.now() - startTime;
+                
+                dice.forEach(die => {
+                    die.rotation.x += 0.1 + Math.random() * 0.2;
+                    die.rotation.y += 0.1 + Math.random() * 0.2;
+                    die.rotation.z += 0.1 + Math.random() * 0.2;
+                });
+
+                if (elapsed >= rollDuration) {
+                    clearInterval(interval);
+                    finishRoll(results, betAmount);
+                }
+            }, 1000 / 60);
+        }
+
+        function finishRoll(results, betAmount) {
+            dice.forEach((die, index) => {
+                setDieFace(die, results[index]);
+            });
+
+            // Calculate winnings
+            const matches = results.filter(r => r === chosenNumber).length;
+            let winnings = 0;
+            if (matches > 0) {
+                winnings = matches * betAmount * 2;
+                wallet += winnings;
+                showMessage(`You won ${winnings} credits!`, 'green');
+            } else {
+                showMessage('You lost!', 'red');
+            }
+            
+            updateWallet();
+            
+            const resultEmojis = results.map(r => ['⚀','⚁','⚂','⚃','⚄','⚅'][r-1]).join(' ');
+            diceResultsEl.innerHTML = resultEmojis;
+
+            isRolling = false;
+            if (wallet > 0) {
+                 rollButton.disabled = false;
+                 rollButton.classList.remove('opacity-50');
+            } else {
+                showMessage('Game Over! Reset to play again.', 'orange');
+                rollButton.classList.add('cursor-not-allowed');
+            }
+        }
+
+        function updateWallet() {
+            walletEl.textContent = wallet;
+        }
+
+        function showMessage(text, color = 'white') {
+            messageEl.textContent = text;
+            messageEl.style.color = color;
+        }
+        
+        // --- Dice Rotation Logic ---
+        function setDieFace(die, value) {
+            const targetQuaternion = new THREE.Quaternion();
+            const euler = new THREE.Euler(0, 0, 0, 'XYZ');
+        
+            switch (value) {
+                case 1: euler.set(0, 0, 0); break;          // right face (+x)
+                case 6: euler.set(Math.PI, 0, 0); break;    // left face (-x)
+                case 2: euler.set(0, 0, -Math.PI / 2); break; // top face (+y)
+                case 5: euler.set(0, 0, Math.PI / 2); break;  // bottom face (-y)
+                case 3: euler.set(Math.PI / 2, 0, 0); break;  // front face (+z)
+                case 4: euler.set(-Math.PI / 2, 0, 0); break; // back face (-z)
+            }
+            targetQuaternion.setFromEuler(euler);
+            
+            // Animate rotation to target
+            const startQuaternion = die.quaternion.clone();
+            const animationDuration = 500;
+            const startTime = Date.now();
+
+            function animateRotation() {
+                const elapsed = Date.now() - startTime;
+                const t = Math.min(1, elapsed / animationDuration);
+                
+                die.quaternion.slerpQuaternions(startQuaternion, targetQuaternion, t);
+                
+                if (t < 1) {
+                    requestAnimationFrame(animateRotation);
+                }
+            }
+            animateRotation();
+        }
+
+        // --- Animation Loop & Resize ---
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // --- Start ---
+        animate();
+
+    </script>
+</body>
+</html>

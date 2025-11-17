@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Guide to a Richer, Calmer Life</title>
+    <style>
+        /* --- Basic Setup & Typography --- */
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&display=swap');
+
+        :root {
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+            --primary-color: #4a69bd;
+            --secondary-color: #7ab5a3;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        /* --- Layout --- */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        main {
+            padding: 40px 0;
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2em;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #888;
+            border-top: 1px solid #ddd;
+        }
+
+        /* --- Interactive Accordion --- */
+        .accordion {
+            background-color: var(--card-bg);
+            color: #444;
+            cursor: pointer;
+            padding: 18px 25px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.4s ease;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion:hover, .accordion.active {
+            background-color: #e8effa;
+        }
+        
+        .accordion .symbol::before {
+            content: '+';
+            font-size: 1.5em;
+            color: var(--primary-color);
+        }
+        
+        .accordion.active .symbol::before {
+            content: '-';
+        }
+
+        .panel {
+            padding: 0 25px;
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            border-radius: 0 0 8px 8px;
+            margin-bottom: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        .panel p {
+            margin: 15px 0;
+        }
+
+        /* --- Breathing Exercise --- */
+        .breathing-circle-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .breathing-circle {
+            width: 100px;
+            height: 100px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: breathe 10s ease-in-out infinite;
+        }
+
+        .breathing-text {
+            color: white;
+            font-weight: 600;
+            animation: text-fade 10s ease-in-out infinite;
+        }
+        
+        #breathing-instruction {
+            margin-top: 20px;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        @keyframes breathe {
+            0%   { transform: scale(0.8); }
+            40%  { transform: scale(1.2); } /* Inhale 4s */
+            80%  { transform: scale(1.2); } /* Hold 4s */
+            100% { transform: scale(0.8); } /* Exhale 2s - made it quicker for loop */
+        }
+        
+        /* --- Final Section --- */
+        .final-thoughts {
+            text-align: center;
+            padding: 30px;
+            background-color: #e8effa;
+            border-radius: 8px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Your Path Forward</h1>
+            <p>A simple guide to finding calm in the struggle and building a life with less worry. This is a journey, and it starts with a single step.</p>
+        </header>
+
+        <main>
+            <section id="path-to-calm">
+                <h2>The Path to Calm: Find Your Anchor</h2>
+                <p style="text-align: center;">Peace is not the absence of trouble, but the presence of calm within it. You can start building this calm right now, for free.</p>
+                
+                <div class="breathing-circle-container">
+                    <div class="breathing-circle">
+                        <span class="breathing-text"></span>
+                    </div>
+                    <p id="breathing-instruction">Follow the circle with your breath.</p>
+                </div>
+                
+                <br>
+
+                <button class="accordion">Control Your Breath, Control Your Mind<span class="symbol"></span></button>
+                <div class="panel">
+                    <p>When you feel overwhelmed, stop. Take a slow, deep breath in for 4 seconds, hold for 4 seconds, and exhale slowly for 6 seconds. This is your emergency brake for anxiety.</p>
+                </div>
+
+                <button class="accordion">Practice "Enough for Today"<span class="symbol"></span></button>
+                <div class="panel">
+                    <p>Anxiety lives in the future. Bring your focus to right now. What is one small thing you can be grateful for today? A warm drink, a comfortable chair, the sky. Gratitude grounds you in the present.</p>
+                </div>
+
+                <button class="accordion">Reduce the Noise<span class="symbol"></span></button>
+                <div class="panel">
+                    <p>Social media and the news often show us what we lack, creating envy and stress. Unfollow accounts that make you feel bad. Take a walk without your phone. Listen to the world around you instead of the world on your screen.</p>
+                </div>
+
+                <button class="accordion">Your Worth is Not Your Wallet<span class="symbol"></span></button>
+                <div class="panel">
+                    <p>This is the most important truth. You are not your bank account. Your value as a person—your kindness, your strength, your spirit—is priceless. You are navigating a difficult system. Be kind to yourself.</p>
+                </div>
+            </section>
+
+            <section id="path-to-richness">
+                <h2>The Path to Security: Build Your Foundation</h2>
+                <p style="text-align: center;">Let's redefine "rich" as "financial security"—the freedom from constant worry. This is built brick by brick, not overnight.</p>
+                
+                <button class="accordion">Understand Where You Are<span class="symbol"></span></button>
+                <div class="panel">
+                    <p>Knowledge is the first step to control. Without judgment, simply write down what money comes in and where it goes. You cannot fix a leak if you don't know where it is.</p>
+                </div>
+
+                <button class="accordion">The Power of 1%<span class="symbol"></span></button>
+                <div class="panel">
+                    <p>Don't try to change everything at once. Can you save just 1% of your income? Can you cut expenses by 1%? Small, consistent efforts create huge results over time. Start small, but start now.</p>
+                </div>
+
+                <button class="accordion">Increase Your Value<span class="symbol"></span></button>
+                <div class="panel">
+                    <p>Money is an exchange for value. The surest way to earn more is to be able to offer more valuable skills. Use free online resources (YouTube, free courses) to learn something new. An hour of learning each day is an investment in your future.</p>
+                </div>
+
+                <button class="accordion">Create a Small "Freedom Fund"<span class="symbol"></span></button>
+                <div class="panel">
+                    <p>Even a small amount of savings acts as a powerful psychological safety net. It's a buffer between you and disaster, and having one dramatically reduces stress. This fund gives you the freedom to breathe.</p>
+                </div>
+            </section>
+            
+            <section class="final-thoughts">
+                <h2>Your Daily Journey</h2>
+                <p>Combine these paths. Spend 5 minutes on calm in the morning. Dedicate 30 minutes to learning during the day. Rest your mind in the evening. You are building a new life, one calm breath and one small action at a time.</p>
+            </section>
+        </main>
+
+        <footer>
+            <p>You are stronger than your struggle. Be patient and kind to yourself.</p>
+        </footer>
+    </div>
+
+    <script>
+        // --- Accordion Logic ---
+        const accordions = document.getElementsByClassName("accordion");
+
+        for (let i = 0; i < accordions.length; i++) {
+            accordions[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                const panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            });
+        }
+
+        // --- Breathing Animation Text Logic ---
+        const textElement = document.querySelector('.breathing-text');
+        const instructionElement = document.getElementById('breathing-instruction');
+        const cycleTime = 10000; // 10 seconds in milliseconds
+
+        function updateBreathingText() {
+            setTimeout(() => {
+                instructionElement.textContent = "Breathe in...";
+            }, 0);
+            setTimeout(() => {
+                instructionElement.textContent = "Hold...";
+            }, 4000); // 4s inhale
+            setTimeout(() => {
+                instructionElement.textContent = "Breathe out...";
+            }, 8000); // 4s hold
+        }
+
+        updateBreathingText();
+        setInterval(updateBreathingText, cycleTime);
+
+    </script>
+</body>
+</html>

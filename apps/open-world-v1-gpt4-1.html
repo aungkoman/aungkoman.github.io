@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Endless Low-Poly Open World</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <style>
+    html, body {
+      margin: 0; padding: 0; overflow: hidden;
+      width: 100vw; height: 100vh; background: #b3e0ff;
+      touch-action: none;
+    }
+    #game-canvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0; left: 0;
+      background: #b3e0ff;
+    }
+    /* Virtual joystick and camera drag UI */
+    #joystick, #drag-area {
+      position: fixed;
+      z-index: 10;
+      user-select: none;
+      touch-action: none;
+    }
+    #joystick {
+      left: 2vw; bottom: 2vw;
+      width: 28vw; height: 28vw;
+      max-width: 160px; max-height: 160px;
+      background: rgba(0,0,0,0.08);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #joystick-inner {
+      width: 40%; height: 40%;
+      background: rgba(0,0,0,0.18);
+      border-radius: 50%;
+      pointer-events: none;
+      position: absolute;
+      left: 30%; top: 30%;
+      transition: left 0.1s, top 0.1s;
+    }
+    #drag-area {
+      right: 0; bottom: 0;
+      width: 40vw; height: 40vw;
+      max-width: 220px; max-height: 220px;
+      background: rgba(0,0,0,0.04);
+      border-radius: 18px 0 0 0;
+    }
+    @media (min-width: 700px) {
+      #joystick, #drag-area { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="game-canvas"></canvas>
+  <!-- Mobile Controls -->
+  <div id="joystick">
+    <div id="joystick-inner"></div>
+  </div>
+  <div id="drag-area"></div>
+  <!-- Three.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.min.js"></script>
+  <!-- Simplex Noise (for terrain) -->
+  <script src="https://cdn.jsdelivr.net/npm/simplex-noise@4.0.1/simplex-noise.min.js"></script>
+  <script>
+    // ====== CONFIG ======
+    const CHUNK_SIZE = 32; // Number of vertices per side (chunk is square)
+    const CHUNK_WORLD_SIZE = 32; // World units per chunk side
+    const RENDER_DISTANCE = 2; // Chunks in each direction (total = (2*R+1)^2)
+    const TERRAIN_SCALE = 48; // Controls terrain feature size
+    const HEIGHT_SCALE = 8; // Max terrain height
+    const TREE_DENSITY = 0.08;
+    const BUSH_DENSITY = 0.12;
+    const MAZE_CHANCE = 0.12;
+    const RIVER_CHANCE = 0.18;
+    const PLAYER_HEIGHT = 2.2;
+    const PLAYER_SPEED = 5.5;
+    const PLAYER_ROT_SPEED = 2.5;
+    const CAMERA_DIST = 7;
+    const CAMERA_HEIGHT = 4.5;
+    const SHADOWS = false; // Set true for desktop, but off for mobile perf
+
+    // ====== UTILS ======
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function clamp(x, a, b) { return Math.max(a, Math.min(b, x)); }
+    function rand(a, b) { return a + Math.random() * (b - a); }
+    function hash2(x, y) { return ((x * 73856093) ^ (y * 19349663)) >>> 0; }
+
+
+    // ====== NOISE SETUP ======
+    // Fix: Use correct global for SimplexNoise from CDN
+    const SimplexNoiseCtor = window.SimplexNoise || (window['simplex-noise'] && window['simplex-noise'].SimplexNoise);
+    const simplex = new SimplexNoiseCtor('openworld-seed');
+    function noise2(x, y) {
+      return simplex.noise2D(x / TERRAIN_SCALE, y / TERRAIN_SCALE);
+    }
+    function moisture2(x, y) {
+      return simplex.noise2D((x+1000) / 80, (y-1000) / 80);
+    }
+
+    // ====== THREE.JS SETUP ======
+    const canvas = document.getElementById('game-canvas');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+    renderer.setClearColor(0xb3e0ff);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.shadowMap.enabled = SHADOWS;
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.Fog(0xb3e0ff, 30, 120);
+
+    // Lighting
+    const ambient = new THREE.AmbientLight(0xffffff, 0.7);
+    scene.add(ambient);
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    dirLight.position.set(20, 40, 10);
+    dirLight.castShadow = SHADOWS;
+    scene.add(dirLight);
+
+    // Camera
+    const camera = new THREE.PerspectiveCamera(65, 1, 0.1, 200);
+
+    // ====== PLAYER CONTROLLER ======
+    class PlayerController {
+      constructor() {
+        this.group = new THREE.Group();
+        this.model = this.createModel();
+        this.group.add(this.model);
+        this.group.position.set(0, 0, 0);
+        this.direction = 0; // radians, 0 = +Z
+        this.move = { forward: 0, right: 0 };
+        this.velocity = new THREE.Vector3();
+        this.walkTime = 0;
+      }
+      createModel() {
+        // Low-poly human: body, head, arms, legs
+        const g = new THREE.Group();
+        // Body
+        const body = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.45, 0.55, 1.2, 6),
+          new THREE.MeshLambertMaterial({ color: 0x8ecae6, flatShading: true })
+        );
+        body.position.y = 1.1;
+        g.add(body);
+        // Head
+        const head = new THREE.Mesh(
+          new THREE.SphereGeometry(0.38, 6, 6),
+          new THREE.MeshLambertMaterial({ color: 0xffe0b2, flatShading: true })
+        );
+        head.position.y = 1.9;
+        g.add(head);
+        // Arms
+        this.leftArm = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.13, 0.15, 0.8, 5),
+          new THREE.MeshLambertMaterial({ color: 0xffe0b2, flatShading: true })
+        );
+        this.leftArm.position.set(-0.5, 1.3, 0);
+        this.leftArm.rotation.z = Math.PI/2.5;
+        g.add(this.leftArm);
+        this.rightArm = this.leftArm.clone();
+        this.rightArm.position.x = 0.5;
+        this.rightArm.rotation.z = -Math.PI/2.5;
+        g.add(this.rightArm);
+        // Legs
+        this.leftLeg = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.15, 0.18, 1.0, 5),
+          new THREE.MeshLambertMaterial({ color: 0x023047, flatShading: true })
+        );
+        this.leftLeg.position.set(-0.22, 0.3, 0);
+        g.add(this.leftLeg);
+        this.rightLeg = this.leftLeg.clone();
+        this.rightLeg.position.x = 0.22;
+        g.add(this.rightLeg);
+        return g;
+      }
+      update(dt, input, terrainHeight) {
+        // Movement
+        let moveVec = new THREE.Vector3();
+        if (input.forward !== 0 || input.right !== 0) {
+          // Calculate direction
+          const angle = this.direction;
+          moveVec.x = Math.sin(angle) * input.forward + Math.cos(angle) * input.right;
+          moveVec.z = Math.cos(angle) * input.forward - Math.sin(angle) * input.right;
+          moveVec.normalize().multiplyScalar(PLAYER_SPEED * dt);
+          this.walkTime += dt * 7;
+        } else {
+          this.walkTime = 0;
+        }
+        this.group.position.x += moveVec.x;
+        this.group.position.z += moveVec.z;
+        // Terrain height
+        const y = terrainHeight(this.group.position.x, this.group.position.z);
+        this.group.position.y = y + PLAYER_HEIGHT/2;
+        // Animation: swing arms/legs
+        const swing = Math.sin(this.walkTime) * 0.5 * (input.forward !== 0 || input.right !== 0 ? 1 : 0);
+        this.leftArm.rotation.x = swing;
+        this.rightArm.rotation.x = -swing;
+        this.leftLeg.rotation.x = -swing;
+        this.rightLeg.rotation.x = swing;
+      }
+    }
+
+    // ====== WORLD GENERATOR ======
+    class WorldGenerator {
+      constructor(scene) {
+        this.scene = scene;
+        this.chunks = new Map(); // key: 'x_z'
+        this.chunkPool = [];
+        this.treePool = [];
+        this.bushPool = [];
+        this.riverPool = [];
+        this.mazePool = [];
+      }
+      chunkKey(cx, cz) { return `${cx}_${cz}`; }
+      update(playerX, playerZ) {
+        // Determine which chunks should be present
+        const pcx = Math.floor(playerX / CHUNK_WORLD_SIZE);
+        const pcz = Math.floor(playerZ / CHUNK_WORLD_SIZE);
+        const needed = new Set();
+        for (let dx = -RENDER_DISTANCE; dx <= RENDER_DISTANCE; ++dx) {
+          for (let dz = -RENDER_DISTANCE; dz <= RENDER_DISTANCE; ++dz) {
+            needed.add(this.chunkKey(pcx+dx, pcz+dz));
+          }
+        }
+        // Remove far chunks
+        for (let key of this.chunks.keys()) {
+          if (!needed.has(key)) {
+            this.removeChunk(key);
+          }
+        }
+        // Add new chunks
+        for (let key of needed) {
+          if (!this.chunks.has(key)) {
+            const [cx, cz] = key.split('_').map(Number);
+            this.addChunk(cx, cz);
+          }
+        }
+      }
+      addChunk(cx, cz) {
+        // Terrain mesh
+        const mesh = this.makeTerrainChunk(cx, cz);
+        mesh.position.set(cx * CHUNK_WORLD_SIZE, 0, cz * CHUNK_WORLD_SIZE);
+        this.scene.add(mesh);
+        // Trees, bushes, rivers, maze
+        const features = this.placeFeatures(cx, cz, mesh);
+        this.chunks.set(this.chunkKey(cx, cz), { mesh, ...features });
+      }
+      removeChunk(key) {
+        const chunk = this.chunks.get(key);
+        if (!chunk) return;
+        this.scene.remove(chunk.mesh);
+        if (chunk.trees) chunk.trees.forEach(obj => this.scene.remove(obj));
+        if (chunk.bushes) chunk.bushes.forEach(obj => this.scene.remove(obj));
+        if (chunk.river) this.scene.remove(chunk.river);
+        if (chunk.maze) chunk.maze.forEach(obj => this.scene.remove(obj));
+        this.chunks.delete(key);
+      }
+      makeTerrainChunk(cx, cz) {
+        // Geometry
+        const geo = new THREE.PlaneGeometry(
+          CHUNK_WORLD_SIZE, CHUNK_WORLD_SIZE, CHUNK_SIZE-1, CHUNK_SIZE-1
+        );
+        geo.rotateX(-Math.PI/2);
+        // Heightmap
+        for (let i = 0; i < geo.attributes.position.count; ++i) {
+          const vx = geo.attributes.position.getX(i) + cx * CHUNK_WORLD_SIZE;
+          const vz = geo.attributes.position.getZ(i) + cz * CHUNK_WORLD_SIZE;
+          let h = noise2(vx, vz);
+          h = Math.pow((h+1)/2, 1.7) * HEIGHT_SCALE; // more plains, less spikes
+          geo.attributes.position.setY(i, h);
+        }
+        geo.computeVertexNormals();
+        // Color by height
+        const colors = [];
+        for (let i = 0; i < geo.attributes.position.count; ++i) {
+          const y = geo.attributes.position.getY(i);
+          let c;
+          if (y < 2.2) c = new THREE.Color(0x7ec850); // grass
+          else if (y < 4.5) c = new THREE.Color(0x6b8e23); // hills
+          else c = new THREE.Color(0xcccccc); // mountain
+          colors.push(c.r, c.g, c.b);
+        }
+        geo.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+        // Material
+        const mat = new THREE.MeshLambertMaterial({
+          vertexColors: true,
+          flatShading: true
+        });
+        const mesh = new THREE.Mesh(geo, mat);
+        mesh.receiveShadow = SHADOWS;
+        mesh.castShadow = false;
+        mesh.frustumCulled = false;
+        return mesh;
+      }
+      placeFeatures(cx, cz, terrainMesh) {
+        const trees = [], bushes = [], maze = [];
+        let river = null;
+        // Place trees and bushes
+        for (let i = 0; i < 32; ++i) {
+          for (let j = 0; j < 32; ++j) {
+            const wx = cx * CHUNK_WORLD_SIZE + (i/31 - 0.5) * CHUNK_WORLD_SIZE;
+            const wz = cz * CHUNK_WORLD_SIZE + (j/31 - 0.5) * CHUNK_WORLD_SIZE;
+            const h = noise2(wx, wz);
+            const y = Math.pow((h+1)/2, 1.7) * HEIGHT_SCALE;
+            const moist = moisture2(wx, wz);
+            // Trees: only in certain biomes
+            if (y > 1.2 && y < 4.5 && moist > 0.1 && Math.random() < TREE_DENSITY) {
+              const t = makeTree();
+              t.position.set(wx, y, wz);
+              this.scene.add(t);
+              trees.push(t);
+            }
+            // Bushes: scattered
+            if (y > 1.0 && y < 5.0 && Math.random() < BUSH_DENSITY) {
+              const b = makeBush();
+              b.position.set(wx, y+0.1, wz);
+              this.scene.add(b);
+              bushes.push(b);
+            }
+          }
+        }
+        // Rivers: one per chunk, sometimes
+        if (Math.random() < RIVER_CHANCE) {
+          river = makeRiver(cx, cz, terrainMesh);
+          if (river) this.scene.add(river);
+        }
+        // Maze: only on flat, open areas
+        if (Math.random() < MAZE_CHANCE) {
+          // Find a flat area
+          let found = false, mx=0, mz=0;
+          for (let tries=0; tries<5 && !found; ++tries) {
+            mx = rand(-CHUNK_WORLD_SIZE/3, CHUNK_WORLD_SIZE/3);
+            mz = rand(-CHUNK_WORLD_SIZE/3, CHUNK_WORLD_SIZE/3);
+            let flat = true;
+            for (let dx=-2; dx<=2; ++dx) for (let dz=-2; dz<=2; ++dz) {
+              const wx = cx*CHUNK_WORLD_SIZE + mx+dx;
+              const wz = cz*CHUNK_WORLD_SIZE + mz+dz;
+              const h = noise2(wx, wz);
+              const y = Math.pow((h+1)/2, 1.7) * HEIGHT_SCALE;
+              if (y > 2.5) flat = false;
+            }
+            if (flat) found = true;
+          }
+          if (found) {
+            const mazeObjs = makeMaze(cx*CHUNK_WORLD_SIZE+mx, cz*CHUNK_WORLD_SIZE+mz, 7, 7, 1.2);
+            mazeObjs.forEach(obj => this.scene.add(obj));
+            maze.push(...mazeObjs);
+          }
+        }
+        return { trees, bushes, river, maze };
+      }
+      getHeight(x, z) {
+        let h = noise2(x, z);
+        h = Math.pow((h+1)/2, 1.7) * HEIGHT_SCALE;
+        return h;
+      }
+    }
+
+    // ====== LOW-POLY OBJECTS ======
+    function makeTree() {
+      const g = new THREE.Group();
+      // Trunk
+      const trunk = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.11, 0.13, 0.7, 5),
+        new THREE.MeshLambertMaterial({ color: 0x8d5524, flatShading: true })
+      );
+      trunk.position.y = 0.35;
+      g.add(trunk);
+      // Foliage
+      const foliage = new THREE.Mesh(
+        new THREE.ConeGeometry(0.45, 1.1, 6),
+        new THREE.MeshLambertMaterial({ color: 0x388e3c, flatShading: true })
+      );
+      foliage.position.y = 1.0;
+      g.add(foliage);
+      return g;
+    }
+    function makeBush() {
+      const bush = new THREE.Mesh(
+        new THREE.SphereGeometry(rand(0.18,0.28), 4, 3),
+        new THREE.MeshLambertMaterial({ color: 0x4caf50, flatShading: true })
+      );
+      return bush;
+    }
+    function makeRiver(cx, cz, terrainMesh) {
+      // Find a path across the chunk
+      const riverPath = [];
+      let x = cx*CHUNK_WORLD_SIZE - CHUNK_WORLD_SIZE/2;
+      let z = cz*CHUNK_WORLD_SIZE + rand(-CHUNK_WORLD_SIZE/2, CHUNK_WORLD_SIZE/2);
+      let dir = Math.random() < 0.5 ? 1 : -1;
+      for (let i=0; i<CHUNK_WORLD_SIZE; ++i) {
+        riverPath.push([x, z]);
+        x += 1.0;
+        z += Math.sin(i/7) * 1.5 * dir + rand(-0.5,0.5);
+      }
+      // Carve riverbed (lower terrain vertices)
+      const geo = terrainMesh.geometry;
+      for (let i=0; i<geo.attributes.position.count; ++i) {
+        const vx = geo.attributes.position.getX(i) + cx*CHUNK_WORLD_SIZE;
+        const vz = geo.attributes.position.getZ(i) + cz*CHUNK_WORLD_SIZE;
+        for (let [rx, rz] of riverPath) {
+          if (Math.abs(vx-rx)<1.2 && Math.abs(vz-rz)<1.2) {
+            let y = geo.attributes.position.getY(i);
+            geo.attributes.position.setY(i, y-0.7);
+          }
+        }
+      }
+      geo.computeVertexNormals();
+      // Water mesh
+      const waterGeo = new THREE.PlaneGeometry(CHUNK_WORLD_SIZE, 2.2, 8, 1);
+      waterGeo.rotateX(-Math.PI/2);
+      const waterMat = new THREE.MeshLambertMaterial({
+        color: 0x2196f3, flatShading: true, transparent: true, opacity: 0.7
+      });
+      const water = new THREE.Mesh(waterGeo, waterMat);
+      water.position.set(cx*CHUNK_WORLD_SIZE, 0.5, cz*CHUNK_WORLD_SIZE);
+      water.receiveShadow = false;
+      return water;
+    }
+    // Maze generation: recursive backtracker
+    function makeMaze(x0, z0, w, h, wallH) {
+      const maze = [];
+      const grid = Array.from({length: h}, () => Array(w).fill(false));
+      const stack = [[0,0]];
+      grid[0][0] = true;
+      const dirs = [[0,1],[1,0],[0,-1],[-1,0]];
+      while (stack.length) {
+        const [cx,cz] = stack[stack.length-1];
+        const options = [];
+        for (let [dx,dz] of dirs) {
+          const nx = cx+dx, nz=cz+dz;
+          if (nx>=0 && nx<w && nz>=0 && nz<h && !grid[nz][nx]) options.push([nx,nz,dx,dz]);
+        }
+        if (options.length) {
+          const [nx,nz,dx,dz] = options[Math.floor(Math.random()*options.length)];
+          grid[nz][nx] = true;
+          // Remove wall between (cx,cz) and (nx,nz)
+          maze.push([cx+dx/2, cz+dz/2, dx, dz]);
+          stack.push([nx,nz]);
+        } else stack.pop();
+      }
+      // Build walls
+      const objs = [];
+      for (let z=0;z<h;++z) for (let x=0;x<w;++x) {
+        if (!grid[z][x]) {
+          const wall = new THREE.Mesh(
+            new THREE.BoxGeometry(0.95, wallH, 0.95),
+            new THREE.MeshLambertMaterial({ color: 0x616161, flatShading: true })
+          );
+          wall.position.set(x0+x-0.5*w, wallH/2, z0+z-0.5*h);
+          objs.push(wall);
+        }
+      }
+      return objs;
+    }
+
+    // ====== INPUT HANDLING ======
+    const input = { forward: 0, right: 0, rotX: 0, rotY: 0, dragging: false };
+    let lastMouse = { x: 0, y: 0 };
+    // Desktop: WASD + mouse
+    window.addEventListener('keydown', e => {
+      if (e.repeat) return;
+      if (e.key === 'w' || e.key === 'ArrowUp') input.forward = 1;
+      if (e.key === 's' || e.key === 'ArrowDown') input.forward = -1;
+      if (e.key === 'a' || e.key === 'ArrowLeft') input.right = 1;
+      if (e.key === 'd' || e.key === 'ArrowRight') input.right = -1;
+    });
+    window.addEventListener('keyup', e => {
+      if (e.key === 'w' || e.key === 'ArrowUp') input.forward = 0;
+      if (e.key === 's' || e.key === 'ArrowDown') input.forward = 0;
+      if (e.key === 'a' || e.key === 'ArrowLeft') input.right = 0;
+      if (e.key === 'd' || e.key === 'ArrowRight') input.right = 0;
+    });
+    canvas.addEventListener('mousedown', e => {
+      input.dragging = true;
+      lastMouse.x = e.clientX;
+      lastMouse.y = e.clientY;
+    });
+    window.addEventListener('mouseup', e => { input.dragging = false; });
+    window.addEventListener('mousemove', e => {
+      if (input.dragging) {
+        input.rotY -= (e.clientX - lastMouse.x) * 0.012;
+        input.rotX -= (e.clientY - lastMouse.y) * 0.008;
+        input.rotX = clamp(input.rotX, -0.5, 0.5);
+        lastMouse.x = e.clientX;
+        lastMouse.y = e.clientY;
+      }
+    });
+
+    // Mobile: virtual joystick + drag area
+    const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+    const joystick = document.getElementById('joystick');
+    const joystickInner = document.getElementById('joystick-inner');
+    let joyActive = false, joyStart = {x:0,y:0}, joyVec = {x:0,y:0};
+    joystick.addEventListener('touchstart', e => {
+      joyActive = true;
+      const t = e.touches[0];
+      joyStart.x = t.clientX;
+      joyStart.y = t.clientY;
+      joyVec.x = 0; joyVec.y = 0;
+      joystickInner.style.left = '30%';
+      joystickInner.style.top = '30%';
+    });
+    joystick.addEventListener('touchmove', e => {
+      if (!joyActive) return;
+      const t = e.touches[0];
+      let dx = t.clientX - joyStart.x;
+      let dy = t.clientY - joyStart.y;
+      const max = joystick.offsetWidth * 0.4;
+      dx = clamp(dx, -max, max);
+      dy = clamp(dy, -max, max);
+      joyVec.x = dx / max;
+      joyVec.y = dy / max;
+      joystickInner.style.left = (30 + dx/joystick.offsetWidth*100) + '%';
+      joystickInner.style.top = (30 + dy/joystick.offsetHeight*100) + '%';
+      input.forward = -joyVec.y;
+      input.right = joyVec.x;
+    });
+    joystick.addEventListener('touchend', e => {
+      joyActive = false;
+      input.forward = 0; input.right = 0;
+      joystickInner.style.left = '30%';
+      joystickInner.style.top = '30%';
+    });
+    // Camera drag
+    const dragArea = document.getElementById('drag-area');
+    let dragActive = false, dragLast = {x:0,y:0};
+    dragArea.addEventListener('touchstart', e => {
+      dragActive = true;
+      const t = e.touches[0];
+      dragLast.x = t.clientX;
+      dragLast.y = t.clientY;
+    });
+    dragArea.addEventListener('touchmove', e => {
+      if (!dragActive) return;
+      const t = e.touches[0];
+      input.rotY -= (t.clientX - dragLast.x) * 0.012;
+      input.rotX -= (t.clientY - dragLast.y) * 0.008;
+      input.rotX = clamp(input.rotX, -0.5, 0.5);
+      dragLast.x = t.clientX;
+      dragLast.y = t.clientY;
+    });
+    dragArea.addEventListener('touchend', e => { dragActive = false; });
+
+    // ====== MAIN GAME LOOP ======
+    const player = new PlayerController();
+    scene.add(player.group);
+    const world = new WorldGenerator(scene);
+
+    function terrainHeight(x, z) { return world.getHeight(x, z); }
+
+    function resize() {
+      const w = window.innerWidth, h = window.innerHeight;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+    window.addEventListener('resize', resize);
+
+    let lastTime = performance.now();
+    function animate() {
+      requestAnimationFrame(animate);
+      const now = performance.now();
+      const dt = Math.min((now - lastTime) / 1000, 0.06);
+      lastTime = now;
+
+      // Update world chunks
+      world.update(player.group.position.x, player.group.position.z);
+
+      // Update player
+      player.direction += input.rotY * PLAYER_ROT_SPEED * dt;
+      input.rotY = 0; // reset after applying
+      player.update(dt, input, terrainHeight);
+
+      // Camera: third-person follow
+      const camTarget = player.group.position.clone();
+      const camDir = new THREE.Vector3(
+        Math.sin(player.direction + input.rotX),
+        0,
+        Math.cos(player.direction + input.rotX)
+      );
+      const camPos = camTarget.clone()
+        .addScaledVector(camDir, -CAMERA_DIST)
+        .add(new THREE.Vector3(0, CAMERA_HEIGHT, 0));
+      camera.position.lerp(camPos, 0.18);
+      camera.lookAt(camTarget.x, camTarget.y + 1.1, camTarget.z);
+
+      renderer.render(scene, camera);
+    }
+
+    resize();
+    animate();
+
+    // ====== HELPERS ======
+    // Prevent scrolling on mobile
+    document.body.addEventListener('touchmove', function(e) {
+      if (e.target === canvas || e.target === joystick || e.target === dragArea) e.preventDefault();
+    }, { passive: false });
+  </script>
+</body>
+</html>
