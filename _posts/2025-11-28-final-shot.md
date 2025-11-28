@@ -1,11 +1,27 @@
 ---
 layout: post
-title: "Lost - လမ်းပျောက်ခြင်းများ"
+title: "It's not all about CODE"
 date: 2025-11-28
 categories: tutorials
 author: KM
 tags: [life,poem] # TAG names should always be lowercase
 ---
+
+Software Development Project is not all about code.
+Detailed instruction.
+Requirement Gathering
+Requirement Analyis.
+
+Software Development Life Cycle.
+
+We need human.
+To gather requirements.
+To analysis requirements.
+To manage tasks.
+To test and give feedback.
+To be HUMAN.
+To be SOUL.
+
 
 တစ်လစာ အေအိုင်ကို တစ်ရက်တည်းနဲ့ ဘယ်လိုသုံးမလဲ?
 

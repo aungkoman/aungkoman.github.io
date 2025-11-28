@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice-O-Matic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* A4 Paper Simulation */
+        .a4-paper {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.15);
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Custom Scrollbar for the input side */
+        .custom-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* PRINT STYLES - CRITICAL */
+        @media print {
+            body {
+                background: white;
+                height: auto;
+                overflow: visible;
+            }
+            
+            /* Hide the interface, only show the invoice */
+            #editor-panel, #print-btn-container {
+                display: none !important;
+            }
+
+            /* Reset the preview panel to fill the page */
+            #preview-panel {
+                width: 100% !important;
+                height: 100% !important;
+                background: white;
+                padding: 0;
+                margin: 0;
+                overflow: visible;
+            }
+
+            .a4-paper {
+                width: 100%;
+                box-shadow: none;
+                margin: 0;
+                padding: 0; /* Adjust depending on printer margins */
+                min-height: auto;
+            }
+
+            /* Ensure background colors print */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 h-screen flex flex-col md:flex-row overflow-hidden font-sans text-gray-800">
+
+    <!-- LEFT PANEL: EDITOR -->
+    <div id="editor-panel" class="w-full md:w-5/12 h-full flex flex-col border-r border-gray-300 bg-white shadow-lg z-10">
+        
+        <!-- Header -->
+        <div class="p-6 border-b border-gray-200 bg-gray-50">
+            <h1 class="text-2xl font-bold tracking-tight text-gray-900"><i class="fas fa-file-invoice-dollar mr-2"></i>Invoice-O-Matic</h1>
+            <p class="text-sm text-gray-500 mt-1">Fill out the details below to generate your invoice.</p>
+        </div>
+
+        <!-- Scrollable Form Area -->
+        <div class="flex-1 overflow-y-auto custom-scroll p-6 space-y-6">
+            
+            <!-- Section: Invoice Meta -->
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Date</label>
+                    <input type="date" id="input-date" class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-400 focus:outline-none transition" oninput="updateField('date', this.value)">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Invoice #</label>
+                    <input type="text" id="input-number" value="INV-001" class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-400 focus:outline-none transition" oninput="updateField('number', this.value)">
+                </div>
+            </div>
+
+            <hr class="border-gray-100">
+
+            <!-- Section: From & To -->
+            <div class="grid grid-cols-1 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">From (Your Company)</label>
+                    <input type="text" placeholder="Your Company Name" class="w-full p-2 mb-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-400 focus:outline-none" oninput="updateField('from-name', this.value)">
+                    <textarea placeholder="Address, Email, Phone..." rows="2" class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-400 focus:outline-none" oninput="updateField('from-details', this.value.replace(/\n/g, '<br>'))"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Bill To (Client)</label>
+                    <input type="text" placeholder="Client Company Name" class="w-full p-2 mb-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-400 focus:outline-none" oninput="updateField('to-name', this.value)">
+                    <textarea placeholder="Client Address..." rows="2" class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-400 focus:outline-none" oninput="updateField('to-details', this.value.replace(/\n/g, '<br>'))"></textarea>
+                </div>
+            </div>
+
+            <hr class="border-gray-100">
+
+            <!-- Section: Line Items -->
+            <div>
+                <div class="flex justify-between items-center mb-2">
+                    <label class="block text-xs font-bold text-gray-500 uppercase">Line Items</label>
+                </div>
+                
+                <div id="items-container" class="space-y-3">
+                    <!-- Items will be injected here via JS -->
+                </div>
+
+                <button onclick="addNewItem()" class="mt-4 w-full py-2 border-2 border-dashed border-gray-300 text-gray-500 rounded hover:border-gray-500 hover:text-gray-700 transition font-medium text-sm">
+                    <i class="fas fa-plus mr-1"></i> Add Item
+                </button>
+            </div>
+            
+            <hr class="border-gray-100">
+
+            <!-- Section: Notes -->
+            <div>
+                 <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Notes / Payment Terms</label>
+                 <textarea id="input-notes" rows="3" class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-400 focus:outline-none" placeholder="Thank you for your business! Payment is due within 30 days." oninput="updateField('notes', this.value)"></textarea>
+            </div>
+        </div>
+
+        <!-- Footer Actions -->
+        <div id="print-btn-container" class="p-6 border-t border-gray-200 bg-gray-50">
+            <button onclick="window.print()" class="w-full bg-black text-white py-3 rounded shadow hover:bg-gray-800 transition font-bold text-lg flex justify-center items-center">
+                <i class="fas fa-print mr-2"></i> Print / Save as PDF
+            </button>
+        </div>
+    </div>
+
+    <!-- RIGHT PANEL: PREVIEW -->
+    <div id="preview-panel" class="w-full md:w-7/12 h-full bg-gray-200 overflow-y-auto p-4 md:p-8 flex justify-center">
+        
+        <!-- The A4 Sheet -->
+        <div class="a4-paper p-12 flex flex-col justify-between text-sm">
+            
+            <!-- Invoice Content -->
+            <div class="flex-1">
+                <!-- Header -->
+                <div class="flex justify-between items-start mb-12">
+                    <div>
+                        <h1 class="text-4xl font-bold text-gray-900 tracking-tight uppercase">Invoice</h1>
+                        <div class="mt-1 text-gray-500">
+                            #<span id="preview-number">INV-001</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div id="preview-from-name" class="font-bold text-xl text-gray-900">Your Company</div>
+                        <div id="preview-from-details" class="text-gray-500 mt-1 leading-relaxed">Address details...</div>
+                    </div>
+                </div>
+
+                <!-- Bill To & Date -->
+                <div class="flex justify-between mb-12">
+                    <div class="w-1/2">
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Bill To</span>
+                        <div id="preview-to-name" class="font-bold text-lg text-gray-800 mt-1">Client Name</div>
+                        <div id="preview-to-details" class="text-gray-500 mt-1 leading-relaxed">Client Address...</div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Date</span>
+                        <div id="preview-date" class="font-bold text-lg text-gray-800 mt-1">--/--/----</div>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <table class="w-full mb-8">
+                    <thead>
+                        <tr class="border-b-2 border-gray-800">
+                            <th class="text-left py-3 font-bold text-gray-800 uppercase w-1/2">Description</th>
+                            <th class="text-right py-3 font-bold text-gray-800 uppercase">Qty</th>
+                            <th class="text-right py-3 font-bold text-gray-800 uppercase">Price</th>
+                            <th class="text-right py-3 font-bold text-gray-800 uppercase">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="preview-items">
+                        <!-- Preview rows injected here -->
+                    </tbody>
+                </table>
+                
+                <!-- Totals -->
+                <div class="flex justify-end">
+                    <div class="w-1/2 border-t border-gray-200 pt-4">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-2xl text-gray-900">Total</span>
+                            <span class="font-bold text-2xl text-gray-900" id="preview-grand-total">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-12 pt-6 border-t border-gray-200">
+                <h4 class="font-bold text-gray-800 mb-2">Notes</h4>
+                <p id="preview-notes" class="text-gray-500 leading-relaxed">Thank you for your business! Payment is due within 30 days.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // State management
+        const state = {
+            items: []
+        };
+
+        // Utility: Format Currency
+        const formatMoney = (amount) => {
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+        };
+
+        // Utility: Get Date Today
+        const setTodayDate = () => {
+            const dateInput = document.getElementById('input-date');
+            const today = new Date();
+            const formatted = today.toISOString().split('T')[0];
+            dateInput.value = formatted;
+            updateField('date', formatted);
+        };
+
+        // Core: Update static text fields
+        function updateField(fieldId, value) {
+            const el = document.getElementById(`preview-${fieldId}`);
+            if (el) el.innerHTML = value || (fieldId.includes('details') ? '' : '...');
+        }
+
+        // Core: Add Item
+        function addNewItem() {
+            const id = Date.now();
+            const item = { id, desc: '', qty: 1, price: 0 };
+            state.items.push(item);
+            
+            // 1. Render Input Form Row
+            const inputContainer = document.getElementById('items-container');
+            const inputRow = document.createElement('div');
+            inputRow.className = "bg-gray-50 p-3 rounded border border-gray-200 relative group animate-fade-in";
+            inputRow.id = `input-row-${id}`;
+            inputRow.innerHTML = `
+                <div class="flex justify-between mb-2">
+                    <input type="text" placeholder="Item description" class="w-full bg-transparent border-b border-gray-300 focus:border-gray-800 outline-none text-sm font-medium" 
+                        oninput="updateItem(${id}, 'desc', this.value)">
+                    <button onclick="deleteItem(${id})" class="text-gray-400 hover:text-red-500 ml-2" title="Remove Item">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="flex gap-2">
+                    <div class="w-1/2">
+                        <label class="text-[10px] text-gray-400 uppercase">Qty</label>
+                        <input type="number" value="1" min="0" class="w-full bg-white p-1 border border-gray-200 rounded text-sm"
+                            oninput="updateItem(${id}, 'qty', this.value)">
+                    </div>
+                    <div class="w-1/2">
+                        <label class="text-[10px] text-gray-400 uppercase">Price</label>
+                        <input type="number" value="0" min="0" step="0.01" class="w-full bg-white p-1 border border-gray-200 rounded text-sm"
+                            oninput="updateItem(${id}, 'price', this.value)">
+                    </div>
+                </div>
+            `;
+            inputContainer.appendChild(inputRow);
+
+            // 2. Render Preview Table Row
+            const previewTbody = document.getElementById('preview-items');
+            const previewRow = document.createElement('tr');
+            previewRow.id = `preview-row-${id}`;
+            previewRow.className = "border-b border-gray-100";
+            previewRow.innerHTML = `
+                <td class="py-3 text-gray-600 item-desc">-</td>
+                <td class="py-3 text-right text-gray-600 item-qty">1</td>
+                <td class="py-3 text-right text-gray-600 item-price">$0.00</td>
+                <td class="py-3 text-right font-medium text-gray-800 item-total">$0.00</td>
+            `;
+            previewTbody.appendChild(previewRow);
+        }
+
+        // Core: Update Item Logic
+        function updateItem(id, field, value) {
+            const item = state.items.find(i => i.id === id);
+            if (!item) return;
+
+            // Update State
+            if (field === 'desc') item.desc = value;
+            else item[field] = parseFloat(value) || 0;
+
+            // Update Preview Row UI
+            const row = document.getElementById(`preview-row-${id}`);
+            if (field === 'desc') {
+                row.querySelector('.item-desc').innerText = value;
+            } else {
+                row.querySelector('.item-qty').innerText = item.qty;
+                row.querySelector('.item-price').innerText = formatMoney(item.price);
+                row.querySelector('.item-total').innerText = formatMoney(item.qty * item.price);
+                
+                // Recalculate Grand Total
+                calculateGrandTotal();
+            }
+        }
+
+        // Core: Delete Item
+        function deleteItem(id) {
+            // Remove from state
+            state.items = state.items.filter(i => i.id !== id);
+
+            // Remove from DOM
+            document.getElementById(`input-row-${id}`).remove();
+            document.getElementById(`preview-row-${id}`).remove();
+
+            calculateGrandTotal();
+        }
+
+        // Core: Calculate Grand Total
+        function calculateGrandTotal() {
+            const total = state.items.reduce((sum, item) => sum + (item.qty * item.price), 0);
+            document.getElementById('preview-grand-total').innerText = formatMoney(total);
+        }
+
+        // Initialize
+        window.addEventListener('DOMContentLoaded', () => {
+            setTodayDate();
+            
+            // Add one default item
+            addNewItem();
+            const firstId = state.items[0].id;
+            // Pre-fill logic for the first item just to show how it works (optional)
+            const inputDesc = document.querySelector(`#input-row-${firstId} input[type="text"]`);
+            const inputPrice = document.querySelector(`#input-row-${firstId} input[placeholder="Price"]`); // Selecting via structure approx
+            
+            if(inputDesc) {
+                inputDesc.value = "Web Design Services";
+                updateItem(firstId, 'desc', "Web Design Services");
+            }
+            // Update price manually to trigger calc
+            updateItem(firstId, 'price', 100);
+            const priceInputs = document.querySelectorAll(`input[type="number"]`);
+            if(priceInputs.length > 1) priceInputs[1].value = 100;
+        });
+
+    </script>
+</body>
+</html>
