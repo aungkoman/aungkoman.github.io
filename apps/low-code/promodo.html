@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FocusFlow | Pomodoro Timer</title>
+    <title>FocusFlow | Pro</title>
     <style>
         /* --- CSS VARIABLES & RESET --- */
         :root {
@@ -14,6 +14,7 @@
             --color-surface: #ffffff;
             --color-text: #2d3436;
             --color-text-light: #636e72;
+            --color-danger: #e17055;
             
             --current-color: var(--color-focus);
             --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -45,15 +46,33 @@
             overflow: hidden;
         }
 
+        /* --- HEADER & SETTINGS TOGGLE --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
         h1 {
             font-size: 1.5rem;
             color: var(--color-text);
-            margin-bottom: 1.5rem;
             font-weight: 700;
             letter-spacing: -0.5px;
         }
 
-        /* --- MODE TOGGLES --- */
+        .settings-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--color-text-light);
+            font-size: 1.2rem;
+            padding: 5px;
+            transition: transform 0.2s;
+        }
+        .settings-toggle:hover { color: var(--color-text); transform: rotate(90deg); }
+
+        /* --- MODE SELECTOR --- */
         .mode-selector {
             display: flex;
             justify-content: center;
@@ -83,19 +102,66 @@
         }
 
         /* --- TIMER VISUALIZATION --- */
-        .timer-display {
+        .timer-wrapper {
             position: relative;
             width: 260px;
             height: 260px;
             margin: 0 auto 2rem;
         }
 
-        /* SVG Circle Logic */
-        .progress-ring {
-            transform: rotate(-90deg);
-            transform-origin: 50% 50%;
+        .timer-display {
+            width: 100%;
+            height: 100%;
+            transition: opacity 0.3s ease;
         }
 
+        .settings-panel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.9);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .settings-panel.open {
+            opacity: 1;
+            pointer-events: all;
+            transform: scale(1);
+        }
+
+        /* Settings Inputs */
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        .input-group label { font-size: 0.9rem; color: var(--color-text-light); font-weight: 600; }
+        .input-group input {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1rem;
+            font-family: var(--font-main);
+            color: var(--color-text);
+        }
+        .input-group input:focus { outline: 2px solid var(--current-color); border-color: transparent; }
+
+        /* SVG Logic */
+        .progress-ring { transform: rotate(-90deg); transform-origin: 50% 50%; }
         .progress-ring__circle {
             transition: stroke-dashoffset 1s linear, stroke var(--transition-speed) ease;
             transform: rotate(0deg);
@@ -111,15 +177,11 @@
             font-size: 3.5rem;
             font-weight: 700;
             color: var(--color-text);
-            font-variant-numeric: tabular-nums; /* Prevents jitter */
+            font-variant-numeric: tabular-nums;
         }
 
         /* --- CONTROLS --- */
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
+        .controls { display: flex; justify-content: center; gap: 1rem; }
 
         .btn-main {
             padding: 1rem 2rem;
@@ -136,7 +198,19 @@
         .btn-start {
             background-color: var(--current-color);
             color: white;
-            width: 120px;
+            min-width: 140px;
+        }
+        
+        /* Pulse Animation for Alarm State */
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(225, 112, 85, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(225, 112, 85, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(225, 112, 85, 0); }
+        }
+
+        .btn-start.alarming {
+            background-color: var(--color-danger);
+            animation: pulse-red 1.5s infinite;
         }
 
         .btn-start:active { transform: scale(0.96); }
@@ -146,59 +220,77 @@
             color: var(--color-text-light);
             border: 2px solid #dfe6e9;
         }
-        
         .btn-reset:hover { border-color: var(--color-text); color: var(--color-text); }
-
-        /* --- FOOTER --- */
-        .footer {
-            margin-top: 1.5rem;
-            font-size: 0.8rem;
-            color: #b2bec3;
-        }
 
     </style>
 </head>
 <body>
 
     <div class="app-container">
-        <h1>FocusFlow</h1>
+        <div class="header">
+            <h1>FocusFlow</h1>
+            <button class="settings-toggle" onclick="toggleSettings()" title="Edit Intervals">⚙️</button>
+        </div>
 
         <div class="mode-selector">
             <button class="mode-btn active" data-mode="focus" onclick="setMode('focus')">Focus</button>
-            <button class="mode-btn" data-mode="short" onclick="setMode('short')">Short Break</button>
-            <button class="mode-btn" data-mode="long" onclick="setMode('long')">Long Break</button>
+            <button class="mode-btn" data-mode="short" onclick="setMode('short')">Short</button>
+            <button class="mode-btn" data-mode="long" onclick="setMode('long')">Long</button>
         </div>
 
-        <div class="timer-display">
-            <svg class="progress-ring" width="260" height="260">
-                <circle stroke="#f1f2f6" stroke-width="8" fill="transparent" r="120" cx="130" cy="130"/>
-                <circle class="progress-ring__circle" stroke-width="8" fill="transparent" r="120" cx="130" cy="130"/>
-            </svg>
-            <div class="time-text" id="time-display">25:00</div>
+        <div class="timer-wrapper">
+            <div class="timer-display" id="timer-view">
+                <svg class="progress-ring" width="260" height="260">
+                    <circle stroke="#f1f2f6" stroke-width="8" fill="transparent" r="120" cx="130" cy="130"/>
+                    <circle class="progress-ring__circle" stroke-width="8" fill="transparent" r="120" cx="130" cy="130"/>
+                </svg>
+                <div class="time-text" id="time-display">25:00</div>
+            </div>
+
+            <div class="settings-panel" id="settings-view">
+                <div class="input-group">
+                    <label>Focus (min)</label>
+                    <input type="number" id="input-focus" value="25" min="1" max="60" onchange="updateConfig('focus', this.value)">
+                </div>
+                <div class="input-group">
+                    <label>Short Break (min)</label>
+                    <input type="number" id="input-short" value="5" min="1" max="30" onchange="updateConfig('short', this.value)">
+                </div>
+                <div class="input-group">
+                    <label>Long Break (min)</label>
+                    <input type="number" id="input-long" value="15" min="1" max="60" onchange="updateConfig('long', this.value)">
+                </div>
+                <button class="btn-main btn-reset" style="padding: 0.5rem 1rem; width: 100%; margin-top: 10px;" onclick="toggleSettings()">Done</button>
+            </div>
         </div>
 
         <div class="controls">
-            <button class="btn-main btn-start" id="start-btn" onclick="toggleTimer()">Start</button>
+            <button class="btn-main btn-start" id="start-btn" onclick="handleMainButton()">Start</button>
             <button class="btn-main btn-reset" onclick="resetTimer()">Reset</button>
         </div>
-        
-        <div class="footer">Stay in the flow.</div>
     </div>
 
     <script>
         // --- CONFIGURATION ---
-        const MODES = {
-            focus: { time: 0.25 * 60, color: '#ff6b6b' },
-            short: { time: 5 * 60, color: '#4ecdc4' },
-            long:  { time: 15 * 60, color: '#1a535c' }
+        // Initial defaults
+        const CONFIG = {
+            focus: { minutes: 25, color: '#ff6b6b' },
+            short: { minutes: 5, color: '#4ecdc4' },
+            long:  { minutes: 15, color: '#1a535c' }
         };
 
         // --- STATE VARIABLES ---
         let currentMode = 'focus';
-        let timeLeft = MODES[currentMode].time;
-        let totalTime = MODES[currentMode].time;
+        let totalSeconds = CONFIG.focus.minutes * 60;
+        let timeLeft = totalSeconds;
+        
+        // Timer States
         let isRunning = false;
+        let isAlarming = false;
+        
+        // Intervals
         let timerInterval = null;
+        let alarmInterval = null;
 
         // --- DOM ELEMENTS ---
         const circle = document.querySelector('.progress-ring__circle');
@@ -207,24 +299,41 @@
         const timeDisplay = document.getElementById('time-display');
         const startBtn = document.getElementById('start-btn');
         const root = document.documentElement;
+        
+        const settingsPanel = document.getElementById('settings-view');
+        const timerView = document.getElementById('timer-view');
+
+        // --- AUDIO CONTEXT SETUP ---
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioCtx = new AudioContext();
 
         // --- INITIALIZATION ---
-        // Setup SVG properties for animation
         circle.style.strokeDasharray = `${circumference} ${circumference}`;
         circle.style.strokeDashoffset = circumference;
-        
-        // Initial render
         updateDisplay();
-        setProgress(0); // Start full
+        setProgress(0);
 
         // --- CORE FUNCTIONS ---
 
+        function handleMainButton() {
+            // User interaction required to unlock audio on some browsers
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+
+            if (isAlarming) {
+                stopAlarm();
+            } else if (isRunning) {
+                pauseTimer();
+            } else {
+                startTimer();
+            }
+        }
+
         function setMode(mode) {
-            if (isRunning) toggleTimer(); // Stop if running
+            if (isRunning || isAlarming) resetTimer(); // Reset if changing modes
             
             currentMode = mode;
-            timeLeft = MODES[mode].time;
-            totalTime = MODES[mode].time;
+            totalSeconds = CONFIG[mode].minutes * 60;
+            timeLeft = totalSeconds;
 
             // Update UI Styling
             document.querySelectorAll('.mode-btn').forEach(btn => {
@@ -232,45 +341,45 @@
                 if (btn.dataset.mode === mode) btn.classList.add('active');
             });
 
-            // Update CSS Variables for color theming
-            root.style.setProperty('--current-color', MODES[mode].color);
+            // Update Color Theme
+            root.style.setProperty('--current-color', CONFIG[mode].color);
 
             updateDisplay();
             setProgress(0);
         }
 
-        function toggleTimer() {
-            if (isRunning) {
-                // Pause
-                clearInterval(timerInterval);
-                isRunning = false;
-                startBtn.textContent = "Start";
-            } else {
-                // Start
-                isRunning = true;
-                startBtn.textContent = "Pause";
-                // Request Audio Permission on first interaction
-                if (audioContext.state === 'suspended') {
-                    audioContext.resume();
-                }
-                timerInterval = setInterval(() => {
-                    timeLeft--;
-                    updateDisplay();
-                    
-                    // Calculate progress percentage
-                    const progress = (totalTime - timeLeft) / totalTime;
-                    setProgress(progress);
+        function startTimer() {
+            isRunning = true;
+            startBtn.textContent = "Pause";
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateDisplay();
+                
+                const progress = (totalSeconds - timeLeft) / totalSeconds;
+                setProgress(progress);
 
-                    if (timeLeft <= 0) {
-                        completeTimer();
-                    }
-                }, 1000);
-            }
+                if (timeLeft <= 0) {
+                    completeTimer();
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            startBtn.textContent = "Start";
         }
 
         function resetTimer() {
-            if (isRunning) toggleTimer(); // Stop first
-            timeLeft = MODES[currentMode].time;
+            clearInterval(timerInterval);
+            stopAlarm(); // Ensure alarm stops if resetting during alarm
+            
+            isRunning = false;
+            totalSeconds = CONFIG[currentMode].minutes * 60;
+            timeLeft = totalSeconds;
+            
+            startBtn.textContent = "Start";
             updateDisplay();
             setProgress(0);
         }
@@ -278,64 +387,97 @@
         function completeTimer() {
             clearInterval(timerInterval);
             isRunning = false;
-            startBtn.textContent = "Start";
             timeLeft = 0;
             updateDisplay();
-            playAlarm();
+            triggerAlarm();
         }
 
-        // --- UI HELPERS ---
+        // --- ALARM LOGIC ---
+
+        function triggerAlarm() {
+            isAlarming = true;
+            startBtn.textContent = "Stop Alarm";
+            startBtn.classList.add('alarming');
+            
+            // Play immediately
+            playBeep(); 
+
+            // Loop every 1.5 seconds until stopped
+            alarmInterval = setInterval(() => {
+                playBeep();
+            }, 1500);
+        }
+
+        function stopAlarm() {
+            isAlarming = false;
+            clearInterval(alarmInterval);
+            startBtn.textContent = "Start";
+            startBtn.classList.remove('alarming');
+            
+            // Auto-reset timer to current mode duration
+            timeLeft = CONFIG[currentMode].minutes * 60;
+            totalSeconds = timeLeft;
+            updateDisplay();
+            setProgress(0);
+        }
+
+        function playBeep() {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            // "Digital Clock" Beep Sound
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(880, audioCtx.currentTime); // A5
+            osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.1);
+            
+            // Beep-Beep pattern
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime + 0.1);
+            gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.1);
+
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime + 0.2);
+            gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.3);
+            
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.4);
+        }
+
+        // --- SETTINGS & UI HELPERS ---
+
+        function toggleSettings() {
+            settingsPanel.classList.toggle('open');
+            // If opening settings, pause timer? Optional.
+        }
+
+        function updateConfig(mode, value) {
+            const mins = parseInt(value);
+            if (mins > 0) {
+                CONFIG[mode].minutes = mins;
+                // If we updated the currently active mode, reset the timer display
+                if (currentMode === mode && !isRunning && !isAlarming) {
+                    totalSeconds = mins * 60;
+                    timeLeft = totalSeconds;
+                    updateDisplay();
+                }
+            }
+        }
 
         function updateDisplay() {
             const minutes = Math.floor(timeLeft / 60);
             const seconds = timeLeft % 60;
             const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             
-            // Update Text
             timeDisplay.textContent = timeString;
-            
-            // Update Browser Tab Title
-            document.title = `${timeString} - FocusFlow`;
+            document.title = isAlarming ? "🔔 Time's Up!" : `${timeString} - FocusFlow`;
         }
 
         function setProgress(percent) {
-            // Logic to calculate SVG dash offset
-            // percent is 0 to 1
-            // We want it to decrease as time goes by
             const offset = circumference - (1 - percent) * circumference; 
-            // Inverting logic for visual countdown preference (full ring to empty ring)
             const invertedOffset = -(circumference * percent);
-            
             circle.style.strokeDashoffset = invertedOffset;
-        }
-
-        // --- AUDIO ENGINE (No external files) ---
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        const audioContext = new AudioContext();
-
-        function playAlarm() {
-            // Create a simple oscillator sequence for a pleasant chime
-            const now = audioContext.currentTime;
-            
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-
-            oscillator.type = 'sine';
-            
-            // Melody: High C -> E -> G (C Major arpeggio)
-            oscillator.frequency.setValueAtTime(523.25, now); // C5
-            oscillator.frequency.exponentialRampToValueAtTime(659.25, now + 0.1); // E5
-            oscillator.frequency.exponentialRampToValueAtTime(783.99, now + 0.2); // G5
-            
-            // Volume Envelope
-            gainNode.gain.setValueAtTime(0.5, now);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, now + 1.5);
-
-            oscillator.start(now);
-            oscillator.stop(now + 1.5);
         }
     </script>
 </body>
