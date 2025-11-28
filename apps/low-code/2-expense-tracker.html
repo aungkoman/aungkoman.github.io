@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenBudget - Neon Dark Mode Tracker</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        zen: {
+                            dark: '#0f172a',
+                            card: '#1e293b',
+                            neonBlue: '#06b6d4', // Cyan-500
+                            neonGreen: '#84cc16', // Lime-500
+                            neonPink: '#d946ef', // Fuchsia-500
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+        /* Neon Glow Effects */
+        .glow-text {
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+        .glow-card:hover {
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.15);
+            border-color: rgba(6, 182, 212, 0.5);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569; 
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-screen pb-24">
+
+    <!-- Header -->
+    <header class="p-6 text-center border-b border-gray-800 bg-gray-900/50 backdrop-blur-md sticky top-0 z-10">
+        <h1 class="text-3xl font-semibold tracking-wide text-zen-neonBlue glow-text">
+            <i class="fa-solid fa-seedling mr-2"></i>ZenBudget
+        </h1>
+        <p class="text-gray-400 text-sm mt-1">Mindful Expense Tracking</p>
+    </header>
+
+    <main class="max-w-4xl mx-auto p-4 md:p-6 space-y-8">
+        
+        <!-- Dashboard Cards -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Total Balance -->
+            <div class="bg-zen-card p-6 rounded-2xl border border-gray-700 transition-all glow-card">
+                <h3 class="text-gray-400 text-sm uppercase tracking-wider mb-2">Total Balance</h3>
+                <p class="text-3xl font-bold text-white" id="balance-display">$0.00</p>
+            </div>
+            
+            <!-- Income -->
+            <div class="bg-zen-card p-6 rounded-2xl border border-gray-700 transition-all glow-card border-b-4 border-b-zen-neonGreen">
+                <h3 class="text-gray-400 text-sm uppercase tracking-wider mb-2">Income</h3>
+                <p class="text-2xl font-bold text-zen-neonGreen" id="income-display">+$0.00</p>
+            </div>
+
+            <!-- Expenses -->
+            <div class="bg-zen-card p-6 rounded-2xl border border-gray-700 transition-all glow-card border-b-4 border-b-zen-neonPink">
+                <h3 class="text-gray-400 text-sm uppercase tracking-wider mb-2">Expenses</h3>
+                <p class="text-2xl font-bold text-zen-neonPink" id="expense-display">-$0.00</p>
+            </div>
+        </section>
+
+        <!-- Chart Section -->
+        <section class="bg-zen-card p-6 rounded-2xl border border-gray-700">
+            <h2 class="text-xl font-semibold mb-6 text-gray-200 border-l-4 border-zen-neonBlue pl-3">Spending Breakdown</h2>
+            <div class="relative h-64 w-full flex justify-center items-center">
+                <canvas id="expenseChart"></canvas>
+                <div id="no-data-msg" class="absolute text-gray-500 text-sm hidden">Add expenses to see analytics</div>
+            </div>
+        </section>
+
+        <!-- Transactions List -->
+        <section>
+            <div class="flex justify-between items-end mb-4 border-b border-gray-800 pb-2">
+                <h2 class="text-xl font-semibold text-gray-200 border-l-4 border-zen-neonBlue pl-3">Recent Transactions</h2>
+                <button onclick="clearAll()" class="text-xs text-red-400 hover:text-red-300 transition">Clear All</button>
+            </div>
+            
+            <ul id="transaction-list" class="space-y-3">
+                <!-- Transactions injected here by JS -->
+            </ul>
+        </section>
+    </main>
+
+    <!-- Floating Action Button -->
+    <button onclick="toggleModal()" class="fixed bottom-8 right-8 bg-zen-neonBlue hover:bg-cyan-400 text-black w-14 h-14 rounded-full shadow-[0_0_20px_rgba(6,182,212,0.6)] flex items-center justify-center text-2xl transition-transform hover:scale-110 active:scale-95 z-40">
+        <i class="fa-solid fa-plus"></i>
+    </button>
+
+    <!-- Modal Form -->
+    <div id="transaction-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center z-50 opacity-0 transition-opacity duration-300">
+        <div class="bg-zen-card border border-gray-700 p-8 rounded-2xl w-full max-w-md shadow-2xl relative transform scale-95 transition-transform duration-300" id="modal-content">
+            
+            <button onclick="toggleModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <h2 class="text-2xl font-bold text-white mb-6">Add Transaction</h2>
+            
+            <form id="form" class="space-y-5">
+                <div>
+                    <label class="block text-gray-400 text-sm mb-2">Description</label>
+                    <input type="text" id="text" placeholder="e.g. Sushi Dinner" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:border-zen-neonBlue focus:ring-1 focus:ring-zen-neonBlue transition" required>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-400 text-sm mb-2">Amount</label>
+                        <input type="number" id="amount" placeholder="0.00" step="0.01" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:border-zen-neonBlue focus:ring-1 focus:ring-zen-neonBlue transition" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-sm mb-2">Type</label>
+                        <select id="type" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:border-zen-neonBlue transition">
+                            <option value="expense">Expense (-)</option>
+                            <option value="income">Income (+)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-gray-400 text-sm mb-2">Category</label>
+                    <select id="category" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:border-zen-neonBlue transition">
+                        <option value="Food">Food 🍔</option>
+                        <option value="Rent">Housing 🏠</option>
+                        <option value="Transport">Transport 🚗</option>
+                        <option value="Entertainment">Entertainment 🎬</option>
+                        <option value="Utilities">Utilities 💡</option>
+                        <option value="Health">Health 💊</option>
+                        <option value="Salary">Salary 💰</option>
+                        <option value="Other">Other 📦</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="w-full bg-zen-neonBlue hover:bg-cyan-400 text-black font-bold py-3 rounded-lg shadow-[0_0_15px_rgba(6,182,212,0.4)] transition mt-2">
+                    Add Transaction
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- State Management ---
+        const balanceDisplay = document.getElementById('balance-display');
+        const incomeDisplay = document.getElementById('income-display');
+        const expenseDisplay = document.getElementById('expense-display');
+        const list = document.getElementById('transaction-list');
+        const form = document.getElementById('form');
+        const textInput = document.getElementById('text');
+        const amountInput = document.getElementById('amount');
+        const typeInput = document.getElementById('type');
+        const categoryInput = document.getElementById('category');
+        const modal = document.getElementById('transaction-modal');
+        const modalContent = document.getElementById('modal-content');
+        const noDataMsg = document.getElementById('no-data-msg');
+
+        // Check LocalStorage
+        const localStorageTransactions = JSON.parse(localStorage.getItem('zenTransactions'));
+        let transactions = localStorage.getItem('zenTransactions') !== null ? localStorageTransactions : [];
+
+        // Chart Global
+        let expenseChart = null;
+
+        // --- Functions ---
+
+        // Format Currency
+        function formatMoney(amount) {
+            return '$' + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        }
+
+        // Add Transaction
+        function addTransaction(e) {
+            e.preventDefault();
+
+            if (textInput.value.trim() === '' || amountInput.value.trim() === '') {
+                alert('Please provide a description and amount');
+                return;
+            }
+
+            const amountValue = +amountInput.value;
+            // If type is expense, make amount negative internally for balance calc, but we store absolute for chart categories usually.
+            // Let's store raw amount and use the 'type' field to determine sign.
+            
+            const transaction = {
+                id: generateID(),
+                text: textInput.value,
+                amount: amountValue,
+                type: typeInput.value, // 'income' or 'expense'
+                category: categoryInput.value
+            };
+
+            transactions.push(transaction);
+            updateLocalStorage();
+            init();
+            toggleModal(); // Close modal
+            
+            // Reset form
+            textInput.value = '';
+            amountInput.value = '';
+        }
+
+        // Generate Random ID
+        function generateID() {
+            return Math.floor(Math.random() * 100000000);
+        }
+
+        // Delete Transaction
+        function deleteTransaction(id) {
+            transactions = transactions.filter(transaction => transaction.id !== id);
+            updateLocalStorage();
+            init();
+        }
+
+        // Clear All
+        function clearAll() {
+            if(confirm("Are you sure you want to clear all data?")) {
+                transactions = [];
+                updateLocalStorage();
+                init();
+            }
+        }
+
+        // Update Local Storage
+        function updateLocalStorage() {
+            localStorage.setItem('zenTransactions', JSON.stringify(transactions));
+        }
+
+        // Add Transaction to DOM
+        function addTransactionDOM(transaction) {
+            const sign = transaction.type === 'expense' ? '-' : '+';
+            const borderClass = transaction.type === 'expense' ? 'border-l-zen-neonPink' : 'border-l-zen-neonGreen';
+            const textClass = transaction.type === 'expense' ? 'text-zen-neonPink' : 'text-zen-neonGreen';
+            const icon = transaction.type === 'expense' ? 'fa-arrow-trend-down' : 'fa-arrow-trend-up';
+
+            const item = document.createElement('li');
+            item.className = `bg-zen-card p-4 rounded-xl border-l-4 ${borderClass} flex justify-between items-center shadow-sm fade-in group`;
+
+            item.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <div class="bg-gray-800 w-10 h-10 rounded-full flex items-center justify-center text-gray-400">
+                        <i class="fa-solid ${getCategoryIcon(transaction.category)}"></i>
+                    </div>
+                    <div>
+                        <p class="font-medium text-gray-200">${transaction.text}</p>
+                        <p class="text-xs text-gray-500">${transaction.category}</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="font-bold ${textClass}">${sign}${formatMoney(transaction.amount)}</span>
+                    <button class="text-gray-600 hover:text-red-500 transition opacity-0 group-hover:opacity-100" onclick="deleteTransaction(${transaction.id})">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            `;
+
+            list.appendChild(item);
+        }
+
+        function getCategoryIcon(cat) {
+            const map = {
+                'Food': 'fa-burger',
+                'Rent': 'fa-house',
+                'Transport': 'fa-car',
+                'Entertainment': 'fa-film',
+                'Utilities': 'fa-bolt',
+                'Health': 'fa-heart-pulse',
+                'Salary': 'fa-money-bill-wave',
+                'Other': 'fa-box'
+            };
+            return map[cat] || 'fa-circle';
+        }
+
+        // Update Balance, Income, Expense
+        function updateValues() {
+            const amounts = transactions.map(t => t.type === 'expense' ? -t.amount : t.amount);
+
+            const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
+            
+            const income = transactions
+                .filter(t => t.type === 'income')
+                .reduce((acc, t) => (acc += t.amount), 0)
+                .toFixed(2);
+
+            const expense = (
+                transactions
+                .filter(t => t.type === 'expense')
+                .reduce((acc, t) => (acc += t.amount), 0) * -1
+            ).toFixed(2);
+
+            balanceDisplay.innerText = formatMoney(Number(total));
+            incomeDisplay.innerText = `+${formatMoney(Number(income))}`;
+            expenseDisplay.innerText = `-${formatMoney(Number(Math.abs(expense)))}`;
+
+            // Color balance based on status
+            balanceDisplay.className = total < 0 
+                ? "text-3xl font-bold text-red-500" 
+                : "text-3xl font-bold text-white";
+        }
+
+        // Render Chart
+        function updateChart() {
+            const ctx = document.getElementById('expenseChart').getContext('2d');
+
+            // 1. Filter only expenses
+            const expenses = transactions.filter(t => t.type === 'expense');
+
+            if (expenses.length === 0) {
+                noDataMsg.classList.remove('hidden');
+                if (expenseChart) {
+                    expenseChart.destroy();
+                    expenseChart = null;
+                }
+                return;
+            } else {
+                noDataMsg.classList.add('hidden');
+            }
+
+            // 2. Group by Category
+            const categories = {};
+            expenses.forEach(t => {
+                if (categories[t.category]) {
+                    categories[t.category] += t.amount;
+                } else {
+                    categories[t.category] = t.amount;
+                }
+            });
+
+            // 3. Prepare Data
+            const labels = Object.keys(categories);
+            const data = Object.values(categories);
+
+            // Chart Colors
+            const colors = [
+                '#06b6d4', // Cyan
+                '#d946ef', // Pink
+                '#84cc16', // Lime
+                '#f59e0b', // Amber
+                '#8b5cf6', // Violet
+                '#ef4444', // Red
+            ];
+
+            // 4. Create/Update Chart
+            if (expenseChart) {
+                expenseChart.destroy();
+            }
+
+            expenseChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: colors,
+                        borderColor: '#1e293b', // Match card bg
+                        borderWidth: 2,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                color: '#94a3b8',
+                                font: {
+                                    family: "'Outfit', sans-serif"
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Toggle Modal Visibility
+        function toggleModal() {
+            const isHidden = modal.classList.contains('hidden');
+            if (isHidden) {
+                modal.classList.remove('hidden');
+                // Trigger reflow
+                void modal.offsetWidth;
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+                textInput.focus();
+            } else {
+                modal.classList.add('opacity-0');
+                modalContent.classList.remove('scale-100');
+                modalContent.classList.add('scale-95');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        // Initialize App
+        function init() {
+            list.innerHTML = '';
+            transactions.forEach(addTransactionDOM);
+            updateValues();
+            updateChart();
+        }
+
+        init();
+
+        // Event Listeners
+        form.addEventListener('submit', addTransaction);
+        
+        // Dynamic category/type logic for UX
+        typeInput.addEventListener('change', (e) => {
+             const categoryOptions = categoryInput.options;
+             if(e.target.value === 'income') {
+                 categoryInput.value = 'Salary';
+             } else {
+                 categoryInput.value = 'Food';
+             }
+        });
+
+        // Close modal on outside click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                toggleModal();
+            }
+        });
+
+    </script>
+</body>
+</html>
