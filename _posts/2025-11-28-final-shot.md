@@ -23,6 +23,20 @@ To be HUMAN.
 To be SOUL.
 
 
+
+---
+
+Let's write a prompt for OPD Queue Managmeent System.
+
+Software as a service.
+Stand alone service?
+
+SaaS.
+
+used with clinic_id | doctor_id
+
+
+
 တစ်လစာ အေအိုင်ကို တစ်ရက်တည်းနဲ့ ဘယ်လိုသုံးမလဲ?
 
 
