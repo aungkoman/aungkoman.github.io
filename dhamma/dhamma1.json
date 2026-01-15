@@ -66,10 +66,7 @@
     "nameEnglish": "Thitsar ShweSi Sayadaw Ashin Oaktama",
     "nameBurmese": "သစ္စာရွှေစည်ဆရာတော် အရှင်ဥတ္တမ",
     "location": "စစ်ကိုင် မင်းဝံတောင်တန်း",
-    "phone": [
-      "၀၉-၂၀၃၁၀၅၁",
-      "၀၉-၇၃၅၀၂၁၅၀"
-    ],
+    "phone": ["၀၉-၂၀၃၁၀၅၁", "၀၉-၇၃၅၀၂၁၅၀"],
     "biographyTitle": "သစ္စာရွှေစည်ဆရာတော် အရှင်ဥတ္တမ၏ ကိုယ်ရေးမှတ်တမ်း",
     "biography": [
       "စစ်ကိုင်းတိုင်းဒေသကြီး၊ တန့်ဆည်မြို့နယ်၊ ငါးနုချောင်းအုပ်စု၊ ငါးနုချောင်းရွာ၌ ခမည်းတော်ကြီး ဦးဘသောင်+မယ်တော်ကြီး ဒေါ်သိန်းကြွယ်တို့မှ ၁၃၃၃ ခု၊ တော်သလင်းလပြည့်ကျော် (၈)ရက် တနင်္ဂနွေနေ့တွင် ဖွားမြင်သည်။",
@@ -1454,8 +1451,8 @@
           "trackString": "၁၄၁",
           "title": "မင်္ဂလာတရားတော်",
           "url": "https://dhammadownload.com/MP3Library/ThitsarShweSi-Sayadaw-AshinOaktama/MP3-468/ThitsarShweSi-Sayadaw-AshinOaktama-141.mp3"
-        },
-        {
-          "trackString": "၁၄၂",
-          "title": "မင်္ဂလာတရားတော်",
-          "url
+        }
+      ]
+    }
+  ]
+}
