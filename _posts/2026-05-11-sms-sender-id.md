@@ -199,3 +199,29 @@ Director
 
 ---
 
+Dear Team,
+
+Well received, thank you.
+
+Kindly provide the remaining required documents as per our previous requests, along with the activated website link:
+
+Certificate of Incorporation and Extract (DICA)
+
+NRC (National Registration Card) – soft copy
+
+Signed SMSPoh Terms and Conditions (attached)
+
+Once all required documents have been submitted, we will proceed with issuing the invoice for payment processing.
+
+Thank you for your cooperation.
+
+Best Regards,
+
+Ms. Thi Thi
++959 771531115  
+Assistant Sales Manager (B2B)
+www.smspoh.com
+
+
+----
+
