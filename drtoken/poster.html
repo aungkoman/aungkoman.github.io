@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Queue Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #e0e7ff 0%, #f1f5f9 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+        }
+        .status-badge {
+            background: #6366f1;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .token-row {
+            transition: all 0.2s;
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+        }
+        .token-row:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+        .active-row {
+            background: white;
+            border: 1px solid #e0e7ff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glass-card w-full max-w-5xl overflow-hidden flex flex-col md:flex-row">
+        
+        <div class="w-full md:w-1/2 p-8 border-r border-white/50">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="bg-indigo-600 p-2 rounded-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                </div>
+                <h1 class="text-2xl font-bold text-indigo-900">Smart Queue Dashboard</h1>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-8">
+                <div class="bg-white/50 p-4 rounded-xl">
+                    <p class="text-xs text-gray-500 uppercase font-bold">Total Tokens</p>
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-3xl font-bold text-indigo-800">A102</span>
+                        <span class="text-indigo-500 font-bold">24 »</span>
+                    </div>
+                </div>
+                <div class="bg-white/50 p-4 rounded-xl">
+                    <p class="text-xs text-gray-500 uppercase font-bold">Avg Wait</p>
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-3xl font-bold text-pink-600">14</span>
+                        <span class="text-pink-400 font-medium">min</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <div class="token-row p-4 flex items-center justify-between">
+                    <span class="font-bold text-lg text-slate-700">A102 <span class="ml-2 text-indigo-500">➜</span></span>
+                    <span class="status-badge">Now Serving</span>
+                    <span class="text-gray-400 text-sm">20 min</span>
+                </div>
+                <div class="token-row p-4 flex items-center justify-between">
+                    <span class="font-bold text-lg text-slate-700">A104</span>
+                    <span class="text-sm text-gray-600 font-medium">General Consultation</span>
+                    <span class="text-gray-400 text-sm">17 min</span>
+                </div>
+                <div class="active-row p-4 flex items-center justify-between">
+                    <span class="font-bold text-lg text-indigo-600">P017</span>
+                    <span class="text-sm text-indigo-800 font-bold">Priority Patient</span>
+                    <span class="text-pink-500 font-bold text-sm">79 min</span>
+                </div>
+                <div class="token-row p-4 flex items-center justify-between">
+                    <span class="font-bold text-lg text-slate-700">A201</span>
+                    <span class="text-sm text-gray-600 font-medium">Pediatrics</span>
+                    <span class="text-gray-400 text-sm">20 min</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/2 p-8 bg-white/30 flex flex-col">
+            <div class="flex justify-between items-center mb-6">
+                <div class="bg-pink-100 text-pink-600 px-4 py-1 rounded-full text-xs font-bold">In Progress 6</div>
+                <div class="text-gray-400 text-xs font-bold uppercase tracking-widest">Expected Wait 5 min</div>
+            </div>
+
+            <div class="bg-white/80 rounded-2xl p-6 shadow-sm flex-grow relative">
+                <h3 class="text-gray-400 font-bold text-xs uppercase mb-4">Active Token Details</h3>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4">
+                        <span class="bg-pink-500 text-white text-[10px] px-2 py-1 rounded font-bold">4 MIN</span>
+                        <span class="text-gray-700 font-semibold">Priority: Cardiology</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="bg-indigo-500 text-white text-[10px] px-2 py-1 rounded font-bold">4 MIN</span>
+                        <span class="text-gray-700 font-semibold">Priority Patient</span>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-center">
+                    <div class="relative w-48 h-48 bg-indigo-50 rounded-full flex items-center justify-center border-4 border-white">
+                        <div class="absolute inset-0 border-2 border-indigo-200 border-dashed rounded-full animate-spin-slow"></div>
+                        <img src="https://cdn-icons-png.flaticon.com/512/3774/3774299.png" class="w-24 opacity-80" alt="Doctor Icon">
+                    </div>
+                </div>
+
+                <div class="absolute bottom-4 right-4 bg-white p-4 rounded-xl shadow-xl border border-indigo-50 w-64">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-bold text-indigo-900">System Insights</span>
+                        <span class="bg-pink-100 text-pink-600 text-[10px] px-2 py-0.5 rounded">4 min wait</span>
+                    </div>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-[11px] text-gray-600">
+                            <span class="w-3 h-3 bg-green-400 rounded-full mr-2"></span> Hire more staff
+                        </li>
+                        <li class="flex items-center text-[11px] text-gray-600">
+                            <span class="w-3 h-3 bg-pink-400 rounded-full mr-2"></span> Billing support delays
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spin-slow 10s linear infinite;
+        }
+    </style>
+</body>
+</html>
