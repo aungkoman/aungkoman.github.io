@@ -1,0 +1,205 @@
+[
+   {
+      "event_id":"EVT-20260529-01",
+      "metadata":{
+         "start_date":"2026-05-29",
+         "end_date":"2026-05-29",
+         "time_of_day":"morning",
+         "location_standardized":"Yangon, Myanmar",
+         "geo_coordinates":{
+            "lat":16.866100,
+            "lng":96.195100
+         }
+      },
+      "english":{
+         "leader_information":"Vice President U Nyo Saw",
+         "person":"Daw San San Aye, Dr. Bhaddanta Candima Bhivamsa, Union Minister U Tin Oo Lwin",
+         "location":"Maha Pasana Cave, Siri Mangala Kaba Aye Hill, Yangon",
+         "event_title":"Vice President U Nyo Saw Presents Titles to Successful Tipitaka Candidates",
+         "description":"Vice President U Nyo Saw and his wife presented certificates and religious titles to 100 outstanding monks who passed the 78th Tipitaka Dhara Tipitaka Kovida selection examination. The ceremony was held at the Maha Pasana Cave in Yangon.",
+         "date_time_raw":"May 29, morning"
+      },
+      "myanmar":{
+         "leader_information":"ဒုတိယသမ္မတ ဦးညိုစော",
+         "person":"ဒေါ်စမ်းစမ်းအေး, ဒေါက်တာ ဘဒ္ဒန္တစန္ဒိမာဘိဝံသ, ပြည်ထောင်စုဝန်ကြီး ဦးတင်ဦးလွင်",
+         "location":"ရန်ကုန်မြို့ သီရိမင်္ဂလာကမ္ဘာအေးကုန်းမြေရှိ ဆဋ္ဌသင်္ဂါယနာတင် မဟာပါသာဏလိုဏ်ဂူ သိမ်တော်ကြီးအတွင်း",
+         "event_title":"၇၈ ကြိမ်မြောက် တိပိဋကစာအောင် သံဃာတော်များအား ဘွဲ့တံဆိပ်တော်များ ဆက်ကပ်လှူဒါန်း",
+         "description":"(၇၈)ကြိမ်မြောက် တိပိဋကဓရ တိပိဋကကောဝိဒ ရွေးချယ်ရေးစာမေးပွဲတွင် အောင်မြင်တော်မူကြသည့် သံဃာတော် (၁၀၀) ပါးအား ဒုတိယသမ္မတ ဦးညိုစောနှင့် တာဝန်ရှိသူများက အောင်လက်မှတ်နှင့် ဘွဲ့တံဆိပ်တော်များ ဆက်ကပ်လှူဒါန်းခဲ့သည်။",
+         "date_time_raw":"ယနေ့နံနက်ပိုင်းတွင် (မေ ၂၉)"
+      }
+   },
+   {
+      "event_id":"EVT-20260529-02",
+      "metadata":{
+         "start_date":"2026-05-29",
+         "end_date":"2026-05-29",
+         "time_of_day":"morning",
+         "location_standardized":"Naypyidaw, Myanmar",
+         "geo_coordinates":{
+            "lat":19.745000,
+            "lng":96.129700
+         }
+      },
+      "english":{
+         "leader_information":"Union Minister Dr. Chaw Chaw Sein",
+         "person":"H.E. Ms. Ma Jia",
+         "location":"Reception Hall, Office No. 13, Ministry of Education, Naypyidaw",
+         "event_title":"Union Minister for Education Receives Chinese Ambassador",
+         "description":"Union Minister Dr. Chaw Chaw Sein met with Chinese Ambassador to Myanmar H.E. Ms. Ma Jia. They openly discussed enhancing educational cooperation between the two countries, including sending scholars and training teachers.",
+         "date_time_raw":"May 29, 10:00 AM"
+      },
+      "myanmar":{
+         "leader_information":"ပညာရေးဝန်ကြီးဌာန ပြည်ထောင်စုဝန်ကြီး ဒေါက်တာချောချောစိန်",
+         "person":"တရုတ်ပြည်သူ့သမ္မတနိုင်ငံ သံအမတ်ကြီး H.E. Ms. Ma Jia",
+         "location":"နေပြည်တော် ပညာရေးဝန်ကြီးဌာန ရုံးအမှတ်(၁၃)ရှိ ဧည့်ခန်းမ၌",
+         "event_title":"ပညာရေးဝန်ကြီးဌာန ပြည်ထောင်စုဝန်ကြီး တရုတ်သံအမတ်ကြီးအား လက်ခံတွေ့ဆုံ",
+         "description":"ပညာရေးဝန်ကြီးဌာန ပြည်ထောင်စုဝန်ကြီး ဒေါက်တာချောချောစိန်သည် မြန်မာနိုင်ငံဆိုင်ရာ တရုတ်သံအမတ်ကြီးနှင့် တွေ့ဆုံပြီး နှစ်နိုင်ငံ ပညာရေးကဏ္ဍ ပူးပေါင်းဆောင်ရွက်မှု မြှင့်တင်ရေးကိစ္စရပ်များကို ဆွေးနွေးခဲ့သည်။",
+         "date_time_raw":"ယနေ့နံနက် ၁၀ နာရီတွင် (မေ ၂၉)"
+      }
+   },
+   {
+      "event_id":"EVT-20260529-03",
+      "metadata":{
+         "start_date":"2026-05-29",
+         "end_date":"2026-05-29",
+         "time_of_day":"morning",
+         "location_standardized":"Naypyidaw, Myanmar",
+         "geo_coordinates":{
+            "lat":19.745000,
+            "lng":96.129700
+         }
+      },
+      "english":{
+         "leader_information":"Union Minister U Myint Kyaing",
+         "person":"Ms. Gwyn Lewis",
+         "location":"Reception Hall of the Union Minister, Ministry of Immigration and Population, Naypyidaw",
+         "event_title":"Union Minister U Myint Kyaing Receives UN Resident Coordinator",
+         "description":"Union Minister U Myint Kyaing held a meeting with UN Resident Coordinator ad interim Ms. Gwyn Lewis. They discussed the repatriation of displaced persons from Rakhine State, cooperation with UN agencies, and providing accurate information to UN headquarters.",
+         "date_time_raw":"May 29, 11:00 AM"
+      },
+      "myanmar":{
+         "leader_information":"လူဝင်မှုကြီးကြပ်ရေးနှင့် ပြည်သူ့အင်အားဝန်ကြီးဌာန ပြည်ထောင်စုဝန်ကြီး ဦးမြင့်ကြိုင်",
+         "person":"ကုလသမဂ္ဂ ယာယီဌာနေညှိနှိုင်းရေးမှူး Ms. Gwyn Lewis",
+         "location":"နေပြည်တော်ရှိ လူဝင်မှုကြီးကြပ်ရေးနှင့် ပြည်သူ့အင်အားဝန်ကြီးဌာန ပြည်ထောင်စုဝန်ကြီး၏ ဧည့်ခန်းမ၌",
+         "event_title":"ပြည်ထောင်စုဝန်ကြီး ဦးမြင့်ကြိုင် ကုလသမဂ္ဂ ယာယီဌာနေညှိနှိုင်းရေးမှူးအား လက်ခံတွေ့ဆုံ",
+         "description":"လူဝင်မှုကြီးကြပ်ရေးနှင့် ပြည်သူ့အင်အားဝန်ကြီးဌာန ပြည်ထောင်စုဝန်ကြီးသည် ကုလသမဂ္ဂ ယာယီဌာနေညှိနှိုင်းရေးမှူးနှင့် အဖွဲ့အား တွေ့ဆုံ၍ ရခိုင်ပြည်နယ်မှ နေရပ်စွန့်ခွာသူများ ပြန်လည်လက်ခံရေးနှင့် ကုလသမဂ္ဂအဖွဲ့အစည်းများနှင့် ပူးပေါင်းဆောင်ရွက်ရေးတို့ကို ဆွေးနွေးခဲ့သည်။",
+         "date_time_raw":"ယနေ့နံနက် ၁၁ နာရီတွင် (မေ ၂၉)"
+      }
+   },
+   {
+      "event_id":"EVT-20260529-04",
+      "metadata":{
+         "start_date":"2026-05-29",
+         "end_date":"2026-05-29",
+         "time_of_day":"afternoon",
+         "location_standardized":"Yangon, Myanmar",
+         "geo_coordinates":{
+            "lat":16.805300,
+            "lng":96.156100
+         }
+      },
+      "english":{
+         "leader_information":"Pyithu Hluttaw Speaker U Khin Yi",
+         "person":"U Htay Aung, U Kyaw Kyaw Soe",
+         "location":"Pearl Hall, Yangon Region Hluttaw Office",
+         "event_title":"Pyithu Hluttaw Speaker Meets Legal Experts on Anti-Online Scam Law",
+         "description":"Pyithu Hluttaw Speaker U Khin Yi met with Yangon Region Hluttaw officials and legal experts to discuss legislative matters. The focus was on drafting and enacting an anti-online scam law to protect the public and national interests.",
+         "date_time_raw":"May 29, afternoon"
+      },
+      "myanmar":{
+         "leader_information":"ပြည်သူ့လွှတ်တော်ဥက္ကဋ္ဌ ဦးခင်ရီ",
+         "person":"ရန်ကုန်တိုင်းဒေသကြီးလွှတ်တော်ဥက္ကဋ္ဌ ဦးဌေးအောင်, ဒုတိယဥက္ကဋ္ဌ ဦးကျော်ကျော်စိုး",
+         "location":"ရန်ကုန်တိုင်းဒေသကြီးလွှတ်တော်ရုံး ပုလဲခန်းမ၌",
+         "event_title":"ပြည်သူ့လွှတ်တော်ဥက္ကဋ္ဌ ရန်ကုန်တိုင်းဒေသကြီးလွှတ်တော် ဥပဒေပညာရှင်များနှင့် တွေ့ဆုံ",
+         "description":"ပြည်သူ့လွှတ်တော်ဥက္ကဋ္ဌ ဦးခင်ရီသည် လွှတ်တော်တာဝန်ရှိသူများ၊ ဥပဒေပညာရှင်များနှင့် တွေ့ဆုံ၍ နိုင်ငံတော်နှင့် ပြည်သူများအတွက် အရေးတကြီးလိုအပ်နေသော အွန်လိုင်းလိမ်လည်မှုတိုက်ဖျက်ရေးဆိုင်ရာ ဥပဒေကို အမြန်ဆုံးပြဋ္ဌာန်းနိုင်ရေး ဆွေးနွေးခဲ့သည်။",
+         "date_time_raw":"ယနေ့မွန်းလွဲပိုင်းတွင် (မေ ၂၉)"
+      }
+   },
+   {
+      "event_id":"EVT-20260529-05",
+      "metadata":{
+         "start_date":"2026-05-29",
+         "end_date":"2026-05-29",
+         "time_of_day":"morning",
+         "location_standardized":"Naypyidaw, Myanmar",
+         "geo_coordinates":{
+            "lat":19.745000,
+            "lng":96.129700
+         }
+      },
+      "english":{
+         "leader_information":"MIC Chairman Union Minister U Mya Tun Oo",
+         "person":null,
+         "location":"Meeting Room, Office No. 5, Naypyidaw",
+         "event_title":"Myanmar Investment Commission Approves 12 New Investment Projects",
+         "description":"The Myanmar Investment Commission held its 4/2026 meeting, approving 12 new domestic and foreign investment projects. The projects span the oil and gas, industrial, hotel, agriculture, and transport sectors, creating over 4,800 job opportunities.",
+         "date_time_raw":"May 29, morning"
+      },
+      "myanmar":{
+         "leader_information":"မြန်မာနိုင်ငံ ရင်းနှီးမြှုပ်နှံမှုကော်မရှင် ဥက္ကဋ္ဌ ပြည်ထောင်စုဝန်ကြီး ဦးမြထွန်းဦး",
+         "person":null,
+         "location":"နေပြည်တော်ရှိ ရုံးအမှတ် (၅) အစည်းအဝေးခန်းမ၌",
+         "event_title":"မြန်မာနိုင်ငံရင်းနှီးမြှုပ်နှံမှုကော်မရှင် အစည်းအဝေးတွင် ရင်းနှီးမြှုပ်နှံမှုလုပ်ငန်းသစ် ၁၂ ခု ခွင့်ပြု",
+         "description":"မြန်မာနိုင်ငံ ရင်းနှီးမြှုပ်နှံမှုကော်မရှင်၏ (၄/၂၀၂၆) အစည်းအဝေးတွင် ရေနံနှင့်သဘာဝဓာတ်ငွေ့၊ စက်မှု၊ ဟိုတယ်၊ စိုက်ပျိုးရေးနှင့် ပို့ဆောင်ရေးကဏ္ဍတို့မှ နိုင်ငံခြားနှင့် မြန်မာနိုင်ငံသား ရင်းနှီးမြှုပ်နှံမှုလုပ်ငန်းသစ် ၁၂ ခုကို ခွင့်ပြုပေးခဲ့ရာ အလုပ်အကိုင်ပေါင်း ၄၈၀၀ ကျော် ဖန်တီးပေးနိုင်မည်ဖြစ်သည်။",
+         "date_time_raw":"ယနေ့နံနက်ပိုင်းတွင် (မေ ၂၉)"
+      }
+   },
+   {
+      "event_id":"EVT-20260529-06",
+      "metadata":{
+         "start_date":"2026-05-29",
+         "end_date":"2026-05-29",
+         "time_of_day":"morning",
+         "location_standardized":"Dawei, Myanmar",
+         "geo_coordinates":{
+            "lat":14.082800,
+            "lng":98.194000
+         }
+      },
+      "english":{
+         "leader_information":"Tanintharyi Region Hluttaw Speaker U Myat Ko",
+         "person":"Mr. Shen Song Ning",
+         "location":"Dawei Region Hluttaw Office",
+         "event_title":"Tanintharyi Region Hluttaw Speaker Discusses M-15 Drilling Project",
+         "description":"Tanintharyi Region Hluttaw Speaker U Myat Ko met with the Chairman of CFG Energy Pte., Ltd. to discuss the M-15 offshore drilling project. They addressed project implementation, EIA/SIA assessments, and regional development initiatives.",
+         "date_time_raw":"May 29, 10:00 AM"
+      },
+      "myanmar":{
+         "leader_information":"တနင်္သာရီတိုင်းဒေသကြီး လွှတ်တော်ဥက္ကဋ္ဌ ဦးမြတ်ကို",
+         "person":"CFG Energy Pte., Ltd. ဥက္ကဋ္ဌ Mr. Shen Song Ning",
+         "location":"ထားဝယ်မြို့ တိုင်းဒေသကြီး လွှတ်တော်ရုံး၌",
+         "event_title":"တနင်္သာရီတိုင်းလွှတ်တော်ဥက္ကဋ္ဌ M-15 တူးဖော်ရေးစီမံကိန်းနှင့်ပတ်သက်၍ တွေ့ဆုံဆွေးနွေး",
+         "description":"တိုင်းဒေသကြီးလွှတ်တော်ဥက္ကဋ္ဌသည် CFG Energy Pte., Ltd. မှ တာဝန်ရှိသူများနှင့် တွေ့ဆုံကာ M-15 တူးဖော်ရေးလုပ်ငန်းများ၊ EIA/SIA ဆောင်ရွက်မှုများနှင့် ဒေသဖွံ့ဖြိုးတိုးတက်ရေးကိစ္စရပ်များကို ဆွေးနွေးခဲ့ကြသည်။",
+         "date_time_raw":"ယနေ့နံနက် ၁ဝ နာရီတွင် (မေ ၂၉)"
+      }
+   },
+   {
+      "event_id":"EVT-20260529-07",
+      "metadata":{
+         "start_date":"2026-05-29",
+         "end_date":"2026-05-29",
+         "time_of_day":null,
+         "location_standardized":"Bahtoo, Shan State, Myanmar",
+         "geo_coordinates":{
+            "lat":21.233300,
+            "lng":96.766700
+         }
+      },
+      "english":{
+         "leader_information":"Vice Senior General Kyaw Swar Lin",
+         "person":"Daw Nan Ku Ku",
+         "location":"Bahtoo Station",
+         "event_title":"Vice Senior General Kyaw Swar Lin Inspects Bahtoo Station",
+         "description":"Vice Senior General Kyaw Swar Lin, Commander-in-Chief (Army), inspected training schools, military battalions, and agricultural projects at Bahtoo Station. He also visited the military hospital to comfort and provide assistance to patients receiving medical treatment.",
+         "date_time_raw":"May 29"
+      },
+      "myanmar":{
+         "leader_information":"ဒုတိယတပ်မတော်ကာကွယ်ရေးဦးစီးချုပ် ကာကွယ်ရေးဦးစီးချုပ်(ကြည်း) ဗိုလ်ချုပ်ကြီး ကျော်စွာလင်း",
+         "person":"ဇနီး ဒေါ်နန်းကူးကူ",
+         "location":"ဗထူးတပ်မြို့ရှိ သင်တန်းကျောင်းများ၊ နယ်မြေခံတပ်ရင်း/တပ်ဖွဲ့များနှင့် တပ်မတော်ဆေးရုံ",
+         "event_title":"ဒုတိယတပ်မတော်ကာကွယ်ရေးဦးစီးချုပ် ဗထူးတပ်နယ်ရှိ သင်တန်းကျောင်းများနှင့် ဆေးရုံများကို ကြည့်ရှုစစ်ဆေး",
+         "description":"ဗိုလ်ချုပ်ကြီး ကျော်စွာလင်းသည် ဗထူးတပ်မြို့ရှိ သင်တန်းကျောင်းများ၊ စိုက်ပျိုးမွေးမြူရေးလုပ်ငန်းများနှင့် တပ်မတော်ဆေးရုံသို့ သွားရောက်စစ်ဆေးခဲ့ပြီး ဆေးကုသမှုခံယူနေသည့် အရာရှိစစ်သည်များနှင့် မိသားစုဝင်များအား ရင်းရင်းနှီးနှီး အားပေးစကားပြောကြားကာ ထောက်ပံ့ပစ္စည်းများ ပေးအပ်ခဲ့သည်။",
+         "date_time_raw":"ယနေ့တွင် (မေ ၂၉)"
+      }
+   }
+]
