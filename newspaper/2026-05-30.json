@@ -1,0 +1,118 @@
+[
+   {
+      "event_id":"EVT-20220511-01",
+      "metadata":{
+         "start_date":"2022-05-11",
+         "end_date":"2022-05-11",
+         "time_of_day":"afternoon",
+         "location_standardized":"Hanoi, Vietnam",
+         "geo_coordinates":{
+            "lat":21.028511,
+            "lng":105.854164
+         }
+      },
+      "english":{
+         "leader_information":"U Min Thein Zan, Union Minister for Sports and Youth Affairs",
+         "person":"U Tun Myint Oo, Ma Aye Aye Aung",
+         "location":"Gymnasium in Hanoi, Vietnam",
+         "event_title":"Myanmar Wins First Gold Medal at 31st SEA Games",
+         "description":"Myanmar athlete Ma Aye Aye Aung won the country's first gold medal in the Kurash +87 kg event at the 31st SEA Games. Union Minister U Min Thein Zan and other officials attended the match to support the athletes.",
+         "date_time_raw":"Today at 2:00 PM"
+      },
+      "myanmar":{
+         "leader_information":"ဦးမင်းသိန်းဇံ၊ အားကစားနှင့် လူငယ်ရေးရာဝန်ကြီးဌာန ပြည်ထောင်စုဝန်ကြီး",
+         "person":"ဦးထွန်းမြင့်ဦး၊ မအေးအေးအောင်",
+         "location":"ဗီယက်နမ်နိုင်ငံ ဟနွိုင်းမြို့ရှိ Gymnasium တွင်",
+         "event_title":"(၃၁) ကြိမ်မြောက် ဆီးဂိမ်းပြိုင်ပွဲတွင် မြန်မာနိုင်ငံအတွက် ပထမဆုံး ရွှေတံဆိပ်ဆု ဆွတ်ခူးရရှိခြင်း",
+         "description":"ဗီယက်နမ်နိုင်ငံတွင် ကျင်းပသည့် (၃၁) ကြိမ်မြောက် အရှေ့တောင်အာရှအားကစားပြိုင်ပွဲတွင် မြန်မာအားကစားသမား မအေးအေးအောင်သည် ကူရတ်ရှ် (Kurash) အားကစားနည်းဖြင့် နိုင်ငံအတွက် ပထမဆုံးရွှေတံဆိပ်ဆုကို ဆွတ်ခူးရရှိခဲ့သည်။ ပြည်ထောင်စုဝန်ကြီး ဦးမင်းသိန်းဇံနှင့် တာဝန်ရှိသူများက သွားရောက်အားပေးခဲ့ကြသည်။",
+         "date_time_raw":"ယနေ့ မွန်းလွဲ ၂ နာရီ"
+      }
+   },
+   {
+      "event_id":"EVT-20220511-02",
+      "metadata":{
+         "start_date":"2022-05-10",
+         "end_date":"2022-05-11",
+         "time_of_day":"morning",
+         "location_standardized":"Yangon, Myanmar",
+         "geo_coordinates":{
+            "lat":16.80528,
+            "lng":96.15611
+         }
+      },
+      "english":{
+         "leader_information":"Lt. Gen. Tun Tun Naung, Union Minister for Border Affairs",
+         "person":"Principal, Teachers, Students",
+         "location":"Nationalities Youth Resource Development Degree College, Dagon Seikkan Township, Yangon",
+         "event_title":"Union Minister Inspects Nationalities Youth Resource Development Degree College",
+         "description":"Union Minister Lt. Gen. Tun Tun Naung inspected the facilities at the Nationalities Youth Resource Development Degree College in Yangon. He met with students and staff to coordinate upgrades and provide guidance for the new academic year.",
+         "date_time_raw":"Yesterday afternoon and today at 9:00 AM"
+      },
+      "myanmar":{
+         "leader_information":"ဒုတိယဗိုလ်ချုပ်ကြီး ထွန်းထွန်းနောင်၊ နယ်စပ်ရေးရာဝန်ကြီးဌာန ပြည်ထောင်စုဝန်ကြီး",
+         "person":"ကျောင်းအုပ်ကြီး၊ ဆရာ ဆရာမများနှင့် ကျောင်းသား ကျောင်းသူများ",
+         "location":"ရန်ကုန်မြို့ ဒဂုံဆိပ်ကမ်းမြို့နယ်ရှိ ပြည်ထောင်စုတိုင်းရင်းသားလူငယ်များ စွမ်းရည်ဖွံ့ဖြိုးရေး ဒီဂရီကောလိပ်",
+         "event_title":"ပြည်ထောင်စုတိုင်းရင်းသားလူငယ်များစွမ်းရည်ဖွံ့ဖြိုးရေး ဒီဂရီကောလိပ်(ရန်ကုန်)သို့ ပြည်ထောင်စုဝန်ကြီး လာရောက်စစ်ဆေးတွေ့ဆုံ",
+         "description":"နယ်စပ်ရေးရာဝန်ကြီးဌာန ပြည်ထောင်စုဝန်ကြီး ဒုတိယဗိုလ်ချုပ်ကြီး ထွန်းထွန်းနောင်သည် ရန်ကုန်ရှိ ပြည်ထောင်စုတိုင်းရင်းသားလူငယ်များ စွမ်းရည်ဖွံ့ဖြိုးရေး ဒီဂရီကောလိပ်သို့ သွားရောက်စစ်ဆေးခဲ့သည်။ ပညာသင်နှစ်သစ် တက်ရောက်မည့် ကျောင်းသား၊ ကျောင်းသူများအား တွေ့ဆုံ၍ လိုအပ်သည်များကို ပေါင်းစပ်ညှိနှိုင်းပေးခဲ့သည်။",
+         "date_time_raw":"ယမန်နေ့မွန်းလွဲပိုင်း နှင့် ယနေ့ နံနက် ၉ နာရီ"
+      }
+   },
+   {
+      "event_id":"EVT-20220511-03",
+      "metadata":{
+         "start_date":"2022-05-11",
+         "end_date":"2022-05-11",
+         "time_of_day":"morning",
+         "location_standardized":"Pyay, Bago Region, Myanmar",
+         "geo_coordinates":{
+            "lat":18.8239,
+            "lng":95.2186
+         }
+      },
+      "english":{
+         "leader_information":"U Myo Swe Win, Bago Region Chief Minister",
+         "person":"Local Officials, Farmers",
+         "location":"Pyay, Shwedaung, Nattalin, and Okpho Townships",
+         "event_title":"Bago Region Chief Minister Inspects Regional Development Works",
+         "description":"Bago Region Chief Minister U Myo Swe Win attended a Grade-5 curriculum training in Pyay and provided financial assistance. He subsequently inspected various agricultural and construction projects in Shwedaung, Nattalin, and Okpho townships.",
+         "date_time_raw":"Today morning"
+      },
+      "myanmar":{
+         "leader_information":"ဦးမျိုးဆွေဝင်း၊ ပဲခူးတိုင်းဒေသကြီးဝန်ကြီးချုပ်",
+         "person":"တာဝန်ရှိသူများ၊ ဒေသခံတောင်သူများ",
+         "location":"ပြည် ၊ ရွှေတောင် ၊ နတ်တလင်းနှင့်အုတ်ဖိုမြို့",
+         "event_title":"ပဲခူးတိုင်းဒေသကြီးဝန်ကြီးချုပ် ဒေသဖွံ့ဖြိုးရေးလုပ်ငန်းများ ကြည့်ရှုစစ်ဆေး",
+         "description":"ပဲခူးတိုင်းဒေသကြီး ဝန်ကြီးချုပ် ဦးမျိုးဆွေဝင်းသည် ပြည်မြို့၌ ကျင်းပသော Grade-5 သင်ရိုးသစ် ဆင့်ပွားသင်တန်းသို့ တက်ရောက်ထောက်ပံ့ငွေများ ပေးအပ်ခဲ့သည်။ ထို့နောက် ရွှေတောင်၊ နတ်တလင်းနှင့် အုတ်ဖိုမြို့နယ်များရှိ စိုက်ပျိုးရေးနှင့် အခြားတည်ဆောက်ရေးလုပ်ငန်းများကို သွားရောက်ကြည့်ရှုစစ်ဆေးခဲ့သည်။",
+         "date_time_raw":"ယနေ့နံနက်ပိုင်း"
+      }
+   },
+   {
+      "event_id":"EVT-20220511-04",
+      "metadata":{
+         "start_date":"2022-05-11",
+         "end_date":"2022-05-11",
+         "time_of_day":"afternoon",
+         "location_standardized":"Nay Pyi Taw, Myanmar",
+         "geo_coordinates":{
+            "lat":19.7633,
+            "lng":96.0785
+         }
+      },
+      "english":{
+         "leader_information":"Dr. Aung Gyi, Deputy Minister and Chairman of Pesticide Registration Board",
+         "person":"Dr. Ye Tint Tun",
+         "location":"Meeting Hall, Ministry of Agriculture, Livestock and Irrigation, Nay Pyi Taw",
+         "event_title":"36th Meeting of the Pesticide Registration Board Held",
+         "description":"The 36th meeting of the Pesticide Registration Board was convened at the Ministry of Agriculture, Livestock and Irrigation. The board discussed the approval of 279 types of pesticides to ensure consumer safety and meet export residue limits.",
+         "date_time_raw":"Today afternoon"
+      },
+      "myanmar":{
+         "leader_information":"ဒေါက်တာအောင်ကြီး၊ ပိုးသတ်ဆေးမှတ်ပုံတင်အဖွဲ့ဥက္ကဋ္ဌ၊ ဒုတိယဝန်ကြီး",
+         "person":"ဒေါက်တာရဲတင့်ထွန်း",
+         "location":"စိုက်ပျိုးရေး၊ မွေးမြူရေးနှင့် ဆည်မြောင်းဝန်ကြီးဌာန အစည်းအဝေးခန်းမ၊ နေပြည်တော်",
+         "event_title":"(၃၆) ကြိမ်မြောက် ပိုးသတ်ဆေး မှတ်ပုံတင်အဖွဲ့ အစည်းအဝေး ကျင်းပ",
+         "description":"စိုက်ပျိုးရေး၊ မွေးမြူရေးနှင့် ဆည်မြောင်းဝန်ကြီးဌာန၌ (၃၆) ကြိမ်မြောက် ပိုးသတ်ဆေး မှတ်ပုံတင်အဖွဲ့ အစည်းအဝေးကို ကျင်းပခဲ့သည်။ အဆိုပါအစည်းအဝေးတွင် စားသုံးသူဘေးကင်းလုံခြုံရေးအတွက် ပိုးသတ်ဆေး အမျိုးပေါင်း ၂၇၉ မျိုးကို အတည်ပြုပေးနိုင်ရေး ဆွေးနွေးခဲ့ကြသည်။",
+         "date_time_raw":"ယနေ့မွန်းလွဲပိုင်း"
+      }
+   }
+]
