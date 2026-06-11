@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YBS Smart Finder Pro</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+<style>
+body{margin:0;font-family:system-ui;background:#f5f7fb}
+.header{background:#0d6efd;color:#fff;padding:16px;font-weight:700}
+.container{padding:12px;max-width:900px;margin:auto}
+.card{background:#fff;border-radius:14px;padding:12px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+input{width:100%;padding:14px;border:1px solid #ddd;border-radius:10px;box-sizing:border-box}
+.results .route{padding:10px;border-bottom:1px solid #eee}
+.chip{display:inline-block;background:#e7f0ff;padding:6px 10px;border-radius:999px;margin:3px}
+button{padding:12px 14px;border:none;border-radius:10px;background:#0d6efd;color:white}
+#map{height:320px;border-radius:12px}
+.suggestions{max-height:220px;overflow:auto}
+.item{padding:10px;cursor:pointer}
+.item:hover{background:#f0f4ff}
+</style>
+</head>
+<body>
+<div class="header">🚌 YBS Smart Finder Pro</div>
+<div class="container">
+<div class="card">
+<button onclick="useLocation()">📍 Use My Location</button>
+<div style="height:8px"></div>
+<input id="from" placeholder="From stop">
+<div id="fromSug" class="suggestions"></div>
+<div style="height:8px"></div>
+<input id="to" placeholder="To stop">
+<div id="toSug" class="suggestions"></div>
+</div>
+
+<div class="card">
+<div id="favorites"></div>
+</div>
+
+<div class="card"><div id="map"></div></div>
+
+<div class="card results" id="results">Load datasets to begin.</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+let stops=[],routes=[],fuse,map,markers=[];
+const favKey='ybs-favorites';
+
+map=L.map('map').setView([16.866,96.195],11);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+Promise.all([
+ fetch('busstopsbyservice000114.csv').then(r=>r.text())
+]).then(([csv])=>{
+ const lines=csv.split(/\r?\n/);
+ const headers=lines[0].split(',');
+ for(let i=1;i<lines.length;i++){
+   const row=parseCSV(lines[i]);
+   if(row.length<headers.length) continue;
+   let o={};
+   headers.forEach((h,idx)=>o[h]=row[idx]);
+   routes.push(o);
+ }
+ buildStops();
+});
+
+function parseCSV(line){
+ let out=[],cur='',q=false;
+ for(let c of line){
+  if(c=='"') q=!q;
+  else if(c==','&&!q){out.push(cur);cur='';}
+  else cur+=c;
+ }
+ out.push(cur);
+ return out;
+}
+
+function buildStops(){
+ const m=new Map();
+ routes.forEach(r=>{
+   if(!m.has(r.bus_stop_id)){
+      m.set(r.bus_stop_id,{
+       id:r.bus_stop_id,
+       name:r.name_en,
+       mm:r.name_mm,
+       township:r.township_en,
+       lat:parseFloat(r.lat),
+       lng:parseFloat(r.lng)
+      });
+   }
+ });
+ stops=[...m.values()];
+ fuse=new Fuse(stops,{keys:['name','mm','township'],threshold:.35});
+ wireSearch('from','fromSug');
+ wireSearch('to','toSug');
+ renderFavs();
+ document.getElementById('results').innerHTML='Ready. Search origin and destination.';
+}
+
+function wireSearch(inputId,sugId){
+ const el=document.getElementById(inputId);
+ el.addEventListener('input',()=>{
+  const q=el.value.trim();
+  if(!q)return document.getElementById(sugId).innerHTML='';
+  const hits=fuse.search(q).slice(0,8);
+  document.getElementById(sugId).innerHTML=hits.map(h=>
+   `<div class=item onclick="pick('${inputId}','${h.item.id}')">${h.item.name} (${h.item.township})</div>`).join('');
+ });
+}
+
+function pick(target,id){
+ const s=stops.find(x=>x.id==id);
+ document.getElementById(target).value=s.name;
+ document.getElementById(target).dataset.id=id;
+ document.getElementById(target==='from'?'fromSug':'toSug').innerHTML='';
+ runSearch();
+}
+
+function runSearch(){
+ const a=document.getElementById('from').dataset.id;
+ const b=document.getElementById('to').dataset.id;
+ if(!a||!b)return;
+
+ const direct=findDirect(a,b);
+ const transfer=findTransfer(a,b);
+
+ let html='<h3>Recommended Routes</h3>';
+ direct.forEach(r=>html+=`<div class=route>🚌 ${r.service} Direct (${r.stops} stops)</div>`);
+ transfer.slice(0,5).forEach(r=>html+=`<div class=route>🚌 ${r.first} → Transfer → 🚌 ${r.second}</div>`);
+ if(!direct.length&&!transfer.length) html+='No routes found';
+ document.getElementById('results').innerHTML=html;
+
+ showMap(a,b);
+}
+
+function findDirect(a,b){
+ const from=routes.filter(r=>r.bus_stop_id==a);
+ const to=routes.filter(r=>r.bus_stop_id==b);
+ let out=[];
+ from.forEach(f=>{
+  to.forEach(t=>{
+   if(f.service_name===t.service_name){
+    const fs=+f.sequence, ts=+t.sequence;
+    if(fs<ts) out.push({service:f.service_name,stops:ts-fs});
+   }
+  })
+ });
+ return out.sort((x,y)=>x.stops-y.stops);
+}
+
+function findTransfer(a,b){
+ const fromServices=new Set(routes.filter(r=>r.bus_stop_id==a).map(r=>r.service_name));
+ const toServices=new Set(routes.filter(r=>r.bus_stop_id==b).map(r=>r.service_name));
+ let res=[];
+ fromServices.forEach(s1=>{
+   const stops1=new Set(routes.filter(r=>r.service_name==s1).map(r=>r.bus_stop_id));
+   toServices.forEach(s2=>{
+      const stops2=new Set(routes.filter(r=>r.service_name==s2).map(r=>r.bus_stop_id));
+      for(const x of stops1){
+        if(stops2.has(x)){res.push({first:s1,second:s2,transfer:x});break;}
+      }
+   });
+ });
+ return res;
+}
+
+function showMap(a,b){
+ markers.forEach(m=>map.removeLayer(m));
+ const s1=stops.find(x=>x.id==a), s2=stops.find(x=>x.id==b);
+ const m1=L.marker([s1.lat,s1.lng]).addTo(map);
+ const m2=L.marker([s2.lat,s2.lng]).addTo(map);
+ markers=[m1,m2];
+ map.fitBounds([[s1.lat,s1.lng],[s2.lat,s2.lng]]);
+}
+
+function useLocation(){
+ navigator.geolocation.getCurrentPosition(pos=>{
+   let best=null,dist=1e20;
+   stops.forEach(s=>{
+     const d=Math.hypot(pos.coords.latitude-s.lat,pos.coords.longitude-s.lng);
+     if(d<dist){dist=d;best=s;}
+   });
+   if(best){
+     document.getElementById('from').value=best.name;
+     document.getElementById('from').dataset.id=best.id;
+   }
+ });
+}
+
+function renderFavs(){
+ let favs=JSON.parse(localStorage.getItem(favKey)||'[]');
+ document.getElementById('favorites').innerHTML='<b>Favorites</b><br>'+favs.map(f=>`<span class=chip>${f.name}</span>`).join(' ');
+}
+
+if('serviceWorker' in navigator){
+ const sw=`self.addEventListener('install',e=>self.skipWaiting())`;
+ const blob=new Blob([sw],{type:'text/javascript'});
+ navigator.serviceWorker.register(URL.createObjectURL(blob));
+}
+</script>
+</body>
+</html>

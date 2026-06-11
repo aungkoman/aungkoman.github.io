@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Route Query Pro</title>
+    <style>
+        body { 
+            font-family: system-ui, -apple-system, sans-serif; 
+            padding: 20px; 
+            max-width: 550px; 
+            margin: auto; 
+            background-color: #f4f7f6; 
+            color: #333; 
+        }
+        h2 { color: #2c3e50; }
+        .form-group { margin-bottom: 20px; }
+        label { font-weight: 600; display: block; margin-bottom: 5px; font-size: 14px; }
+        input[type="text"] { 
+            padding: 12px; 
+            width: calc(100% - 26px); 
+            border: 1px solid #ccc; 
+            border-radius: 6px; 
+            font-size: 16px; 
+            background-color: #fff;
+        }
+        button { 
+            padding: 14px; 
+            width: 100%; 
+            font-size: 16px; 
+            font-weight: bold;
+            background-color: #0056b3; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            transition: background 0.2s; 
+            margin-top: 10px;
+        }
+        button:hover:not(:disabled) { background-color: #004494; }
+        button:disabled { background-color: #a0c4e8; cursor: not-allowed; }
+        
+        #results { 
+            margin-top: 25px; 
+            padding: 20px; 
+            background: white; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+            min-height: 100px;
+        }
+        .route-card { 
+            padding: 15px 0; 
+            border-bottom: 1px solid #eaeaea; 
+        }
+        .route-card:last-child { border-bottom: none; padding-bottom: 0; }
+        .service-badge {
+            background: #e8f0fe;
+            color: #1a73e8;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 8px;
+            font-size: 16px;
+        }
+        
+        /* New styles for the buses at stop feature */
+        .stop-info-container {
+            min-height: 24px;
+            margin-top: 6px;
+        }
+        .mini-badge {
+            display: inline-block;
+            background: #e0e0e0;
+            color: #333;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin: 2px 2px 0 0;
+            font-weight: 600;
+        }
+
+        .loading { color: #666; font-style: italic; text-align: center; margin-top: 20px; }
+        .error { color: #d32f2f; background: #fdeaea; padding: 10px; border-radius: 6px; }
+    </style>
+</head>
+<body>
+
+    <h2>Find Your Bus</h2>
+    
+    <div class="form-group">
+        <label for="currentStop">Current Stop:</label>
+        <input type="text" id="currentStop" list="stopNamesList" placeholder="Type a stop name or code..." />
+        <div id="currentStopInfo" class="stop-info-container"></div>
+    </div>
+
+    <div class="form-group">
+        <label for="destStop">Destination Stop:</label>
+        <input type="text" id="destStop" list="stopNamesList" placeholder="Type a stop name or code..." />
+        <div id="destStopInfo" class="stop-info-container"></div>
+    </div>
+
+    <datalist id="stopNamesList"></datalist>
+
+    <button onclick="findRoutes()" id="searchBtn" disabled>Loading Data...</button>
+
+    <div id="results">
+        <p class="loading">Downloading transit datasets...</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    
+    <script>
+        let busData = [];
+        let stopCodeToName = new Map();
+        
+        const resultsContainer = document.getElementById('results');
+        const searchBtn = document.getElementById('searchBtn');
+        const dataList = document.getElementById('stopNamesList');
+
+        window.onload = function() {
+            Promise.all([
+                fetch("busstops000114.geojson").then(res => {
+                    if (!res.ok) throw new Error("Could not load GeoJSON");
+                    return res.json();
+                }),
+                new Promise((resolve, reject) => {
+                    Papa.parse("busstopsbyservice000114.csv", {
+                        download: true,
+                        header: true, 
+                        // CRITICAL FIX: Keep everything as text so leading zeros aren't lost
+                        dynamicTyping: false, 
+                        complete: resolve,
+                        error: reject
+                    });
+                })
+            ])
+            .then(([geoJsonData, csvData]) => {
+                busData = csvData.data;
+                
+                geoJsonData.features.forEach(feature => {
+                    const code = feature.properties.BusStopCode || feature.properties.StopCode;
+                    const name = feature.properties.Description || feature.properties.Name || "Unknown";
+                    
+                    if (code && name) {
+                        const displayText = `${name} (${code})`;
+                        stopCodeToName.set(String(code), name);
+                        
+                        const option = document.createElement('option');
+                        option.value = displayText; 
+                        dataList.appendChild(option);
+                    }
+                });
+
+                // Attach event listeners to show buses at the stop instantly
+                document.getElementById('currentStop').addEventListener('input', (e) => showBusesAtStop(e.target.value, 'currentStopInfo'));
+                document.getElementById('destStop').addEventListener('input', (e) => showBusesAtStop(e.target.value, 'destStopInfo'));
+
+                searchBtn.disabled = false;
+                searchBtn.innerText = "Search Routes";
+                resultsContainer.innerHTML = "<p style='text-align: center; color: #2e7d32;'>Datasets loaded successfully. Ready to search!</p>";
+            })
+            .catch(error => {
+                resultsContainer.innerHTML = `<p class="error">Error loading data files: ${error.message}. Make sure your local server is running.</p>`;
+                console.error("Initialization Error:", error);
+            });
+        };
+
+        function extractCode(inputString) {
+            const match = inputString.match(/\(([^)]+)\)$/);
+            return match ? match[1].trim() : inputString.trim();
+        }
+
+        // NEW FEATURE: Show buses arriving at the selected stop
+        function showBusesAtStop(inputVal, infoContainerId) {
+            const container = document.getElementById(infoContainerId);
+            const code = extractCode(inputVal);
+
+            // Filter the dataset for the extracted code
+            const records = busData.filter(row => String(row.BusStopCode).trim() === String(code).trim());
+
+            if (records.length === 0) {
+                container.innerHTML = ""; // Clear if no valid stop is selected yet
+                return;
+            }
+
+            // Get unique bus services and sort them naturally (so 9 comes before 10)
+            const uniqueBuses = [...new Set(records.map(r => r.ServiceNo))]
+                                .sort((a, b) => String(a).localeCompare(String(b), undefined, {numeric: true}));
+
+            // Create visual badges for each bus
+            const badgesHtml = uniqueBuses.map(bus => `<span class="mini-badge">${bus}</span>`).join(' ');
+            
+            container.innerHTML = `<div style="font-size: 13px; color: #555;"><strong>Buses here:</strong> ${badgesHtml}</div>`;
+        }
+
+        function findRoutes() {
+            const currentInput = document.getElementById('currentStop').value;
+            const destInput = document.getElementById('destStop').value;
+            
+            if (!currentInput || !destInput) {
+                resultsContainer.innerHTML = "<p class='error'>Please select both origin and destination stops.</p>";
+                return;
+            }
+
+            resultsContainer.innerHTML = "<p class='loading'>Calculating routes...</p>";
+
+            const currentCode = extractCode(currentInput);
+            const destCode = extractCode(destInput);
+
+            // Find matching records based on the exact string to avoid leading-zero bugs
+            const originRecords = busData.filter(row => String(row.BusStopCode).trim() === String(currentCode).trim());
+            const destRecords = busData.filter(row => String(row.BusStopCode).trim() === String(destCode).trim());
+
+            let validRoutes = [];
+
+            originRecords.forEach(origin => {
+                destRecords.forEach(dest => {
+                    if (origin.ServiceNo === dest.ServiceNo && origin.Direction === dest.Direction) {
+                        // Ensure StopSequence is treated as a number for the math calculation
+                        const originSeq = parseInt(origin.StopSequence, 10);
+                        const destSeq = parseInt(dest.StopSequence, 10);
+
+                        if (originSeq < destSeq) {
+                            validRoutes.push({
+                                service: origin.ServiceNo,
+                                direction: origin.Direction,
+                                stopsCount: destSeq - originSeq
+                            });
+                        }
+                    }
+                });
+            });
+
+            displayResults(validRoutes, currentCode, destCode);
+        }
+
+        function displayResults(routes, startCode, endCode) {
+            resultsContainer.innerHTML = ""; 
+
+            const startName = stopCodeToName.get(String(startCode)) || startCode;
+            const endName = stopCodeToName.get(String(endCode)) || endCode;
+
+            if (routes.length === 0) {
+                resultsContainer.innerHTML = `
+                    <p style="text-align:center;">No direct buses found from <strong>${startName}</strong> to <strong>${endName}</strong>.</p>
+                `;
+                return;
+            }
+
+            routes.sort((a, b) => a.stopsCount - b.stopsCount);
+
+            let html = `
+                <h3 style="margin-top: 0; font-size: 18px; color: #444;">
+                    Direct Routes: ${startName} &rarr; ${endName}
+                </h3>
+            `;
+            
+            routes.forEach(route => {
+                html += `
+                    <div class="route-card">
+                        <span class="service-badge">Bus ${route.service}</span> <br>
+                        <div style="margin-top: 8px; font-size: 14px; color: #555;">
+                            <strong>Direction Code:</strong> ${route.direction} <br>
+                            <strong>Journey:</strong> ${route.stopsCount} stops
+                        </div>
+                    </div>
+                `;
+            });
+
+            resultsContainer.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
