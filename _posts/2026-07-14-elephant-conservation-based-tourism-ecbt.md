@@ -28,8 +28,10 @@ tags: [life,promotion] # TAG names should always be lowercase
 ပိုပြီးကောင်းကောင်းမွန်မွန် ဖြစ်စေချင်ရုံ သပ်သပ်ပဲ။
 
 အောက်မှာတော့ ကျွန်တော်တို့ရဲ့ ဆင် ဝက်ဘ်ဆိုဒ်လေးကို ဝင်ရောက်လေ့လာနိုင်ပါတယ်။
+https://elephant.software100.com.mm
 
 Source Code လေ့လာချင်တဲ့ ညီအစ်ကို မောင်နှမတွေ နဲ့ အချက်အလက်တွေ မွမ်းမံပြင်ဆင်ချင်တဲ့ သူတွေအတွက်လည်း Github Repo ကို public ဖွင့်ထားပါတယ်ခင်ဗျာ။
+https://github.com/aungkoman/elephant
 
 
 
