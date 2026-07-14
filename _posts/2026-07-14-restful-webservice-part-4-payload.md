@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Restful Web Service - Payload"
-date: 2026-07-1011
+date: 2026-07-14
 categories: tutorials
 author: KM
 tags: [life,promotion] # TAG names should always be lowercase
