@@ -1,6 +1,3 @@
-Here is a detailed, structured prompt designed for an AI video generator or animation tool, tailored to the specific 2D minimalist art style we discussed:
-
-### **The Animation Prompt**
 
 > **Art Style & Global Directives**
 > **Style:** Minimalist 2D vector explainer animation.
