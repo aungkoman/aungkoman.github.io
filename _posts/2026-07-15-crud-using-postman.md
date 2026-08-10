@@ -13,6 +13,11 @@ wireless print,
 invoice generate
 
 
+let's create mobile app, offline first, 
+jetpack compose ? or flutter ?
+
+flutter 
+
 ```Mermaid
 
 erDiagram
@@ -72,6 +77,6 @@ erDiagram
     INVOICE ||--o{ ITEM : "has"
     GAS_TYPE ||--o{ ITEM : "has"
     GAS_TYPE ||--o{ PRICE_HISTORY : "has"
-    
+
 
 ```
