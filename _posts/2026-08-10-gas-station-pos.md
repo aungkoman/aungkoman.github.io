@@ -39,4 +39,35 @@ Main Dashboard Sheet should show
 - prospect / lead count 
 - upcoming payments within this month, next mount
 
+## First thing we need to define is architecture
+
+Clean?
+MVVM 
+etc
+
+normally we used 
+
+Presentation Layer
+- State Managment (Provider)
+- Screen
+- Components
+
+
+Domain Layer
+- Entity
+- Repository
+- Service
+
+Data Layer
+- Model
+- Service Implementation
+
+
+
+Or, for keep it simple approach,
+
+UI - Provider - Model - Repository
+that's also nice.
+
+May be we used Repository and Service or Something to interexchange of Local DB , Remote API etc
 
