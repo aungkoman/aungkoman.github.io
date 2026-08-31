@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Three.js 3D Game</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden; /* Prevents scrollbars */
+            background-color: #000;
+        }
+        canvas {
+            display: block;
+        }
+        #instructions {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-family: sans-serif;
+            pointer-events: none; /* Let clicks pass through to the canvas */
+        }
+    </style>
+</head>
+<body>
+    <div id="instructions">Use WASD or Arrow Keys to move the cube</div>
+
+    <script type="module">
+        import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+
+        // 1. Setup the Scene, Camera, and Renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // 2. Create the "Rect" (Cube)
+        const geometry = new THREE.BoxGeometry(1, 1, 1);
+        // Using MeshPhongMaterial so it reacts to light
+        const material = new THREE.MeshPhongMaterial({ color: 0x00ff00 }); 
+        const playerCube = new THREE.Mesh(geometry, material);
+        scene.add(playerCube);
+
+        // 3. Add Lighting to make it look 3D
+        const ambientLight = new THREE.AmbientLight(0x404040); // Soft white light
+        scene.add(ambientLight);
+        
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 5, 5);
+        scene.add(directionalLight);
+
+        // Move the camera back so we can see the cube
+        camera.position.z = 5;
+
+        // 4. Handle Keyboard Input
+        const keys = {
+            w: false, a: false, s: false, d: false,
+            ArrowUp: false, ArrowDown: false, ArrowLeft: false, ArrowRight: false
+        };
+
+        window.addEventListener('keydown', (event) => {
+            if (keys.hasOwnProperty(event.key)) keys[event.key] = true;
+        });
+
+        window.addEventListener('keyup', (event) => {
+            if (keys.hasOwnProperty(event.key)) keys[event.key] = false;
+        });
+
+        // 5. Animation and Movement Loop
+        const speed = 0.1;
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Movement Logic
+            if (keys.w || keys.ArrowUp) playerCube.position.y += speed;
+            if (keys.s || keys.ArrowDown) playerCube.position.y -= speed;
+            if (keys.a || keys.ArrowLeft) playerCube.position.x -= speed;
+            if (keys.d || keys.ArrowRight) playerCube.position.x += speed;
+
+            // Add a constant rotation so it looks like it's floating in space
+            playerCube.rotation.x += 0.01;
+            playerCube.rotation.y += 0.01;
+
+            renderer.render(scene, camera);
+        }
+
+        // Start the loop
+        animate();
+
+        // 6. Handle Window Resizing
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
