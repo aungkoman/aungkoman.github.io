@@ -147,6 +147,10 @@ to get chat id
 
 https://api.telegram.org/botBOTTOKEN/getUpdates
 
+
+https://www.dhammadownload.com/ThitsarShweSi-Sayadaw-AshinOaktama-mp3InMyanmar.htm
+
+
 ```python
 # ==============================================================================
 # 1. INSTALL DEPENDENCIES
