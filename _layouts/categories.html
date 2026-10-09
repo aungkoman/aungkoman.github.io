@@ -1,0 +1,4 @@
+---
+layout: default
+---
+<section class="section"><p class="eyebrow">EXPLORE THE NOTEBOOK</p><h1>{{ page.title | escape }}</h1>{% assign groups = site.categories | sort %}{% for group in groups %}<h2 class="group-title">{{ group[0] | escape }}</h2><div class="post-grid">{% for post in group[1] %}{% include modern-card.html %}{% endfor %}</div>{% endfor %}</section>
