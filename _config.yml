@@ -28,7 +28,7 @@ twitter_username: aungkoman
 github_username:  aungkoman
 
 # Build settings
-remote_theme: "mmistakes/minimal-mistakes"
+theme: minimal-mistakes-jekyll
 plugins:
   - jekyll-feed
   - jekyll-sitemap
@@ -102,3 +102,18 @@ defaults:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+# Keep generated output and development dependencies out of production.
+exclude:
+  - _site
+  - vendor
+  - node_modules
+  - Gemfile
+  - Gemfile.lock
+  - docs
+  - scripts
+  - README.md
+  - about.markdown
+  - 404.md
+  - "**/node_modules"
+  - "**/vendor/bundle"

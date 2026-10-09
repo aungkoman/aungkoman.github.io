@@ -1,4 +1,1 @@
----
-layout: default
----
 <article class="reading"><a class="text-link" href="{{ '/posts/' | relative_url }}">← All writing</a><header class="article-header"><p class="eyebrow">{{ page.categories | join: ' / ' | escape }}</p><h1>{{ page.title | escape }}</h1><p class="muted"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%B %d, %Y' }}</time> · {{ page.author | default: site.author.name | escape }}</p></header><div class="prose">{{ content }}</div><footer class="article-footer">{% if page.previous %}<a href="{{ page.previous.url | relative_url }}">← {{ page.previous.title | escape }}</a>{% endif %}{% if page.next %}<a href="{{ page.next.url | relative_url }}">{{ page.next.title | escape }} →</a>{% endif %}</footer></article>

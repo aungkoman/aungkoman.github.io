@@ -1,0 +1,4 @@
+---
+layout: default
+---
+<section class="section"><p class="eyebrow">FIND AN IDEA</p><h1>Search the notebook</h1><label for="query">Search by title, topic, or excerpt</label><input class="search-input" id="query" type="search" placeholder="Try Flutter, API, or life…"><p id="search-status" class="muted" role="status"></p><div class="post-grid" id="search-results">{% for post in site.posts %}{% include modern-card.html %}{% endfor %}</div></section><script src="{{ '/assets/js/search.js' | relative_url }}" defer></script>

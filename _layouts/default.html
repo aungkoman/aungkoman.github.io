@@ -1,52 +1,16 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.name }} – {{ site.description }}</title>
-
-    {% include meta.html %}
-
-    <!--[if lt IE 9]>
-      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
-    <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
-
-    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
-  </head>
-
-  <body>
-    <div class="wrapper-masthead">
-      <div class="container">
-        <header class="masthead clearfix">
-          <a href="{{ site.baseurl }}/" class="site-avatar"><img src="{{ site.avatar }}" /></a>
-
-          <div class="site-info">
-            <h1 class="site-name"><a href="{{ site.baseurl }}/">{{ site.name }}</a></h1>
-            <p class="site-description">{{ site.description }}</p>
-          </div>
-
-          <nav>
-            <a href="{{ site.baseurl }}/">Blog</a>
-            <a href="{{ site.baseurl }}/about">About</a>
-          </nav>
-        </header>
-      </div>
-    </div>
-
-    <div id="main" role="main" class="container">
-      {{ content }}
-    </div>
-
-    <div class="wrapper-footer">
-      <div class="container">
-        <footer class="footer">
-          {% include svg-icons.html %}
-        </footer>
-      </div>
-    </div>
-
-    {% include analytics.html %}
-    {% include facebook-login.html %}
-  </body>
-</html>
+<!doctype html>
+<html lang="{{ site.locale | default: 'en' | split: '-' | first }}">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+{% seo %}{% feed_meta %}
+<link rel="stylesheet" href="{{ '/assets/css/modern.css' | relative_url }}">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="wrap header-inner">
+<a class="brand" href="{{ '/' | relative_url }}"><span class="brand-icon">ak.</span><span>Aung Ko Man</span></a>
+<nav aria-label="Main navigation"><a href="{{ '/posts/' | relative_url }}">Writing</a><a href="{{ '/#projects' | relative_url }}">Projects</a><a href="{{ '/about/' | relative_url }}">About</a><a class="contact-link" href="mailto:{{ site.email }}">Let’s talk <span aria-hidden="true">↗</span></a></nav>
+</div></header>
+<main id="main" class="wrap">{{ content }}</main>
+<footer class="wrap site-footer"><span>© {{ 'now' | date: '%Y' }} Aung Ko Man · Built with curiosity.</span><div><a href="https://github.com/{{ site.github_username }}">GitHub ↗</a><a href="{{ '/feed.xml' | relative_url }}">RSS</a><a href="{{ '/search/' | relative_url }}">Search</a></div></footer>
+</body></html>
