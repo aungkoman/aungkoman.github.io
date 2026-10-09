@@ -3,6 +3,7 @@ source "https://rubygems.org"
 # Using a more feature-rich theme instead of minima
 gem "jekyll", "~> 4.3.2"
 gem "minimal-mistakes-jekyll"
+gem "jekyll-remote-theme"
 
 # If you want to use GitHub Pages, remove the "gem "jekyll"" above and
 # uncomment the line below. To upgrade, run `bundle update github-pages`.
