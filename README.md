@@ -36,3 +36,7 @@ Use the actual Workers/custom domain as `SITE_URL` so canonical links, RSS, and 
 Published `_posts/*.md`, `*.markdown`, and `*.html` are read at build time. The loader keeps category/year/month/day/slug.html URLs based on Jekyll front matter dates, including explicit permalinks. Drafts and `published: false` posts are excluded. Markdown is rendered and HTML sanitized; shared blog assets are copied by `scripts/prepare-assets.mjs`. Search includes full article text. Archive, categories, tags, about, RSS, sitemap, and a 404 page are included.
 
 The original Jekyll sources are retained. Jekyll plugins, theme behavior, arbitrary Liquid templates, and unrelated app/demo projects are not converted. Common `site.baseurl` and `page.image` expressions are supported. Review older plugin embeds and any external image links before replacing the public site. GitHub Pages cannot execute the Hono Worker; deploy this build to Cloudflare and update DNS/domain links separately.
+
+## Integration guides
+
+Astro၊ Hono နဲ့ Cloudflare setup/deployment လမ်းညွှန်များကို [docs/integration](docs/integration/README.md) မှာ စုထားပါတယ်။
