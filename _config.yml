@@ -30,6 +30,7 @@ github_username:  aungkoman
 # Build settings
 remote_theme: "mmistakes/minimal-mistakes"
 plugins:
+  - jekyll-remote-theme
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
