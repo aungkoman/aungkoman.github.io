@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Search"><h1>Find an article</h1><label for="query">Search titles and article content</label><input id="query" type="search" placeholder="Flutter, Laravel, life…"/><p id="status" role="status"></p><div id="results" class="post-list"></div></Layout>
+<script>
+const input = document.querySelector<HTMLInputElement>('#query')!;
+const results = document.querySelector('#results')!;
+const status = document.querySelector('#status')!;
+let index: { title: string; url: string; text: string }[];
+let version = 0;
+input.addEventListener('input', async () => {
+  const current = ++version;
+  const query = input.value.trim().toLowerCase();
+  results.replaceChildren();
+  if (!query) { status.textContent = ''; return; }
+  try {
+    if (!index) { const response = await fetch('/search-index.json'); if (!response.ok) throw new Error('Search unavailable'); index = await response.json(); }
+    if (current !== version) return;
+    const matches = index.filter(p => `${p.title} ${p.text}`.toLowerCase().includes(query));
+    status.textContent = `${matches.length} articles found`;
+    for (const post of matches.slice(0, 50)) { const article = document.createElement('article'); const link = document.createElement('a'); link.href = post.url; link.textContent = post.title; article.appendChild(link); results.appendChild(article); }
+  } catch { if (current === version) status.textContent = 'Search could not load. Please try again.'; }
+});
+</script>

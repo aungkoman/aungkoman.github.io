@@ -1,0 +1,8 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PostList from '../components/PostList.astro';
+import { posts } from '../lib/posts';
+const kind = "categories";
+const groups = [...new Set(posts.flatMap(post => post[kind]))].sort();
+---
+<Layout title={kind}><h1>Categories</h1><nav aria-label="Topics">{groups.map(group => <a href={'#' + encodeURIComponent(group)}>{group}</a>)}</nav>{groups.map(group => <section id={encodeURIComponent(group)}><h2>{group}</h2><PostList posts={posts.filter(post => post[kind].includes(group))}/></section>)}</Layout>

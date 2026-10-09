@@ -1,0 +1,6 @@
+---
+import type { Post } from '../lib/posts';
+interface Props { posts: Post[]; }
+const { posts } = Astro.props;
+---
+<div class="post-list">{posts.map(post => <article><div class="meta"><time datetime={post.date}>{post.date}</time> · {post.categories.join(' / ')}</div><h2><a href={post.url}>{post.title}</a></h2><p>{post.excerpt}…</p><a class="read" href={post.url}>Read article →</a></article>)}</div>

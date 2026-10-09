@@ -1,0 +1,7 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { posts } from '../lib/posts';
+export function getStaticPaths() { return posts.map(post => ({ params: { path: post.url.replace(/^\//,'').replace(/\/$/,'').replace(/\.html$/,'') }, props: { post } })); }
+const { post } = Astro.props;
+---
+<Layout title={post.title} description={post.excerpt}><article class="prose"><a href="/posts/">← All posts</a><p class="meta"><time datetime={post.date}>{post.date}</time> · {post.categories.join(' / ')}</p><h1>{post.title}</h1><div set:html={post.html}/></article></Layout>

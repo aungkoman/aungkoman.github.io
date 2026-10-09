@@ -1,0 +1,6 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PostList from '../components/PostList.astro';
+import { posts } from '../lib/posts';
+---
+<Layout><section class="hero"><p class="eyebrow">DEVELOPER · WRITER · DAD</p><h1>Code, family,<br/>and everything<br/><em>in between.</em></h1><p>Hi, I'm Aung Ko Man. A developer navigating life as a son, big brother, husband, and dad.</p><a class="button" href="/about/">More about me ↗</a></section><div class="section-title"><h2>Latest writing</h2><a href="/posts/">All {posts.length} posts →</a></div><PostList posts={posts.slice(0,12)}/></Layout>

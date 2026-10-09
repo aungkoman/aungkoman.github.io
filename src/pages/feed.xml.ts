@@ -1,0 +1,4 @@
+import { posts } from '../lib/posts';
+import type { APIRoute } from 'astro';
+const xml = (value: string) => value.replace(/[<>&"']/g, character => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&apos;' })[character]!);
+export const GET: APIRoute = ({ site }) => new Response(`<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Aung Ko Man</title><link>${site}</link><description>Code, family, and everything in between.</description>${posts.slice(0, 30).map(p => `<item><title>${xml(p.title)}</title><link>${xml(new URL(p.url, site).href)}</link><guid>${xml(new URL(p.url, site).href)}</guid><pubDate>${new Date(p.date).toUTCString()}</pubDate><description>${xml(p.excerpt)}</description></item>`).join('')}</channel></rss>`, { headers: { 'Content-Type': 'application/xml' } });

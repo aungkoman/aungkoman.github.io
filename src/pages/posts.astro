@@ -1,0 +1,6 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PostList from '../components/PostList.astro';
+import { posts } from '../lib/posts';
+---
+<Layout title="Posts"><h1>All writing</h1><p>{posts.length} articles on technology and life.</p><PostList posts={posts}/></Layout>

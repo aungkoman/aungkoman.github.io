@@ -1,0 +1,6 @@
+---
+import '../styles/global.css';
+interface Props { title?: string; description?: string; }
+const { title = 'Aung Ko Man', description = 'Thoughts on code, family, and everything in between.' } = Astro.props;
+---
+<!doctype html><html lang="my"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width"/><title>{title} · Aung Ko Man</title><meta name="description" content={description}/><link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)}/><link rel="icon" href="/favicon.png"/><link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Aung Ko Man"/></head><body><header><a class="brand" href="/">Aung Ko Man<span>Code & everyday life</span></a><nav aria-label="Main navigation">{[['Posts','/posts/'],['Categories','/categories/'],['Tags','/tags/'],['About','/about/'],['Search','/search/']].map(([label,href]) => <a href={href}>{label}</a>)}</nav></header><main><slot/></main><footer>© {new Date().getFullYear()} Aung Ko Man · <a href="https://github.com/aungkoman">GitHub</a> · <a href="/feed.xml">RSS</a></footer></body></html>
