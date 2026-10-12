@@ -33,6 +33,21 @@ jobs:
         run: bundle exec jekyll build --destination ./_site
       - name: Verify generated website
         run: python3 scripts/verify-site.py
+      - name: Install browser checks
+        run: |
+          npm install --prefix "$RUNNER_TEMP/blog-ui" --no-save playwright@1.62.1
+          node "$RUNNER_TEMP/blog-ui/node_modules/playwright/cli.js" install --with-deps chromium
+      - name: Verify mobile and desktop layout
+        env:
+          NODE_PATH: ${{ runner.temp }}/blog-ui/node_modules
+        run: node scripts/verify-mobile-ui.cjs
+      - name: Upload layout screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-desktop-layout
+          path: ui-checks/
+          if-no-files-found: ignore
       - name: Upload Pages artifact
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3

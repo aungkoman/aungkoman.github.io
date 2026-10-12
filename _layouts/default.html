@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ site.locale | default: 'en' | split: '-' | first }}">
+<html lang="{{ page.lang | default: site.locale | default: 'en' | split: '-' | first }}">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 {% seo %}{% feed_meta %}
@@ -9,7 +9,8 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header"><div class="wrap header-inner">
 <a class="brand" href="{{ '/' | relative_url }}"><span class="brand-icon">ak.</span><span>Aung Ko Man</span></a>
-<nav aria-label="Main navigation"><a href="{{ '/posts/' | relative_url }}">Writing</a><a href="{{ '/#projects' | relative_url }}">Projects</a><a href="{{ '/about/' | relative_url }}">About</a><a class="contact-link" href="mailto:{{ site.email }}">Let’s talk <span aria-hidden="true">↗</span></a></nav>
+<nav class="desktop-nav" aria-label="Main navigation"><a href="{{ '/posts/' | relative_url }}">Writing</a><a href="{{ '/#projects' | relative_url }}">Projects</a><a href="{{ '/about/' | relative_url }}">About</a><a class="contact-link" href="mailto:{{ site.email }}">Let’s talk <span aria-hidden="true">↗</span></a></nav>
+<details class="mobile-nav"><summary>Menu</summary><nav aria-label="Mobile navigation"><a href="{{ '/posts/' | relative_url }}">Writing</a><a href="{{ '/#projects' | relative_url }}">Projects</a><a href="{{ '/about/' | relative_url }}">About</a><a href="mailto:{{ site.email }}">Let’s talk ↗</a></nav></details>
 </div></header>
 <main id="main" class="wrap">{{ content }}</main>
 <footer class="wrap site-footer"><span>© {{ 'now' | date: '%Y' }} Aung Ko Man · Built with curiosity.</span><div><a href="https://github.com/{{ site.github_username }}">GitHub ↗</a><a href="{{ '/feed.xml' | relative_url }}">RSS</a><a href="{{ '/search/' | relative_url }}">Search</a></div></footer>

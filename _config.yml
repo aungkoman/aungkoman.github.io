@@ -112,6 +112,7 @@ exclude:
   - Gemfile.lock
   - docs
   - scripts
+  - ui-checks
   - README.md
   - about.markdown
   - 404.md

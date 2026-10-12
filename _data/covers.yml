@@ -1,0 +1,96 @@
+coding:
+  image: /assets/images/covers/coding-1280.jpg
+  alt: Laptop displaying software code
+  photographer: AltumCode
+  source: https://unsplash.com/photos/zE007SNgcdE
+  license: https://unsplash.com/license
+business:
+  image: /assets/images/covers/business-1280.jpg
+  alt: Colleagues discussing work around a meeting table
+  photographer: Vitaly Gariev
+  source: https://unsplash.com/photos/fQf9XTYNmQU
+  license: https://unsplash.com/license
+clinic:
+  image: /assets/images/covers/clinic-1280.jpg
+  alt: Hospital corridor with seating and doors
+  photographer: Tasha Kostyuk
+  source: https://unsplash.com/photos/Pk-KuizxQv8
+  license: https://unsplash.com/license
+inventory:
+  image: /assets/images/covers/inventory-1280.jpg
+  alt: Warehouse aisles with organised stock on shelves
+  photographer: Phillip Flores
+  source: https://unsplash.com/photos/gjZTDr6E4vQ
+  license: https://unsplash.com/license
+writing:
+  image: /assets/images/covers/writing-1280.jpg
+  alt: Notebook and fountain pen for planning and reflection
+  photographer: Niko Nieminen
+  source: https://unsplash.com/photos/2eRNBtrRmDU
+  license: https://unsplash.com/license
+family:
+  image: /assets/images/covers/family-1280.jpg
+  alt: Parents and children together outdoors at sunset
+  photographer: Mushvig Niftaliyev
+  source: https://unsplash.com/photos/Hh4Boy-k5rg
+  license: https://unsplash.com/license
+learning:
+  image: /assets/images/covers/learning-1280.jpg
+  alt: Library shelves and desks for study
+  photographer: Andy Wang
+  source: https://unsplash.com/photos/3K6Qcxm6Jig
+  license: https://unsplash.com/license
+server:
+  image: /assets/images/covers/server-1280.jpg
+  alt: Rows of server racks in a data centre
+  photographer: imgix
+  source: https://unsplash.com/photos/klWUhr-wPJ8
+  license: https://unsplash.com/license
+finance:
+  image: /assets/images/covers/finance-1280.jpg
+  alt: Phone, calculator and notes on a desk
+  photographer: Amanz
+  source: https://unsplash.com/photos/vjPRGc9i2H8
+  license: https://unsplash.com/license
+delivery:
+  image: /assets/images/covers/delivery-1280.jpg
+  alt: Delivery truck travelling through a city
+  photographer: Kenny
+  source: https://unsplash.com/photos/Ug_adpn5jrY
+  license: https://unsplash.com/license
+mobile:
+  image: /assets/images/covers/mobile-1280.jpg
+  alt: Smartphone, keyboard and laptop on a desk
+  photographer: Ahmad Ahrur
+  source: https://unsplash.com/photos/jhOk8n_kdMk
+  license: https://unsplash.com/license
+faith:
+  image: /assets/images/covers/faith-1280.jpg
+  alt: Kyauk Taw Gyi Pagoda in Mandalay, Myanmar
+  photographer: Phannipa kattiyawong
+  source: https://unsplash.com/photos/nkeM142xIsE
+  license: https://unsplash.com/license
+food:
+  image: /assets/images/covers/food-1280.jpg
+  alt: Prepared meal served on a plate
+  photographer: Louis Hansel
+  source: https://unsplash.com/photos/hlSiiTZL-9I
+  license: https://unsplash.com/license
+gaming:
+  image: /assets/images/covers/gaming-1280.jpg
+  alt: Video game controller
+  photographer: Branden Skeli
+  source: https://unsplash.com/photos/d69kT8Xu4L4
+  license: https://unsplash.com/license
+nature:
+  image: /assets/images/covers/nature-1280.jpg
+  alt: Sunlight falling on a woodland path
+  photographer: Elke Karin Lugert
+  source: https://unsplash.com/photos/GraajutbJHE
+  license: https://unsplash.com/license
+music:
+  image: /assets/images/covers/music-1280.jpg
+  alt: Musician playing an acoustic guitar
+  photographer: John Hult
+  source: https://unsplash.com/photos/9mxt_b87nJk
+  license: https://unsplash.com/license

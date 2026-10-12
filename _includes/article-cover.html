@@ -1,0 +1,5 @@
+{% include resolve-cover.html item=include.item %}
+<figure class="article-cover">
+  <img src="{{ cover_photo.image | relative_url }}" srcset="{{ cover_base | append: '-480.jpg' | relative_url }} 480w, {{ cover_base | append: '-800.jpg' | relative_url }} 800w, {{ cover_photo.image | relative_url }} 1280w" sizes="(min-width: 848px) 800px, calc(100vw - 32px)" width="1280" height="720" alt="{{ cover_photo.alt | escape }}" decoding="async" fetchpriority="high">
+  <figcaption>Illustrative photo by <a href="{{ cover_photo.source | escape }}" rel="noopener">{{ cover_photo.photographer | escape }}</a> on <a href="https://unsplash.com" rel="noopener">Unsplash</a>.</figcaption>
+</figure>

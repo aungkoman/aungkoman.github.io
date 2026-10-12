@@ -1,0 +1,20 @@
+{%- assign cover_key = include.item.cover -%}
+{%- assign cover_filename = include.item.path | split: '/' | last -%}
+{%- unless cover_key -%}
+  {%- assign cover_key = site.data.post_covers[cover_filename] -%}
+{%- endunless -%}
+{%- unless cover_key -%}
+  {%- assign cover_text = include.item.title | append: ' ' | append: include.item.slug | downcase -%}
+  {%- for rule in site.data.cover_rules -%}
+    {%- for word in rule.keywords -%}
+      {%- if cover_text contains word -%}
+        {%- assign cover_key = rule.topic -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if cover_key -%}{%- break -%}{%- endif -%}
+  {%- endfor -%}
+{%- endunless -%}
+{%- assign cover_key = cover_key | default: 'writing' -%}
+{%- assign cover_photo = site.data.covers[cover_key] | default: site.data.covers.writing -%}
+{%- assign cover_base = cover_photo.image | replace: '-1280.jpg', '' -%}
