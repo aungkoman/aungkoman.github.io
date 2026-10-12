@@ -1,3 +1,6 @@
+@font-face{font-family:"Noto Sans Myanmar";font-style:normal;font-weight:400;font-display:swap;src:url("/assets/fonts/myanmar/noto-sans-myanmar-400.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans Myanmar";font-style:normal;font-weight:600;font-display:swap;src:url("/assets/fonts/myanmar/noto-sans-myanmar-600.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans Myanmar";font-style:normal;font-weight:700;font-display:swap;src:url("/assets/fonts/myanmar/noto-sans-myanmar-700.woff2") format("woff2")}
 /* Mobile first: one column and comfortable touch targets by default. */
 :root{--bg:#f7f8f5;--ink:#172b28;--muted:#596b65;--line:#dce3dc;--green:#245e49;--card:#fff;--accent:#d9f28c}
 *{box-sizing:border-box}

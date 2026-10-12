@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const assert = require('node:assert/strict');
 const root = path.resolve('_site');
-const types = {'.html':'text/html; charset=utf-8','.css':'text/css','.js':'text/javascript','.jpg':'image/jpeg','.png':'image/png','.svg':'image/svg+xml'};
+const types = {'.html':'text/html; charset=utf-8','.css':'text/css','.js':'text/javascript','.jpg':'image/jpeg','.png':'image/png','.svg':'image/svg+xml','.woff2':'font/woff2'};
 const server = http.createServer((req,res) => {
   let file = path.resolve(root, '.' + decodeURIComponent(new URL(req.url,'http://localhost').pathname));
   if (!file.startsWith(root + path.sep) && file !== root) { res.writeHead(403); return res.end(); }
@@ -25,6 +25,8 @@ const server = http.createServer((req,res) => {
       const page = await browser.newPage({viewport:{width,height:860},deviceScaleFactor:1});
       for (const route of ['/', '/posts/', '/business-software/define-business-problem-before-software/']) {
         await page.goto(base+route,{waitUntil:'load'});
+        await page.evaluate(async()=>{ await document.fonts.ready; return true; });
+        assert(await page.evaluate(()=>Array.from(document.fonts).some(f=>f.family.includes('Noto Sans Myanmar') && f.status==='loaded')), 'Myanmar webfont did not load');
         const result=await page.evaluate(()=>({
           viewport:innerWidth, width:document.documentElement.scrollWidth,
           cover:document.querySelector('.article-cover img')?.getAttribute('src'),
