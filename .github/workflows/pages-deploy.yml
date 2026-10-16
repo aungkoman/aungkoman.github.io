@@ -1,4 +1,4 @@
-name: Build and deploy Jekyll site
+name: Build and deploy Next.js blog
 on:
   push:
     branches: [master]
@@ -13,27 +13,35 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - uses: ruby/setup-ruby@v1
+      - uses: actions/setup-node@v4
         with:
-          ruby-version: '3.3'
-          bundler-cache: false
-      - name: Install declared dependencies
-        run: bundle install
-      - name: Build website
-        env:
-          JEKYLL_ENV: production
-        run: bundle exec jekyll build --destination ./_site
-      - name: Verify website and article images
-        run: python3 scripts/verify-site.py
-      - name: Upload Pages artifact
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: nextjs-blog/package-lock.json
+      - name: Install locked dependencies
+        run: npm ci --prefix nextjs-blog
+      - name: Test Markdown and permalink compatibility
+        run: npm test --prefix nextjs-blog
+      - name: Export Next.js and preserve legacy assets
+        run: npm run build --prefix nextjs-blog
+      - name: Verify every article, historical URL, image and feed
+        run: npm run verify --prefix nextjs-blog
+      - name: Install Chromium for browser verification
+        run: npx --prefix nextjs-blog playwright install --with-deps chromium
+      - name: Verify mobile layout and hydrated search
+        working-directory: nextjs-blog
+        run: node scripts/mobile-ui.cjs
+      - name: Upload website
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./_site
+          path: nextjs-blog/out
   deploy:
     if: github.event_name != 'pull_request'
     needs: build

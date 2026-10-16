@@ -14,3 +14,11 @@
 .DS_Store
 .DS_Store
 .DS_Store
+
+# Next.js build and dependency output
+nextjs-blog/node_modules/
+nextjs-blog/.next/
+nextjs-blog/out/
+nextjs-blog/route-manifest.json
+
+nextjs-blog/ui-checks/

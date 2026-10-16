@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aung Ko Man — Next.js blog
 
-## Getting Started
+The production blog is a Next.js App Router static export. `_posts/` at the repository root remains the source of truth; do not move or duplicate posts.
 
-First, run the development server:
+## Local development
 
-```bash
+Use Node.js 24:
+
+```sh
+cd nextjs-blog
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+For a complete production export and validation:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+npm test
+npm run build
+npm run verify
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Build output is `nextjs-blog/out/`. GitHub Actions installs the locked dependencies, tests the importer, exports pages, validates all post routes and published historical URLs, and deploys the output to GitHub Pages on pushes to `master`. No Ruby or running Node server is required in production.
 
-## Learn More
+## Content and compatibility
 
-To learn more about Next.js, take a look at the following resources:
+- Markdown front matter: title, date, categories, tags, author, excerpt, lang, cover, permalink, published.
+- Explicit `permalink` values are retained. `lib/legacy-urls.json` records the published Jekyll sitemap at migration to preserve old URLs and casing. New posts without permalinks use the category/date/filename pattern.
+- Future-dated and `published: false` posts are excluded.
+- Existing local responsive covers, Myanmar fonts and Unsplash credits come from root `_data/` and `assets/`.
+- Markdown tables, code blocks and raw HTML are rendered; unsafe scripts/event attributes are removed. Jekyll asset placeholders and highlight blocks are converted. Unrecognized legacy template expressions in code are retained as text; unsupported embeds become comments rather than executable templates.
+- Home, writing archive, about, categories, tags, search, Atom RSS, sitemap and article metadata are generated at build time.
+- Legacy demo/app assets are copied into the export without overwriting generated pages. Existing source assets and Jekyll files remain in the repository for rollback, but the deployment workflow uses Next.js only.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Search uses a static client-side index of published article text. Adding or editing a post requires a new build; SSR/API routes are intentionally not used on GitHub Pages.

@@ -1,0 +1,3 @@
+"use client";
+import { useState } from 'react';
+export default function Search({posts}){const [q,setQ]=useState('');const matches=q.trim()?posts.filter(p=>(p.title+' '+p.text).toLowerCase().includes(q.trim().toLowerCase())).slice(0,80):[];return <><label htmlFor="query">Search in English or မြန်မာ</label><input id="query" type="search" value={q} onChange={e=>setQ(e.target.value)} style={{display:'block',width:'100%',padding:16,margin:'16px 0',font:'inherit'}}/><p aria-live="polite">{q?`${matches.length} results`:'Type to search articles.'}</p><ul>{matches.map(p=><li key={p.url}><a href={p.url}>{p.title}</a></li>)}</ul></>}
