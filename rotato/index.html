@@ -1,0 +1,2771 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rotato Studio Local — 3D Device Mockup & Animation Engine</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Font Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Three.js r128 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', ' system-ui', 'sans-serif'] },
+          colors: {
+            surface: {
+              DEFAULT: '#121216',
+              panel: '#18181d',
+              card: '#202027',
+              hover: '#2a2a33',
+              border: '#2d2d37'
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    * { box-sizing: border-box; user-select: none; }
+    body { font-family: 'Inter', sans-serif; overflow: hidden; }
+    
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(150, 150, 165, 0.25); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(150, 150, 165, 0.45); }
+
+    /* Checkerboard for Transparent Background */
+    .checkerboard {
+      background-image: 
+        linear-gradient(45deg, rgba(128,128,128,0.14) 25%, transparent 25%), 
+        linear-gradient(-45deg, rgba(128,128,128,0.14) 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, rgba(128,128,128,0.14) 75%), 
+        linear-gradient(-45deg, transparent 75%, rgba(128,128,128,0.14) 75%);
+      background-size: 20px 20px;
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    }
+
+    /* Custom Range Input */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      background: rgba(140, 140, 160, 0.2);
+      height: 5px;
+      border-radius: 999px;
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #10b981;
+      cursor: pointer;
+      border: 2px solid #ffffff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+      transition: transform 0.1s ease;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+
+    /* Playhead Polygon */
+    .playhead-cap {
+      clip-path: polygon(0 0, 100% 0, 100% 55%, 50% 100%, 0 55%);
+    }
+  </style>
+</head>
+<body class="bg-zinc-100 dark:bg-[#0d0d11] text-zinc-900 dark:text-zinc-100 h-screen w-screen flex flex-col">
+
+  <!-- MAIN WORKSPACE -->
+  <main class="flex-1 flex min-h-0 w-full overflow-hidden relative">
+
+    <!-- 1. LEFT VERTICAL ICON SIDEBAR & INSPECTOR -->
+    <aside class="flex h-full shrink-0 border-r border-zinc-200 dark:border-surface-border bg-white dark:bg-surface-panel z-30">
+      
+      <!-- Icon Rail -->
+      <div class="w-16 flex flex-col items-center py-3 gap-1.5 border-r border-zinc-200 dark:border-surface-border bg-zinc-50/70 dark:bg-surface">
+        <!-- Brand Logo -->
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center shadow-md shadow-emerald-500/20 mb-4 cursor-pointer" title="Rotato Local GPU Studio">
+          <i data-lucide="box" class="w-5 h-5 text-white"></i>
+        </div>
+
+        <button onclick="switchTab('device')" id="tab-btn-device" class="sidebar-tab-btn active-tab flex flex-col items-center justify-center gap-1 w-13 h-14 px-2 rounded-xl text-xs font-medium transition-all">
+          <i data-lucide="smartphone" class="w-4 h-4"></i>
+          <span class="text-[10px]">Devices</span>
+        </button>
+
+        <button onclick="switchTab('camera')" id="tab-btn-camera" class="sidebar-tab-btn flex flex-col items-center justify-center gap-1 w-13 h-14 px-2 rounded-xl text-xs font-medium transition-all">
+          <i data-lucide="video" class="w-4 h-4"></i>
+          <span class="text-[10px]">Camera</span>
+        </button>
+
+        <button onclick="switchTab('templates')" id="tab-btn-templates" class="sidebar-tab-btn flex flex-col items-center justify-center gap-1 w-13 h-14 px-2 rounded-xl text-xs font-medium transition-all">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          <span class="text-[10px]">Templates</span>
+        </button>
+
+        <button onclick="switchTab('background')" id="tab-btn-background" class="sidebar-tab-btn flex flex-col items-center justify-center gap-1 w-13 h-14 px-2 rounded-xl text-xs font-medium transition-all">
+          <i data-lucide="image" class="w-4 h-4"></i>
+          <span class="text-[10px]">Scene</span>
+        </button>
+
+        <button onclick="switchTab('settings')" id="tab-btn-settings" class="sidebar-tab-btn flex flex-col items-center justify-center gap-1 w-13 h-14 px-2 rounded-xl text-xs font-medium transition-all">
+          <i data-lucide="sliders" class="w-4 h-4"></i>
+          <span class="text-[10px]">Render</span>
+        </button>
+
+        <div class="flex-1"></div>
+
+        <!-- Theme Switcher -->
+        <button onclick="toggleTheme()" class="flex flex-col items-center justify-center gap-1 w-12 h-12 rounded-xl text-zinc-500 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-200/50 dark:hover:bg-surface-hover transition-colors" title="Toggle Light/Dark Mode">
+          <i data-lucide="sun-moon" class="w-4 h-4"></i>
+          <span class="text-[9px]">Theme</span>
+        </button>
+      </div>
+
+      <!-- Inspector Panel Content -->
+      <div class="w-72 flex flex-col h-full overflow-y-auto p-4 space-y-5">
+        
+        <!-- Project Title Bar -->
+        <div class="flex items-center justify-between border-b border-zinc-200 dark:border-surface-border pb-3">
+          <div class="min-w-0">
+            <span class="text-[10px] uppercase tracking-wider font-semibold text-emerald-500 block">Active Project</span>
+            <h2 id="active-project-name" class="text-sm font-semibold truncate">Phone Tilted Zoom Out</h2>
+          </div>
+          <button onclick="resetEntireScene()" class="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-surface-hover transition" title="Reset Scene">
+            <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <!-- TAB 1: DEVICES -->
+        <div id="tab-content-device" class="space-y-5">
+          <!-- 3D Model Selector -->
+          <div>
+            <label class="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block mb-2.5">3D Hardware Model</label>
+            <div class="grid grid-cols-3 gap-2">
+              <button onclick="selectDeviceModel('iphone')" id="model-btn-iphone" class="device-model-btn flex flex-col items-center gap-1.5 p-2.5 rounded-xl border border-emerald-500 bg-emerald-500/10 text-emerald-500 transition">
+                <i data-lucide="smartphone" class="w-5 h-5"></i>
+                <span class="text-[11px] font-medium">iPhone 15</span>
+              </button>
+              <button onclick="selectDeviceModel('macbook')" id="model-btn-macbook" class="device-model-btn flex flex-col items-center gap-1.5 p-2.5 rounded-xl border border-zinc-200 dark:border-surface-border hover:bg-zinc-100 dark:hover:bg-surface-hover transition">
+                <i data-lucide="laptop" class="w-5 h-5"></i>
+                <span class="text-[11px] font-medium">MacBook</span>
+              </button>
+              <button onclick="selectDeviceModel('ipad')" id="model-btn-ipad" class="device-model-btn flex flex-col items-center gap-1.5 p-2.5 rounded-xl border border-zinc-200 dark:border-surface-border hover:bg-zinc-100 dark:hover:bg-surface-hover transition">
+                <i data-lucide="tablet" class="w-5 h-5"></i>
+                <span class="text-[11px] font-medium">iPad Pro</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- MacBook Lid Angle Control (Conditional) -->
+          <div id="macbook-lid-control" class="hidden p-3 rounded-xl bg-zinc-100 dark:bg-surface-card space-y-2">
+            <div class="flex justify-between text-xs">
+              <span class="font-medium">Laptop Lid Angle</span>
+              <span id="lid-angle-label" class="text-emerald-400 font-mono">105°</span>
+            </div>
+            <input type="range" id="lid-angle-slider" min="0" max="135" value="105" class="w-full" oninput="updateMacbookLid(this.value)">
+          </div>
+
+          <!-- Screen Content Dropzone -->
+          <div class="space-y-2">
+            <label class="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block">Screen Design (Image / Video)</label>
+            <div id="screen-dropzone" onclick="document.getElementById('screen-file-input').click()" class="border-2 border-dashed border-zinc-300 dark:border-zinc-700 hover:border-emerald-500 dark:hover:border-emerald-500 rounded-xl p-4 text-center cursor-pointer transition-all bg-zinc-50/50 dark:bg-surface-card/50 group">
+              <input type="file" id="screen-file-input" accept="image/*,video/mp4,video/webm" class="hidden" onchange="handleScreenMediaUpload(event)">
+              <div class="w-9 h-9 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
+                <i data-lucide="upload-cloud" class="w-5 h-5"></i>
+              </div>
+              <p class="text-xs font-medium">Drop screenshot or video</p>
+              <p class="text-[10px] text-zinc-400 mt-0.5">Supports PNG, JPG, WebP, MP4, WebM</p>
+            </div>
+
+            <!-- Built-in interactive UI presets -->
+            <div class="flex items-center gap-1.5 pt-1">
+              <span class="text-[10px] text-zinc-400">Demo Screens:</span>
+              <button onclick="generateDemoScreen('fintech')" class="text-[10px] px-2 py-1 rounded bg-zinc-200 dark:bg-surface-card hover:bg-emerald-500 hover:text-white transition">Fintech App</button>
+              <button onclick="generateDemoScreen('ai')" class="text-[10px] px-2 py-1 rounded bg-zinc-200 dark:bg-surface-card hover:bg-emerald-500 hover:text-white transition">AI Chat</button>
+              <button onclick="generateDemoScreen('analytics')" class="text-[10px] px-2 py-1 rounded bg-zinc-200 dark:bg-surface-card hover:bg-emerald-500 hover:text-white transition">SaaS</button>
+            </div>
+
+            <!-- Screen Color Accuracy, Fit Mode, Brightness & Glass Glare Controls -->
+            <div class="p-3 rounded-xl bg-zinc-100 dark:bg-surface-card space-y-3 mt-2 border border-zinc-200/60 dark:border-surface-border">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-semibold text-emerald-500 flex items-center gap-1">
+                  <i data-lucide="palette" class="w-3.5 h-3.5"></i> True sRGB Display
+                </span>
+                <span class="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 font-mono">toneMapped: false</span>
+              </div>
+
+              <!-- Object-Fit Toggle (Cover vs Contain) -->
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-zinc-500 dark:text-zinc-400 text-[11px]">Aspect Fit</span>
+                <div class="flex rounded-lg bg-zinc-200 dark:bg-surface p-0.5">
+                  <button onclick="setScreenFitMode('cover')" id="fit-btn-cover" class="px-2 py-0.5 rounded-md text-[10px] font-medium bg-emerald-500 text-white transition">Cover / Fill</button>
+                  <button onclick="setScreenFitMode('contain')" id="fit-btn-contain" class="px-2 py-0.5 rounded-md text-[10px] font-medium text-zinc-400 hover:text-white transition">Contain / Fit</button>
+                </div>
+              </div>
+
+              <!-- Screen Brightness / Exposure Slider -->
+              <div class="space-y-1">
+                <div class="flex justify-between text-[11px]">
+                  <span class="text-zinc-500 dark:text-zinc-400">Screen Brightness</span>
+                  <span id="screen-brightness-val" class="font-mono text-emerald-400">100%</span>
+                </div>
+                <input type="range" id="screen-brightness-slider" min="40" max="150" step="1" value="100" class="w-full" oninput="updateScreenBrightness(this.value)">
+              </div>
+
+              <!-- Separate Glass Reflection / Glare Overlay Slider -->
+              <div class="space-y-1">
+                <div class="flex justify-between text-[11px]">
+                  <span class="text-zinc-500 dark:text-zinc-400">Glass Glare Overlay</span>
+                  <span id="screen-glare-val" class="font-mono text-emerald-400">4%</span>
+                </div>
+                <input type="range" id="screen-glare-slider" min="0" max="100" step="1" value="4" class="w-full" oninput="updateScreenGlare(this.value)">
+              </div>
+
+              <!-- Dynamic Island Toggle (for iPhone) -->
+              <div id="dynamic-island-row" class="flex items-center justify-between pt-1 border-t border-zinc-200 dark:border-surface-border">
+                <span class="text-[11px] text-zinc-500 dark:text-zinc-400">Dynamic Island Cutout</span>
+                <button id="island-toggle-btn" onclick="toggleDynamicIsland()" role="switch" aria-checked="true" class="w-9 h-5 rounded-full bg-emerald-500 relative transition-colors">
+                  <span id="island-toggle-knob" class="w-3.5 h-3.5 rounded-full bg-white shadow absolute left-0.5 top-0.5 translate-x-4 transition-transform"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Device Finish & Real Clay Mode -->
+          <div class="space-y-3 pt-2 border-t border-zinc-200 dark:border-surface-border">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-xs font-medium block">Real Clay Mode</span>
+                <span class="text-[10px] text-zinc-400">Minimalist matte monochrome</span>
+              </div>
+              <button id="clay-toggle-btn" onclick="toggleClayMode()" role="switch" aria-checked="false" class="w-10 h-5 rounded-full bg-zinc-300 dark:bg-zinc-700 relative transition-colors">
+                <span id="clay-toggle-knob" class="w-4 h-4 rounded-full bg-white shadow absolute left-0.5 top-0.5 transition-transform"></span>
+              </button>
+            </div>
+
+            <div>
+              <label class="text-xs font-medium block mb-2">Hardware Finish</label>
+              <div class="flex items-center gap-2">
+                <button onclick="setDeviceColor('#27272a', 0.85, 0.2)" class="w-6 h-6 rounded-full bg-zinc-800 ring-2 ring-offset-2 ring-offset-white dark:ring-offset-surface-panel ring-emerald-500" title="Space Black Titanium"></button>
+                <button onclick="setDeviceColor('#a8a29e', 0.88, 0.22)" class="w-6 h-6 rounded-full bg-stone-400 hover:scale-110 transition" title="Natural Titanium"></button>
+                <button onclick="setDeviceColor('#e4e4e7', 0.9, 0.18)" class="w-6 h-6 rounded-full bg-zinc-200 border border-zinc-400 hover:scale-110 transition" title="Silver"></button>
+                <button onclick="setDeviceColor('#d6b98c', 0.88, 0.2)" class="w-6 h-6 rounded-full bg-[#d6b98c] hover:scale-110 transition" title="Desert Gold"></button>
+                <button onclick="setDeviceColor('#3b82f6', 0.75, 0.25)" class="w-6 h-6 rounded-full bg-blue-500 hover:scale-110 transition" title="Ultramarine"></button>
+                <input type="color" id="custom-device-color" value="#27272a" oninput="setDeviceColor(this.value, 0.8, 0.25)" class="w-6 h-6 rounded cursor-pointer bg-transparent border-0" title="Custom Color">
+              </div>
+            </div>
+
+            <!-- Device Tilt / Floating Offset -->
+            <div class="space-y-2 pt-2">
+              <div class="flex justify-between text-xs">
+                <span class="text-zinc-400">Device Pitch (X°)</span>
+                <span id="dev-rot-x-val" class="font-mono text-[11px]">0.0°</span>
+              </div>
+              <input type="range" id="dev-rot-x" min="-90" max="90" step="0.5" value="0" class="w-full" oninput="updateDeviceTransformFromUI()">
+
+              <div class="flex justify-between text-xs">
+                <span class="text-zinc-400">Device Yaw (Y°)</span>
+                <span id="dev-rot-y-val" class="font-mono text-[11px]">0.0°</span>
+              </div>
+              <input type="range" id="dev-rot-y" min="-180" max="180" step="0.5" value="0" class="w-full" oninput="updateDeviceTransformFromUI()">
+
+              <div class="flex justify-between text-xs">
+                <span class="text-zinc-400">Device Roll (Z°)</span>
+                <span id="dev-rot-z-val" class="font-mono text-[11px]">0.0°</span>
+              </div>
+              <input type="range" id="dev-rot-z" min="-90" max="90" step="0.5" value="0" class="w-full" oninput="updateDeviceTransformFromUI()">
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: CAMERA INSPECTOR (Matches Rotato DOM) -->
+        <div id="tab-content-camera" class="hidden space-y-5">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Position & Rotation</span>
+              <div class="flex items-center gap-1">
+                <button onclick="copyCameraValues()" class="p-1 rounded hover:bg-zinc-200 dark:hover:bg-surface-hover text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition" title="Copy camera values">
+                  <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                </button>
+                <button onclick="pasteCameraValues()" class="p-1 rounded hover:bg-zinc-200 dark:hover:bg-surface-hover text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition" title="Paste camera values">
+                  <i data-lucide="clipboard-paste" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- 3x2 Numeric Grid matching Rotato DOM -->
+            <div class="grid grid-cols-3 gap-2 mb-3">
+              <div class="space-y-1">
+                <input id="cam-pos-x" type="number" step="0.5" value="0.00" oninput="applyCameraInputs()" class="w-full h-8 rounded-lg bg-zinc-100 dark:bg-surface-card text-center text-xs font-mono outline-none focus:ring-2 focus:ring-emerald-500">
+                <p class="text-[10px] text-center text-zinc-400">Pos X</p>
+              </div>
+              <div class="space-y-1">
+                <input id="cam-pos-y" type="number" step="0.5" value="0.00" oninput="applyCameraInputs()" class="w-full h-8 rounded-lg bg-zinc-100 dark:bg-surface-card text-center text-xs font-mono outline-none focus:ring-2 focus:ring-emerald-500">
+                <p class="text-[10px] text-center text-zinc-400">Y</p>
+              </div>
+              <div class="space-y-1">
+                <input id="cam-pos-z" type="number" step="0.5" value="30.52" oninput="applyCameraInputs()" class="w-full h-8 rounded-lg bg-zinc-100 dark:bg-surface-card text-center text-xs font-mono outline-none focus:ring-2 focus:ring-emerald-500">
+                <p class="text-[10px] text-center text-zinc-400">Z</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2">
+              <div class="space-y-1">
+                <input id="cam-rot-x" type="number" step="1" value="0.0" oninput="applyCameraInputs()" class="w-full h-8 rounded-lg bg-zinc-100 dark:bg-surface-card text-center text-xs font-mono outline-none focus:ring-2 focus:ring-emerald-500">
+                <p class="text-[10px] text-center text-zinc-400">Rot X°</p>
+              </div>
+              <div class="space-y-1">
+                <input id="cam-rot-y" type="number" step="1" value="0.0" oninput="applyCameraInputs()" class="w-full h-8 rounded-lg bg-zinc-100 dark:bg-surface-card text-center text-xs font-mono outline-none focus:ring-2 focus:ring-emerald-500">
+                <p class="text-[10px] text-center text-zinc-400">Y°</p>
+              </div>
+              <div class="space-y-1">
+                <input id="cam-rot-z" type="number" step="1" value="0.0" oninput="applyCameraInputs()" class="w-full h-8 rounded-lg bg-zinc-100 dark:bg-surface-card text-center text-xs font-mono outline-none focus:ring-2 focus:ring-emerald-500">
+                <p class="text-[10px] text-center text-zinc-400">Z°</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Camera Lens / FOV -->
+          <div class="space-y-3 pt-3 border-t border-zinc-200 dark:border-surface-border">
+            <div class="flex justify-between text-xs">
+              <span class="font-medium">Telephoto Zoom (FOV)</span>
+              <span id="fov-label" class="text-emerald-400 font-mono">35°</span>
+            </div>
+            <input type="range" id="cam-fov-slider" min="15" max="75" value="35" class="w-full" oninput="updateCameraFOV(this.value)">
+
+            <!-- Easing Curve Selector -->
+            <div class="space-y-1.5 pt-2">
+              <label class="text-xs font-medium block">Animation Easing Curve</label>
+              <select id="easing-curve-select" onchange="setEasingCurve(this.value)" class="w-full h-8 rounded-lg bg-zinc-100 dark:bg-surface-card px-2.5 text-xs outline-none border border-zinc-200/60 dark:border-surface-border focus:ring-2 focus:ring-emerald-500">
+                <option value="cubic">Ease In-Out Cubic (Smooth)</option>
+                <option value="expo">Expo Out (Cinema Snap)</option>
+                <option value="spring">Spring / Overshoot (Dynamic)</option>
+                <option value="linear">Linear (Constant Speed)</option>
+              </select>
+            </div>
+
+            <!-- Zero-G Idle Float Toggle in Camera Inspector -->
+            <div class="flex items-center justify-between pt-2">
+              <div>
+                <span class="text-xs font-medium block">Zero-G Idle Float</span>
+                <span class="text-[10px] text-zinc-400">Continuous sine-wave levitation</span>
+              </div>
+              <button id="cam-float-toggle-btn" onclick="toggleIdleFloat()" role="switch" aria-checked="false" class="w-10 h-5 rounded-full bg-zinc-300 dark:bg-zinc-700 relative transition-colors">
+                <span id="cam-float-toggle-knob" class="w-4 h-4 rounded-full bg-white shadow absolute left-0.5 top-0.5 transition-transform"></span>
+              </button>
+            </div>
+
+            <div class="flex items-center justify-between pt-2">
+              <div>
+                <span class="text-xs font-medium block">Depth of Field Blur</span>
+                <span class="text-[10px] text-zinc-400">Cinematic studio backdrop blur</span>
+              </div>
+              <button id="dof-toggle-btn" onclick="toggleDOF()" role="switch" aria-checked="false" class="w-10 h-5 rounded-full bg-zinc-300 dark:bg-zinc-700 relative transition-colors">
+                <span id="dof-toggle-knob" class="w-4 h-4 rounded-full bg-white shadow absolute left-0.5 top-0.5 transition-transform"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: TEMPLATES (16 Studio-Grade Choreographed Templates + Filter Pills) -->
+        <div id="tab-content-templates" class="hidden space-y-3">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">16 Studio Templates</label>
+            <button onclick="openTemplateModal()" class="text-[11px] font-medium text-emerald-400 hover:underline flex items-center gap-1">
+              <i data-lucide="layout-grid" class="w-3 h-3"></i>
+              <span>Expand Grid</span>
+            </button>
+          </div>
+
+          <!-- Category Filter Pills -->
+          <div id="sidebar-template-filters" class="flex flex-wrap gap-1 pt-0.5">
+            <button onclick="filterTemplates('all')" data-cat="all" class="tpl-filter-pill px-2 py-1 rounded-md text-[10px] font-semibold bg-emerald-500 text-white transition">All (16)</button>
+            <button onclick="filterTemplates('popular')" data-cat="popular" class="tpl-filter-pill px-2 py-1 rounded-md text-[10px] font-medium bg-zinc-100 dark:bg-surface-card text-zinc-400 hover:text-white transition">Popular</button>
+            <button onclick="filterTemplates('cinematic')" data-cat="cinematic" class="tpl-filter-pill px-2 py-1 rounded-md text-[10px] font-medium bg-zinc-100 dark:bg-surface-card text-zinc-400 hover:text-white transition">Cinematic</button>
+            <button onclick="filterTemplates('promo')" data-cat="promo" class="tpl-filter-pill px-2 py-1 rounded-md text-[10px] font-medium bg-zinc-100 dark:bg-surface-card text-zinc-400 hover:text-white transition">Fast Promo</button>
+            <button onclick="filterTemplates('laptop')" data-cat="laptop" class="tpl-filter-pill px-2 py-1 rounded-md text-[10px] font-medium bg-zinc-100 dark:bg-surface-card text-zinc-400 hover:text-white transition">Laptop & Pad</button>
+            <button onclick="filterTemplates('floating')" data-cat="floating" class="tpl-filter-pill px-2 py-1 rounded-md text-[10px] font-medium bg-zinc-100 dark:bg-surface-card text-zinc-400 hover:text-white transition">Floating</button>
+          </div>
+
+          <!-- Dynamic Sidebar Template List -->
+          <div id="sidebar-template-list" class="space-y-2 pt-1 pb-4"></div>
+        </div>
+
+        <!-- TAB 4: BACKGROUND & LIGHTING -->
+        <div id="tab-content-background" class="hidden space-y-5">
+          <div>
+            <label class="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block mb-2">Backdrop Style</label>
+            <div class="grid grid-cols-3 gap-1.5">
+              <button onclick="setBackdropMode('gradient')" id="bg-mode-gradient" class="px-2.5 py-1.5 rounded-lg text-xs font-medium bg-emerald-500 text-white">Gradient</button>
+              <button onclick="setBackdropMode('solid')" id="bg-mode-solid" class="px-2.5 py-1.5 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-surface-card">Solid</button>
+              <button onclick="setBackdropMode('transparent')" id="bg-mode-transparent" class="px-2.5 py-1.5 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-surface-card">Alpha PNG</button>
+            </div>
+          </div>
+
+          <div id="bg-color-pickers" class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-zinc-400">Primary Color</span>
+              <input type="color" id="bg-color-1" value="#0f172a" oninput="updateBackdropColors()" class="w-8 h-6 rounded cursor-pointer bg-transparent">
+            </div>
+            <div id="bg-color-2-row" class="flex items-center justify-between">
+              <span class="text-xs text-zinc-400">Secondary Glow</span>
+              <input type="color" id="bg-color-2" value="#1e1b4b" oninput="updateBackdropColors()" class="w-8 h-6 rounded cursor-pointer bg-transparent">
+            </div>
+            <!-- Studio Swatches -->
+            <div class="flex items-center gap-2 pt-1">
+              <button onclick="setQuickGradient('#ffffff', '#f1f5f9')" class="w-6 h-6 rounded-full bg-white border border-zinc-300" title="Pure Studio White"></button>
+              <button onclick="setQuickGradient('#0f172a', '#1e1b4b')" class="w-6 h-6 rounded-full bg-gradient-to-br from-slate-900 to-indigo-950" title="Midnight Cyber"></button>
+              <button onclick="setQuickGradient('#064e3b', '#022c22')" class="w-6 h-6 rounded-full bg-gradient-to-br from-emerald-900 to-teal-950" title="Emerald Glow"></button>
+              <button onclick="setQuickGradient('#4c1d95', '#1e1b4b')" class="w-6 h-6 rounded-full bg-gradient-to-br from-violet-900 to-indigo-950" title="Cosmic Purple"></button>
+              <button onclick="setQuickGradient('#fbbf24', '#f97316')" class="w-6 h-6 rounded-full bg-gradient-to-br from-amber-400 to-orange-500" title="Warm Sunset"></button>
+            </div>
+          </div>
+
+          <!-- Lighting & Shadows -->
+          <div class="space-y-3 pt-3 border-t border-zinc-200 dark:border-surface-border">
+            <label class="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block">Studio Lighting</label>
+            <div class="space-y-1">
+              <div class="flex justify-between text-xs">
+                <span class="text-zinc-400">Key Light Intensity</span>
+                <span id="light-int-val" class="font-mono">1.4x</span>
+              </div>
+              <input type="range" min="0.2" max="3" step="0.1" value="1.4" class="w-full" oninput="updateLightingIntensity(this.value)">
+            </div>
+            <div class="space-y-1">
+              <div class="flex justify-between text-xs">
+                <span class="text-zinc-400">Floor Contact Shadow</span>
+                <span id="shadow-op-val" class="font-mono">65%</span>
+              </div>
+              <input type="range" min="0" max="1" step="0.05" value="0.65" class="w-full" oninput="updateShadowOpacity(this.value)">
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 5: RENDER & LOCAL GPU SETTINGS -->
+        <div id="tab-content-settings" class="hidden space-y-4">
+          <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 space-y-1">
+            <div class="flex items-center gap-1.5 text-emerald-400 text-xs font-semibold">
+              <i data-lucide="cpu" class="w-4 h-4"></i>
+              <span>100% Local Hardware Acceleration</span>
+            </div>
+            <p class="text-[11px] text-zinc-400 leading-relaxed">All 3D geometry, reflections, and video encoding run locally on your device's GPU. Zero cloud queues or watermarks.</p>
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-xs font-medium block">Photo Export Supersampling</label>
+            <select id="export-scale-select" class="w-full h-9 rounded-lg bg-zinc-100 dark:bg-surface-card px-2.5 text-xs outline-none">
+              <option value="1">1x Standard Resolution</option>
+              <option value="2" selected>2x Retina Studio (4K Class)</option>
+              <option value="4">4x Ultra Print (8K Class)</option>
+            </select>
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-xs font-medium block">Floating Idle Animation</label>
+            <button onclick="toggleIdleFloat()" id="idle-float-btn" class="w-full py-2 rounded-lg bg-zinc-100 dark:bg-surface-card hover:bg-emerald-500/20 text-xs font-medium transition">
+              Enable Continuous Levitation: OFF
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- 2. CENTER 3D VIEWPORT & FLOATING CONTROLS -->
+    <section class="flex-1 flex flex-col min-w-0 h-full relative bg-zinc-200/70 dark:bg-[#09090c]">
+      
+      <!-- Top Floating Toolbar (Matches Rotato Header) -->
+      <div class="pointer-events-none absolute inset-x-0 top-0 h-20 z-40 flex items-center justify-between px-6">
+        <!-- Left GPU Status Pill + Quick Template Browser Trigger -->
+        <div class="pointer-events-auto flex items-center gap-2">
+          <div class="flex items-center gap-2 text-xs px-3 py-1.5 rounded-full bg-white/85 dark:bg-surface-panel/85 backdrop-blur-md border border-zinc-200/60 dark:border-surface-border shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="font-medium">Local WebGL GPU</span>
+            <span id="fps-counter" class="text-zinc-400 font-mono text-[11px]">60 FPS</span>
+          </div>
+          <button onclick="openTemplateModal()" class="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/30 backdrop-blur-md font-medium transition shadow-sm">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span>Browse 16 Templates</span>
+          </button>
+        </div>
+
+        <!-- Right Mode & Export Bar -->
+        <div class="pointer-events-auto flex items-center gap-3">
+          <!-- Photo / Video Mode Toggle -->
+          <div class="flex items-center bg-white/90 dark:bg-surface-panel/90 backdrop-blur-md p-1 rounded-xl border border-zinc-200/60 dark:border-surface-border shadow-sm">
+            <button onclick="setOutputMode('photo')" id="mode-btn-photo" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all">
+              <i data-lucide="image" class="w-3.5 h-3.5"></i>
+              <span>Photo</span>
+            </button>
+            <button onclick="setOutputMode('video')" id="mode-btn-video" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-emerald-500 text-white shadow-sm transition-all">
+              <i data-lucide="film" class="w-3.5 h-3.5"></i>
+              <span>Video</span>
+            </button>
+          </div>
+
+          <!-- Primary Export Button -->
+          <button onclick="triggerExport()" id="export-main-btn" class="flex items-center justify-center gap-2 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 hover:opacity-90 h-10 px-4 rounded-xl text-xs font-semibold shadow-lg transition">
+            <i data-lucide="download" class="w-4 h-4"></i>
+            <span id="export-btn-label">Export Video</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3D Aspect-Ratio Stage Container -->
+      <div class="flex-1 min-h-0 relative flex items-center justify-center p-6 overflow-hidden">
+        <div id="stage-aspect-wrapper" class="relative w-full h-full max-w-full max-h-full m-auto flex items-center justify-center transition-all duration-200" style="aspect-ratio: 4 / 3;">
+          <div id="canvas-backdrop" class="w-full h-full rounded-2xl overflow-hidden shadow-2xl border border-zinc-300/40 dark:border-white/10 relative" style="background: radial-gradient(circle at 50% 35%, #1e1b4b, #0f172a);">
+            <div id="canvas-container" class="w-full h-full relative cursor-grab active:cursor-grabbing"></div>
+            
+            <!-- Recording Overlay Badge -->
+            <div id="recording-badge" class="hidden absolute top-4 left-4 z-50 flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-600 text-white text-xs font-semibold shadow-lg">
+              <span class="w-2 h-2 rounded-full bg-white animate-ping"></span>
+              <span id="recording-status-text">Recording GPU Stream... 0%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Floating Pill Toolbar (Matches Rotato's exact 3x3 Rotation Matrix & Aspect Pill) -->
+        <div class="absolute bottom-5 left-1/2 -translate-x-1/2 z-40">
+          <div class="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 dark:bg-surface-panel/90 backdrop-blur-md border border-zinc-200 dark:border-surface-border shadow-xl">
+            
+            <!-- Aspect Ratio Selector -->
+            <div class="flex items-center gap-1 pr-2 border-r border-zinc-200 dark:border-surface-border">
+              <i data-lucide="frame" class="w-3.5 h-3.5 text-zinc-400 mr-1"></i>
+              <button onclick="setStageAspect('16/9', '16:9')" class="aspect-pill px-2 py-1 rounded-md text-xs hover:bg-zinc-200/60 dark:hover:bg-surface-hover transition">16:9</button>
+              <button onclick="setStageAspect('4/3', '4:3')" class="aspect-pill px-2 py-1 rounded-md text-xs bg-emerald-500/20 text-emerald-400 font-semibold transition">4:3</button>
+              <button onclick="setStageAspect('1/1', '1:1')" class="aspect-pill px-2 py-1 rounded-md text-xs hover:bg-zinc-200/60 dark:hover:bg-surface-hover transition">1:1</button>
+              <button onclick="setStageAspect('9/16', '9:16')" class="aspect-pill px-2 py-1 rounded-md text-xs hover:bg-zinc-200/60 dark:hover:bg-surface-hover transition">9:16</button>
+            </div>
+
+            <!-- Quick Color Swatch Button -->
+            <button onclick="switchTab('background')" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg hover:bg-zinc-200/60 dark:hover:bg-surface-hover text-xs transition">
+              <span class="text-zinc-500 dark:text-zinc-300">Colors</span>
+              <span id="pill-color-dot" class="w-3.5 h-3.5 rounded-full border border-white/30 bg-indigo-950"></span>
+            </button>
+
+            <!-- 3x3 Quick Rotation Dot Matrix + Z Tilt (From Rotato DOM) -->
+            <div class="flex items-center gap-1.5 pl-2 border-l border-zinc-200 dark:border-surface-border">
+              <div class="grid grid-cols-3 gap-1 p-1" style="width: 34px; height: 34px;">
+                <div></div>
+                <button onclick="nudgeDeviceRotation(-15, 0, 0)" class="w-2.5 h-2.5 rounded-full bg-[#568F44] hover:scale-125 transition" title="Rotate X Up"></button>
+                <div></div>
+                <button onclick="nudgeDeviceRotation(0, -20, 0)" class="w-2.5 h-2.5 rounded-full bg-[#C85221] hover:scale-125 transition" title="Rotate Y Left"></button>
+                <button onclick="resetDeviceRotation()" class="w-2.5 h-2.5 rounded-full bg-[#B28ECB] hover:scale-125 transition" title="Reset Rotation"></button>
+                <button onclick="nudgeDeviceRotation(0, 20, 0)" class="w-2.5 h-2.5 rounded-full bg-[#C85221] hover:scale-125 transition" title="Rotate Y Right"></button>
+                <div></div>
+                <button onclick="nudgeDeviceRotation(15, 0, 0)" class="w-2.5 h-2.5 rounded-full bg-[#568F44] hover:scale-125 transition" title="Rotate X Down"></button>
+                <div></div>
+              </div>
+              <div class="flex flex-col gap-1">
+                <button onclick="nudgeDeviceRotation(0, 0, 12)" class="text-[#6DA8D5] hover:scale-125 transition" title="Tilt Z Counter-Clockwise">
+                  <i data-lucide="corner-down-left" class="w-3 h-3"></i>
+                </button>
+                <button onclick="nudgeDeviceRotation(0, 0, -12)" class="text-[#6DA8D5] hover:scale-125 transition" title="Tilt Z Clockwise">
+                  <i data-lucide="corner-down-right" class="w-3 h-3"></i>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. BOTTOM KEYFRAME TIMELINE PANEL (Matches Rotato Timeline) -->
+      <section id="timeline-panel" class="h-36 shrink-0 border-t border-zinc-200 dark:border-surface-border bg-white dark:bg-surface-panel flex flex-col select-none z-30">
+        
+        <!-- Timeline Header & Ruler Row -->
+        <div class="flex h-10 border-b border-zinc-200 dark:border-surface-border items-center">
+          <!-- Left Transport Controls (300px fixed width matching Rotato) -->
+          <div class="w-72 shrink-0 flex items-center gap-1.5 px-3 border-r border-zinc-200 dark:border-surface-border h-full">
+            <button onclick="togglePlayTimeline()" id="timeline-play-btn" class="w-7 h-7 rounded-lg bg-emerald-500 text-white flex items-center justify-center hover:bg-emerald-600 transition" title="Play / Pause (Space)">
+              <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+            </button>
+            <button onclick="captureKeyframeAtCurrentTime()" class="px-2 h-7 rounded-lg bg-zinc-100 dark:bg-surface-card hover:bg-emerald-500/20 hover:text-emerald-400 text-[11px] font-medium flex items-center gap-1 transition" title="Save current Camera & Device pose at Playhead">
+            <!-- Easing Badge in Transport Bar -->
+            <button onclick="cycleEasingMode()" id="timeline-easing-btn" class="px-2 h-7 rounded-lg bg-zinc-100 dark:bg-surface-card hover:bg-indigo-500/20 hover:text-indigo-300 text-[10px] font-mono text-zinc-400 transition" title="Click to cycle Easing Curve">
+              Cubic
+            </button>
+
+            <div class="ml-auto flex items-center gap-1">
+              <div class="relative w-14">
+                <input id="current-time-input" type="text" readonly value="0.00" class="w-full h-6 rounded bg-zinc-100 dark:bg-surface-card pr-3.5 text-right text-[11px] font-mono">
+                <span class="pointer-events-none absolute right-1 top-1 text-[10px] text-zinc-400">s</span>
+              </div>
+              <span class="text-zinc-500 text-xs">/</span>
+              <div class="relative w-14">
+                <input id="duration-input" type="number" step="0.5" min="1" max="12" value="4.00" onchange="updateTimelineDuration(this.value)" class="w-full h-6 rounded bg-zinc-100 dark:bg-surface-card pr-3.5 text-right text-[11px] font-mono outline-none">
+                <span class="pointer-events-none absolute right-1 top-1 text-[10px] text-zinc-400">s</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Interactive Time Ruler -->
+          <div id="timeline-ruler" class="relative flex-1 h-full overflow-hidden cursor-ew-resize bg-zinc-50/60 dark:bg-surface/60" onmousedown="startScrubbing(event)">
+            <!-- Time Ticks -->
+            <div id="ruler-ticks" class="absolute inset-0 pointer-events-none flex items-end pb-1 px-4 justify-between text-[10px] font-mono text-zinc-400">
+              <span>0s</span><span>1s</span><span>2s</span><span>3s</span><span>4s</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline Tracks Area -->
+        <div class="flex-1 relative flex flex-col justify-center divide-y divide-zinc-200/50 dark:divide-surface-border/50 overflow-hidden">
+          
+          <!-- Playhead Vertical Line Overlay -->
+          <div id="playhead-line" class="pointer-events-none absolute top-0 bottom-0 z-40 w-px bg-emerald-400" style="left: 288px;">
+            <div class="w-3 h-4 -left-1.5 -top-0.5 absolute bg-emerald-400 playhead-cap"></div>
+          </div>
+
+          <!-- Track 1: Camera Animation Track -->
+          <div class="flex h-11 items-center">
+            <div class="w-72 shrink-0 px-3 flex items-center justify-between border-r border-zinc-200 dark:border-surface-border h-full text-xs">
+              <div class="flex items-center gap-2">
+                <i data-lucide="camera" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span class="font-medium">Camera Orbit & Zoom</span>
+              </div>
+              <span id="keyframe-count-badge" class="text-[10px] px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-surface-card text-zinc-400 font-mono">2 keys</span>
+            </div>
+            <div id="camera-track-lane" class="relative flex-1 h-full flex items-center px-4" onmousedown="startScrubbing(event)">
+              <!-- Dynamic Keyframe Span Bar & Diamonds injected by JS -->
+              <div id="keyframe-bar" class="h-6 rounded-md bg-emerald-500/20 border border-emerald-500/40 relative w-full flex items-center"></div>
+            </div>
+          </div>
+
+          <!-- Track 2: Device 3D Model Track -->
+          <div class="flex h-11 items-center">
+            <div class="w-72 shrink-0 px-3 flex items-center justify-between border-r border-zinc-200 dark:border-surface-border h-full text-xs">
+              <div class="flex items-center gap-2">
+                <i data-lucide="smartphone" class="w-3.5 h-3.5 text-indigo-400"></i>
+                <span id="timeline-device-label" class="font-medium">iPhone 15 Pro</span>
+              </div>
+              <button onclick="document.getElementById('screen-file-input').click()" class="text-[10px] text-emerald-400 hover:underline">+ Media</button>
+            </div>
+            <div class="relative flex-1 h-full flex items-center px-4" onmousedown="startScrubbing(event)">
+              <div class="h-5 rounded-md bg-indigo-500/15 border border-indigo-500/30 w-full flex items-center px-2 text-[10px] text-indigo-300 truncate">
+                <span id="timeline-media-name">Interactive Canvas UI (60 FPS)</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </section>
+  </main>
+
+  <!-- FULLSCREEN VISUAL TEMPLATE GALLERY MODAL -->
+  <div id="template-gallery-modal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-6">
+    <div class="bg-white dark:bg-surface-panel border border-zinc-200 dark:border-surface-border rounded-2xl max-w-5xl w-full max-h-[86vh] flex flex-col shadow-2xl overflow-hidden">
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-zinc-200 dark:border-surface-border flex items-center justify-between">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 text-[10px] font-semibold uppercase tracking-wider">Studio Library</span>
+            <h3 class="text-base font-bold">Choreographed 3D Mockup Templates</h3>
+          </div>
+          <p class="text-xs text-zinc-400 mt-0.5">Click any template to load its multi-keyframe camera rig, device lighting, and easing choreography.</p>
+        </div>
+        <button onclick="closeTemplateModal()" class="p-2 rounded-xl bg-zinc-100 dark:bg-surface-card hover:bg-zinc-200 dark:hover:bg-surface-hover text-zinc-400 hover:text-white transition">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Modal Filter Bar -->
+      <div class="px-6 py-3 bg-zinc-50 dark:bg-surface border-b border-zinc-200 dark:border-surface-border flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-1.5 flex-wrap">
+          <button onclick="filterTemplates('all')" data-cat="all" class="tpl-filter-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500 text-white transition">All Templates (16)</button>
+          <button onclick="filterTemplates('popular')" data-cat="popular" class="tpl-filter-pill px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-200/70 dark:bg-surface-card text-zinc-400 hover:text-white transition">Popular Hits</button>
+          <button onclick="filterTemplates('cinematic')" data-cat="cinematic" class="tpl-filter-pill px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-200/70 dark:bg-surface-card text-zinc-400 hover:text-white transition">Cinematic Reveals</button>
+          <button onclick="filterTemplates('promo')" data-cat="promo" class="tpl-filter-pill px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-200/70 dark:bg-surface-card text-zinc-400 hover:text-white transition">Fast Promo & Reels</button>
+          <button onclick="filterTemplates('laptop')" data-cat="laptop" class="tpl-filter-pill px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-200/70 dark:bg-surface-card text-zinc-400 hover:text-white transition">Laptop & iPad</button>
+          <button onclick="filterTemplates('floating')" data-cat="floating" class="tpl-filter-pill px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-200/70 dark:bg-surface-card text-zinc-400 hover:text-white transition">Zero-G Floating</button>
+        </div>
+        <div class="text-[11px] text-zinc-400 font-mono">
+          Active Easing: <span id="modal-easing-indicator" class="text-emerald-400">Ease In-Out Cubic</span>
+        </div>
+      </div>
+
+      <!-- Modal Cards Grid -->
+      <div id="modal-template-grid" class="p-6 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast-box" class="fixed bottom-6 right-6 z-50 pointer-events-none opacity-0 translate-y-2 transition-all duration-200 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 px-4 py-2.5 rounded-xl shadow-xl text-xs font-medium flex items-center gap-2">
+    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i>
+    <span id="toast-text">Action completed</span>
+  </div>
+
+  <!-- APPLICATION SCRIPT -->
+  <script>
+    /********************************************************************
+     * 1. STATE & CONFIGURATION
+     ********************************************************************/
+    const state = {
+      activeTab: 'device',
+      outputMode: 'video', // 'photo' | 'video'
+      deviceType: 'iphone', // 'iphone' | 'macbook' | 'ipad'
+      clayMode: false,
+      dofEnabled: false,
+      idleFloat: false,
+      showDynamicIsland: true,
+      screenFitMode: 'cover', // 'cover' | 'contain'
+      screenBrightness: 1.0,  // 1.0 = 100% true sRGB color
+      screenGlare: 0.04,      // 4% subtle glass overlay by default
+      backdropMode: 'gradient', // 'gradient' | 'solid' | 'transparent'
+      bgColor1: '#0f172a',
+      bgColor2: '#1e1b4b',
+      deviceColor: '#27272a',
+      deviceMetalness: 0.85,
+      deviceRoughness: 0.2,
+      macbookLidAngle: 105,
+      
+      // Timeline & Animation State
+      isPlaying: false,
+      currentTime: 0,
+      duration: 4.0,
+      easingMode: 'cubic', // 'cubic' | 'expo' | 'spring' | 'linear'
+      activeTemplateSlug: 'tilted-zoom-out',
+      templateCategoryFilter: 'all',
+      keyframes: [
+        {
+          time: 0.0,
+          camPos: { x: -12, y: -6, z: 22 },
+          devRot: { x: -18, y: 32, z: -8 },
+          lidAngle: 35
+        },
+        {
+          time: 4.0,
+          camPos: { x: 0, y: 0, z: 30.52 },
+          devRot: { x: 0, y: 0, z: 0 },
+          lidAngle: 105
+        }
+      ],
+      copiedCamera: null
+    };
+
+    /********************************************************************
+     * 1B. 16 STUDIO-GRADE CHOREOGRAPHED 3D TEMPLATES
+     ********************************************************************/
+    const STUDIO_TEMPLATES = [
+      {
+        slug: 'tilted-zoom-out',
+        name: 'iPhone Tilted Zoom Out',
+        subtitle: '34,196 opens • Classic reveal',
+        category: ['popular', 'cinematic'],
+        device: 'iphone',
+        duration: 4.0,
+        easing: 'cubic',
+        fov: 35,
+        bg1: '#0f172a',
+        bg2: '#1e1b4b',
+        badge: '#1 Hit',
+        keyframes: [
+          { time: 0.0, camPos: { x: -8, y: -5, z: 18 }, devRot: { x: -24, y: 38, z: -12 } },
+          { time: 4.0, camPos: { x: 0, y: 0, z: 30.52 }, devRot: { x: -4, y: -12, z: 2 } }
+        ]
+      },
+      {
+        slug: 'keynote-hero',
+        name: 'Apple Keynote Hero Reveal',
+        subtitle: 'Dramatic low-angle dolly sweep',
+        category: ['popular', 'cinematic'],
+        device: 'iphone',
+        duration: 4.5,
+        easing: 'cubic',
+        fov: 30,
+        bg1: '#030712',
+        bg2: '#1e293b',
+        badge: 'Keynote',
+        keyframes: [
+          { time: 0.0, camPos: { x: 0, y: -10, z: 20 }, devRot: { x: 52, y: -28, z: 10 } },
+          { time: 2.4, camPos: { x: 0, y: -2, z: 26 }, devRot: { x: 14, y: 12, z: -3 } },
+          { time: 4.5, camPos: { x: 0, y: 0, z: 30 }, devRot: { x: 0, y: 0, z: 0 } }
+        ]
+      },
+      {
+        slug: 'spin-up',
+        name: 'iPhone 360° Helicopter Spin',
+        subtitle: '29,790 opens • Full 360° Y-spin',
+        category: ['popular', 'promo'],
+        device: 'iphone',
+        duration: 4.0,
+        easing: 'expo',
+        fov: 35,
+        bg1: '#064e3b',
+        bg2: '#022c22',
+        badge: '360° Spin',
+        keyframes: [
+          { time: 0.0, camPos: { x: 0, y: -11, z: 39 }, devRot: { x: 38, y: -360, z: -22 } },
+          { time: 2.5, camPos: { x: 0, y: 0, z: 27 }, devRot: { x: -6, y: 18, z: 3 } },
+          { time: 4.0, camPos: { x: 0, y: 0, z: 29 }, devRot: { x: -4, y: -10, z: 0 } }
+        ]
+      },
+      {
+        slug: 'macro-island-dive',
+        name: 'Dynamic Island Macro Dive',
+        subtitle: 'Ultra-close macro pull back',
+        category: ['cinematic', 'promo'],
+        device: 'iphone',
+        duration: 4.0,
+        easing: 'expo',
+        fov: 28,
+        showIsland: true,
+        bg1: '#18181b',
+        bg2: '#27272a',
+        badge: 'Macro',
+        keyframes: [
+          { time: 0.0, camPos: { x: 0, y: 5.8, z: 11.5 }, devRot: { x: 12, y: -15, z: -4 } },
+          { time: 1.8, camPos: { x: 0, y: 2.2, z: 19 }, devRot: { x: -8, y: 16, z: 3 } },
+          { time: 4.0, camPos: { x: 0, y: 0, z: 31 }, devRot: { x: 0, y: -6, z: 0 } }
+        ]
+      },
+      {
+        slug: 'zero-g-orbit',
+        name: 'Zero-Gravity Orbit & Float',
+        subtitle: 'Weightless sinusoidal space drift',
+        category: ['floating', 'cinematic'],
+        device: 'iphone',
+        duration: 5.0,
+        easing: 'cubic',
+        idleFloat: true,
+        fov: 35,
+        bg1: '#1e1b4b',
+        bg2: '#3b0764',
+        badge: 'Zero-G',
+        keyframes: [
+          { time: 0.0, camPos: { x: -5, y: 3, z: 29 }, devRot: { x: -16, y: -32, z: 9 } },
+          { time: 2.5, camPos: { x: 5, y: -3, z: 26 }, devRot: { x: 16, y: 28, z: -8 } },
+          { time: 5.0, camPos: { x: -2, y: 1, z: 29.5 }, devRot: { x: -8, y: -14, z: 4 } }
+        ]
+      },
+      {
+        slug: 'isometric-appstore',
+        name: 'Isometric App Store Showcase',
+        subtitle: '24,133 opens • Orthographic look',
+        category: ['popular', 'promo'],
+        device: 'iphone',
+        duration: 4.0,
+        easing: 'cubic',
+        fov: 20,
+        bg1: '#0f172a',
+        bg2: '#0284c7',
+        badge: 'App Store',
+        keyframes: [
+          { time: 0.0, camPos: { x: -6, y: -4, z: 46 }, devRot: { x: -28, y: 38, z: -18 } },
+          { time: 2.2, camPos: { x: 2, y: 1, z: 44 }, devRot: { x: -16, y: -26, z: 8 } },
+          { time: 4.0, camPos: { x: 0, y: 0, z: 45 }, devRot: { x: -12, y: 22, z: -5 } }
+        ]
+      },
+      {
+        slug: 'zoom-freeze',
+        name: 'Slam Zoom & Freeze (Reels)',
+        subtitle: '15,757 opens • Fast snap + drift',
+        category: ['popular', 'promo'],
+        device: 'iphone',
+        duration: 4.0,
+        easing: 'spring',
+        fov: 36,
+        bg1: '#4c1d95',
+        bg2: '#db2777',
+        badge: 'TikTok/Reels',
+        keyframes: [
+          { time: 0.0, camPos: { x: 0, y: 8, z: 14 }, devRot: { x: -38, y: -55, z: 24 } },
+          { time: 1.4, camPos: { x: 0, y: 0, z: 27.5 }, devRot: { x: 4, y: 12, z: -2 } },
+          { time: 4.0, camPos: { x: 0, y: 0, z: 29.8 }, devRot: { x: -2, y: -8, z: 1 } }
+        ]
+      },
+      {
+        slug: 'macbook-turn',
+        name: 'MacBook Lid Open Reveal',
+        subtitle: '19,040 opens • Animated hinge',
+        category: ['popular', 'laptop', 'cinematic'],
+        device: 'macbook',
+        duration: 4.5,
+        easing: 'cubic',
+        fov: 32,
+        bg1: '#09090b',
+        bg2: '#27272a',
+        badge: 'Lid Hinge',
+        keyframes: [
+          { time: 0.0, camPos: { x: -10, y: 5, z: 35 }, devRot: { x: 18, y: -32, z: 0 }, lidAngle: 5 },
+          { time: 2.5, camPos: { x: 2, y: 2, z: 29 }, devRot: { x: 12, y: 12, z: 0 }, lidAngle: 106 },
+          { time: 4.5, camPos: { x: 4, y: 1.5, z: 27.5 }, devRot: { x: 9, y: 18, z: 0 }, lidAngle: 110 }
+        ]
+      },
+      {
+        slug: 'macbook-desk-pan',
+        name: 'MacBook Executive Desk Pan',
+        subtitle: 'Sweeping retina studio pan',
+        category: ['laptop', 'cinematic'],
+        device: 'macbook',
+        duration: 4.5,
+        easing: 'cubic',
+        fov: 30,
+        bg1: '#0c0a09',
+        bg2: '#292524',
+        badge: 'MacBook Pro',
+        keyframes: [
+          { time: 0.0, camPos: { x: -8, y: 2, z: 24 }, devRot: { x: 22, y: 36, z: -4 }, lidAngle: 95 },
+          { time: 4.5, camPos: { x: 6, y: 1, z: 28 }, devRot: { x: 14, y: -28, z: 3 }, lidAngle: 112 }
+        ]
+      },
+      {
+        slug: 'whip-flip',
+        name: 'Whip Flip Transitions',
+        subtitle: 'Snappy S-curve feature flip',
+        category: ['promo'],
+        device: 'iphone',
+        duration: 3.5,
+        easing: 'spring',
+        fov: 35,
+        bg1: '#042f2e',
+        bg2: '#0d9488',
+        badge: 'Whip Pan',
+        keyframes: [
+          { time: 0.0, camPos: { x: -10, y: 0, z: 32 }, devRot: { x: 0, y: -85, z: -15 } },
+          { time: 1.6, camPos: { x: 0, y: 0, z: 26 }, devRot: { x: -8, y: 15, z: 4 } },
+          { time: 3.5, camPos: { x: 2, y: 0, z: 29 }, devRot: { x: 4, y: -18, z: -2 } }
+        ]
+      },
+      {
+        slug: 'gimbal-roll',
+        name: 'Dual-Axis Gimbal Roll',
+        subtitle: 'Dutch-angle barrel roll hero',
+        category: ['cinematic', 'promo'],
+        device: 'iphone',
+        duration: 4.0,
+        easing: 'expo',
+        fov: 34,
+        bg1: '#172554',
+        bg2: '#4338ca',
+        badge: 'Gimbal',
+        keyframes: [
+          { time: 0.0, camPos: { x: 0, y: 0, z: 21 }, devRot: { x: -45, y: 45, z: -90 } },
+          { time: 2.3, camPos: { x: 0, y: 0, z: 28.5 }, devRot: { x: 6, y: -12, z: 4 } },
+          { time: 4.0, camPos: { x: 0, y: 0, z: 30.5 }, devRot: { x: 0, y: 0, z: 0 } }
+        ]
+      },
+      {
+        slug: 'ipad-canvas-tilt',
+        name: 'iPad Pro Studio Canvas Tilt',
+        subtitle: 'Drafting-table rise & pan',
+        category: ['laptop', 'cinematic'],
+        device: 'ipad',
+        duration: 4.5,
+        easing: 'cubic',
+        fov: 34,
+        bg1: '#18181b',
+        bg2: '#3f3f46',
+        badge: 'iPad Pro',
+        keyframes: [
+          { time: 0.0, camPos: { x: 0, y: -6, z: 26 }, devRot: { x: -62, y: 24, z: -12 } },
+          { time: 2.5, camPos: { x: 0, y: -1, z: 31 }, devRot: { x: -14, y: -16, z: 4 } },
+          { time: 4.5, camPos: { x: 0, y: 0, z: 33 }, devRot: { x: -4, y: 8, z: 0 } }
+        ]
+      },
+      {
+        slug: 'clay-pedestal',
+        name: 'Clay Minimalist Pedestal',
+        subtitle: 'Editorial matte monochrome',
+        category: ['cinematic', 'floating'],
+        device: 'iphone',
+        duration: 4.5,
+        easing: 'cubic',
+        clay: true,
+        idleFloat: true,
+        fov: 30,
+        bg1: '#d6d3d1',
+        bg2: '#f5f5f4',
+        badge: 'Real Clay',
+        keyframes: [
+          { time: 0.0, camPos: { x: -4, y: -2, z: 31 }, devRot: { x: -12, y: -35, z: 5 } },
+          { time: 4.5, camPos: { x: 4, y: 1, z: 29 }, devRot: { x: 8, y: 35, z: -4 } }
+        ]
+      },
+      {
+        slug: 'pendulum-showcase',
+        name: 'Pendulum Glare Showcase',
+        subtitle: 'Left-to-right reflection rock',
+        category: ['floating', 'popular'],
+        device: 'iphone',
+        duration: 5.0,
+        easing: 'cubic',
+        idleFloat: true,
+        fov: 34,
+        bg1: '#090d16',
+        bg2: '#1e293b',
+        badge: 'Reflections',
+        keyframes: [
+          { time: 0.0, camPos: { x: -3, y: 0, z: 29 }, devRot: { x: -6, y: -32, z: -4 } },
+          { time: 2.5, camPos: { x: 3, y: 0, z: 27.5 }, devRot: { x: 6, y: 32, z: 4 } },
+          { time: 5.0, camPos: { x: 0, y: 0, z: 29.5 }, devRot: { x: 0, y: 0, z: 0 } }
+        ]
+      },
+      {
+        slug: 'flatlay-rise',
+        name: 'Top-Down Flatlay to 3D Rise',
+        subtitle: '90° flat table to hero elevation',
+        category: ['cinematic', 'promo'],
+        device: 'iphone',
+        duration: 4.0,
+        easing: 'expo',
+        fov: 35,
+        bg1: '#111827',
+        bg2: '#312e81',
+        badge: 'Flatlay',
+        keyframes: [
+          { time: 0.0, camPos: { x: 0, y: -8, z: 25 }, devRot: { x: -82, y: 0, z: 35 } },
+          { time: 2.2, camPos: { x: 0, y: -1, z: 28 }, devRot: { x: -12, y: -18, z: 4 } },
+          { time: 4.0, camPos: { x: 0, y: 0, z: 30.5 }, devRot: { x: 0, y: 10, z: 0 } }
+        ]
+      },
+      {
+        slug: 'notchless-zoom',
+        name: 'Notchless Fullscreen Zoom',
+        subtitle: 'Clean edge-to-edge UI pan',
+        category: ['promo', 'floating'],
+        device: 'iphone',
+        duration: 4.0,
+        easing: 'cubic',
+        showIsland: false,
+        idleFloat: true,
+        fov: 32,
+        bg1: '#022c22',
+        bg2: '#115e59',
+        badge: 'Notchless',
+        keyframes: [
+          { time: 0.0, camPos: { x: -4, y: 3, z: 18 }, devRot: { x: 18, y: 26, z: -6 } },
+          { time: 2.0, camPos: { x: 3, y: -2, z: 24 }, devRot: { x: -10, y: -20, z: 4 } },
+          { time: 4.0, camPos: { x: 0, y: 0, z: 29.5 }, devRot: { x: 0, y: 0, z: 0 } }
+        ]
+      }
+    ];
+
+    // Three.js Globals
+    let scene, camera, renderer, deviceGroup, currentModelMeshGroup, macbookLidPivot, contactShadowMesh;
+    let mainDirLight, fillLight, rimLight, ambientLight;
+    let screenTexture, screenCanvas, screenCtx, uploadedVideoElement = null;
+    let hardwareMaterials = [];
+    let activeScreenMaterials = [];
+    let activeGlassOverlayMaterials = [];
+    let dynamicIslandMeshRef = null;
+
+    // Custom Orbit Camera State
+    const orbit = {
+      isDragging: false,
+      isPanning: false,
+      prevX: 0,
+      prevY: 0,
+      target: new THREE.Vector3(0, 0, 0)
+    };
+
+    /********************************************************************
+     * 2. PROCEDURAL 2D SCREEN TEXTURE ENGINE (TRUE sRGB + ASPECT FIT)
+     ********************************************************************/
+    let activeDemoStyle = 'fintech';
+    let demoAnimTick = 0;
+    let customUploadedImage = null;
+
+    // Configure texture with strict sRGB ColorSpace & Max Anisotropy so screenshots never wash out
+    function applyStrictSRGBAndSharpness(tex) {
+      if (!tex) return;
+      // Support both modern Three.js (r152+) and Three.js r128
+      if ('colorSpace' in tex && THREE.SRGBColorSpace) {
+        tex.colorSpace = THREE.SRGBColorSpace;
+      }
+      if (THREE.sRGBEncoding !== undefined) {
+        tex.encoding = THREE.sRGBEncoding;
+      } else {
+        tex.encoding = 3001; // Explicit sRGBEncoding constant fallback
+      }
+      if (renderer && renderer.capabilities) {
+        tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      } else {
+        tex.anisotropy = 16;
+      }
+      tex.minFilter = THREE.LinearFilter;
+      tex.magFilter = THREE.LinearFilter;
+      tex.generateMipmaps = false;
+      tex.needsUpdate = true;
+    }
+
+    function getTargetCanvasDimensions() {
+      if (state.deviceType === 'macbook') {
+        return { w: 1920, h: 1240 }; // 16:10 MacBook aspect
+      } else if (state.deviceType === 'ipad') {
+        return { w: 1536, h: 2048 }; // 3:4 iPad Pro aspect
+      }
+      return { w: 1080, h: 2220 };   // iPhone 15 Pro aspect
+    }
+
+    function syncScreenCanvasAspect() {
+      if (!screenCanvas) return;
+      const { w, h } = getTargetCanvasDimensions();
+      if (screenCanvas.width !== w || screenCanvas.height !== h) {
+        screenCanvas.width = w;
+        screenCanvas.height = h;
+        if (screenTexture) {
+          screenTexture.dispose();
+          screenTexture = new THREE.CanvasTexture(screenCanvas);
+          applyStrictSRGBAndSharpness(screenTexture);
+          activeScreenMaterials.forEach(mat => {
+            mat.map = screenTexture;
+            mat.needsUpdate = true;
+          });
+        }
+      }
+    }
+
+    function initScreenCanvas() {
+      screenCanvas = document.createElement('canvas');
+      const { w, h } = getTargetCanvasDimensions();
+      screenCanvas.width = w;
+      screenCanvas.height = h;
+      screenCtx = screenCanvas.getContext('2d');
+      screenTexture = new THREE.CanvasTexture(screenCanvas);
+      applyStrictSRGBAndSharpness(screenTexture);
+      drawProceduralScreen(0);
+    }
+
+    // Helper to draw an uploaded image or video frame with Cover or Contain aspect ratio preservation
+    function drawMediaWithObjectFit(ctx, mediaElem, srcW, srcH, dstW, dstH, fitMode) {
+      ctx.save();
+      // Fill deep OLED black backing for 'contain' letterbox bars
+      ctx.fillStyle = '#050507';
+      ctx.fillRect(0, 0, dstW, dstH);
+
+      if (!srcW || !srcH) {
+        ctx.drawImage(mediaElem, 0, 0, dstW, dstH);
+        ctx.restore();
+        return;
+      }
+
+      const srcRatio = srcW / srcH;
+      const dstRatio = dstW / dstH;
+      let drawW = dstW;
+      let drawH = dstH;
+      let offsetX = 0;
+      let offsetY = 0;
+
+      if (fitMode === 'contain') {
+        if (srcRatio > dstRatio) {
+          drawW = dstW;
+          drawH = dstW / srcRatio;
+          offsetY = (dstH - drawH) / 2;
+        } else {
+          drawH = dstH;
+          drawW = dstH * srcRatio;
+          offsetX = (dstW - drawW) / 2;
+        }
+      } else {
+        // 'cover' mode
+        if (srcRatio > dstRatio) {
+          drawH = dstH;
+          drawW = dstH * srcRatio;
+          offsetX = (dstW - drawW) / 2;
+        } else {
+          drawW = dstW;
+          drawH = dstW / srcRatio;
+          offsetY = (dstH - drawH) / 2;
+        }
+      }
+
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(mediaElem, offsetX, offsetY, drawW, drawH);
+      ctx.restore();
+    }
+
+    function generateDemoScreen(styleName) {
+      if (uploadedVideoElement) {
+        uploadedVideoElement.pause();
+        uploadedVideoElement = null;
+      }
+      customUploadedImage = null;
+      activeDemoStyle = styleName;
+      document.getElementById('timeline-media-name').textContent = `Demo UI: ${styleName.toUpperCase()} (Live Canvas)`;
+      drawProceduralScreen(demoAnimTick);
+      showToast(`Loaded ${styleName.toUpperCase()} screen design`);
+    }
+
+    function drawProceduralScreen(tick) {
+      if (!screenCtx) return;
+
+      const w = screenCanvas.width;
+      const h = screenCanvas.height;
+
+      // If user uploaded a custom screenshot image
+      if (customUploadedImage) {
+        drawMediaWithObjectFit(
+          screenCtx,
+          customUploadedImage,
+          customUploadedImage.naturalWidth || customUploadedImage.width,
+          customUploadedImage.naturalHeight || customUploadedImage.height,
+          w,
+          h,
+          state.screenFitMode
+        );
+        screenTexture.needsUpdate = true;
+        return;
+      }
+
+      // If user uploaded a custom screen recording video
+      if (uploadedVideoElement && uploadedVideoElement.readyState >= 2) {
+        drawMediaWithObjectFit(
+          screenCtx,
+          uploadedVideoElement,
+          uploadedVideoElement.videoWidth,
+          uploadedVideoElement.videoHeight,
+          w,
+          h,
+          state.screenFitMode
+        );
+        screenTexture.needsUpdate = true;
+        return;
+      }
+
+      // Otherwise draw crisp procedural UI scaled to current canvas dimensions
+      screenCtx.save();
+      screenCtx.scale(w / 1024, h / 2048);
+      const baseW = 1024;
+      const baseH = 2048;
+
+      // Background Gradient
+      const grad = screenCtx.createLinearGradient(0, 0, baseW, baseH);
+      if (activeDemoStyle === 'fintech') {
+        grad.addColorStop(0, '#090d16');
+        grad.addColorStop(0.5, '#0f172a');
+        grad.addColorStop(1, '#064e3b');
+      } else if (activeDemoStyle === 'ai') {
+        grad.addColorStop(0, '#0f0720');
+        grad.addColorStop(0.5, '#1e1b4b');
+        grad.addColorStop(1, '#3b0764');
+      } else {
+        grad.addColorStop(0, '#09090b');
+        grad.addColorStop(1, '#18181b');
+      }
+      screenCtx.fillStyle = grad;
+      screenCtx.fillRect(0, 0, baseW, baseH);
+
+      // Status Bar
+      screenCtx.fillStyle = '#ffffff';
+      screenCtx.font = '600 36px Inter, sans-serif';
+      screenCtx.fillText('9:41', 75, 95);
+
+      // Battery & WiFi Icons
+      screenCtx.fillStyle = '#10b981';
+      screenCtx.beginPath();
+      screenCtx.roundRect(baseW - 155, 68, 85, 32, 8);
+      screenCtx.fill();
+
+      // Header Greeting
+      screenCtx.fillStyle = 'rgba(255,255,255,0.6)';
+      screenCtx.font = '500 34px Inter, sans-serif';
+      screenCtx.fillText('TOTAL PORTFOLIO', 75, 240);
+
+      screenCtx.fillStyle = '#ffffff';
+      screenCtx.font = '700 88px Inter, sans-serif';
+      screenCtx.fillText('$128,450.80', 75, 340);
+
+      // Pill Badge
+      screenCtx.fillStyle = 'rgba(16, 185, 129, 0.2)';
+      screenCtx.beginPath();
+      screenCtx.roundRect(75, 375, 230, 52, 26);
+      screenCtx.fill();
+      screenCtx.fillStyle = '#34d399';
+      screenCtx.font = '600 30px Inter, sans-serif';
+      screenCtx.fillText('+18.4% Today', 100, 412);
+
+      // Animated Wave Chart Card
+      screenCtx.fillStyle = 'rgba(255, 255, 255, 0.06)';
+      screenCtx.beginPath();
+      screenCtx.roundRect(65, 480, baseW - 130, 520, 44);
+      screenCtx.fill();
+
+      screenCtx.strokeStyle = '#10b981';
+      screenCtx.lineWidth = 10;
+      screenCtx.beginPath();
+      for (let x = 110; x < baseW - 110; x += 20) {
+        const norm = (x - 110) / (baseW - 220);
+        const y = 760 - Math.sin(norm * Math.PI * 2.5 + tick * 0.05) * 110 - norm * 80;
+        if (x === 110) screenCtx.moveTo(x, y);
+        else screenCtx.lineTo(x, y);
+      }
+      screenCtx.stroke();
+
+      // Feature Cards
+      const cards = [
+        { title: 'Apple Pay Vault', sub: 'Instant transfer active', amount: '+$2,400', color: '#38bdf8' },
+        { title: 'Neural GPU Yield', sub: 'Local compute rewards', amount: '+$845.20', color: '#a855f7' },
+        { title: 'Design System Pro', sub: 'Subscription renewed', amount: '-$49.00', color: '#f43f5e' }
+      ];
+
+      cards.forEach((c, idx) => {
+        const topY = 1060 + idx * 240;
+        screenCtx.fillStyle = 'rgba(255, 255, 255, 0.07)';
+        screenCtx.beginPath();
+        screenCtx.roundRect(65, topY, baseW - 130, 200, 36);
+        screenCtx.fill();
+
+        // Icon Circle
+        screenCtx.fillStyle = c.color;
+        screenCtx.beginPath();
+        screenCtx.arc(155, topY + 100, 46, 0, Math.PI * 2);
+        screenCtx.fill();
+
+        screenCtx.fillStyle = '#ffffff';
+        screenCtx.font = '600 40px Inter, sans-serif';
+        screenCtx.fillText(c.title, 235, topY + 90);
+
+        screenCtx.fillStyle = 'rgba(255,255,255,0.5)';
+        screenCtx.font = '400 32px Inter, sans-serif';
+        screenCtx.fillText(c.sub, 235, topY + 140);
+
+        screenCtx.fillStyle = '#ffffff';
+        screenCtx.font = '700 40px Inter, sans-serif';
+        screenCtx.fillText(c.amount, baseW - 275, topY + 110);
+      });
+
+      // Home Indicator Bar
+      screenCtx.fillStyle = 'rgba(255,255,255,0.45)';
+      screenCtx.beginPath();
+      screenCtx.roundRect(baseW / 2 - 170, baseH - 55, 340, 16, 8);
+      screenCtx.fill();
+
+      screenCtx.restore();
+      screenTexture.needsUpdate = true;
+    }
+
+    // Handle Custom Image or Video Upload onto the 3D Screen
+    function handleScreenMediaUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const url = URL.createObjectURL(file);
+      document.getElementById('timeline-media-name').textContent = file.name;
+
+      if (file.type.startsWith('video/')) {
+        customUploadedImage = null;
+        if (uploadedVideoElement) uploadedVideoElement.pause();
+        uploadedVideoElement = document.createElement('video');
+        uploadedVideoElement.src = url;
+        uploadedVideoElement.muted = true;
+        uploadedVideoElement.loop = true;
+        uploadedVideoElement.playsInline = true;
+        uploadedVideoElement.play();
+        applyStrictSRGBAndSharpness(screenTexture);
+        showToast('Loaded video with exact sRGB colors!');
+      } else {
+        if (uploadedVideoElement) {
+          uploadedVideoElement.pause();
+          uploadedVideoElement = null;
+        }
+        const img = new Image();
+        img.onload = () => {
+          customUploadedImage = img;
+          applyStrictSRGBAndSharpness(screenTexture);
+          drawProceduralScreen(0);
+          showToast('Loaded screenshot with true sRGB color accuracy!');
+        };
+        img.src = url;
+      }
+    }
+
+    /********************************************************************
+     * 3. THREE.JS 3D SCENE & PROCEDURAL HARDWARE MODELS
+     ********************************************************************/
+    function createRoundedRectShape(width, height, radius) {
+      const shape = new THREE.Shape();
+      const x = -width / 2;
+      const y = -height / 2;
+      shape.moveTo(x, y + radius);
+      shape.lineTo(x, y + height - radius);
+      shape.quadraticCurveTo(x, y + height, x + radius, y + height);
+      shape.lineTo(x + width - radius, y + height);
+      shape.quadraticCurveTo(x + width, y + height, x + width, y + height - radius);
+      shape.lineTo(x + width, y + radius);
+      shape.quadraticCurveTo(x + width, y, x + width - radius, y);
+      shape.lineTo(x + radius, y);
+      shape.quadraticCurveTo(x, y, x, y + radius);
+      return shape;
+    }
+
+    function createScreenPlaneWithUVs(width, height, radius) {
+      const shape = createRoundedRectShape(width, height, radius);
+      const geom = new THREE.ShapeGeometry(shape, 32);
+      const pos = geom.attributes.position;
+      const uvs = [];
+      for (let i = 0; i < pos.count; i++) {
+        const u = (pos.getX(i) + width / 2) / width;
+        const v = (pos.getY(i) + height / 2) / height;
+        uvs.push(u, v);
+      }
+      geom.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      return geom;
+    }
+
+    function getBodyMaterial() {
+      const mat = new THREE.MeshStandardMaterial({
+        color: state.clayMode ? '#e4e4e7' : state.deviceColor,
+        metalness: state.clayMode ? 0.05 : state.deviceMetalness,
+        roughness: state.clayMode ? 0.85 : state.deviceRoughness
+      });
+      hardwareMaterials.push(mat);
+      return mat;
+    }
+
+    // CRITICAL FIX: Unlit, toneMapped: false Screen Material + Separate Optional Glass Glare Layer
+    function createTrueColorScreenAndGlass(width, height, radius, zOffset) {
+      const container = new THREE.Group();
+
+      // 1. Pixel-accurate unlit OLED Screen (bypasses studio light wash-out & ACES toneMapping bleaching)
+      const scrGeom = createScreenPlaneWithUVs(width, height, radius);
+      const b = state.screenBrightness;
+      const scrMat = new THREE.MeshBasicMaterial({
+        map: screenTexture,
+        color: new THREE.Color(b, b, b),
+        toneMapped: false // Prevents ACESFilmicToneMapping & exposure from turning screenshots white
+      });
+      activeScreenMaterials.push(scrMat);
+
+      const scrMesh = new THREE.Mesh(scrGeom, scrMat);
+      scrMesh.position.z = zOffset;
+      scrMesh.name = 'activeScreen';
+      if (state.clayMode) scrMesh.visible = false;
+      container.add(scrMesh);
+
+      // 2. Separate Subtle Glass Reflection Layer slightly above screen
+      const glassGeom = createScreenPlaneWithUVs(width, height, radius);
+      const glassMat = new THREE.MeshPhysicalMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: state.screenGlare * 0.35,
+        roughness: 0.08,
+        metalness: 0.1,
+        reflectivity: 0.9,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.05,
+        depthWrite: false
+      });
+      activeGlassOverlayMaterials.push(glassMat);
+
+      const glassMesh = new THREE.Mesh(glassGeom, glassMat);
+      glassMesh.position.z = zOffset + 0.004;
+      glassMesh.visible = !state.clayMode && state.screenGlare > 0.001;
+      container.add(glassMesh);
+
+      return container;
+    }
+
+    // Build High-Detail iPhone 15 Pro
+    function buildIPhone15Pro() {
+      const group = new THREE.Group();
+      const w = 7.4, h = 15.2, depth = 0.72, r = 1.15;
+
+      // Extruded Titanium Chassis
+      const shape = createRoundedRectShape(w, h, r);
+      const extrudeSettings = {
+        depth: depth,
+        bevelEnabled: true,
+        bevelSegments: 6,
+        steps: 1,
+        bevelSize: 0.08,
+        bevelThickness: 0.08
+      };
+      const chassisGeom = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+      chassisGeom.center();
+      const bodyMat = getBodyMaterial();
+      const chassisMesh = new THREE.Mesh(chassisGeom, bodyMat);
+      group.add(chassisMesh);
+
+      // Front Bezel Border
+      const bezelGeom = createScreenPlaneWithUVs(w - 0.18, h - 0.18, r - 0.06);
+      const bezelMat = new THREE.MeshBasicMaterial({ color: 0x050507 });
+      const bezelMesh = new THREE.Mesh(bezelGeom, bezelMat);
+      bezelMesh.position.z = depth / 2 + 0.082;
+      group.add(bezelMesh);
+
+      // Active OLED Screen + Optional Glass Layer
+      const screenUnit = createTrueColorScreenAndGlass(w - 0.48, h - 0.48, r - 0.18, depth / 2 + 0.086);
+      group.add(screenUnit);
+
+      // Dynamic Island Pill
+      const islandShape = createRoundedRectShape(2.1, 0.52, 0.26);
+      const islandGeom = new THREE.ShapeGeometry(islandShape, 16);
+      const islandMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
+      const islandMesh = new THREE.Mesh(islandGeom, islandMat);
+      islandMesh.position.set(0, h / 2 - 0.85, depth / 2 + 0.095);
+      islandMesh.visible = state.showDynamicIsland && !state.clayMode;
+      dynamicIslandMeshRef = islandMesh;
+      group.add(islandMesh);
+
+      // Camera Bump on Back
+      const bumpShape = createRoundedRectShape(3.2, 3.2, 0.65);
+      const bumpGeom = new THREE.ExtrudeGeometry(bumpShape, { depth: 0.22, bevelEnabled: true, bevelSize: 0.05, bevelThickness: 0.05 });
+      const bumpMesh = new THREE.Mesh(bumpGeom, bodyMat);
+      bumpMesh.position.set(w / 2 - 2.0, h / 2 - 2.0, -depth / 2 - 0.26);
+      group.add(bumpMesh);
+
+      // 3 Pro Camera Lenses
+      const lensCoords = [[-0.75, 0.75], [-0.75, -0.75], [0.75, 0.0]];
+      const lensGeom = new THREE.CylinderGeometry(0.58, 0.58, 0.18, 24);
+      lensGeom.rotateX(Math.PI / 2);
+      lensCoords.forEach(([lx, ly]) => {
+        const lensRing = new THREE.Mesh(lensGeom, bodyMat);
+        lensRing.position.set(w / 2 - 2.0 + lx, h / 2 - 2.0 + ly, -depth / 2 - 0.32);
+        group.add(lensRing);
+      });
+
+      // Side Action & Volume Buttons
+      const btnGeom = new THREE.BoxGeometry(0.12, 1.1, 0.22);
+      const volUp = new THREE.Mesh(btnGeom, bodyMat);
+      volUp.position.set(-w / 2 - 0.08, 2.2, 0);
+      const volDown = new THREE.Mesh(btnGeom, bodyMat);
+      volDown.position.set(-w / 2 - 0.08, 0.7, 0);
+      const pwrBtn = new THREE.Mesh(new THREE.BoxGeometry(0.12, 1.7, 0.22), bodyMat);
+      pwrBtn.position.set(w / 2 + 0.08, 1.5, 0);
+      group.add(volUp, volDown, pwrBtn);
+
+      return group;
+    }
+
+    // Build High-Detail MacBook Pro with Adjustable Lid Hinge
+    function buildMacBookPro() {
+      const group = new THREE.Group();
+      const bodyMat = getBodyMaterial();
+      const w = 18.0, d = 12.2, baseH = 0.55;
+
+      // Base Deck
+      const baseShape = createRoundedRectShape(w, d, 0.7);
+      const baseGeom = new THREE.ExtrudeGeometry(baseShape, {
+        depth: baseH,
+        bevelEnabled: true,
+        bevelSize: 0.06,
+        bevelThickness: 0.06
+      });
+      baseGeom.rotateX(Math.PI / 2);
+      baseGeom.center();
+      const baseMesh = new THREE.Mesh(baseGeom, bodyMat);
+      baseMesh.position.y = -3.5;
+      group.add(baseMesh);
+
+      // Recessed Dark Keyboard Well
+      const kbGeom = new THREE.BoxGeometry(w - 2.2, 0.05, d * 0.48);
+      const kbMat = new THREE.MeshStandardMaterial({ color: 0x111115, roughness: 0.8 });
+      const kbMesh = new THREE.Mesh(kbGeom, kbMat);
+      kbMesh.position.set(0, -3.5 + baseH / 2 + 0.04, -1.1);
+      group.add(kbMesh);
+
+      // Trackpad
+      const tpGeom = new THREE.BoxGeometry(4.6, 0.03, 2.9);
+      const tpMesh = new THREE.Mesh(tpGeom, bodyMat);
+      tpMesh.position.set(0, -3.5 + baseH / 2 + 0.04, 3.2);
+      group.add(tpMesh);
+
+      // Lid Pivot at Back Hinge
+      macbookLidPivot = new THREE.Group();
+      macbookLidPivot.position.set(0, -3.5 + baseH / 2, -d / 2 + 0.3);
+
+      const lidShape = createRoundedRectShape(w, d, 0.7);
+      const lidGeom = new THREE.ExtrudeGeometry(lidShape, {
+        depth: 0.28,
+        bevelEnabled: true,
+        bevelSize: 0.04,
+        bevelThickness: 0.04
+      });
+      lidGeom.center();
+      const lidMesh = new THREE.Mesh(lidGeom, bodyMat);
+      lidMesh.position.set(0, d / 2, 0);
+      macbookLidPivot.add(lidMesh);
+
+      // Laptop Screen Display (True Color + Glass Layer)
+      const screenUnit = createTrueColorScreenAndGlass(w - 0.9, d - 1.0, 0.35, 0.19);
+      screenUnit.position.y = d / 2;
+      macbookLidPivot.add(screenUnit);
+
+      // Apply Initial Lid Angle (90 deg = vertical)
+      const rad = THREE.MathUtils.degToRad(state.macbookLidAngle - 90);
+      macbookLidPivot.rotation.x = -rad;
+
+      group.add(macbookLidPivot);
+      return group;
+    }
+
+    // Build High-Detail iPad Pro
+    function buildIPadPro() {
+      const group = new THREE.Group();
+      const w = 12.6, h = 16.8, depth = 0.48, r = 0.95;
+
+      const shape = createRoundedRectShape(w, h, r);
+      const chassisGeom = new THREE.ExtrudeGeometry(shape, {
+        depth: depth,
+        bevelEnabled: true,
+        bevelSegments: 5,
+        bevelSize: 0.06,
+        bevelThickness: 0.06
+      });
+      chassisGeom.center();
+      const bodyMat = getBodyMaterial();
+      const chassisMesh = new THREE.Mesh(chassisGeom, bodyMat);
+      group.add(chassisMesh);
+
+      // iPad Pro Screen (True Color + Glass Layer)
+      const screenUnit = createTrueColorScreenAndGlass(w - 0.8, h - 0.8, r - 0.2, depth / 2 + 0.065);
+      group.add(screenUnit);
+
+      return group;
+    }
+
+    // Create Soft Radial Contact Shadow Texture
+    function createSoftShadowMesh() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 256;
+      canvas.height = 256;
+      const ctx = canvas.getContext('2d');
+      const grad = ctx.createRadialGradient(128, 128, 10, 128, 128, 120);
+      grad.addColorStop(0, 'rgba(0, 0, 0, 0.75)');
+      grad.addColorStop(0.5, 'rgba(0, 0, 0, 0.25)');
+      grad.addColorStop(1, 'rgba(0, 0, 0, 0.0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 256, 256);
+
+      const tex = new THREE.CanvasTexture(canvas);
+      const geom = new THREE.PlaneGeometry(18, 10);
+      geom.rotateX(-Math.PI / 2);
+      const mat = new THREE.MeshBasicMaterial({
+        map: tex,
+        transparent: true,
+        opacity: 0.65,
+        depthWrite: false
+      });
+      const mesh = new THREE.Mesh(geom, mat);
+      mesh.position.y = -9.2;
+      return mesh;
+    }
+
+    function initThreeScene() {
+      const container = document.getElementById('canvas-container');
+      scene = new THREE.Scene();
+
+      camera = new THREE.PerspectiveCamera(35, container.clientWidth / container.clientHeight, 0.1, 500);
+      camera.position.set(0, 0, 30.52);
+
+      renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+        preserveDrawingBuffer: true
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.outputEncoding = THREE.sRGBEncoding;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.15;
+      container.appendChild(renderer.domElement);
+
+      // Studio Lighting Rig
+      ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
+      scene.add(ambientLight);
+
+      mainDirLight = new THREE.DirectionalLight(0xffffff, 1.4);
+      mainDirLight.position.set(18, 25, 22);
+      scene.add(mainDirLight);
+
+      fillLight = new THREE.DirectionalLight(0x93c5fd, 0.75);
+      fillLight.position.set(-20, 10, 15);
+      scene.add(fillLight);
+
+      rimLight = new THREE.PointLight(0x34d399, 1.1, 70);
+      rimLight.position.set(0, 16, -18);
+      scene.add(rimLight);
+
+      // Device Group & Shadow
+      deviceGroup = new THREE.Group();
+      scene.add(deviceGroup);
+
+      contactShadowMesh = createSoftShadowMesh();
+      scene.add(contactShadowMesh);
+
+      initScreenCanvas();
+      rebuildActiveDeviceModel();
+      setupViewportInteractions(renderer.domElement);
+
+      window.addEventListener('resize', handleWindowResize);
+      setTimeout(handleWindowResize, 50);
+    }
+
+    function rebuildActiveDeviceModel() {
+      hardwareMaterials = [];
+      activeScreenMaterials = [];
+      activeGlassOverlayMaterials = [];
+      dynamicIslandMeshRef = null;
+
+      if (currentModelMeshGroup) {
+        deviceGroup.remove(currentModelMeshGroup);
+      }
+
+      syncScreenCanvasAspect();
+      drawProceduralScreen(demoAnimTick);
+
+      if (state.deviceType === 'iphone') {
+        currentModelMeshGroup = buildIPhone15Pro();
+        contactShadowMesh.position.y = -9.2;
+        contactShadowMesh.scale.set(0.9, 0.9, 1);
+      } else if (state.deviceType === 'macbook') {
+        currentModelMeshGroup = buildMacBookPro();
+        contactShadowMesh.position.y = -5.0;
+        contactShadowMesh.scale.set(1.5, 1.4, 1);
+      } else {
+        currentModelMeshGroup = buildIPadPro();
+        contactShadowMesh.position.y = -9.8;
+        contactShadowMesh.scale.set(1.2, 1.0, 1);
+      }
+
+      deviceGroup.add(currentModelMeshGroup);
+    }
+
+    // Screen Display Controls (Fit Mode, Brightness, Glare, Dynamic Island)
+    function setScreenFitMode(mode) {
+      state.screenFitMode = mode;
+      const coverBtn = document.getElementById('fit-btn-cover');
+      const containBtn = document.getElementById('fit-btn-contain');
+      if (mode === 'cover') {
+        coverBtn.className = 'px-2 py-0.5 rounded-md text-[10px] font-medium bg-emerald-500 text-white transition';
+        containBtn.className = 'px-2 py-0.5 rounded-md text-[10px] font-medium text-zinc-400 hover:text-white transition';
+      } else {
+        containBtn.className = 'px-2 py-0.5 rounded-md text-[10px] font-medium bg-emerald-500 text-white transition';
+        coverBtn.className = 'px-2 py-0.5 rounded-md text-[10px] font-medium text-zinc-400 hover:text-white transition';
+      }
+      drawProceduralScreen(demoAnimTick);
+      showToast(`Screen aspect mode: ${mode.toUpperCase()}`);
+    }
+
+    function updateScreenBrightness(val) {
+      const pct = parseFloat(val) || 100;
+      state.screenBrightness = pct / 100;
+      document.getElementById('screen-brightness-val').textContent = `${Math.round(pct)}%`;
+      const b = state.screenBrightness;
+      activeScreenMaterials.forEach(mat => {
+        mat.color.setRGB(b, b, b);
+      });
+    }
+
+    function updateScreenGlare(val) {
+      const pct = parseFloat(val) || 0;
+      state.screenGlare = pct / 100;
+      document.getElementById('screen-glare-val').textContent = `${Math.round(pct)}%`;
+      activeGlassOverlayMaterials.forEach(mat => {
+        mat.opacity = state.screenGlare * 0.35;
+        mat.needsUpdate = true;
+      });
+      if (currentModelMeshGroup) {
+        currentModelMeshGroup.traverse(obj => {
+          if (obj.isMesh && activeGlassOverlayMaterials.includes(obj.material)) {
+            obj.visible = !state.clayMode && state.screenGlare > 0.001;
+          }
+        });
+      }
+    }
+
+    function toggleDynamicIsland() {
+      state.showDynamicIsland = !state.showDynamicIsland;
+      const btn = document.getElementById('island-toggle-btn');
+      const knob = document.getElementById('island-toggle-knob');
+      btn.setAttribute('aria-checked', state.showDynamicIsland);
+      btn.className = state.showDynamicIsland
+        ? 'w-9 h-5 rounded-full bg-emerald-500 relative transition-colors'
+        : 'w-9 h-5 rounded-full bg-zinc-300 dark:bg-zinc-700 relative transition-colors';
+      knob.style.transform = state.showDynamicIsland ? 'translateX(16px)' : 'translateX(0px)';
+      if (dynamicIslandMeshRef) {
+        dynamicIslandMeshRef.visible = state.showDynamicIsland && !state.clayMode;
+      }
+    }
+
+    /********************************************************************
+     * 4. INTERACTIVE ORBIT CONTROLS & INSPECTOR SYNC
+     ********************************************************************/
+    function setupViewportInteractions(domElem) {
+      domElem.addEventListener('mousedown', (e) => {
+        if (e.button === 2 || e.shiftKey) {
+          orbit.isPanning = true;
+        } else {
+          orbit.isDragging = true;
+        }
+        orbit.prevX = e.clientX;
+        orbit.prevY = e.clientY;
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!orbit.isDragging && !orbit.isPanning) return;
+        const dx = e.clientX - orbit.prevX;
+        const dy = e.clientY - orbit.prevY;
+        orbit.prevX = e.clientX;
+        orbit.prevY = e.clientY;
+
+        if (orbit.isDragging) {
+          // Rotate device directly for intuitive Rotato feel
+          deviceGroup.rotation.y += dx * 0.008;
+          deviceGroup.rotation.x += dy * 0.008;
+          syncDeviceSlidersFromMesh();
+        } else if (orbit.isPanning) {
+          camera.position.x -= dx * 0.03;
+          camera.position.y += dy * 0.03;
+          syncCameraInspectorFromThree();
+        }
+      });
+
+      window.addEventListener('mouseup', () => {
+        orbit.isDragging = false;
+        orbit.isPanning = false;
+      });
+
+      domElem.addEventListener('contextmenu', (e) => e.preventDefault());
+
+      // Wheel Zoom
+      domElem.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        camera.position.z = THREE.MathUtils.clamp(camera.position.z + e.deltaY * 0.025, 10, 85);
+        syncCameraInspectorFromThree();
+      }, { passive: false });
+
+      // Touch Support
+      domElem.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          orbit.isDragging = true;
+          orbit.prevX = e.touches[0].clientX;
+          orbit.prevY = e.touches[0].clientY;
+        }
+      }, { passive: true });
+
+      domElem.addEventListener('touchmove', (e) => {
+        if (!orbit.isDragging || e.touches.length !== 1) return;
+        const dx = e.touches[0].clientX - orbit.prevX;
+        const dy = e.touches[0].clientY - orbit.prevY;
+        orbit.prevX = e.touches[0].clientX;
+        orbit.prevY = e.touches[0].clientY;
+        deviceGroup.rotation.y += dx * 0.008;
+        deviceGroup.rotation.x += dy * 0.008;
+        syncDeviceSlidersFromMesh();
+      }, { passive: true });
+
+      domElem.addEventListener('touchend', () => { orbit.isDragging = false; });
+
+      // Drag and drop image/video directly onto 3D viewport
+      const container = document.getElementById('canvas-container');
+      container.addEventListener('dragover', (e) => e.preventDefault());
+      container.addEventListener('drop', (e) => {
+        e.preventDefault();
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+          handleScreenMediaUpload({ target: { files: e.dataTransfer.files } });
+        }
+      });
+    }
+
+    function syncCameraInspectorFromThree() {
+      document.getElementById('cam-pos-x').value = camera.position.x.toFixed(2);
+      document.getElementById('cam-pos-y').value = camera.position.y.toFixed(2);
+      document.getElementById('cam-pos-z').value = camera.position.z.toFixed(2);
+      document.getElementById('cam-rot-x').value = THREE.MathUtils.radToDeg(camera.rotation.x).toFixed(1);
+      document.getElementById('cam-rot-y').value = THREE.MathUtils.radToDeg(camera.rotation.y).toFixed(1);
+      document.getElementById('cam-rot-z').value = THREE.MathUtils.radToDeg(camera.rotation.z).toFixed(1);
+    }
+
+    function applyCameraInputs() {
+      camera.position.x = parseFloat(document.getElementById('cam-pos-x').value) || 0;
+      camera.position.y = parseFloat(document.getElementById('cam-pos-y').value) || 0;
+      camera.position.z = parseFloat(document.getElementById('cam-pos-z').value) || 30.52;
+      camera.rotation.x = THREE.MathUtils.degToRad(parseFloat(document.getElementById('cam-rot-x').value) || 0);
+      camera.rotation.y = THREE.MathUtils.degToRad(parseFloat(document.getElementById('cam-rot-y').value) || 0);
+      camera.rotation.z = THREE.MathUtils.degToRad(parseFloat(document.getElementById('cam-rot-z').value) || 0);
+    }
+
+    function syncDeviceSlidersFromMesh() {
+      const rx = THREE.MathUtils.radToDeg(deviceGroup.rotation.x);
+      const ry = THREE.MathUtils.radToDeg(deviceGroup.rotation.y);
+      const rz = THREE.MathUtils.radToDeg(deviceGroup.rotation.z);
+
+      document.getElementById('dev-rot-x').value = rx;
+      document.getElementById('dev-rot-y').value = ry;
+      document.getElementById('dev-rot-z').value = rz;
+
+      document.getElementById('dev-rot-x-val').textContent = `${rx.toFixed(1)}°`;
+      document.getElementById('dev-rot-y-val').textContent = `${ry.toFixed(1)}°`;
+      document.getElementById('dev-rot-z-val').textContent = `${rz.toFixed(1)}°`;
+    }
+
+    function updateDeviceTransformFromUI() {
+      const rx = parseFloat(document.getElementById('dev-rot-x').value) || 0;
+      const ry = parseFloat(document.getElementById('dev-rot-y').value) || 0;
+      const rz = parseFloat(document.getElementById('dev-rot-z').value) || 0;
+
+      deviceGroup.rotation.set(
+        THREE.MathUtils.degToRad(rx),
+        THREE.MathUtils.degToRad(ry),
+        THREE.MathUtils.degToRad(rz)
+      );
+      syncDeviceSlidersFromMesh();
+    }
+
+    function nudgeDeviceRotation(dx, dy, dz) {
+      deviceGroup.rotation.x += THREE.MathUtils.degToRad(dx);
+      deviceGroup.rotation.y += THREE.MathUtils.degToRad(dy);
+      deviceGroup.rotation.z += THREE.MathUtils.degToRad(dz);
+      syncDeviceSlidersFromMesh();
+    }
+
+    function resetDeviceRotation() {
+      deviceGroup.rotation.set(0, 0, 0);
+      camera.position.set(0, 0, 30.52);
+      camera.rotation.set(0, 0, 0);
+      syncDeviceSlidersFromMesh();
+      syncCameraInspectorFromThree();
+      showToast('Reset device & camera orientation');
+    }
+
+    /********************************************************************
+     * 5. KEYFRAME TIMELINE & MULTI-EASING INTERPOLATION ENGINE
+     ********************************************************************/
+    function evaluateEasing(t, mode) {
+      const clamped = THREE.MathUtils.clamp(t, 0, 1);
+      if (mode === 'linear') {
+        return clamped;
+      } else if (mode === 'expo') {
+        return clamped === 1 ? 1 : 1 - Math.pow(2, -10 * clamped);
+      } else if (mode === 'spring') {
+        const c1 = 1.70158;
+        const c3 = c1 + 1;
+        return 1 + c3 * Math.pow(clamped - 1, 3) + c1 * Math.pow(clamped - 1, 2);
+      }
+      // Default: 'cubic' (Ease In-Out Cubic)
+      return clamped < 0.5
+        ? 4 * clamped * clamped * clamped
+        : 1 - Math.pow(-2 * clamped + 2, 3) / 2;
+    }
+
+    function setEasingCurve(mode) {
+      state.easingMode = mode;
+      const selectEl = document.getElementById('easing-curve-select');
+      if (selectEl) selectEl.value = mode;
+
+      const shortLabels = { cubic: 'Cubic', expo: 'Expo', spring: 'Spring', linear: 'Linear' };
+      const fullLabels = {
+        cubic: 'Ease In-Out Cubic',
+        expo: 'Expo Out (Snap)',
+        spring: 'Spring / Overshoot',
+        linear: 'Linear'
+      };
+      const btn = document.getElementById('timeline-easing-btn');
+      if (btn) btn.textContent = shortLabels[mode] || 'Cubic';
+
+      const modalInd = document.getElementById('modal-easing-indicator');
+      if (modalInd) modalInd.textContent = fullLabels[mode] || 'Ease In-Out Cubic';
+
+      evaluateTimelineAtTime(state.currentTime);
+    }
+
+    function cycleEasingMode() {
+      const order = ['cubic', 'expo', 'spring', 'linear'];
+      const next = order[(order.indexOf(state.easingMode) + 1) % order.length];
+      setEasingCurve(next);
+      showToast(`Easing curve: ${next.toUpperCase()}`);
+    }
+
+    function evaluateTimelineAtTime(t) {
+      state.currentTime = THREE.MathUtils.clamp(t, 0, state.duration);
+      document.getElementById('current-time-input').value = state.currentTime.toFixed(2);
+
+      // Update Playhead X position
+      const ruler = document.getElementById('timeline-ruler');
+      if (ruler) {
+        const ratio = state.currentTime / state.duration;
+        const leftPx = 288 + ratio * ruler.clientWidth;
+        document.getElementById('playhead-line').style.left = `${leftPx}px`;
+      }
+
+      if (state.keyframes.length === 0) return;
+
+      // Sort keyframes by time
+      const sorted = [...state.keyframes].sort((a, b) => a.time - b.time);
+
+      let k1 = sorted[0];
+      let k2 = sorted[sorted.length - 1];
+
+      for (let i = 0; i < sorted.length - 1; i++) {
+        if (state.currentTime >= sorted[i].time && state.currentTime <= sorted[i + 1].time) {
+          k1 = sorted[i];
+          k2 = sorted[i + 1];
+          break;
+        }
+      }
+
+      if (state.currentTime <= k1.time) {
+        applyKeyframePose(k1);
+      } else if (state.currentTime >= k2.time) {
+        applyKeyframePose(k2);
+      } else {
+        const rawSpan = (state.currentTime - k1.time) / Math.max(0.0001, k2.time - k1.time);
+        const alpha = evaluateEasing(rawSpan, state.easingMode);
+
+        camera.position.x = THREE.MathUtils.lerp(k1.camPos.x, k2.camPos.x, alpha);
+        camera.position.y = THREE.MathUtils.lerp(k1.camPos.y, k2.camPos.y, alpha);
+        camera.position.z = THREE.MathUtils.lerp(k1.camPos.z, k2.camPos.z, alpha);
+
+        const rx = THREE.MathUtils.lerp(k1.devRot.x, k2.devRot.x, alpha);
+        const ry = THREE.MathUtils.lerp(k1.devRot.y, k2.devRot.y, alpha);
+        const rz = THREE.MathUtils.lerp(k1.devRot.z, k2.devRot.z, alpha);
+
+        deviceGroup.rotation.set(
+          THREE.MathUtils.degToRad(rx),
+          THREE.MathUtils.degToRad(ry),
+          THREE.MathUtils.degToRad(rz)
+        );
+
+        if (state.deviceType === 'macbook' && macbookLidPivot) {
+          const startLid = k1.lidAngle !== undefined ? k1.lidAngle : 105;
+          const endLid = k2.lidAngle !== undefined ? k2.lidAngle : 105;
+          const lid = THREE.MathUtils.lerp(startLid, endLid, alpha);
+          updateMacbookLid(lid);
+        }
+
+        syncCameraInspectorFromThree();
+        syncDeviceSlidersFromMesh();
+      }
+    }
+
+    function applyKeyframePose(kf) {
+      camera.position.set(kf.camPos.x, kf.camPos.y, kf.camPos.z);
+      deviceGroup.rotation.set(
+        THREE.MathUtils.degToRad(kf.devRot.x),
+        THREE.MathUtils.degToRad(kf.devRot.y),
+        THREE.MathUtils.degToRad(kf.devRot.z)
+      );
+      if (state.deviceType === 'macbook' && kf.lidAngle !== undefined) {
+        updateMacbookLid(kf.lidAngle);
+      }
+      syncCameraInspectorFromThree();
+      syncDeviceSlidersFromMesh();
+    }
+
+    function renderKeyframeDiamonds() {
+      const bar = document.getElementById('keyframe-bar');
+      bar.innerHTML = '';
+      document.getElementById('keyframe-count-badge').textContent = `${state.keyframes.length} keys`;
+
+      state.keyframes.forEach((kf, index) => {
+        const pct = Math.min(98, Math.max(1, (kf.time / state.duration) * 100));
+        const diamond = document.createElement('button');
+        diamond.className = 'w-3 h-3 rotate-45 bg-emerald-400 hover:scale-125 hover:bg-white border border-zinc-900 absolute -translate-x-1/2 transition shadow';
+        diamond.style.left = `${pct}%`;
+        diamond.title = `Keyframe at ${kf.time.toFixed(2)}s (Click to jump, Right-click to delete)`;
+        diamond.onclick = (e) => {
+          e.stopPropagation();
+          state.isPlaying = false;
+          updatePlayButtonIcon();
+          evaluateTimelineAtTime(kf.time);
+        };
+        diamond.oncontextmenu = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (state.keyframes.length > 2) {
+            state.keyframes.splice(index, 1);
+            renderKeyframeDiamonds();
+            showToast('Removed keyframe');
+          } else {
+            showToast('Minimum 2 keyframes required');
+          }
+        };
+        bar.appendChild(diamond);
+      });
+    }
+
+    function captureKeyframeAtCurrentTime() {
+      const newKf = {
+        time: parseFloat(state.currentTime.toFixed(2)),
+        camPos: { x: camera.position.x, y: camera.position.y, z: camera.position.z },
+        devRot: {
+          x: THREE.MathUtils.radToDeg(deviceGroup.rotation.x),
+          y: THREE.MathUtils.radToDeg(deviceGroup.rotation.y),
+          z: THREE.MathUtils.radToDeg(deviceGroup.rotation.z)
+        },
+        lidAngle: state.macbookLidAngle
+      };
+
+      // Replace if existing keyframe is within 0.15s
+      const existingIdx = state.keyframes.findIndex(k => Math.abs(k.time - newKf.time) < 0.15);
+      if (existingIdx >= 0) {
+        state.keyframes[existingIdx] = newKf;
+        showToast(`Updated keyframe at ${newKf.time}s`);
+      } else {
+        state.keyframes.push(newKf);
+        showToast(`Added keyframe at ${newKf.time}s`);
+      }
+      renderKeyframeDiamonds();
+    }
+
+    function togglePlayTimeline() {
+      state.isPlaying = !state.isPlaying;
+      if (state.isPlaying && state.currentTime >= state.duration) {
+        state.currentTime = 0;
+      }
+      updatePlayButtonIcon();
+    }
+
+    function updatePlayButtonIcon() {
+      const btn = document.getElementById('timeline-play-btn');
+      btn.innerHTML = state.isPlaying
+        ? '<i data-lucide="pause" class="w-3.5 h-3.5 fill-current"></i>'
+        : '<i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>';
+      lucide.createIcons();
+    }
+
+    let isScrubbingTimeline = false;
+    function startScrubbing(e) {
+      if (e.button !== 0) return;
+      isScrubbingTimeline = true;
+      state.isPlaying = false;
+      updatePlayButtonIcon();
+      scrubToMouse(e);
+
+      const moveHandler = (ev) => { if (isScrubbingTimeline) scrubToMouse(ev); };
+      const upHandler = () => {
+        isScrubbingTimeline = false;
+        window.removeEventListener('mousemove', moveHandler);
+        window.removeEventListener('mouseup', upHandler);
+      };
+      window.addEventListener('mousemove', moveHandler);
+      window.addEventListener('mouseup', upHandler);
+    }
+
+    function scrubToMouse(e) {
+      const ruler = document.getElementById('timeline-ruler');
+      const rect = ruler.getBoundingClientRect();
+      const relX = THREE.MathUtils.clamp(e.clientX - rect.left, 0, rect.width);
+      const t = (relX / rect.width) * state.duration;
+      evaluateTimelineAtTime(t);
+    }
+
+    function updateTimelineDuration(val) {
+      state.duration = THREE.MathUtils.clamp(parseFloat(val) || 4.0, 1, 12);
+      const ticks = document.getElementById('ruler-ticks');
+      ticks.innerHTML = '';
+      for (let i = 0; i <= 4; i++) {
+        const s = ((state.duration / 4) * i).toFixed(1);
+        const span = document.createElement('span');
+        span.textContent = `${s}s`;
+        ticks.appendChild(span);
+      }
+      renderKeyframeDiamonds();
+    }
+
+    /********************************************************************
+     * 6. 16-TEMPLATE STUDIO BROWSER, FILTERING & CHOREOGRAPHY LOADER
+     ********************************************************************/
+    function filterTemplates(cat) {
+      state.templateCategoryFilter = cat;
+      document.querySelectorAll('.tpl-filter-pill').forEach(btn => {
+        const isMatch = btn.getAttribute('data-cat') === cat;
+        if (isMatch) {
+          btn.classList.add('bg-emerald-500', 'text-white', 'font-semibold');
+          btn.classList.remove('bg-zinc-100', 'bg-zinc-200/70', 'dark:bg-surface-card', 'text-zinc-400');
+        } else {
+          btn.classList.remove('bg-emerald-500', 'text-white', 'font-semibold');
+          btn.classList.add('dark:bg-surface-card', 'text-zinc-400');
+        }
+      });
+      renderTemplateLibraryUI();
+    }
+
+    function openTemplateModal() {
+      renderTemplateLibraryUI();
+      document.getElementById('template-gallery-modal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeTemplateModal() {
+      document.getElementById('template-gallery-modal').classList.add('hidden');
+    }
+
+    function renderTemplateLibraryUI() {
+      const sidebarList = document.getElementById('sidebar-template-list');
+      const modalGrid = document.getElementById('modal-template-grid');
+      if (!sidebarList || !modalGrid) return;
+
+      const filtered = STUDIO_TEMPLATES.filter(t =>
+        state.templateCategoryFilter === 'all' || t.category.includes(state.templateCategoryFilter)
+      );
+
+      sidebarList.innerHTML = '';
+      modalGrid.innerHTML = '';
+
+      const devIcons = { iphone: 'smartphone', macbook: 'laptop', ipad: 'tablet' };
+
+      filtered.forEach(tpl => {
+        const isActive = state.activeTemplateSlug === tpl.slug;
+        const iconName = devIcons[tpl.device] || 'smartphone';
+
+        // 1. Sidebar Compact Card
+        const sBtn = document.createElement('button');
+        sBtn.onclick = () => applyPresetTemplate(tpl.slug);
+        sBtn.className = `w-full p-2.5 rounded-xl text-left transition flex items-center gap-3 group border ${
+          isActive
+            ? 'bg-emerald-500/10 border-emerald-500 ring-1 ring-emerald-500/40'
+            : 'bg-zinc-100 dark:bg-surface-card border-transparent hover:border-emerald-500/50'
+        }`;
+        sBtn.innerHTML = `
+          <div class="w-10 h-10 rounded-lg shrink-0 flex items-center justify-center text-white shadow-inner relative overflow-hidden" style="background: linear-gradient(135deg, ${tpl.bg1}, ${tpl.bg2});">
+            <i data-lucide="${iconName}" class="w-4 h-4 opacity-90 group-hover:scale-110 transition-transform"></i>
+          </div>
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center gap-1.5">
+              <p class="text-xs font-semibold truncate group-hover:text-emerald-400 transition">${tpl.name}</p>
+            </div>
+            <p class="text-[10px] text-zinc-400 truncate">${tpl.subtitle}</p>
+          </div>
+          <span class="text-[9px] px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-surface font-mono text-emerald-400 shrink-0">${tpl.badge}</span>
+        `;
+        sidebarList.appendChild(sBtn);
+
+        // 2. Modal Rich Visual Card
+        const mCard = document.createElement('div');
+        mCard.onclick = () => {
+          applyPresetTemplate(tpl.slug);
+          closeTemplateModal();
+        };
+        mCard.className = `cursor-pointer rounded-xl p-3.5 border transition-all flex flex-col justify-between group ${
+          isActive
+            ? 'bg-emerald-500/10 border-emerald-500 ring-2 ring-emerald-500/30'
+            : 'bg-zinc-50 dark:bg-surface-card border-zinc-200/70 dark:border-surface-border hover:border-emerald-500 hover:-translate-y-0.5'
+        }`;
+        mCard.innerHTML = `
+          <div>
+            <div class="h-24 rounded-lg mb-3 relative overflow-hidden flex items-center justify-center border border-white/10 shadow-inner" style="background: radial-gradient(circle at 50% 30%, ${tpl.bg2}, ${tpl.bg1});">
+              <div class="w-11 h-11 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
+                <i data-lucide="${iconName}" class="w-5 h-5"></i>
+              </div>
+              <span class="absolute top-2 left-2 text-[9px] font-semibold px-2 py-0.5 rounded-full bg-black/50 text-emerald-300 backdrop-blur-sm">${tpl.badge}</span>
+              <span class="absolute bottom-2 right-2 text-[9px] font-mono px-1.5 py-0.5 rounded bg-black/50 text-zinc-300">${tpl.duration.toFixed(1)}s • ${tpl.keyframes.length} keys</span>
+            </div>
+            <h4 class="text-xs font-bold group-hover:text-emerald-400 transition">${tpl.name}</h4>
+            <p class="text-[11px] text-zinc-400 mt-0.5 line-clamp-1">${tpl.subtitle}</p>
+          </div>
+          <div class="flex items-center justify-between mt-3 pt-2 border-t border-zinc-200/60 dark:border-surface-border text-[10px] text-zinc-400">
+            <span class="uppercase font-mono">${tpl.device}</span>
+            <span class="text-emerald-400 font-medium flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+              Apply Rig <i data-lucide="arrow-right" class="w-3 h-3"></i>
+            </span>
+          </div>
+        `;
+        modalGrid.appendChild(mCard);
+      });
+
+      lucide.createIcons();
+    }
+
+    function applyPresetTemplate(slug) {
+      const tpl = STUDIO_TEMPLATES.find(t => t.slug === slug) || STUDIO_TEMPLATES[0];
+      state.activeTemplateSlug = tpl.slug;
+
+      // 1. Switch 3D Hardware Model
+      selectDeviceModel(tpl.device);
+
+      // 2. Apply Clay Mode if specified by template
+      const targetClay = Boolean(tpl.clay);
+      if (state.clayMode !== targetClay) {
+        toggleClayMode();
+      }
+
+      // 3. Apply Dynamic Island visibility if specified
+      if (tpl.showIsland !== undefined && state.showDynamicIsland !== tpl.showIsland) {
+        toggleDynamicIsland();
+      } else if (tpl.showIsland === undefined && !state.showDynamicIsland) {
+        toggleDynamicIsland();
+      }
+
+      // 4. Apply Continuous Zero-G Idle Float if specified
+      const targetFloat = Boolean(tpl.idleFloat);
+      if (state.idleFloat !== targetFloat) {
+        toggleIdleFloat();
+      }
+
+      // 5. Apply Camera FOV & Easing Curve
+      updateCameraFOV(tpl.fov || 35);
+      document.getElementById('cam-fov-slider').value = tpl.fov || 35;
+      setEasingCurve(tpl.easing || 'cubic');
+
+      // 6. Synchronize Studio Backdrop Gradient
+      if (tpl.bg1 && tpl.bg2) {
+        setQuickGradient(tpl.bg1, tpl.bg2);
+      }
+
+      // 7. Load Deep-Cloned Keyframes & Duration
+      document.getElementById('active-project-name').textContent = tpl.name;
+      state.duration = tpl.duration;
+      state.keyframes = JSON.parse(JSON.stringify(tpl.keyframes));
+
+      updateTimelineDuration(state.duration);
+      document.getElementById('duration-input').value = state.duration.toFixed(2);
+      renderKeyframeDiamonds();
+      renderTemplateLibraryUI();
+
+      // Start playing immediately from 0s
+      state.currentTime = 0;
+      state.isPlaying = true;
+      updatePlayButtonIcon();
+      showToast(`Loaded "${tpl.name}" (${tpl.keyframes.length} keyframes)`);
+    }
+
+    /********************************************************************
+     * 7. LOCAL GPU EXPORT ENGINE (SUPERSAMPLED PNG & WEBM VIDEO)
+     ********************************************************************/
+    function setOutputMode(mode) {
+      state.outputMode = mode;
+      const photoBtn = document.getElementById('mode-btn-photo');
+      const videoBtn = document.getElementById('mode-btn-video');
+      const exportLabel = document.getElementById('export-btn-label');
+
+      if (mode === 'photo') {
+        photoBtn.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-amber-400 text-amber-950 shadow-sm transition-all';
+        videoBtn.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all';
+        exportLabel.textContent = 'Export PNG';
+      } else {
+        videoBtn.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-emerald-500 text-white shadow-sm transition-all';
+        photoBtn.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all';
+        exportLabel.textContent = 'Export Video';
+      }
+    }
+
+    function triggerExport() {
+      if (state.outputMode === 'photo') {
+        exportHighResPhoto();
+      } else {
+        exportLocalWebMVideo();
+      }
+    }
+
+    // Build Composite Canvas (Backdrop + 3D WebGL Canvas) so gradients/solid backgrounds export cleanly
+    function renderCompositeFrame(targetW, targetH) {
+      const compCanvas = document.createElement('canvas');
+      compCanvas.width = targetW;
+      compCanvas.height = targetH;
+      const ctx = compCanvas.getContext('2d');
+
+      if (state.backdropMode === 'gradient') {
+        const grad = ctx.createRadialGradient(targetW * 0.5, targetH * 0.35, 10, targetW * 0.5, targetH * 0.5, targetW * 0.8);
+        grad.addColorStop(0, state.bgColor2);
+        grad.addColorStop(1, state.bgColor1);
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, targetW, targetH);
+      } else if (state.backdropMode === 'solid') {
+        ctx.fillStyle = state.bgColor1;
+        ctx.fillRect(0, 0, targetW, targetH);
+      }
+
+      ctx.drawImage(renderer.domElement, 0, 0, targetW, targetH);
+      return compCanvas;
+    }
+
+    function exportHighResPhoto() {
+      const scale = parseInt(document.getElementById('export-scale-select').value) || 2;
+      const container = document.getElementById('canvas-container');
+      const baseW = container.clientWidth;
+      const baseH = container.clientHeight;
+
+      // Temporarily boost GPU render buffer size
+      renderer.setPixelRatio(scale);
+      renderer.setSize(baseW, baseH);
+      renderer.render(scene, camera);
+
+      const outCanvas = renderCompositeFrame(baseW * scale, baseH * scale);
+      const dataUrl = outCanvas.toDataURL('image/png');
+
+      // Restore normal viewport pixel ratio
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(baseW, baseH);
+
+      const link = document.createElement('a');
+      link.download = `rotato-mockup-${Date.now()}.png`;
+      link.href = dataUrl;
+      link.click();
+      showToast(`Exported ${scale}x GPU Studio PNG!`);
+    }
+
+    function exportLocalWebMVideo() {
+      const container = document.getElementById('canvas-container');
+      const recCanvas = document.createElement('canvas');
+      recCanvas.width = container.clientWidth * 2;
+      recCanvas.height = container.clientHeight * 2;
+      const recCtx = recCanvas.getContext('2d');
+
+      const stream = recCanvas.captureStream(60);
+      let mimeType = 'video/webm;codecs=vp9';
+      if (!MediaRecorder.isTypeSupported(mimeType)) {
+        mimeType = 'video/webm';
+      }
+
+      const recorder = new MediaRecorder(stream, {
+        mimeType,
+        videoBitsPerSecond: 12000000
+      });
+
+      const chunks = [];
+      recorder.ondataavailable = (e) => { if (e.data.size > 0) chunks.push(e.data); };
+      recorder.onstop = () => {
+        document.getElementById('recording-badge').classList.add('hidden');
+        const blob = new Blob(chunks, { type: mimeType });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `rotato-animation-${Date.now()}.webm`;
+        a.click();
+        showToast('Video render complete! Downloaded locally.');
+      };
+
+      // Start playback from 0s and record frame-by-frame
+      state.currentTime = 0;
+      state.isPlaying = true;
+      updatePlayButtonIcon();
+      document.getElementById('recording-badge').classList.remove('hidden');
+      recorder.start();
+
+      const recordTick = () => {
+        if (state.currentTime >= state.duration || !state.isPlaying) {
+          state.isPlaying = false;
+          updatePlayButtonIcon();
+          if (recorder.state === 'recording') recorder.stop();
+          return;
+        }
+
+        // Draw backdrop + WebGL canvas into recording stream
+        if (state.backdropMode === 'gradient') {
+          const grad = recCtx.createRadialGradient(recCanvas.width * 0.5, recCanvas.height * 0.35, 10, recCanvas.width * 0.5, recCanvas.height * 0.5, recCanvas.width * 0.8);
+          grad.addColorStop(0, state.bgColor2);
+          grad.addColorStop(1, state.bgColor1);
+          recCtx.fillStyle = grad;
+          recCtx.fillRect(0, 0, recCanvas.width, recCanvas.height);
+        } else if (state.backdropMode === 'solid') {
+          recCtx.fillStyle = state.bgColor1;
+          recCtx.fillRect(0, 0, recCanvas.width, recCanvas.height);
+        } else {
+          recCtx.clearRect(0, 0, recCanvas.width, recCanvas.height);
+        }
+        recCtx.drawImage(renderer.domElement, 0, 0, recCanvas.width, recCanvas.height);
+
+        const pct = Math.min(100, Math.round((state.currentTime / state.duration) * 100));
+        document.getElementById('recording-status-text').textContent = `Recording GPU Stream... ${pct}%`;
+
+        requestAnimationFrame(recordTick);
+      };
+      requestAnimationFrame(recordTick);
+    }
+
+    /********************************************************************
+     * 8. UI CONTROLS & INSPECTOR HELPERS
+     ********************************************************************/
+    function switchTab(tabId) {
+      state.activeTab = tabId;
+      const tabs = ['device', 'camera', 'templates', 'background', 'settings'];
+      tabs.forEach(t => {
+        document.getElementById(`tab-content-${t}`).classList.toggle('hidden', t !== tabId);
+        const btn = document.getElementById(`tab-btn-${t}`);
+        if (t === tabId) {
+          btn.className = 'sidebar-tab-btn flex flex-col items-center justify-center gap-1 w-13 h-14 px-2 rounded-xl text-xs font-medium bg-emerald-500/15 text-emerald-400 transition-all';
+        } else {
+          btn.className = 'sidebar-tab-btn flex flex-col items-center justify-center gap-1 w-13 h-14 px-2 rounded-xl text-xs font-medium text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-200/50 dark:hover:bg-surface-hover transition-all';
+        }
+      });
+    }
+
+    function selectDeviceModel(type) {
+      state.deviceType = type;
+      ['iphone', 'macbook', 'ipad'].forEach(m => {
+        const btn = document.getElementById(`model-btn-${m}`);
+        if (m === type) {
+          btn.className = 'device-model-btn flex flex-col items-center gap-1.5 p-2.5 rounded-xl border border-emerald-500 bg-emerald-500/10 text-emerald-500 transition';
+        } else {
+          btn.className = 'device-model-btn flex flex-col items-center gap-1.5 p-2.5 rounded-xl border border-zinc-200 dark:border-surface-border hover:bg-zinc-100 dark:hover:bg-surface-hover transition';
+        }
+      });
+
+      document.getElementById('macbook-lid-control').classList.toggle('hidden', type !== 'macbook');
+      const islandRow = document.getElementById('dynamic-island-row');
+      if (islandRow) islandRow.classList.toggle('hidden', type !== 'iphone');
+
+      const labels = { iphone: 'iPhone 15 Pro', macbook: 'MacBook Pro M3', ipad: 'iPad Pro Ultra' };
+      document.getElementById('timeline-device-label').textContent = labels[type];
+
+      rebuildActiveDeviceModel();
+    }
+
+    function updateMacbookLid(angleDeg) {
+      state.macbookLidAngle = parseFloat(angleDeg);
+      document.getElementById('lid-angle-label').textContent = `${Math.round(state.macbookLidAngle)}°`;
+      document.getElementById('lid-angle-slider').value = state.macbookLidAngle;
+      if (macbookLidPivot) {
+        const rad = THREE.MathUtils.degToRad(state.macbookLidAngle - 90);
+        macbookLidPivot.rotation.x = -rad;
+      }
+    }
+
+    function toggleClayMode() {
+      state.clayMode = !state.clayMode;
+      const btn = document.getElementById('clay-toggle-btn');
+      const knob = document.getElementById('clay-toggle-knob');
+      btn.setAttribute('aria-checked', state.clayMode);
+      btn.className = state.clayMode
+        ? 'w-10 h-5 rounded-full bg-emerald-500 relative transition-colors'
+        : 'w-10 h-5 rounded-full bg-zinc-300 dark:bg-zinc-700 relative transition-colors';
+      knob.style.transform = state.clayMode ? 'translateX(20px)' : 'translateX(0px)';
+
+      rebuildActiveDeviceModel();
+      showToast(state.clayMode ? 'Real Clay Mode enabled' : 'Standard materials restored');
+    }
+
+    function setDeviceColor(hex, metalness, roughness) {
+      state.deviceColor = hex;
+      state.deviceMetalness = metalness;
+      state.deviceRoughness = roughness;
+      if (state.clayMode) toggleClayMode();
+      hardwareMaterials.forEach(mat => {
+        mat.color.set(hex);
+        mat.metalness = metalness;
+        mat.roughness = roughness;
+      });
+    }
+
+    function updateCameraFOV(val) {
+      camera.fov = parseFloat(val);
+      camera.updateProjectionMatrix();
+      document.getElementById('fov-label').textContent = `${val}°`;
+    }
+
+    function toggleDOF() {
+      state.dofEnabled = !state.dofEnabled;
+      const btn = document.getElementById('dof-toggle-btn');
+      const knob = document.getElementById('dof-toggle-knob');
+      btn.className = state.dofEnabled
+        ? 'w-10 h-5 rounded-full bg-emerald-500 relative transition-colors'
+        : 'w-10 h-5 rounded-full bg-zinc-300 dark:bg-zinc-700 relative transition-colors';
+      knob.style.transform = state.dofEnabled ? 'translateX(20px)' : 'translateX(0px)';
+      document.getElementById('canvas-container').style.filter = state.dofEnabled ? 'drop-shadow(0 25px 25px rgba(0,0,0,0.5))' : 'none';
+    }
+
+    function copyCameraValues() {
+      state.copiedCamera = {
+        pos: camera.position.clone(),
+        rot: deviceGroup.rotation.clone()
+      };
+      showToast('Copied camera & rotation values');
+    }
+
+    function pasteCameraValues() {
+      if (!state.copiedCamera) {
+        showToast('No camera values copied yet');
+        return;
+      }
+      camera.position.copy(state.copiedCamera.pos);
+      deviceGroup.rotation.copy(state.copiedCamera.rot);
+      syncCameraInspectorFromThree();
+      syncDeviceSlidersFromMesh();
+      showToast('Pasted camera values');
+    }
+
+    function setStageAspect(cssRatio, label) {
+      const wrapper = document.getElementById('stage-aspect-wrapper');
+      wrapper.style.aspectRatio = cssRatio;
+      document.querySelectorAll('.aspect-pill').forEach(btn => {
+        if (btn.textContent === label) {
+          btn.className = 'aspect-pill px-2 py-1 rounded-md text-xs bg-emerald-500/20 text-emerald-400 font-semibold transition';
+        } else {
+          btn.className = 'aspect-pill px-2 py-1 rounded-md text-xs hover:bg-zinc-200/60 dark:hover:bg-surface-hover transition';
+        }
+      });
+      setTimeout(handleWindowResize, 220);
+    }
+
+    function setBackdropMode(mode) {
+      state.backdropMode = mode;
+      ['gradient', 'solid', 'transparent'].forEach(m => {
+        const btn = document.getElementById(`bg-mode-${m}`);
+        btn.className = m === mode
+          ? 'px-2.5 py-1.5 rounded-lg text-xs font-medium bg-emerald-500 text-white'
+          : 'px-2.5 py-1.5 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-surface-card';
+      });
+      document.getElementById('bg-color-2-row').classList.toggle('hidden', mode !== 'gradient');
+      applyBackdropVisuals();
+    }
+
+    function updateBackdropColors() {
+      state.bgColor1 = document.getElementById('bg-color-1').value;
+      state.bgColor2 = document.getElementById('bg-color-2').value;
+      applyBackdropVisuals();
+    }
+
+    function setQuickGradient(c1, c2) {
+      state.bgColor1 = c1;
+      state.bgColor2 = c2;
+      document.getElementById('bg-color-1').value = c1;
+      document.getElementById('bg-color-2').value = c2;
+      if (state.backdropMode === 'transparent') setBackdropMode('gradient');
+      else applyBackdropVisuals();
+    }
+
+    function applyBackdropVisuals() {
+      const backdrop = document.getElementById('canvas-backdrop');
+      const dot = document.getElementById('pill-color-dot');
+      backdrop.classList.remove('checkerboard');
+
+      if (state.backdropMode === 'gradient') {
+        backdrop.style.background = `radial-gradient(circle at 50% 35%, ${state.bgColor2}, ${state.bgColor1})`;
+        dot.style.background = state.bgColor2;
+      } else if (state.backdropMode === 'solid') {
+        backdrop.style.background = state.bgColor1;
+        dot.style.background = state.bgColor1;
+      } else {
+        backdrop.style.background = 'transparent';
+        backdrop.classList.add('checkerboard');
+        dot.style.background = 'transparent';
+      }
+    }
+
+    function updateLightingIntensity(val) {
+      mainDirLight.intensity = parseFloat(val);
+      document.getElementById('light-int-val').textContent = `${parseFloat(val).toFixed(1)}x`;
+    }
+
+    function updateShadowOpacity(val) {
+      contactShadowMesh.material.opacity = parseFloat(val);
+      document.getElementById('shadow-op-val').textContent = `${Math.round(val * 100)}%`;
+    }
+
+    function toggleIdleFloat() {
+      state.idleFloat = !state.idleFloat;
+      const btn = document.getElementById('idle-float-btn');
+      if (btn) {
+        btn.textContent = `Enable Continuous Levitation: ${state.idleFloat ? 'ON' : 'OFF'}`;
+      }
+      const camBtn = document.getElementById('cam-float-toggle-btn');
+      const camKnob = document.getElementById('cam-float-toggle-knob');
+      if (camBtn && camKnob) {
+        camBtn.setAttribute('aria-checked', state.idleFloat);
+        camBtn.className = state.idleFloat
+          ? 'w-10 h-5 rounded-full bg-emerald-500 relative transition-colors'
+          : 'w-10 h-5 rounded-full bg-zinc-300 dark:bg-zinc-700 relative transition-colors';
+        camKnob.style.transform = state.idleFloat ? 'translateX(20px)' : 'translateX(0px)';
+      }
+      if (!state.idleFloat && deviceGroup) {
+        deviceGroup.position.y = 0;
+      }
+    }
+
+    function toggleTheme() {
+      document.documentElement.classList.toggle('dark');
+    }
+
+    function resetEntireScene() {
+      resetDeviceRotation();
+      applyPresetTemplate('tilted-zoom-out');
+      state.isPlaying = false;
+      updatePlayButtonIcon();
+      evaluateTimelineAtTime(4.0);
+    }
+
+    function showToast(msg) {
+      const box = document.getElementById('toast-box');
+      document.getElementById('toast-text').textContent = msg;
+      box.classList.remove('opacity-0', 'translate-y-2');
+      clearTimeout(box._timeout);
+      box._timeout = setTimeout(() => {
+        box.classList.add('opacity-0', 'translate-y-2');
+      }, 2400);
+    }
+
+    function handleWindowResize() {
+      const container = document.getElementById('canvas-container');
+      if (!container || !renderer || !camera) return;
+      const w = container.clientWidth;
+      const h = container.clientHeight;
+      if (w === 0 || h === 0) return;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    }
+
+    // Keyboard Shortcuts (Spacebar to Play/Pause)
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' && e.target.tagName !== 'INPUT') {
+        e.preventDefault();
+        togglePlayTimeline();
+      }
+    });
+
+    /********************************************************************
+     * 9. MAIN GPU RENDER LOOP
+     ********************************************************************/
+    let lastFrameTime = performance.now();
+    let frameCount = 0;
+    let fpsTimer = performance.now();
+
+    function animateLoop(now) {
+      requestAnimationFrame(animateLoop);
+
+      const dt = (now - lastFrameTime) / 1000;
+      lastFrameTime = now;
+
+      // Live FPS Counter
+      frameCount++;
+      if (now - fpsTimer >= 500) {
+        const fps = Math.min(120, Math.round((frameCount * 1000) / (now - fpsTimer)));
+        document.getElementById('fps-counter').textContent = `${fps} FPS`;
+        frameCount = 0;
+        fpsTimer = now;
+      }
+
+      // Advance Timeline Playhead if playing
+      if (state.isPlaying) {
+        let nextTime = state.currentTime + dt;
+        if (nextTime >= state.duration) {
+          nextTime = 0; // Seamless loop
+        }
+        evaluateTimelineAtTime(nextTime);
+      }
+
+      // Optional Continuous Floating Levitation
+      if (state.idleFloat) {
+        deviceGroup.position.y = Math.sin(now * 0.0025) * 0.65;
+      }
+
+      // Update Procedural or Video Screen Texture
+      demoAnimTick++;
+      if (!customUploadedImage || uploadedVideoElement) {
+        drawProceduralScreen(demoAnimTick);
+      }
+
+      renderer.render(scene, camera);
+    }
+
+    window.onload = function () {
+      lucide.createIcons();
+      initThreeScene();
+      switchTab('device');
+      renderTemplateLibraryUI();
+      renderKeyframeDiamonds();
+      evaluateTimelineAtTime(3.01); // Match Rotato snapshot initial playhead
+      requestAnimationFrame(animateLoop);
+    };
+  </script>
+</body>
+</html>
