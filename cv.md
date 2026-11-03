@@ -83,37 +83,51 @@ My mobile publishing portfolio includes Android applications under mmsoftware100
 ## Selected Web & Business Projects
 
 ### Dr. Token — Clinic Queue & Booking Platform
-**Technologies:** Laravel, MySQL
+**Technologies:** Laravel, MySQL, Livewire, Filament  
+**Website:** [drtoken.live](https://drtoken.live)
 
-- Work on clinic queue and booking workflows connecting clinic staff, doctors, and patients.
-- Product scope includes live queue information, token calling, and online booking.
-- Website: [drtoken.live](https://drtoken.live)
+- Contribute to clinic and doctor scheduling, appointment APIs, and live queue display workflows.
+- Maintain clinic onboarding and integrate Cloudflare Turnstile verification.
+- Add public doctor and clinic page-view tracking through route middleware.
+- Integrate and maintain changes across public interfaces, backend APIs, and clinic operations.
 
 ### MM QR Menu — Restaurant Menu & Ordering System
+**Technologies:** Hono, TypeScript, Cloudflare Workers, D1, Durable Objects, React, Next.js  
+**Website:** [mmqrmenu.com](https://mmqrmenu.com)
 
-- Project work covers QR-based menu access and customer, waiter, kitchen, and cashier workflows.
-- Workflow scope includes order approval, order status, manual payment confirmation, and receipts.
-- Website: [mmqrmenu.com](https://mmqrmenu.com)
-
-### Software 100 — Company Website
-
-- Company website project presenting software products and development services.
-- Website: [software100.com.mm](https://www.software100.com.mm)
+- Develop and maintain the restaurant application across its Hono API, React administration panel, and Next.js public menu.
+- Implement shop-scoped staff permissions and customer, waiter, kitchen, and cashier workflows.
+- Support table QR ordering, order changes, kitchen preparation status, billing, payment approval, and receipts.
+- Work on Cloudflare migration, demo data, API documentation, and integration tests.
 
 ### Tourism Government Website
+**Technologies:** Next.js, React, REST APIs, CSS Modules  
+**Website:** [tourism.gov.mm](https://www.tourism.gov.mm)
 
-- Website project included in my professional portfolio.
-- Website: [tourism.gov.mm](https://www.tourism.gov.mm)
+- Integrate tourism information APIs across language-specific website sections.
+- Implement API-driven directories for national and regional tour guides, hot-air balloon companies, and cruise operators.
+- Develop travel advisory content and maintain tourism statistics and announcement integrations.
+- Contribute responsive page layouts and content presentation within a multilingual Next.js application.
+
+### Thanks / ThankBook — Gratitude & Social Application
+**Technologies:** Laravel, Next.js, TypeScript, Android App Links  
+**Website:** [thanks.com.mm](https://www.thanks.com.mm)
+
+- Define frontend–backend API contracts and align request fields, data types, and response structures.
+- Develop mock endpoints for contact and thank-note listing and creation to support frontend integration.
+- Update contact image-input validation and document integration requirements.
+- Configure Android App Links through Digital Asset Links for the mobile application.
+- Collaborate on integration within a platform covering contacts, thank notes, comments, reactions, and messaging.
+
+### Software 100 — Company Website
+**Website:** [software100.com.mm](https://www.software100.com.mm)
+
+- Company website included in my project portfolio.
 
 ### Ministry of Information Website
+**Website:** [moi.gov.mm](https://www.moi.gov.mm)
 
-- Website project included in my professional portfolio, alongside the MOI mobile application listed above.
-- Website: [moi.gov.mm](https://www.moi.gov.mm)
-
-### Thanks — Website Project
-
-- Website project included in my professional portfolio.
-- Website: [thanks.com.mm](https://www.thanks.com.mm)
+- Website project included in my portfolio, alongside the MOI mobile application listed above.
 
 ## Education
 
