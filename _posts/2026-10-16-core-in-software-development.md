@@ -12,7 +12,7 @@ tags:
 lang: my
 cover: inventory
 excerpt: "အေအိုင်နဲ့ပဲရေးရေး လူနဲ့ပဲရေးရေး ဆော့ဝဲရေးတဲ့အခါ အဓိက အနှစ်က ဒီ (၃) ခုပဲလို့ ထင်ပါတယ်။"
-permalink: /software-development/physical-stock-and-available-stock/
+permalink: /software-development//
 ---
  
 
