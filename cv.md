@@ -38,6 +38,15 @@ Brings an understanding of both mobile interfaces and supporting backend service
 - Translate operational requirements into application workflows, permissions, and API interactions.
 - Work across mobile and backend components to support feature integration and maintenance.
 
+## Published Mobile Applications
+
+My mobile publishing portfolio includes Android applications under mmsoftware100 and iOS applications under my own Apple Developer account.
+
+- **Korea Myanmar Dictionary — Android:** Korean–Myanmar dictionary application. Package: `com.teamcs.mm.dictionarykorea`. APKPure lists version 1.0 with a last-updated date of 23 June 2020; this archive date is not presented as the original Google Play release date. [Android listing](https://apkpure.net/korea-myanmar-dictionary/com.teamcs.mm.dictionarykorea)
+- **iMirror News — iOS:** App Store version 1.0 released on 16 March 2021, with later updates including offline access to favourite items. [App Store](https://apps.apple.com/us/app/imirror-news/id1558697864)
+- **MCIS MM — iOS:** Myanmar administrative divisions and place-code reference application. [App Store](https://apps.apple.com/us/app/mcis-mm/id6810076905)
+- **Additional iOS portfolio:** MOI News, Zip Myit, Young Tel, Hello Sayarwon, Rose Lady Wing, and ThankBook. [Apple Developer portfolio](https://apps.apple.com/us/developer/aung-ko-man/id1554897295)
+
 ## Selected Flutter Projects
 
 ### OOAK — E-commerce Application | 2021
