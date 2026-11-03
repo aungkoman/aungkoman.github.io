@@ -15,7 +15,7 @@ author_profile: true
 
 ## Professional Summary
 
-Software developer working with Flutter, Dart, and backend APIs to build mobile and web applications around business workflows. Experience includes e-commerce, public information, family tree, and customer loyalty applications, alongside work on asset management and case management systems.
+Software developer with a Flutter GitHub development history dating back to October 2020 and an iOS App Store publishing track record since March 2021. Works with Flutter, Dart, and backend APIs to build mobile and web applications around business workflows. Experience includes e-commerce, public information, family tree, and customer loyalty applications, alongside work on asset management and case management systems.
 
 Brings an understanding of both mobile interfaces and supporting backend services, including authentication, role-based access, data integration, and notifications. Interested in a Senior Flutter Developer role with responsibility for application architecture, maintainable implementation, and collaborative product delivery.
 
@@ -80,12 +80,40 @@ My mobile publishing portfolio includes Android applications under mmsoftware100
 - Project work covers case submission, tracking, communication, and office-based access.
 - Requirements include authentication and restricted access to sensitive case information.
 
+## Selected Web & Business Projects
+
 ### Dr. Token — Clinic Queue & Booking Platform
 **Technologies:** Laravel, MySQL
 
 - Work on clinic queue and booking workflows connecting clinic staff, doctors, and patients.
 - Product scope includes live queue information, token calling, and online booking.
 - Website: [drtoken.live](https://drtoken.live)
+
+### MM QR Menu — Restaurant Menu & Ordering System
+
+- Project work covers QR-based menu access and customer, waiter, kitchen, and cashier workflows.
+- Workflow scope includes order approval, order status, manual payment confirmation, and receipts.
+- Website: [mmqrmenu.com](https://mmqrmenu.com)
+
+### Software 100 — Company Website
+
+- Company website project presenting software products and development services.
+- Website: [software100.com.mm](https://www.software100.com.mm)
+
+### Tourism Government Website
+
+- Website project included in my professional portfolio.
+- Website: [tourism.gov.mm](https://www.tourism.gov.mm)
+
+### Ministry of Information Website
+
+- Website project included in my professional portfolio, alongside the MOI mobile application listed above.
+- Website: [moi.gov.mm](https://www.moi.gov.mm)
+
+### Thanks — Website Project
+
+- Website project included in my professional portfolio.
+- Website: [thanks.com.mm](https://www.thanks.com.mm)
 
 ## Education
 
