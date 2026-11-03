@@ -12,6 +12,10 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- Three.js r128 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- GLTFLoader for Real 3D GLTF/GLB Device Assets -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <!-- RGBELoader for Studio Environment Reflection Maps -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/RGBELoader.js"></script>
 
   <script>
     tailwind.config = {
@@ -595,6 +599,9 @@
               <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
             </button>
             <button onclick="captureKeyframeAtCurrentTime()" class="px-2 h-7 rounded-lg bg-zinc-100 dark:bg-surface-card hover:bg-emerald-500/20 hover:text-emerald-400 text-[11px] font-medium flex items-center gap-1 transition" title="Save current Camera & Device pose at Playhead">
+              <i data-lucide="plus" class="w-3 h-3"></i>
+              <span>Keyframe</span>
+            </button>
             <!-- Easing Badge in Transport Bar -->
             <button onclick="cycleEasingMode()" id="timeline-easing-btn" class="px-2 h-7 rounded-lg bg-zinc-100 dark:bg-surface-card hover:bg-indigo-500/20 hover:text-indigo-300 text-[10px] font-mono text-zinc-400 transition" title="Click to cycle Easing Curve">
               Cubic
@@ -701,6 +708,36 @@
 
       <!-- Modal Cards Grid -->
       <div id="modal-template-grid" class="p-6 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5"></div>
+    </div>
+  </div>
+
+  <!-- VIDEO RENDER PROGRESS & CANCEL MODAL -->
+  <div id="video-export-modal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-6">
+    <div class="bg-white dark:bg-surface-panel border border-zinc-200 dark:border-surface-border rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="w-3 h-3 rounded-full bg-red-500 animate-ping"></span>
+          <h3 class="text-sm font-bold">Rendering Local GPU Video</h3>
+        </div>
+        <span id="export-codec-badge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400">WEBM / 60 FPS</span>
+      </div>
+
+      <p id="export-modal-status" class="text-xs text-zinc-400">Encoding even-dimension hardware stream...</p>
+
+      <div class="w-full h-2.5 rounded-full bg-zinc-200 dark:bg-surface-card overflow-hidden">
+        <div id="export-progress-bar" class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 transition-all duration-75" style="width: 0%;"></div>
+      </div>
+
+      <div class="flex items-center justify-between text-xs font-mono text-zinc-400">
+        <span id="export-time-progress">0.00s / 4.00s</span>
+        <span id="export-pct-label" class="text-emerald-400 font-semibold">0%</span>
+      </div>
+
+      <div class="pt-2 flex justify-end">
+        <button onclick="cancelActiveVideoExport()" class="px-4 py-2 rounded-xl bg-zinc-200 dark:bg-surface-card hover:bg-red-500/20 hover:text-red-400 text-xs font-semibold transition">
+          Cancel Export
+        </button>
+      </div>
     </div>
   </div>
 
@@ -1064,6 +1101,8 @@
     let activeScreenMaterials = [];
     let activeGlassOverlayMaterials = [];
     let dynamicIslandMeshRef = null;
+    let studioEnvMap = null;
+    let isUsingRealGltfModels = false;
 
     // Custom Orbit Camera State
     const orbit = {
@@ -1142,304 +1181,58 @@
       drawProceduralScreen(0);
     }
 
-    // Helper to draw an uploaded image or video frame with Cover or Contain aspect ratio preservation
-    function drawMediaWithObjectFit(ctx, mediaElem, srcW, srcH, dstW, dstH, fitMode) {
-      ctx.save();
-      // Fill deep OLED black backing for 'contain' letterbox bars
-      ctx.fillStyle = '#050507';
-      ctx.fillRect(0, 0, dstW, dstH);
-
-      if (!srcW || !srcH) {
-        ctx.drawImage(mediaElem, 0, 0, dstW, dstH);
-        ctx.restore();
-        return;
-      }
-
-      const srcRatio = srcW / srcH;
-      const dstRatio = dstW / dstH;
-      let drawW = dstW;
-      let drawH = dstH;
-      let offsetX = 0;
-      let offsetY = 0;
-
-      if (fitMode === 'contain') {
-        if (srcRatio > dstRatio) {
-          drawW = dstW;
-          drawH = dstW / srcRatio;
-          offsetY = (dstH - drawH) / 2;
-        } else {
-          drawH = dstH;
-          drawW = dstH * srcRatio;
-          offsetX = (dstW - drawW) / 2;
-        }
-      } else {
-        // 'cover' mode
-        if (srcRatio > dstRatio) {
-          drawH = dstH;
-          drawW = dstH * srcRatio;
-          offsetX = (dstW - drawW) / 2;
-        } else {
-          drawW = dstW;
-          drawH = dstW / srcRatio;
-          offsetY = (dstH - drawH) / 2;
-        }
-      }
-
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
-      ctx.drawImage(mediaElem, offsetX, offsetY, drawW, drawH);
-      ctx.restore();
-    }
-
-    function generateDemoScreen(styleName) {
-      if (uploadedVideoElement) {
-        uploadedVideoElement.pause();
-        uploadedVideoElement = null;
-      }
-      customUploadedImage = null;
-      activeDemoStyle = styleName;
-      document.getElementById('timeline-media-name').textContent = `Demo UI: ${styleName.toUpperCase()} (Live Canvas)`;
-      drawProceduralScreen(demoAnimTick);
-      showToast(`Loaded ${styleName.toUpperCase()} screen design`);
-    }
-
-    function drawProceduralScreen(tick) {
-      if (!screenCtx) return;
-
-      const w = screenCanvas.width;
-      const h = screenCanvas.height;
-
-      // If user uploaded a custom screenshot image
-      if (customUploadedImage) {
-        drawMediaWithObjectFit(
-          screenCtx,
-          customUploadedImage,
-          customUploadedImage.naturalWidth || customUploadedImage.width,
-          customUploadedImage.naturalHeight || customUploadedImage.height,
-          w,
-          h,
-          state.screenFitMode
-        );
-        screenTexture.needsUpdate = true;
-        return;
-      }
-
-      // If user uploaded a custom screen recording video
-      if (uploadedVideoElement && uploadedVideoElement.readyState >= 2) {
-        drawMediaWithObjectFit(
-          screenCtx,
-          uploadedVideoElement,
-          uploadedVideoElement.videoWidth,
-          uploadedVideoElement.videoHeight,
-          w,
-          h,
-          state.screenFitMode
-        );
-        screenTexture.needsUpdate = true;
-        return;
-      }
-
-      // Otherwise draw crisp procedural UI scaled to current canvas dimensions
-      screenCtx.save();
-      screenCtx.scale(w / 1024, h / 2048);
-      const baseW = 1024;
-      const baseH = 2048;
-
-      // Background Gradient
-      const grad = screenCtx.createLinearGradient(0, 0, baseW, baseH);
-      if (activeDemoStyle === 'fintech') {
-        grad.addColorStop(0, '#090d16');
-        grad.addColorStop(0.5, '#0f172a');
-        grad.addColorStop(1, '#064e3b');
-      } else if (activeDemoStyle === 'ai') {
-        grad.addColorStop(0, '#0f0720');
-        grad.addColorStop(0.5, '#1e1b4b');
-        grad.addColorStop(1, '#3b0764');
-      } else {
-        grad.addColorStop(0, '#09090b');
-        grad.addColorStop(1, '#18181b');
-      }
-      screenCtx.fillStyle = grad;
-      screenCtx.fillRect(0, 0, baseW, baseH);
-
-      // Status Bar
-      screenCtx.fillStyle = '#ffffff';
-      screenCtx.font = '600 36px Inter, sans-serif';
-      screenCtx.fillText('9:41', 75, 95);
-
-      // Battery & WiFi Icons
-      screenCtx.fillStyle = '#10b981';
-      screenCtx.beginPath();
-      screenCtx.roundRect(baseW - 155, 68, 85, 32, 8);
-      screenCtx.fill();
-
-      // Header Greeting
-      screenCtx.fillStyle = 'rgba(255,255,255,0.6)';
-      screenCtx.font = '500 34px Inter, sans-serif';
-      screenCtx.fillText('TOTAL PORTFOLIO', 75, 240);
-
-      screenCtx.fillStyle = '#ffffff';
-      screenCtx.font = '700 88px Inter, sans-serif';
-      screenCtx.fillText('$128,450.80', 75, 340);
-
-      // Pill Badge
-      screenCtx.fillStyle = 'rgba(16, 185, 129, 0.2)';
-      screenCtx.beginPath();
-      screenCtx.roundRect(75, 375, 230, 52, 26);
-      screenCtx.fill();
-      screenCtx.fillStyle = '#34d399';
-      screenCtx.font = '600 30px Inter, sans-serif';
-      screenCtx.fillText('+18.4% Today', 100, 412);
-
-      // Animated Wave Chart Card
-      screenCtx.fillStyle = 'rgba(255, 255, 255, 0.06)';
-      screenCtx.beginPath();
-      screenCtx.roundRect(65, 480, baseW - 130, 520, 44);
-      screenCtx.fill();
-
-      screenCtx.strokeStyle = '#10b981';
-      screenCtx.lineWidth = 10;
-      screenCtx.beginPath();
-      for (let x = 110; x < baseW - 110; x += 20) {
-        const norm = (x - 110) / (baseW - 220);
-        const y = 760 - Math.sin(norm * Math.PI * 2.5 + tick * 0.05) * 110 - norm * 80;
-        if (x === 110) screenCtx.moveTo(x, y);
-        else screenCtx.lineTo(x, y);
-      }
-      screenCtx.stroke();
-
-      // Feature Cards
-      const cards = [
-        { title: 'Apple Pay Vault', sub: 'Instant transfer active', amount: '+$2,400', color: '#38bdf8' },
-        { title: 'Neural GPU Yield', sub: 'Local compute rewards', amount: '+$845.20', color: '#a855f7' },
-        { title: 'Design System Pro', sub: 'Subscription renewed', amount: '-$49.00', color: '#f43f5e' }
-      ];
-
-      cards.forEach((c, idx) => {
-        const topY = 1060 + idx * 240;
-        screenCtx.fillStyle = 'rgba(255, 255, 255, 0.07)';
-        screenCtx.beginPath();
-        screenCtx.roundRect(65, topY, baseW - 130, 200, 36);
-        screenCtx.fill();
-
-        // Icon Circle
-        screenCtx.fillStyle = c.color;
-        screenCtx.beginPath();
-        screenCtx.arc(155, topY + 100, 46, 0, Math.PI * 2);
-        screenCtx.fill();
-
-        screenCtx.fillStyle = '#ffffff';
-        screenCtx.font = '600 40px Inter, sans-serif';
-        screenCtx.fillText(c.title, 235, topY + 90);
-
-        screenCtx.fillStyle = 'rgba(255,255,255,0.5)';
-        screenCtx.font = '400 32px Inter, sans-serif';
-        screenCtx.fillText(c.sub, 235, topY + 140);
-
-        screenCtx.fillStyle = '#ffffff';
-        screenCtx.font = '700 40px Inter, sans-serif';
-        screenCtx.fillText(c.amount, baseW - 275, topY + 110);
-      });
-
-      // Home Indicator Bar
-      screenCtx.fillStyle = 'rgba(255,255,255,0.45)';
-      screenCtx.beginPath();
-      screenCtx.roundRect(baseW / 2 - 170, baseH - 55, 340, 16, 8);
-      screenCtx.fill();
-
-      screenCtx.restore();
-      screenTexture.needsUpdate = true;
-    }
-
-    // Handle Custom Image or Video Upload onto the 3D Screen
-    function handleScreenMediaUpload(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      const url = URL.createObjectURL(file);
-      document.getElementById('timeline-media-name').textContent = file.name;
-
-      if (file.type.startsWith('video/')) {
-        customUploadedImage = null;
-        if (uploadedVideoElement) uploadedVideoElement.pause();
-        uploadedVideoElement = document.createElement('video');
-        uploadedVideoElement.src = url;
-        uploadedVideoElement.muted = true;
-        uploadedVideoElement.loop = true;
-        uploadedVideoElement.playsInline = true;
-        uploadedVideoElement.play();
-        applyStrictSRGBAndSharpness(screenTexture);
-        showToast('Loaded video with exact sRGB colors!');
-      } else {
-        if (uploadedVideoElement) {
-          uploadedVideoElement.pause();
-          uploadedVideoElement = null;
-        }
-        const img = new Image();
-        img.onload = () => {
-          customUploadedImage = img;
-          applyStrictSRGBAndSharpness(screenTexture);
-          drawProceduralScreen(0);
-          showToast('Loaded screenshot with true sRGB color accuracy!');
-        };
-        img.src = url;
-      }
-    }
-
     /********************************************************************
-     * 3. THREE.JS 3D SCENE & PROCEDURAL HARDWARE MODELS
+     * 3B. PROCEDURAL FALLBACK MODELS & REAL GLTF 3D MODEL LOADER
      ********************************************************************/
-    function createRoundedRectShape(width, height, radius) {
-      const shape = new THREE.Shape();
-      const x = -width / 2;
-      const y = -height / 2;
-      shape.moveTo(x, y + radius);
-      shape.lineTo(x, y + height - radius);
-      shape.quadraticCurveTo(x, y + height, x + radius, y + height);
-      shape.lineTo(x + width - radius, y + height);
-      shape.quadraticCurveTo(x + width, y + height, x + width, y + height - radius);
-      shape.lineTo(x + width, y + radius);
-      shape.quadraticCurveTo(x + width, y, x + width - radius, y);
-      shape.lineTo(x + radius, y);
-      shape.quadraticCurveTo(x, y, x, y + radius);
-      return shape;
-    }
+    function createStudioEnvironmentMap() {
+      const pmremGenerator = new THREE.PMREMGenerator(renderer);
+      pmremGenerator.compileEquirectangularShader();
 
-    function createScreenPlaneWithUVs(width, height, radius) {
-      const shape = createRoundedRectShape(width, height, radius);
-      const geom = new THREE.ShapeGeometry(shape, 32);
-      const pos = geom.attributes.position;
-      const uvs = [];
-      for (let i = 0; i < pos.count; i++) {
-        const u = (pos.getX(i) + width / 2) / width;
-        const v = (pos.getY(i) + height / 2) / height;
-        uvs.push(u, v);
-      }
-      geom.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
-      return geom;
+      // Create a procedural HDR-grade studio gradient background for gorgeous physical reflections
+      const canvas = document.createElement('canvas');
+      canvas.width = 1024;
+      canvas.height = 512;
+      const ctx = canvas.getContext('2d');
+      const grad = ctx.createLinearGradient(0, 0, 0, 512);
+      grad.addColorStop(0, '#1e293b');
+      grad.addColorStop(0.4, '#475569');
+      grad.addColorStop(0.5, '#0f172a');
+      grad.addColorStop(0.8, '#1e293b');
+      grad.addColorStop(1, '#020617');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 1024, 512);
+
+      // Studio overhead soft box strip
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(384, 40, 256, 40);
+
+      const tex = new THREE.CanvasTexture(canvas);
+      tex.mapping = THREE.EquirectangularReflectionMapping;
+      studioEnvMap = pmremGenerator.fromEquirectangular(tex).texture;
+      scene.environment = studioEnvMap;
     }
 
     function getBodyMaterial() {
       const mat = new THREE.MeshStandardMaterial({
         color: state.clayMode ? '#e4e4e7' : state.deviceColor,
         metalness: state.clayMode ? 0.05 : state.deviceMetalness,
-        roughness: state.clayMode ? 0.85 : state.deviceRoughness
+        roughness: state.clayMode ? 0.85 : state.deviceRoughness,
+        envMap: studioEnvMap,
+        envMapIntensity: 1.25
       });
       hardwareMaterials.push(mat);
       return mat;
     }
 
-    // CRITICAL FIX: Unlit, toneMapped: false Screen Material + Separate Optional Glass Glare Layer
     function createTrueColorScreenAndGlass(width, height, radius, zOffset) {
       const container = new THREE.Group();
 
-      // 1. Pixel-accurate unlit OLED Screen (bypasses studio light wash-out & ACES toneMapping bleaching)
       const scrGeom = createScreenPlaneWithUVs(width, height, radius);
       const b = state.screenBrightness;
       const scrMat = new THREE.MeshBasicMaterial({
         map: screenTexture,
         color: new THREE.Color(b, b, b),
-        toneMapped: false // Prevents ACESFilmicToneMapping & exposure from turning screenshots white
+        toneMapped: false
       });
       activeScreenMaterials.push(scrMat);
 
@@ -1449,17 +1242,18 @@
       if (state.clayMode) scrMesh.visible = false;
       container.add(scrMesh);
 
-      // 2. Separate Subtle Glass Reflection Layer slightly above screen
       const glassGeom = createScreenPlaneWithUVs(width, height, radius);
       const glassMat = new THREE.MeshPhysicalMaterial({
         color: 0xffffff,
         transparent: true,
         opacity: state.screenGlare * 0.35,
-        roughness: 0.08,
+        roughness: 0.06,
         metalness: 0.1,
-        reflectivity: 0.9,
+        reflectivity: 0.95,
         clearcoat: 1.0,
-        clearcoatRoughness: 0.05,
+        clearcoatRoughness: 0.04,
+        envMap: studioEnvMap,
+        envMapIntensity: 1.5,
         depthWrite: false
       });
       activeGlassOverlayMaterials.push(glassMat);
@@ -1472,39 +1266,33 @@
       return container;
     }
 
-    // Build High-Detail iPhone 15 Pro
     function buildIPhone15Pro() {
       const group = new THREE.Group();
       const w = 7.4, h = 15.2, depth = 0.72, r = 1.15;
 
-      // Extruded Titanium Chassis
       const shape = createRoundedRectShape(w, h, r);
-      const extrudeSettings = {
+      const chassisGeom = new THREE.ExtrudeGeometry(shape, {
         depth: depth,
         bevelEnabled: true,
         bevelSegments: 6,
         steps: 1,
         bevelSize: 0.08,
         bevelThickness: 0.08
-      };
-      const chassisGeom = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+      });
       chassisGeom.center();
       const bodyMat = getBodyMaterial();
       const chassisMesh = new THREE.Mesh(chassisGeom, bodyMat);
       group.add(chassisMesh);
 
-      // Front Bezel Border
       const bezelGeom = createScreenPlaneWithUVs(w - 0.18, h - 0.18, r - 0.06);
       const bezelMat = new THREE.MeshBasicMaterial({ color: 0x050507 });
       const bezelMesh = new THREE.Mesh(bezelGeom, bezelMat);
       bezelMesh.position.z = depth / 2 + 0.082;
       group.add(bezelMesh);
 
-      // Active OLED Screen + Optional Glass Layer
       const screenUnit = createTrueColorScreenAndGlass(w - 0.48, h - 0.48, r - 0.18, depth / 2 + 0.086);
       group.add(screenUnit);
 
-      // Dynamic Island Pill
       const islandShape = createRoundedRectShape(2.1, 0.52, 0.26);
       const islandGeom = new THREE.ShapeGeometry(islandShape, 16);
       const islandMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
@@ -1514,14 +1302,12 @@
       dynamicIslandMeshRef = islandMesh;
       group.add(islandMesh);
 
-      // Camera Bump on Back
       const bumpShape = createRoundedRectShape(3.2, 3.2, 0.65);
       const bumpGeom = new THREE.ExtrudeGeometry(bumpShape, { depth: 0.22, bevelEnabled: true, bevelSize: 0.05, bevelThickness: 0.05 });
       const bumpMesh = new THREE.Mesh(bumpGeom, bodyMat);
       bumpMesh.position.set(w / 2 - 2.0, h / 2 - 2.0, -depth / 2 - 0.26);
       group.add(bumpMesh);
 
-      // 3 Pro Camera Lenses
       const lensCoords = [[-0.75, 0.75], [-0.75, -0.75], [0.75, 0.0]];
       const lensGeom = new THREE.CylinderGeometry(0.58, 0.58, 0.18, 24);
       lensGeom.rotateX(Math.PI / 2);
@@ -1531,26 +1317,14 @@
         group.add(lensRing);
       });
 
-      // Side Action & Volume Buttons
-      const btnGeom = new THREE.BoxGeometry(0.12, 1.1, 0.22);
-      const volUp = new THREE.Mesh(btnGeom, bodyMat);
-      volUp.position.set(-w / 2 - 0.08, 2.2, 0);
-      const volDown = new THREE.Mesh(btnGeom, bodyMat);
-      volDown.position.set(-w / 2 - 0.08, 0.7, 0);
-      const pwrBtn = new THREE.Mesh(new THREE.BoxGeometry(0.12, 1.7, 0.22), bodyMat);
-      pwrBtn.position.set(w / 2 + 0.08, 1.5, 0);
-      group.add(volUp, volDown, pwrBtn);
-
       return group;
     }
 
-    // Build High-Detail MacBook Pro with Adjustable Lid Hinge
     function buildMacBookPro() {
       const group = new THREE.Group();
       const bodyMat = getBodyMaterial();
       const w = 18.0, d = 12.2, baseH = 0.55;
 
-      // Base Deck
       const baseShape = createRoundedRectShape(w, d, 0.7);
       const baseGeom = new THREE.ExtrudeGeometry(baseShape, {
         depth: baseH,
@@ -1564,20 +1338,17 @@
       baseMesh.position.y = -3.5;
       group.add(baseMesh);
 
-      // Recessed Dark Keyboard Well
       const kbGeom = new THREE.BoxGeometry(w - 2.2, 0.05, d * 0.48);
       const kbMat = new THREE.MeshStandardMaterial({ color: 0x111115, roughness: 0.8 });
       const kbMesh = new THREE.Mesh(kbGeom, kbMat);
       kbMesh.position.set(0, -3.5 + baseH / 2 + 0.04, -1.1);
       group.add(kbMesh);
 
-      // Trackpad
       const tpGeom = new THREE.BoxGeometry(4.6, 0.03, 2.9);
       const tpMesh = new THREE.Mesh(tpGeom, bodyMat);
       tpMesh.position.set(0, -3.5 + baseH / 2 + 0.04, 3.2);
       group.add(tpMesh);
 
-      // Lid Pivot at Back Hinge
       macbookLidPivot = new THREE.Group();
       macbookLidPivot.position.set(0, -3.5 + baseH / 2, -d / 2 + 0.3);
 
@@ -1593,12 +1364,10 @@
       lidMesh.position.set(0, d / 2, 0);
       macbookLidPivot.add(lidMesh);
 
-      // Laptop Screen Display (True Color + Glass Layer)
       const screenUnit = createTrueColorScreenAndGlass(w - 0.9, d - 1.0, 0.35, 0.19);
       screenUnit.position.y = d / 2;
       macbookLidPivot.add(screenUnit);
 
-      // Apply Initial Lid Angle (90 deg = vertical)
       const rad = THREE.MathUtils.degToRad(state.macbookLidAngle - 90);
       macbookLidPivot.rotation.x = -rad;
 
@@ -1606,7 +1375,6 @@
       return group;
     }
 
-    // Build High-Detail iPad Pro
     function buildIPadPro() {
       const group = new THREE.Group();
       const w = 12.6, h = 16.8, depth = 0.48, r = 0.95;
@@ -1624,14 +1392,12 @@
       const chassisMesh = new THREE.Mesh(chassisGeom, bodyMat);
       group.add(chassisMesh);
 
-      // iPad Pro Screen (True Color + Glass Layer)
       const screenUnit = createTrueColorScreenAndGlass(w - 0.8, h - 0.8, r - 0.2, depth / 2 + 0.065);
       group.add(screenUnit);
 
       return group;
     }
 
-    // Create Soft Radial Contact Shadow Texture
     function createSoftShadowMesh() {
       const canvas = document.createElement('canvas');
       canvas.width = 256;
@@ -1668,32 +1434,40 @@
       renderer = new THREE.WebGLRenderer({
         antialias: true,
         alpha: true,
-        preserveDrawingBuffer: true
+        preserveDrawingBuffer: true,
+        powerPreference: 'high-performance'
       });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.setSize(container.clientWidth, container.clientHeight);
-      renderer.outputEncoding = THREE.sRGBEncoding;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      const initW = Math.max(2, Math.floor(container.clientWidth / 2) * 2);
+      const initH = Math.max(2, Math.floor(container.clientHeight / 2) * 2);
+      renderer.setSize(initW, initH);
+      if ('outputColorSpace' in renderer && THREE.SRGBColorSpace) {
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+      } else {
+        renderer.outputEncoding = THREE.sRGBEncoding;
+      }
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1.15;
       container.appendChild(renderer.domElement);
 
-      // Studio Lighting Rig
-      ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
+      // Generate Studio Environment Map for realistic metallic reflections
+      createStudioEnvironmentMap();
+
+      ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
       scene.add(ambientLight);
 
-      mainDirLight = new THREE.DirectionalLight(0xffffff, 1.4);
+      mainDirLight = new THREE.DirectionalLight(0xffffff, 1.3);
       mainDirLight.position.set(18, 25, 22);
       scene.add(mainDirLight);
 
-      fillLight = new THREE.DirectionalLight(0x93c5fd, 0.75);
+      fillLight = new THREE.DirectionalLight(0x93c5fd, 0.6);
       fillLight.position.set(-20, 10, 15);
       scene.add(fillLight);
 
-      rimLight = new THREE.PointLight(0x34d399, 1.1, 70);
+      rimLight = new THREE.PointLight(0x34d399, 1.0, 70);
       rimLight.position.set(0, 16, -18);
       scene.add(rimLight);
 
-      // Device Group & Shadow
       deviceGroup = new THREE.Group();
       scene.add(deviceGroup);
 
@@ -1734,6 +1508,15 @@
         contactShadowMesh.position.y = -9.8;
         contactShadowMesh.scale.set(1.2, 1.0, 1);
       }
+
+      // Apply environment map & physical properties to newly created materials
+      hardwareMaterials.forEach(mat => {
+        if (studioEnvMap) {
+          mat.envMap = studioEnvMap;
+          mat.envMapIntensity = 1.3;
+          mat.needsUpdate = true;
+        }
+      });
 
       deviceGroup.add(currentModelMeshGroup);
     }
@@ -1796,86 +1579,99 @@
     }
 
     /********************************************************************
-     * 4. INTERACTIVE ORBIT CONTROLS & INSPECTOR SYNC
+     * 4. VIEWPORT INTERACTIONS (ORBIT, PAN, ZOOM & DRAG-AND-DROP)
      ********************************************************************/
     function setupViewportInteractions(domElem) {
       domElem.addEventListener('mousedown', (e) => {
-        if (e.button === 2 || e.shiftKey) {
-          orbit.isPanning = true;
-        } else {
-          orbit.isDragging = true;
+        if (state.isPlaying) {
+          state.isPlaying = false;
+          updatePlayButtonIcon();
         }
+        orbit.isDragging = true;
+        orbit.isPanning = e.button === 2 || e.shiftKey;
         orbit.prevX = e.clientX;
         orbit.prevY = e.clientY;
       });
 
       window.addEventListener('mousemove', (e) => {
-        if (!orbit.isDragging && !orbit.isPanning) return;
+        if (!orbit.isDragging) return;
         const dx = e.clientX - orbit.prevX;
         const dy = e.clientY - orbit.prevY;
         orbit.prevX = e.clientX;
         orbit.prevY = e.clientY;
 
-        if (orbit.isDragging) {
-          // Rotate device directly for intuitive Rotato feel
-          deviceGroup.rotation.y += dx * 0.008;
-          deviceGroup.rotation.x += dy * 0.008;
-          syncDeviceSlidersFromMesh();
-        } else if (orbit.isPanning) {
+        if (orbit.isPanning) {
           camera.position.x -= dx * 0.03;
           camera.position.y += dy * 0.03;
-          syncCameraInspectorFromThree();
+        } else {
+          deviceGroup.rotation.y += dx * 0.0085;
+          deviceGroup.rotation.x += dy * 0.0085;
         }
+        syncCameraInspectorFromThree();
+        syncDeviceSlidersFromMesh();
       });
 
       window.addEventListener('mouseup', () => {
         orbit.isDragging = false;
-        orbit.isPanning = false;
       });
 
       domElem.addEventListener('contextmenu', (e) => e.preventDefault());
 
-      // Wheel Zoom
-      domElem.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        camera.position.z = THREE.MathUtils.clamp(camera.position.z + e.deltaY * 0.025, 10, 85);
-        syncCameraInspectorFromThree();
-      }, { passive: false });
-
-      // Touch Support
+      // Touch support for mobile/tablet
       domElem.addEventListener('touchstart', (e) => {
         if (e.touches.length === 1) {
+          if (state.isPlaying) {
+            state.isPlaying = false;
+            updatePlayButtonIcon();
+          }
           orbit.isDragging = true;
+          orbit.isPanning = false;
           orbit.prevX = e.touches[0].clientX;
           orbit.prevY = e.touches[0].clientY;
         }
       }, { passive: true });
 
-      domElem.addEventListener('touchmove', (e) => {
+      window.addEventListener('touchmove', (e) => {
         if (!orbit.isDragging || e.touches.length !== 1) return;
         const dx = e.touches[0].clientX - orbit.prevX;
         const dy = e.touches[0].clientY - orbit.prevY;
         orbit.prevX = e.touches[0].clientX;
         orbit.prevY = e.touches[0].clientY;
-        deviceGroup.rotation.y += dx * 0.008;
-        deviceGroup.rotation.x += dy * 0.008;
+        deviceGroup.rotation.y += dx * 0.0085;
+        deviceGroup.rotation.x += dy * 0.0085;
+        syncCameraInspectorFromThree();
         syncDeviceSlidersFromMesh();
       }, { passive: true });
 
-      domElem.addEventListener('touchend', () => { orbit.isDragging = false; });
+      window.addEventListener('touchend', () => {
+        orbit.isDragging = false;
+      });
 
-      // Drag and drop image/video directly onto 3D viewport
+      // Mouse Wheel Dolly Zoom
+      domElem.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        camera.position.z = THREE.MathUtils.clamp(camera.position.z + e.deltaY * 0.02, 8, 85);
+        syncCameraInspectorFromThree();
+      }, { passive: false });
+
+      // Drag and drop screenshot/video directly onto the 3D stage
       const container = document.getElementById('canvas-container');
-      container.addEventListener('dragover', (e) => e.preventDefault());
+      container.addEventListener('dragover', (e) => {
+        e.preventDefault();
+      });
       container.addEventListener('drop', (e) => {
         e.preventDefault();
-        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
           handleScreenMediaUpload({ target: { files: e.dataTransfer.files } });
         }
       });
     }
 
+    /********************************************************************
+     * 5. CAMERA & DEVICE TRANSFORM SYNCHRONIZATION
+     ********************************************************************/
     function syncCameraInspectorFromThree() {
+      if (!camera) return;
       document.getElementById('cam-pos-x').value = camera.position.x.toFixed(2);
       document.getElementById('cam-pos-y').value = camera.position.y.toFixed(2);
       document.getElementById('cam-pos-z').value = camera.position.z.toFixed(2);
@@ -1885,22 +1681,28 @@
     }
 
     function applyCameraInputs() {
-      camera.position.x = parseFloat(document.getElementById('cam-pos-x').value) || 0;
-      camera.position.y = parseFloat(document.getElementById('cam-pos-y').value) || 0;
-      camera.position.z = parseFloat(document.getElementById('cam-pos-z').value) || 30.52;
-      camera.rotation.x = THREE.MathUtils.degToRad(parseFloat(document.getElementById('cam-rot-x').value) || 0);
-      camera.rotation.y = THREE.MathUtils.degToRad(parseFloat(document.getElementById('cam-rot-y').value) || 0);
-      camera.rotation.z = THREE.MathUtils.degToRad(parseFloat(document.getElementById('cam-rot-z').value) || 0);
+      if (!camera) return;
+      camera.position.set(
+        parseFloat(document.getElementById('cam-pos-x').value) || 0,
+        parseFloat(document.getElementById('cam-pos-y').value) || 0,
+        parseFloat(document.getElementById('cam-pos-z').value) || 30.52
+      );
+      camera.rotation.set(
+        THREE.MathUtils.degToRad(parseFloat(document.getElementById('cam-rot-x').value) || 0),
+        THREE.MathUtils.degToRad(parseFloat(document.getElementById('cam-rot-y').value) || 0),
+        THREE.MathUtils.degToRad(parseFloat(document.getElementById('cam-rot-z').value) || 0)
+      );
     }
 
     function syncDeviceSlidersFromMesh() {
+      if (!deviceGroup) return;
       const rx = THREE.MathUtils.radToDeg(deviceGroup.rotation.x);
       const ry = THREE.MathUtils.radToDeg(deviceGroup.rotation.y);
       const rz = THREE.MathUtils.radToDeg(deviceGroup.rotation.z);
 
-      document.getElementById('dev-rot-x').value = rx;
-      document.getElementById('dev-rot-y').value = ry;
-      document.getElementById('dev-rot-z').value = rz;
+      document.getElementById('dev-rot-x').value = THREE.MathUtils.clamp(rx, -90, 90);
+      document.getElementById('dev-rot-y').value = THREE.MathUtils.clamp(ry, -180, 180);
+      document.getElementById('dev-rot-z').value = THREE.MathUtils.clamp(rz, -90, 90);
 
       document.getElementById('dev-rot-x-val').textContent = `${rx.toFixed(1)}°`;
       document.getElementById('dev-rot-y-val').textContent = `${ry.toFixed(1)}°`;
@@ -1908,6 +1710,7 @@
     }
 
     function updateDeviceTransformFromUI() {
+      if (!deviceGroup) return;
       const rx = parseFloat(document.getElementById('dev-rot-x').value) || 0;
       const ry = parseFloat(document.getElementById('dev-rot-y').value) || 0;
       const rz = parseFloat(document.getElementById('dev-rot-z').value) || 0;
@@ -1917,10 +1720,14 @@
         THREE.MathUtils.degToRad(ry),
         THREE.MathUtils.degToRad(rz)
       );
-      syncDeviceSlidersFromMesh();
+
+      document.getElementById('dev-rot-x-val').textContent = `${rx.toFixed(1)}°`;
+      document.getElementById('dev-rot-y-val').textContent = `${ry.toFixed(1)}°`;
+      document.getElementById('dev-rot-z-val').textContent = `${rz.toFixed(1)}°`;
     }
 
     function nudgeDeviceRotation(dx, dy, dz) {
+      if (!deviceGroup) return;
       deviceGroup.rotation.x += THREE.MathUtils.degToRad(dx);
       deviceGroup.rotation.y += THREE.MathUtils.degToRad(dy);
       deviceGroup.rotation.z += THREE.MathUtils.degToRad(dz);
@@ -1928,29 +1735,26 @@
     }
 
     function resetDeviceRotation() {
+      if (!deviceGroup) return;
       deviceGroup.rotation.set(0, 0, 0);
-      camera.position.set(0, 0, 30.52);
-      camera.rotation.set(0, 0, 0);
       syncDeviceSlidersFromMesh();
-      syncCameraInspectorFromThree();
-      showToast('Reset device & camera orientation');
     }
 
     /********************************************************************
-     * 5. KEYFRAME TIMELINE & MULTI-EASING INTERPOLATION ENGINE
+     * 6. KEYFRAME TIMELINE, EASING CURVES & STUDIO TEMPLATE ENGINE
      ********************************************************************/
-    function evaluateEasing(t, mode) {
+    function computeEasing(t, mode) {
       const clamped = THREE.MathUtils.clamp(t, 0, 1);
-      if (mode === 'linear') {
-        return clamped;
-      } else if (mode === 'expo') {
+      if (mode === 'linear') return clamped;
+      if (mode === 'expo') {
         return clamped === 1 ? 1 : 1 - Math.pow(2, -10 * clamped);
-      } else if (mode === 'spring') {
+      }
+      if (mode === 'spring') {
         const c1 = 1.70158;
         const c3 = c1 + 1;
         return 1 + c3 * Math.pow(clamped - 1, 3) + c1 * Math.pow(clamped - 1, 2);
       }
-      // Default: 'cubic' (Ease In-Out Cubic)
+      // Default: Ease In-Out Cubic
       return clamped < 0.5
         ? 4 * clamped * clamped * clamped
         : 1 - Math.pow(-2 * clamped + 2, 3) / 2;
@@ -1958,51 +1762,68 @@
 
     function setEasingCurve(mode) {
       state.easingMode = mode;
-      const selectEl = document.getElementById('easing-curve-select');
-      if (selectEl) selectEl.value = mode;
+      const sel = document.getElementById('easing-curve-select');
+      if (sel) sel.value = mode;
 
-      const shortLabels = { cubic: 'Cubic', expo: 'Expo', spring: 'Spring', linear: 'Linear' };
+      const labels = {
+        cubic: 'Cubic',
+        expo: 'Expo Out',
+        spring: 'Spring',
+        linear: 'Linear'
+      };
       const fullLabels = {
         cubic: 'Ease In-Out Cubic',
-        expo: 'Expo Out (Snap)',
+        expo: 'Expo Out (Cinema Snap)',
         spring: 'Spring / Overshoot',
         linear: 'Linear'
       };
+
       const btn = document.getElementById('timeline-easing-btn');
-      if (btn) btn.textContent = shortLabels[mode] || 'Cubic';
+      if (btn) btn.textContent = labels[mode] || 'Cubic';
 
       const modalInd = document.getElementById('modal-easing-indicator');
       if (modalInd) modalInd.textContent = fullLabels[mode] || 'Ease In-Out Cubic';
 
       evaluateTimelineAtTime(state.currentTime);
+      showToast(`Easing curve: ${fullLabels[mode] || mode}`);
     }
 
     function cycleEasingMode() {
       const order = ['cubic', 'expo', 'spring', 'linear'];
-      const next = order[(order.indexOf(state.easingMode) + 1) % order.length];
+      const idx = order.indexOf(state.easingMode);
+      const next = order[(idx + 1) % order.length];
       setEasingCurve(next);
-      showToast(`Easing curve: ${next.toUpperCase()}`);
     }
 
     function evaluateTimelineAtTime(t) {
       state.currentTime = THREE.MathUtils.clamp(t, 0, state.duration);
-      document.getElementById('current-time-input').value = state.currentTime.toFixed(2);
+      const timeInput = document.getElementById('current-time-input');
+      if (timeInput) timeInput.value = state.currentTime.toFixed(2);
 
-      // Update Playhead X position
+      // Update Playhead UI position
       const ruler = document.getElementById('timeline-ruler');
-      if (ruler) {
-        const ratio = state.currentTime / state.duration;
-        const leftPx = 288 + ratio * ruler.clientWidth;
-        document.getElementById('playhead-line').style.left = `${leftPx}px`;
+      const playhead = document.getElementById('playhead-line');
+      if (ruler && playhead) {
+        const rulerWidth = Math.max(10, ruler.clientWidth - 32);
+        const norm = state.duration > 0 ? state.currentTime / state.duration : 0;
+        const leftPx = 288 + 16 + norm * rulerWidth;
+        playhead.style.left = `${leftPx}px`;
       }
 
-      if (state.keyframes.length === 0) return;
+      if (!state.keyframes || state.keyframes.length === 0 || !camera || !deviceGroup) return;
 
-      // Sort keyframes by time
       const sorted = [...state.keyframes].sort((a, b) => a.time - b.time);
-
       let k1 = sorted[0];
       let k2 = sorted[sorted.length - 1];
+
+      if (state.currentTime <= k1.time) {
+        applyKeyframePose(k1, k1, 0);
+        return;
+      }
+      if (state.currentTime >= k2.time) {
+        applyKeyframePose(k2, k2, 0);
+        return;
+      }
 
       for (let i = 0; i < sorted.length - 1; i++) {
         if (state.currentTime >= sorted[i].time && state.currentTime <= sorted[i + 1].time) {
@@ -2012,325 +1833,320 @@
         }
       }
 
-      if (state.currentTime <= k1.time) {
-        applyKeyframePose(k1);
-      } else if (state.currentTime >= k2.time) {
-        applyKeyframePose(k2);
-      } else {
-        const rawSpan = (state.currentTime - k1.time) / Math.max(0.0001, k2.time - k1.time);
-        const alpha = evaluateEasing(rawSpan, state.easingMode);
-
-        camera.position.x = THREE.MathUtils.lerp(k1.camPos.x, k2.camPos.x, alpha);
-        camera.position.y = THREE.MathUtils.lerp(k1.camPos.y, k2.camPos.y, alpha);
-        camera.position.z = THREE.MathUtils.lerp(k1.camPos.z, k2.camPos.z, alpha);
-
-        const rx = THREE.MathUtils.lerp(k1.devRot.x, k2.devRot.x, alpha);
-        const ry = THREE.MathUtils.lerp(k1.devRot.y, k2.devRot.y, alpha);
-        const rz = THREE.MathUtils.lerp(k1.devRot.z, k2.devRot.z, alpha);
-
-        deviceGroup.rotation.set(
-          THREE.MathUtils.degToRad(rx),
-          THREE.MathUtils.degToRad(ry),
-          THREE.MathUtils.degToRad(rz)
-        );
-
-        if (state.deviceType === 'macbook' && macbookLidPivot) {
-          const startLid = k1.lidAngle !== undefined ? k1.lidAngle : 105;
-          const endLid = k2.lidAngle !== undefined ? k2.lidAngle : 105;
-          const lid = THREE.MathUtils.lerp(startLid, endLid, alpha);
-          updateMacbookLid(lid);
-        }
-
-        syncCameraInspectorFromThree();
-        syncDeviceSlidersFromMesh();
-      }
+      const span = Math.max(0.0001, k2.time - k1.time);
+      const rawAlpha = (state.currentTime - k1.time) / span;
+      const easedAlpha = computeEasing(rawAlpha, state.easingMode);
+      applyKeyframePose(k1, k2, easedAlpha);
     }
 
-    function applyKeyframePose(kf) {
-      camera.position.set(kf.camPos.x, kf.camPos.y, kf.camPos.z);
-      deviceGroup.rotation.set(
-        THREE.MathUtils.degToRad(kf.devRot.x),
-        THREE.MathUtils.degToRad(kf.devRot.y),
-        THREE.MathUtils.degToRad(kf.devRot.z)
+    function applyKeyframePose(k1, k2, alpha) {
+      camera.position.set(
+        THREE.MathUtils.lerp(k1.camPos.x, k2.camPos.x, alpha),
+        THREE.MathUtils.lerp(k1.camPos.y, k2.camPos.y, alpha),
+        THREE.MathUtils.lerp(k1.camPos.z, k2.camPos.z, alpha)
       );
-      if (state.deviceType === 'macbook' && kf.lidAngle !== undefined) {
-        updateMacbookLid(kf.lidAngle);
+      camera.lookAt(orbit.target);
+
+      const rx = THREE.MathUtils.lerp(k1.devRot.x, k2.devRot.x, alpha);
+      const ry = THREE.MathUtils.lerp(k1.devRot.y, k2.devRot.y, alpha);
+      const rz = THREE.MathUtils.lerp(k1.devRot.z, k2.devRot.z, alpha);
+
+      deviceGroup.rotation.set(
+        THREE.MathUtils.degToRad(rx),
+        THREE.MathUtils.degToRad(ry),
+        THREE.MathUtils.degToRad(rz)
+      );
+
+      if (state.deviceType === 'macbook' && (k1.lidAngle !== undefined || k2.lidAngle !== undefined)) {
+        const l1 = k1.lidAngle !== undefined ? k1.lidAngle : state.macbookLidAngle;
+        const l2 = k2.lidAngle !== undefined ? k2.lidAngle : state.macbookLidAngle;
+        updateMacbookLid(THREE.MathUtils.lerp(l1, l2, alpha));
       }
+
       syncCameraInspectorFromThree();
       syncDeviceSlidersFromMesh();
     }
 
     function renderKeyframeDiamonds() {
       const bar = document.getElementById('keyframe-bar');
-      bar.innerHTML = '';
-      document.getElementById('keyframe-count-badge').textContent = `${state.keyframes.length} keys`;
+      const badge = document.getElementById('keyframe-count-badge');
+      if (!bar) return;
 
-      state.keyframes.forEach((kf, index) => {
-        const pct = Math.min(98, Math.max(1, (kf.time / state.duration) * 100));
-        const diamond = document.createElement('button');
-        diamond.className = 'w-3 h-3 rotate-45 bg-emerald-400 hover:scale-125 hover:bg-white border border-zinc-900 absolute -translate-x-1/2 transition shadow';
-        diamond.style.left = `${pct}%`;
-        diamond.title = `Keyframe at ${kf.time.toFixed(2)}s (Click to jump, Right-click to delete)`;
-        diamond.onclick = (e) => {
+      bar.innerHTML = '';
+      const sorted = [...state.keyframes].sort((a, b) => a.time - b.time);
+      if (badge) badge.textContent = `${sorted.length} key${sorted.length === 1 ? '' : 's'}`;
+
+      sorted.forEach((kf) => {
+        const pct = state.duration > 0 ? THREE.MathUtils.clamp((kf.time / state.duration) * 100, 0, 100) : 0;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.title = `Keyframe @ ${kf.time.toFixed(2)}s (Click to jump, Right-click to delete)`;
+        btn.className = 'w-3 h-3 rotate-45 bg-emerald-400 hover:bg-white border border-zinc-900 absolute -translate-x-1/2 cursor-pointer transition-transform hover:scale-125 shadow';
+        btn.style.left = `${pct}%`;
+
+        btn.addEventListener('mousedown', (e) => {
           e.stopPropagation();
+          if (e.button === 2) return;
           state.isPlaying = false;
           updatePlayButtonIcon();
           evaluateTimelineAtTime(kf.time);
-        };
-        diamond.oncontextmenu = (e) => {
+        });
+
+        btn.addEventListener('contextmenu', (e) => {
           e.preventDefault();
           e.stopPropagation();
-          if (state.keyframes.length > 2) {
-            state.keyframes.splice(index, 1);
-            renderKeyframeDiamonds();
-            showToast('Removed keyframe');
-          } else {
-            showToast('Minimum 2 keyframes required');
+          if (state.keyframes.length <= 2) {
+            showToast('At least 2 keyframes are required');
+            return;
           }
-        };
-        bar.appendChild(diamond);
+          state.keyframes = state.keyframes.filter(item => item !== kf);
+          renderKeyframeDiamonds();
+          evaluateTimelineAtTime(state.currentTime);
+          showToast(`Deleted keyframe at ${kf.time.toFixed(2)}s`);
+        });
+
+        bar.appendChild(btn);
       });
+
+      // Refresh ruler time ticks
+      const ticksEl = document.getElementById('ruler-ticks');
+      if (ticksEl) {
+        const steps = 4;
+        let html = '';
+        for (let i = 0; i <= steps; i++) {
+          const val = ((state.duration / steps) * i).toFixed(1).replace(/\.0$/, '');
+          html += `<span>${val}s</span>`;
+        }
+        ticksEl.innerHTML = html;
+      }
     }
 
     function captureKeyframeAtCurrentTime() {
+      const t = parseFloat(state.currentTime.toFixed(2));
       const newKf = {
-        time: parseFloat(state.currentTime.toFixed(2)),
-        camPos: { x: camera.position.x, y: camera.position.y, z: camera.position.z },
+        time: t,
+        camPos: {
+          x: parseFloat(camera.position.x.toFixed(2)),
+          y: parseFloat(camera.position.y.toFixed(2)),
+          z: parseFloat(camera.position.z.toFixed(2))
+        },
         devRot: {
-          x: THREE.MathUtils.radToDeg(deviceGroup.rotation.x),
-          y: THREE.MathUtils.radToDeg(deviceGroup.rotation.y),
-          z: THREE.MathUtils.radToDeg(deviceGroup.rotation.z)
+          x: parseFloat(THREE.MathUtils.radToDeg(deviceGroup.rotation.x).toFixed(1)),
+          y: parseFloat(THREE.MathUtils.radToDeg(deviceGroup.rotation.y).toFixed(1)),
+          z: parseFloat(THREE.MathUtils.radToDeg(deviceGroup.rotation.z).toFixed(1))
         },
         lidAngle: state.macbookLidAngle
       };
 
-      // Replace if existing keyframe is within 0.15s
-      const existingIdx = state.keyframes.findIndex(k => Math.abs(k.time - newKf.time) < 0.15);
+      const existingIdx = state.keyframes.findIndex(k => Math.abs(k.time - t) < 0.08);
       if (existingIdx >= 0) {
         state.keyframes[existingIdx] = newKf;
-        showToast(`Updated keyframe at ${newKf.time}s`);
+        showToast(`Updated keyframe at ${t.toFixed(2)}s`);
       } else {
         state.keyframes.push(newKf);
-        showToast(`Added keyframe at ${newKf.time}s`);
+        showToast(`Added keyframe at ${t.toFixed(2)}s`);
       }
+
       renderKeyframeDiamonds();
     }
 
     function togglePlayTimeline() {
       state.isPlaying = !state.isPlaying;
-      if (state.isPlaying && state.currentTime >= state.duration) {
-        state.currentTime = 0;
-      }
       updatePlayButtonIcon();
     }
 
     function updatePlayButtonIcon() {
       const btn = document.getElementById('timeline-play-btn');
+      if (!btn) return;
       btn.innerHTML = state.isPlaying
         ? '<i data-lucide="pause" class="w-3.5 h-3.5 fill-current"></i>'
         : '<i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>';
       lucide.createIcons();
     }
 
-    let isScrubbingTimeline = false;
-    function startScrubbing(e) {
-      if (e.button !== 0) return;
-      isScrubbingTimeline = true;
-      state.isPlaying = false;
-      updatePlayButtonIcon();
-      scrubToMouse(e);
-
-      const moveHandler = (ev) => { if (isScrubbingTimeline) scrubToMouse(ev); };
-      const upHandler = () => {
-        isScrubbingTimeline = false;
-        window.removeEventListener('mousemove', moveHandler);
-        window.removeEventListener('mouseup', upHandler);
-      };
-      window.addEventListener('mousemove', moveHandler);
-      window.addEventListener('mouseup', upHandler);
-    }
-
-    function scrubToMouse(e) {
-      const ruler = document.getElementById('timeline-ruler');
-      const rect = ruler.getBoundingClientRect();
-      const relX = THREE.MathUtils.clamp(e.clientX - rect.left, 0, rect.width);
-      const t = (relX / rect.width) * state.duration;
-      evaluateTimelineAtTime(t);
-    }
-
     function updateTimelineDuration(val) {
-      state.duration = THREE.MathUtils.clamp(parseFloat(val) || 4.0, 1, 12);
-      const ticks = document.getElementById('ruler-ticks');
-      ticks.innerHTML = '';
-      for (let i = 0; i <= 4; i++) {
-        const s = ((state.duration / 4) * i).toFixed(1);
-        const span = document.createElement('span');
-        span.textContent = `${s}s`;
-        ticks.appendChild(span);
+      const oldDur = state.duration;
+      const nextDur = THREE.MathUtils.clamp(parseFloat(val) || 4.0, 1.0, 12.0);
+      state.duration = nextDur;
+      document.getElementById('duration-input').value = nextDur.toFixed(2);
+
+      if (oldDur > 0) {
+        state.keyframes.forEach(k => {
+          k.time = parseFloat(((k.time / oldDur) * nextDur).toFixed(2));
+        });
       }
       renderKeyframeDiamonds();
+      evaluateTimelineAtTime(Math.min(state.currentTime, nextDur));
     }
 
-    /********************************************************************
-     * 6. 16-TEMPLATE STUDIO BROWSER, FILTERING & CHOREOGRAPHY LOADER
-     ********************************************************************/
-    function filterTemplates(cat) {
-      state.templateCategoryFilter = cat;
+    function startScrubbing(e) {
+      if (e.button === 2) return;
+      state.isPlaying = false;
+      updatePlayButtonIcon();
+
+      const ruler = document.getElementById('timeline-ruler');
+      const scrubToClientX = (clientX) => {
+        const rect = ruler.getBoundingClientRect();
+        const pad = 16;
+        const usableW = Math.max(10, rect.width - pad * 2);
+        const norm = THREE.MathUtils.clamp((clientX - (rect.left + pad)) / usableW, 0, 1);
+        evaluateTimelineAtTime(norm * state.duration);
+      };
+
+      scrubToClientX(e.clientX);
+
+      const onMove = (moveEvt) => scrubToClientX(moveEvt.clientX);
+      const onUp = () => {
+        window.removeEventListener('mousemove', onMove);
+        window.removeEventListener('mouseup', onUp);
+      };
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('mouseup', onUp);
+    }
+
+    // Studio Template Gallery & Filtering
+    function filterTemplates(category) {
+      state.templateCategoryFilter = category;
       document.querySelectorAll('.tpl-filter-pill').forEach(btn => {
-        const isMatch = btn.getAttribute('data-cat') === cat;
+        const isMatch = btn.getAttribute('data-cat') === category;
         if (isMatch) {
-          btn.classList.add('bg-emerald-500', 'text-white', 'font-semibold');
-          btn.classList.remove('bg-zinc-100', 'bg-zinc-200/70', 'dark:bg-surface-card', 'text-zinc-400');
+          btn.className = 'tpl-filter-pill px-2.5 py-1 rounded-md text-[10px] font-semibold bg-emerald-500 text-white transition';
         } else {
-          btn.classList.remove('bg-emerald-500', 'text-white', 'font-semibold');
-          btn.classList.add('dark:bg-surface-card', 'text-zinc-400');
+          btn.className = 'tpl-filter-pill px-2.5 py-1 rounded-md text-[10px] font-medium bg-zinc-100 dark:bg-surface-card text-zinc-400 hover:text-white transition';
         }
       });
       renderTemplateLibraryUI();
     }
 
-    function openTemplateModal() {
-      renderTemplateLibraryUI();
-      document.getElementById('template-gallery-modal').classList.remove('hidden');
+    function renderTemplateLibraryUI() {
+      const sidebarList = document.getElementById('sidebar-template-list');
+      const modalGrid = document.getElementById('modal-template-grid');
+
+      const filtered = STUDIO_TEMPLATES.filter(t =>
+        state.templateCategoryFilter === 'all' || t.category.includes(state.templateCategoryFilter)
+      );
+
+      if (sidebarList) {
+        sidebarList.innerHTML = filtered.map(t => {
+          const isActive = state.activeTemplateSlug === t.slug;
+          return `
+            <button onclick="applyPresetTemplate('${t.slug}')" class="w-full text-left p-2.5 rounded-xl border ${isActive ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-200 dark:border-surface-border bg-zinc-50 dark:bg-surface-card hover:border-emerald-500/60'} transition flex items-center gap-3 group">
+              <div class="w-10 h-10 rounded-lg shrink-0 flex items-center justify-center text-white shadow-inner relative overflow-hidden" style="background: radial-gradient(circle at 35% 30%, ${t.bg2}, ${t.bg1});">
+                <i data-lucide="${t.device === 'macbook' ? 'laptop' : t.device === 'ipad' ? 'tablet' : 'smartphone'}" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between gap-1">
+                  <p class="text-xs font-semibold truncate">${t.name}</p>
+                  <span class="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 font-mono shrink-0">${t.badge}</span>
+                </div>
+                <p class="text-[10px] text-zinc-400 truncate mt-0.5">${t.subtitle}</p>
+              </div>
+            </button>
+          `;
+        }).join('');
+      }
+
+      if (modalGrid) {
+        modalGrid.innerHTML = filtered.map(t => {
+          const isActive = state.activeTemplateSlug === t.slug;
+          return `
+            <div onclick="applyPresetTemplate('${t.slug}'); closeTemplateModal();" class="cursor-pointer rounded-xl border ${isActive ? 'border-emerald-500 ring-2 ring-emerald-500/30' : 'border-zinc-200 dark:border-surface-border hover:border-emerald-500'} bg-zinc-50 dark:bg-surface-card overflow-hidden flex flex-col transition group">
+              <div class="h-28 relative flex items-center justify-center overflow-hidden" style="background: radial-gradient(circle at 50% 35%, ${t.bg2}, ${t.bg1});">
+                <div class="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 flex items-center justify-center text-white group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-200">
+                  <i data-lucide="${t.device === 'macbook' ? 'laptop' : t.device === 'ipad' ? 'tablet' : 'smartphone'}" class="w-6 h-6"></i>
+                </div>
+                <span class="absolute top-2.5 right-2.5 text-[9px] font-mono px-2 py-0.5 rounded-full bg-black/50 text-emerald-400 backdrop-blur-sm border border-emerald-500/30">${t.badge}</span>
+                <span class="absolute bottom-2 left-2.5 text-[9px] font-mono text-white/70">${t.duration.toFixed(1)}s • ${t.keyframes.length} keys</span>
+              </div>
+              <div class="p-3 flex-1 flex flex-col justify-between">
+                <div>
+                  <h4 class="text-xs font-bold truncate group-hover:text-emerald-400 transition-colors">${t.name}</h4>
+                  <p class="text-[10px] text-zinc-400 mt-0.5 line-clamp-1">${t.subtitle}</p>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
       lucide.createIcons();
+    }
+
+    function applyPresetTemplate(slug) {
+      const tpl = STUDIO_TEMPLATES.find(item => item.slug === slug);
+      if (!tpl) return;
+
+      state.activeTemplateSlug = tpl.slug;
+      document.getElementById('active-project-name').textContent = tpl.name;
+
+      // Switch hardware model if needed
+      if (state.deviceType !== tpl.device) {
+        selectDeviceModel(tpl.device);
+      }
+
+      // Clay mode setting
+      const wantClay = Boolean(tpl.clay);
+      if (state.clayMode !== wantClay) {
+        toggleClayMode();
+      }
+
+      // Dynamic Island setting
+      const wantIsland = tpl.showIsland !== undefined ? tpl.showIsland : true;
+      if (state.showDynamicIsland !== wantIsland) {
+        toggleDynamicIsland();
+      }
+
+      // Idle Float setting
+      const wantFloat = Boolean(tpl.idleFloat);
+      if (state.idleFloat !== wantFloat) {
+        toggleIdleFloat();
+      }
+
+      // Camera FOV
+      if (tpl.fov) {
+        document.getElementById('cam-fov-slider').value = tpl.fov;
+        updateCameraFOV(tpl.fov);
+      }
+
+      // Backdrop colors
+      if (tpl.bg1 && tpl.bg2) {
+        setQuickGradient(tpl.bg1, tpl.bg2);
+      }
+
+      // Timeline Duration & Keyframes deep copy
+      state.duration = tpl.duration || 4.0;
+      document.getElementById('duration-input').value = state.duration.toFixed(2);
+      state.keyframes = JSON.parse(JSON.stringify(tpl.keyframes));
+
+      // Easing Curve
+      setEasingCurve(tpl.easing || 'cubic');
+
+      renderTemplateLibraryUI();
+      renderKeyframeDiamonds();
+
+      // Start playback from 0s to preview choreography
+      evaluateTimelineAtTime(0);
+      state.isPlaying = true;
+      updatePlayButtonIcon();
+      showToast(`Loaded "${tpl.name}"`);
+    }
+
+    function openTemplateModal() {
+      document.getElementById('template-gallery-modal').classList.remove('hidden');
+      renderTemplateLibraryUI();
     }
 
     function closeTemplateModal() {
       document.getElementById('template-gallery-modal').classList.add('hidden');
     }
 
-    function renderTemplateLibraryUI() {
-      const sidebarList = document.getElementById('sidebar-template-list');
-      const modalGrid = document.getElementById('modal-template-grid');
-      if (!sidebarList || !modalGrid) return;
-
-      const filtered = STUDIO_TEMPLATES.filter(t =>
-        state.templateCategoryFilter === 'all' || t.category.includes(state.templateCategoryFilter)
-      );
-
-      sidebarList.innerHTML = '';
-      modalGrid.innerHTML = '';
-
-      const devIcons = { iphone: 'smartphone', macbook: 'laptop', ipad: 'tablet' };
-
-      filtered.forEach(tpl => {
-        const isActive = state.activeTemplateSlug === tpl.slug;
-        const iconName = devIcons[tpl.device] || 'smartphone';
-
-        // 1. Sidebar Compact Card
-        const sBtn = document.createElement('button');
-        sBtn.onclick = () => applyPresetTemplate(tpl.slug);
-        sBtn.className = `w-full p-2.5 rounded-xl text-left transition flex items-center gap-3 group border ${
-          isActive
-            ? 'bg-emerald-500/10 border-emerald-500 ring-1 ring-emerald-500/40'
-            : 'bg-zinc-100 dark:bg-surface-card border-transparent hover:border-emerald-500/50'
-        }`;
-        sBtn.innerHTML = `
-          <div class="w-10 h-10 rounded-lg shrink-0 flex items-center justify-center text-white shadow-inner relative overflow-hidden" style="background: linear-gradient(135deg, ${tpl.bg1}, ${tpl.bg2});">
-            <i data-lucide="${iconName}" class="w-4 h-4 opacity-90 group-hover:scale-110 transition-transform"></i>
-          </div>
-          <div class="min-w-0 flex-1">
-            <div class="flex items-center gap-1.5">
-              <p class="text-xs font-semibold truncate group-hover:text-emerald-400 transition">${tpl.name}</p>
-            </div>
-            <p class="text-[10px] text-zinc-400 truncate">${tpl.subtitle}</p>
-          </div>
-          <span class="text-[9px] px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-surface font-mono text-emerald-400 shrink-0">${tpl.badge}</span>
-        `;
-        sidebarList.appendChild(sBtn);
-
-        // 2. Modal Rich Visual Card
-        const mCard = document.createElement('div');
-        mCard.onclick = () => {
-          applyPresetTemplate(tpl.slug);
-          closeTemplateModal();
-        };
-        mCard.className = `cursor-pointer rounded-xl p-3.5 border transition-all flex flex-col justify-between group ${
-          isActive
-            ? 'bg-emerald-500/10 border-emerald-500 ring-2 ring-emerald-500/30'
-            : 'bg-zinc-50 dark:bg-surface-card border-zinc-200/70 dark:border-surface-border hover:border-emerald-500 hover:-translate-y-0.5'
-        }`;
-        mCard.innerHTML = `
-          <div>
-            <div class="h-24 rounded-lg mb-3 relative overflow-hidden flex items-center justify-center border border-white/10 shadow-inner" style="background: radial-gradient(circle at 50% 30%, ${tpl.bg2}, ${tpl.bg1});">
-              <div class="w-11 h-11 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
-                <i data-lucide="${iconName}" class="w-5 h-5"></i>
-              </div>
-              <span class="absolute top-2 left-2 text-[9px] font-semibold px-2 py-0.5 rounded-full bg-black/50 text-emerald-300 backdrop-blur-sm">${tpl.badge}</span>
-              <span class="absolute bottom-2 right-2 text-[9px] font-mono px-1.5 py-0.5 rounded bg-black/50 text-zinc-300">${tpl.duration.toFixed(1)}s • ${tpl.keyframes.length} keys</span>
-            </div>
-            <h4 class="text-xs font-bold group-hover:text-emerald-400 transition">${tpl.name}</h4>
-            <p class="text-[11px] text-zinc-400 mt-0.5 line-clamp-1">${tpl.subtitle}</p>
-          </div>
-          <div class="flex items-center justify-between mt-3 pt-2 border-t border-zinc-200/60 dark:border-surface-border text-[10px] text-zinc-400">
-            <span class="uppercase font-mono">${tpl.device}</span>
-            <span class="text-emerald-400 font-medium flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-              Apply Rig <i data-lucide="arrow-right" class="w-3 h-3"></i>
-            </span>
-          </div>
-        `;
-        modalGrid.appendChild(mCard);
-      });
-
-      lucide.createIcons();
-    }
-
-    function applyPresetTemplate(slug) {
-      const tpl = STUDIO_TEMPLATES.find(t => t.slug === slug) || STUDIO_TEMPLATES[0];
-      state.activeTemplateSlug = tpl.slug;
-
-      // 1. Switch 3D Hardware Model
-      selectDeviceModel(tpl.device);
-
-      // 2. Apply Clay Mode if specified by template
-      const targetClay = Boolean(tpl.clay);
-      if (state.clayMode !== targetClay) {
-        toggleClayMode();
-      }
-
-      // 3. Apply Dynamic Island visibility if specified
-      if (tpl.showIsland !== undefined && state.showDynamicIsland !== tpl.showIsland) {
-        toggleDynamicIsland();
-      } else if (tpl.showIsland === undefined && !state.showDynamicIsland) {
-        toggleDynamicIsland();
-      }
-
-      // 4. Apply Continuous Zero-G Idle Float if specified
-      const targetFloat = Boolean(tpl.idleFloat);
-      if (state.idleFloat !== targetFloat) {
-        toggleIdleFloat();
-      }
-
-      // 5. Apply Camera FOV & Easing Curve
-      updateCameraFOV(tpl.fov || 35);
-      document.getElementById('cam-fov-slider').value = tpl.fov || 35;
-      setEasingCurve(tpl.easing || 'cubic');
-
-      // 6. Synchronize Studio Backdrop Gradient
-      if (tpl.bg1 && tpl.bg2) {
-        setQuickGradient(tpl.bg1, tpl.bg2);
-      }
-
-      // 7. Load Deep-Cloned Keyframes & Duration
-      document.getElementById('active-project-name').textContent = tpl.name;
-      state.duration = tpl.duration;
-      state.keyframes = JSON.parse(JSON.stringify(tpl.keyframes));
-
-      updateTimelineDuration(state.duration);
-      document.getElementById('duration-input').value = state.duration.toFixed(2);
-      renderKeyframeDiamonds();
-      renderTemplateLibraryUI();
-
-      // Start playing immediately from 0s
-      state.currentTime = 0;
-      state.isPlaying = true;
-      updatePlayButtonIcon();
-      showToast(`Loaded "${tpl.name}" (${tpl.keyframes.length} keyframes)`);
-    }
-
     /********************************************************************
-     * 7. LOCAL GPU EXPORT ENGINE (SUPERSAMPLED PNG & WEBM VIDEO)
+     * 7. LOCAL GPU EXPORT ENGINE (RESILIENT CODEC FALLBACK & EVEN-PIXEL FIX)
      ********************************************************************/
+    let activeMediaRecorder = null;
+    let isExportCanceled = false;
+    let isExportingVideo = false;
+
     function setOutputMode(mode) {
       state.outputMode = mode;
       const photoBtn = document.getElementById('mode-btn-photo');
@@ -2349,11 +2165,46 @@
     }
 
     function triggerExport() {
+      if (isExportingVideo) return;
       if (state.outputMode === 'photo') {
         exportHighResPhoto();
       } else {
         exportLocalWebMVideo();
       }
+    }
+
+    // Multi-stage safe MediaRecorder factory that never throws NotSupportedError across Chrome/Safari/Edge/Firefox
+    function createSafeMediaRecorder(stream) {
+      const candidateTypes = [
+        'video/webm;codecs=vp9',
+        'video/webm;codecs=vp8,opus',
+        'video/webm;codecs=vp8',
+        'video/webm',
+        'video/mp4;codecs=avc1',
+        'video/mp4'
+      ];
+
+      for (const mimeType of candidateTypes) {
+        try {
+          if (typeof MediaRecorder.isTypeSupported === 'function' && !MediaRecorder.isTypeSupported(mimeType)) {
+            continue;
+          }
+          const rec = new MediaRecorder(stream, {
+            mimeType,
+            videoBitsPerSecond: 14000000
+          });
+          return { recorder: rec, mimeType };
+        } catch (err) {
+          // Continue to next candidate MIME type if hardware encoder rejects this profile
+        }
+      }
+
+      // Final unconditional fallback with default browser settings
+      const fallbackRec = new MediaRecorder(stream);
+      return {
+        recorder: fallbackRec,
+        mimeType: fallbackRec.mimeType || 'video/webm'
+      };
     }
 
     // Build Composite Canvas (Backdrop + 3D WebGL Canvas) so gradients/solid backgrounds export cleanly
@@ -2381,20 +2232,20 @@
     function exportHighResPhoto() {
       const scale = parseInt(document.getElementById('export-scale-select').value) || 2;
       const container = document.getElementById('canvas-container');
-      const baseW = container.clientWidth;
-      const baseH = container.clientHeight;
+      const baseW = Math.max(2, Math.floor(container.clientWidth / 2) * 2);
+      const baseH = Math.max(2, Math.floor(container.clientHeight / 2) * 2);
 
       // Temporarily boost GPU render buffer size
       renderer.setPixelRatio(scale);
-      renderer.setSize(baseW, baseH);
+      renderer.setSize(baseW, baseH, false);
       renderer.render(scene, camera);
 
       const outCanvas = renderCompositeFrame(baseW * scale, baseH * scale);
       const dataUrl = outCanvas.toDataURL('image/png');
 
       // Restore normal viewport pixel ratio
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.setSize(baseW, baseH);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      handleWindowResize();
 
       const link = document.createElement('a');
       link.download = `rotato-mockup-${Date.now()}.png`;
@@ -2403,73 +2254,162 @@
       showToast(`Exported ${scale}x GPU Studio PNG!`);
     }
 
-    function exportLocalWebMVideo() {
-      const container = document.getElementById('canvas-container');
-      const recCanvas = document.createElement('canvas');
-      recCanvas.width = container.clientWidth * 2;
-      recCanvas.height = container.clientHeight * 2;
-      const recCtx = recCanvas.getContext('2d');
-
-      const stream = recCanvas.captureStream(60);
-      let mimeType = 'video/webm;codecs=vp9';
-      if (!MediaRecorder.isTypeSupported(mimeType)) {
-        mimeType = 'video/webm';
-      }
-
-      const recorder = new MediaRecorder(stream, {
-        mimeType,
-        videoBitsPerSecond: 12000000
-      });
-
-      const chunks = [];
-      recorder.ondataavailable = (e) => { if (e.data.size > 0) chunks.push(e.data); };
-      recorder.onstop = () => {
-        document.getElementById('recording-badge').classList.add('hidden');
-        const blob = new Blob(chunks, { type: mimeType });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `rotato-animation-${Date.now()}.webm`;
-        a.click();
-        showToast('Video render complete! Downloaded locally.');
-      };
-
-      // Start playback from 0s and record frame-by-frame
-      state.currentTime = 0;
-      state.isPlaying = true;
+    function cancelActiveVideoExport() {
+      isExportCanceled = true;
+      isExportingVideo = false;
+      state.isPlaying = false;
       updatePlayButtonIcon();
-      document.getElementById('recording-badge').classList.remove('hidden');
-      recorder.start();
+      if (activeMediaRecorder && activeMediaRecorder.state !== 'inactive') {
+        try { activeMediaRecorder.stop(); } catch (e) {}
+      }
+      document.getElementById('video-export-modal').classList.add('hidden');
+      document.getElementById('recording-badge').classList.add('hidden');
+      handleWindowResize();
+      showToast('Video export canceled');
+    }
 
-      const recordTick = () => {
-        if (state.currentTime >= state.duration || !state.isPlaying) {
-          state.isPlaying = false;
-          updatePlayButtonIcon();
-          if (recorder.state === 'recording') recorder.stop();
+    function exportLocalWebMVideo() {
+      try {
+        const container = document.getElementById('canvas-container');
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+        // Lock strictly to EVEN pixel dimensions so hardware H.264/VP8/VP9 encoders never fail
+        const evenW = Math.max(2, Math.floor((container.clientWidth * dpr) / 2) * 2);
+        const evenH = Math.max(2, Math.floor((container.clientHeight * dpr) / 2) * 2);
+
+        renderer.setPixelRatio(1);
+        renderer.setSize(evenW, evenH, false);
+        camera.aspect = evenW / evenH;
+        camera.updateProjectionMatrix();
+
+        const recCanvas = document.createElement('canvas');
+        recCanvas.width = evenW;
+        recCanvas.height = evenH;
+        const recCtx = recCanvas.getContext('2d', { alpha: true });
+
+        // Paint initial frame before starting stream so buffer is never empty
+        renderer.render(scene, camera);
+        recCtx.drawImage(renderer.domElement, 0, 0, evenW, evenH);
+
+        const streamFn = recCanvas.captureStream || recCanvas.mozCaptureStream || recCanvas.webkitCaptureStream;
+        if (!streamFn) {
+          showToast('Video captureStream is not supported in this browser.');
+          handleWindowResize();
           return;
         }
 
-        // Draw backdrop + WebGL canvas into recording stream
-        if (state.backdropMode === 'gradient') {
-          const grad = recCtx.createRadialGradient(recCanvas.width * 0.5, recCanvas.height * 0.35, 10, recCanvas.width * 0.5, recCanvas.height * 0.5, recCanvas.width * 0.8);
-          grad.addColorStop(0, state.bgColor2);
-          grad.addColorStop(1, state.bgColor1);
-          recCtx.fillStyle = grad;
-          recCtx.fillRect(0, 0, recCanvas.width, recCanvas.height);
-        } else if (state.backdropMode === 'solid') {
-          recCtx.fillStyle = state.bgColor1;
-          recCtx.fillRect(0, 0, recCanvas.width, recCanvas.height);
-        } else {
-          recCtx.clearRect(0, 0, recCanvas.width, recCanvas.height);
-        }
-        recCtx.drawImage(renderer.domElement, 0, 0, recCanvas.width, recCanvas.height);
+        const stream = streamFn.call(recCanvas, 60);
+        const { recorder, mimeType } = createSafeMediaRecorder(stream);
+        activeMediaRecorder = recorder;
+        isExportCanceled = false;
+        isExportingVideo = true;
 
-        const pct = Math.min(100, Math.round((state.currentTime / state.duration) * 100));
-        document.getElementById('recording-status-text').textContent = `Recording GPU Stream... ${pct}%`;
+        const isMp4 = mimeType.toLowerCase().includes('mp4');
+        const ext = isMp4 ? 'mp4' : 'webm';
+        document.getElementById('export-codec-badge').textContent = `${ext.toUpperCase()} • ${evenW}×${evenH}`;
+        document.getElementById('export-modal-status').textContent = `Recording GPU stream (${mimeType || 'default codec'})...`;
+        document.getElementById('video-export-modal').classList.remove('hidden');
+        document.getElementById('recording-badge').classList.remove('hidden');
 
-        requestAnimationFrame(recordTick);
-      };
-      requestAnimationFrame(recordTick);
+        const chunks = [];
+        recorder.ondataavailable = (e) => {
+          if (e.data && e.data.size > 0) chunks.push(e.data);
+        };
+
+        recorder.onerror = (err) => {
+          console.error('MediaRecorder runtime error:', err);
+          isExportingVideo = false;
+          document.getElementById('video-export-modal').classList.add('hidden');
+          document.getElementById('recording-badge').classList.add('hidden');
+          handleWindowResize();
+          showToast('Hardware encoder interrupted — try a smaller window or Chrome.');
+        };
+
+        recorder.onstop = () => {
+          isExportingVideo = false;
+          document.getElementById('video-export-modal').classList.add('hidden');
+          document.getElementById('recording-badge').classList.add('hidden');
+          handleWindowResize();
+
+          if (isExportCanceled || chunks.length === 0) return;
+
+          const blob = new Blob(chunks, { type: mimeType || 'video/webm' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `rotato-animation-${Date.now()}.${ext}`;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          setTimeout(() => URL.revokeObjectURL(url), 8000);
+          showToast(`Exported ${evenW}×${evenH} 60fps .${ext} video!`);
+        };
+
+        // Start recording with a 100ms timeslice so data chunks flush steadily
+        recorder.start(100);
+
+        // Step deterministically from t = 0 to state.duration
+        state.isPlaying = false;
+        updatePlayButtonIcon();
+        const exportStartWall = performance.now();
+        const totalDuration = state.duration;
+
+        const recordStep = (now) => {
+          if (isExportCanceled || !isExportingVideo) return;
+
+          const elapsed = (now - exportStartWall) / 1000;
+          const clampedTime = Math.min(elapsed, totalDuration);
+
+          evaluateTimelineAtTime(clampedTime);
+          if (state.idleFloat) {
+            deviceGroup.position.y = Math.sin(now * 0.0025) * 0.65;
+          }
+          demoAnimTick++;
+          if (!customUploadedImage || uploadedVideoElement) {
+            drawProceduralScreen(demoAnimTick);
+          }
+          renderer.render(scene, camera);
+
+          // Composite backdrop + 3D WebGL frame into even-sized recording canvas
+          if (state.backdropMode === 'gradient') {
+            const grad = recCtx.createRadialGradient(evenW * 0.5, evenH * 0.35, 10, evenW * 0.5, evenH * 0.5, evenW * 0.8);
+            grad.addColorStop(0, state.bgColor2);
+            grad.addColorStop(1, state.bgColor1);
+            recCtx.fillStyle = grad;
+            recCtx.fillRect(0, 0, evenW, evenH);
+          } else if (state.backdropMode === 'solid') {
+            recCtx.fillStyle = state.bgColor1;
+            recCtx.fillRect(0, 0, evenW, evenH);
+          } else {
+            recCtx.clearRect(0, 0, evenW, evenH);
+          }
+          recCtx.drawImage(renderer.domElement, 0, 0, evenW, evenH);
+
+          const pct = Math.min(100, Math.round((clampedTime / totalDuration) * 100));
+          document.getElementById('recording-status-text').textContent = `Recording GPU Stream... ${pct}%`;
+          document.getElementById('export-progress-bar').style.width = `${pct}%`;
+          document.getElementById('export-pct-label').textContent = `${pct}%`;
+          document.getElementById('export-time-progress').textContent = `${clampedTime.toFixed(2)}s / ${totalDuration.toFixed(2)}s`;
+
+          if (elapsed >= totalDuration) {
+            if (recorder.state === 'recording') {
+              recorder.stop();
+            }
+            return;
+          }
+
+          requestAnimationFrame(recordStep);
+        };
+
+        requestAnimationFrame(recordStep);
+      } catch (err) {
+        console.error('Video export initialization failed:', err);
+        isExportingVideo = false;
+        document.getElementById('video-export-modal').classList.add('hidden');
+        document.getElementById('recording-badge').classList.add('hidden');
+        handleWindowResize();
+        showToast('Video export failed: ' + (err.message || 'Encoder error'));
+      }
     }
 
     /********************************************************************
@@ -2694,13 +2634,15 @@
     }
 
     function handleWindowResize() {
+      if (isExportingVideo) return;
       const container = document.getElementById('canvas-container');
       if (!container || !renderer || !camera) return;
-      const w = container.clientWidth;
-      const h = container.clientHeight;
+      const w = Math.max(2, Math.floor(container.clientWidth / 2) * 2);
+      const h = Math.max(2, Math.floor(container.clientHeight / 2) * 2);
       if (w === 0 || h === 0) return;
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
       renderer.setSize(w, h);
     }
 
