@@ -117,6 +117,29 @@ Comfortable working across backend APIs, database relationships, frontend/mobile
 - Design authentication, single-device sessions, role-based permissions and member/fund workflows.
 - Explore event-based funding, contact corrections, group chat and notifications.
 
+## Technology Evolution — GitHub Portfolio Timeline
+
+The timeline below follows technologies evidenced by repositories, dated portfolio entries and recent project work. **Early repository creation dates are not independently verified**, so those entries are grouped by period rather than assigned invented years. The dates indicate documented activity, not continuous years of professional experience with each technology.
+
+| Period | Technologies & focus | GitHub / portfolio evidence |
+|---|---|---|
+| **Early GitHub activity — dates unverified** | Java, Android, PHP, JavaScript, HTML/CSS, SQL, Python/Django; experimentation with REST services and web applications | [android-projects](https://github.com/aungkoman/android-projects), [android_restful](https://github.com/aungkoman/android_restful), [restful-by-php](https://github.com/aungkoman/restful-by-php), [msd_django_tutorial](https://github.com/aungkoman/msd_django_tutorial) |
+| **2018–2019 (dated repository artifacts)** | Database-backed business software, HR systems, SQL data structures and application development | [hr_management_system](https://github.com/aungkoman/hr_management_system) (SQL artifacts named 2018–2019); [hrms](https://github.com/aungkoman/hrms) |
+| **2020–2021 (documented mobile activity)** | Flutter, Dart, Android, iOS app delivery and REST API integrations | [flutter-tdl](https://github.com/aungkoman/flutter-tdl); [iMirror News App Store](https://apps.apple.com/us/app/imirror-news/id1558697864) (March 2021 release) |
+| **2021–2023 (dated CV project history)** | Flutter apps for e-commerce, public information, family trees and loyalty; Firebase Cloud Messaging and API integration | OOAK (2021), MOI (2022), Zip Myit (2023), Reward (2023); [Flutter CV archive](https://github.com/aungkoman/aungkoman.github.io/blob/master/_posts/2023-12-07-flutter-cv.md) |
+| **Recent Laravel business systems — exact starting dates unverified** | PHP, Laravel, MySQL, authentication, middleware, role-based permissions, API validation, scheduling, queue and case workflows | [Dr. Token](https://drtoken.live), MOWA case-management work, [Thanks](https://www.thanks.com.mm) |
+| **2026 — current portfolio work** | Laravel modernization, Next.js/React, NestJS/TypeORM/PostgreSQL, Flutter, Hono/TypeScript, Cloudflare Workers/D1/Durable Objects, CI/CD and Docker | [MM QR Menu](https://mmqrmenu.com), asset management, Intake Book, [Tourism](https://www.tourism.gov.mm) |
+
+### Stack by Engineering Area
+
+- **Languages:** PHP, Dart, JavaScript, TypeScript, SQL, Java, Python
+- **Backend frameworks:** Laravel, NestJS, Hono; historical PHP REST and Django learning projects
+- **Mobile:** Flutter, Dart, native Android development and published iOS applications
+- **Frontend:** React, Next.js, HTML, CSS
+- **Data:** MySQL, PostgreSQL, SQLite / Cloudflare D1
+- **Cloud & delivery:** Cloudflare Workers, Durable Objects, GitHub Actions, Docker, Linux, Apache
+- **Application architecture:** REST APIs, authentication, RBAC, data modeling, queue and booking workflows, system integrations
+
 ## Education
 
 **Master of Science in Computer Science**  
