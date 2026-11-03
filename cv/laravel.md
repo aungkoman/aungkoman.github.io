@@ -80,6 +80,27 @@ Comfortable working across backend APIs, database relationships, frontend/mobile
 - Model customer ordering, waiter approvals, kitchen status, cashier payment confirmation and receipts.
 - Work on API contracts, seeded demo data, role-scoped access and integration tests.
 
+### Tourism Government Website — Public Information Platform
+**Stack:** Next.js, React, REST APIs, CSS Modules  
+**Website:** [tourism.gov.mm](https://www.tourism.gov.mm)
+
+- Integrate tourism information APIs into multilingual public-facing pages.
+- Implement API-driven directories for tour guides, hot-air balloon companies and cruise operators.
+- Work on travel advisories, tourism statistics, announcements and responsive interfaces.
+- **Relevance:** Demonstrates API integration and government-scale content workflows; this project is not presented as a Laravel implementation.
+
+### Ministry of Information — Public Information Website
+**Website:** [moi.gov.mm](https://www.moi.gov.mm)
+
+- Public-sector website included in the documented portfolio, alongside the MOI mobile application.
+- **Relevance:** Government/public-information product exposure; specific backend framework and individual implementation responsibilities are not independently verified.
+
+### Software 100 — Company Website & Business Software Portfolio
+**Website:** [software100.com.mm](https://www.software100.com.mm)
+
+- Company website representing software development services and business application projects.
+- **Relevance:** Commercial software portfolio; the website itself is not claimed to use Laravel without code verification.
+
 ## Broader Software Engineering Experience
 
 ### Asset Management System
