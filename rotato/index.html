@@ -387,7 +387,7 @@
         <!-- TAB 3: TEMPLATES (16 Studio-Grade Choreographed Templates + Filter Pills) -->
         <div id="tab-content-templates" class="hidden space-y-3">
           <div class="flex items-center justify-between">
-            <label class="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">16 Studio Templates</label>
+            <label class="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">19 Studio Templates</label>
             <button onclick="openTemplateModal()" class="text-[11px] font-medium text-emerald-400 hover:underline flex items-center gap-1">
               <i data-lucide="layout-grid" class="w-3 h-3"></i>
               <span>Expand Grid</span>
@@ -396,7 +396,7 @@
 
           <!-- Category Filter Pills -->
           <div id="sidebar-template-filters" class="flex flex-wrap gap-1 pt-0.5">
-            <button onclick="filterTemplates('all')" data-cat="all" class="tpl-filter-pill px-2 py-1 rounded-md text-[10px] font-semibold bg-emerald-500 text-white transition">All (16)</button>
+            <button onclick="filterTemplates('all')" data-cat="all" class="tpl-filter-pill px-2 py-1 rounded-md text-[10px] font-semibold bg-emerald-500 text-white transition">All (19)</button>
             <button onclick="filterTemplates('popular')" data-cat="popular" class="tpl-filter-pill px-2 py-1 rounded-md text-[10px] font-medium bg-zinc-100 dark:bg-surface-card text-zinc-400 hover:text-white transition">Popular</button>
             <button onclick="filterTemplates('cinematic')" data-cat="cinematic" class="tpl-filter-pill px-2 py-1 rounded-md text-[10px] font-medium bg-zinc-100 dark:bg-surface-card text-zinc-400 hover:text-white transition">Cinematic</button>
             <button onclick="filterTemplates('promo')" data-cat="promo" class="tpl-filter-pill px-2 py-1 rounded-md text-[10px] font-medium bg-zinc-100 dark:bg-surface-card text-zinc-400 hover:text-white transition">Fast Promo</button>
@@ -502,7 +502,7 @@
           </div>
           <button onclick="openTemplateModal()" class="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/30 backdrop-blur-md font-medium transition shadow-sm">
             <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-            <span>Browse 16 Templates</span>
+            <span>Browse 19 Templates</span>
           </button>
         </div>
 
@@ -530,7 +530,7 @@
 
       <!-- 3D Aspect-Ratio Stage Container -->
       <div class="flex-1 min-h-0 relative flex items-center justify-center p-6 overflow-hidden">
-        <div id="stage-aspect-wrapper" class="relative w-full h-full max-w-full max-h-full m-auto flex items-center justify-center transition-all duration-200" style="aspect-ratio: 4 / 3;">
+        <div id="stage-aspect-wrapper" class="relative max-w-full max-h-full m-auto flex items-center justify-center shrink-0" style="aspect-ratio: 4 / 3;">
           <div id="canvas-backdrop" class="w-full h-full rounded-2xl overflow-hidden shadow-2xl border border-zinc-300/40 dark:border-white/10 relative" style="background: radial-gradient(circle at 50% 35%, #1e1b4b, #0f172a);">
             <div id="canvas-container" class="w-full h-full relative cursor-grab active:cursor-grabbing"></div>
             
@@ -694,7 +694,7 @@
       <!-- Modal Filter Bar -->
       <div class="px-6 py-3 bg-zinc-50 dark:bg-surface border-b border-zinc-200 dark:border-surface-border flex items-center justify-between flex-wrap gap-2">
         <div class="flex items-center gap-1.5 flex-wrap">
-          <button onclick="filterTemplates('all')" data-cat="all" class="tpl-filter-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500 text-white transition">All Templates (16)</button>
+          <button onclick="filterTemplates('all')" data-cat="all" class="tpl-filter-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500 text-white transition">All Templates (19)</button>
           <button onclick="filterTemplates('popular')" data-cat="popular" class="tpl-filter-pill px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-200/70 dark:bg-surface-card text-zinc-400 hover:text-white transition">Popular Hits</button>
           <button onclick="filterTemplates('cinematic')" data-cat="cinematic" class="tpl-filter-pill px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-200/70 dark:bg-surface-card text-zinc-400 hover:text-white transition">Cinematic Reveals</button>
           <button onclick="filterTemplates('promo')" data-cat="promo" class="tpl-filter-pill px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-200/70 dark:bg-surface-card text-zinc-400 hover:text-white transition">Fast Promo & Reels</button>
@@ -799,6 +799,245 @@
      * 1B. 16 STUDIO-GRADE CHOREOGRAPHED 3D TEMPLATES
      ********************************************************************/
     const STUDIO_TEMPLATES = [
+{
+  "slug": "titanium-cinematic",
+  "name": "Titanium \u2014 Cinematic Reveal",
+  "subtitle": "Edge reveal \u2192 sculpted turn \u2192 hero hold",
+  "category": [
+    "cinematic",
+    "promo"
+  ],
+  "device": "iphone",
+  "duration": 10,
+  "easing": "cubic",
+  "fov": 32,
+  "bg1": "#050507",
+  "bg2": "#25252b",
+  "badge": "Cinematic Pro",
+  "deviceColor": "#a1a1aa",
+  "keyframes": [
+    {
+      "time": 0,
+      "camPos": {
+        "x": 0,
+        "y": 0,
+        "z": 32
+      },
+      "devRot": {
+        "x": 8,
+        "y": -82,
+        "z": -5
+      }
+    },
+    {
+      "time": 2.8,
+      "camPos": {
+        "x": 0,
+        "y": 0,
+        "z": 30
+      },
+      "devRot": {
+        "x": 5,
+        "y": -38,
+        "z": -3
+      }
+    },
+    {
+      "time": 6.3,
+      "camPos": {
+        "x": 0,
+        "y": 0,
+        "z": 33
+      },
+      "devRot": {
+        "x": -5,
+        "y": 15,
+        "z": 2
+      }
+    },
+    {
+      "time": 8.6,
+      "camPos": {
+        "x": 0,
+        "y": 0,
+        "z": 36
+      },
+      "devRot": {
+        "x": -3,
+        "y": -8,
+        "z": 0
+      }
+    },
+    {
+      "time": 10,
+      "camPos": {
+        "x": 0,
+        "y": 0,
+        "z": 36
+      },
+      "devRot": {
+        "x": -3,
+        "y": -8,
+        "z": 0
+      }
+    }
+  ]
+},
+{
+  "slug": "studio-white-cinematic",
+  "name": "Studio White \u2014 Product Film",
+  "subtitle": "Soft silver finish \u2022 measured dolly \u2022 clean hero",
+  "category": [
+    "cinematic",
+    "promo"
+  ],
+  "device": "iphone",
+  "duration": 9,
+  "easing": "cubic",
+  "fov": 32,
+  "bg1": "#e4e4e7",
+  "bg2": "#ffffff",
+  "badge": "Cinematic Pro",
+  "deviceColor": "#d4d4d8",
+  "keyframes": [
+    {
+      "time": 0,
+      "camPos": {
+        "x": 0,
+        "y": 2,
+        "z": 26
+      },
+      "devRot": {
+        "x": 18,
+        "y": 48,
+        "z": -8
+      }
+    },
+    {
+      "time": 3,
+      "camPos": {
+        "x": 0,
+        "y": 0,
+        "z": 32
+      },
+      "devRot": {
+        "x": 7,
+        "y": 22,
+        "z": -3
+      }
+    },
+    {
+      "time": 6.8,
+      "camPos": {
+        "x": 0,
+        "y": 0,
+        "z": 37
+      },
+      "devRot": {
+        "x": -2,
+        "y": -10,
+        "z": 0
+      }
+    },
+    {
+      "time": 9,
+      "camPos": {
+        "x": 0,
+        "y": 0,
+        "z": 37
+      },
+      "devRot": {
+        "x": -2,
+        "y": -10,
+        "z": 0
+      }
+    }
+  ]
+},
+{
+  "slug": "midnight-cinematic-orbit",
+  "name": "Midnight \u2014 Signature Orbit",
+  "subtitle": "Back-to-front reveal \u2022 restrained orbit \u2022 final hold",
+  "category": [
+    "cinematic",
+    "promo"
+  ],
+  "device": "iphone",
+  "duration": 12,
+  "easing": "cubic",
+  "fov": 32,
+  "bg1": "#06080d",
+  "bg2": "#172033",
+  "badge": "Cinematic Pro",
+  "deviceColor": "#52525b",
+  "keyframes": [
+    {
+      "time": 0,
+      "camPos": {
+        "x": 0,
+        "y": 0,
+        "z": 34
+      },
+      "devRot": {
+        "x": -5,
+        "y": -165,
+        "z": 3
+      }
+    },
+    {
+      "time": 3.5,
+      "camPos": {
+        "x": 0,
+        "y": 0,
+        "z": 32
+      },
+      "devRot": {
+        "x": 5,
+        "y": -95,
+        "z": 1
+      }
+    },
+    {
+      "time": 7.6,
+      "camPos": {
+        "x": 0,
+        "y": 0,
+        "z": 34
+      },
+      "devRot": {
+        "x": -4,
+        "y": -18,
+        "z": -2
+      }
+    },
+    {
+      "time": 10.2,
+      "camPos": {
+        "x": 0,
+        "y": 0,
+        "z": 38
+      },
+      "devRot": {
+        "x": -3,
+        "y": 8,
+        "z": 0
+      }
+    },
+    {
+      "time": 12,
+      "camPos": {
+        "x": 0,
+        "y": 0,
+        "z": 38
+      },
+      "devRot": {
+        "x": -3,
+        "y": 8,
+        "z": 0
+      }
+    }
+  ]
+},
       {
         slug: 'tilted-zoom-out',
         name: 'iPhone Tilted Zoom Out',
@@ -1553,6 +1792,7 @@
       setupViewportInteractions(renderer.domElement);
 
       window.addEventListener('resize', handleWindowResize);
+      new ResizeObserver(handleWindowResize).observe(document.getElementById('stage-aspect-wrapper').parentElement);
       setTimeout(handleWindowResize, 50);
     }
 
@@ -2187,6 +2427,8 @@
         setQuickGradient(tpl.bg1, tpl.bg2);
       }
 
+      if (tpl.deviceColor) setDeviceColor(tpl.deviceColor, 0.85, 0.24);
+
       // Timeline Duration & Keyframes deep copy
       state.duration = tpl.duration || 4.0;
       document.getElementById('duration-input').value = state.duration.toFixed(2);
@@ -2597,8 +2839,23 @@
       showToast('Pasted camera values');
     }
 
+    let selectedStageRatio = 4 / 3;
+    function fitStageToViewport() {
+      const wrapper = document.getElementById('stage-aspect-wrapper');
+      if (!wrapper) return;
+      const host = wrapper.parentElement;
+      const padding = getComputedStyle(host);
+      const availableWidth = Math.max(2, host.clientWidth - parseFloat(padding.paddingLeft) - parseFloat(padding.paddingRight));
+      const availableHeight = Math.max(2, host.clientHeight - parseFloat(padding.paddingTop) - parseFloat(padding.paddingBottom));
+      const width = Math.min(availableWidth, availableHeight * selectedStageRatio);
+      wrapper.style.width = `${width}px`;
+      wrapper.style.height = `${width / selectedStageRatio}px`;
+    }
     function setStageAspect(cssRatio, label) {
       const wrapper = document.getElementById('stage-aspect-wrapper');
+      const [width, height] = cssRatio.split('/').map(Number);
+      if (!Number.isFinite(width / height) || width <= 0 || height <= 0) return;
+      selectedStageRatio = width / height;
       wrapper.style.aspectRatio = cssRatio;
       document.querySelectorAll('.aspect-pill').forEach(btn => {
         if (btn.textContent === label) {
@@ -2607,7 +2864,7 @@
           btn.className = 'aspect-pill px-2 py-1 rounded-md text-xs hover:bg-zinc-200/60 dark:hover:bg-surface-hover transition';
         }
       });
-      setTimeout(handleWindowResize, 220);
+      handleWindowResize();
     }
 
     function setBackdropMode(mode) {
@@ -2709,6 +2966,7 @@
 
     function handleWindowResize() {
       if (isExportingVideo) return;
+      fitStageToViewport();
       const container = document.getElementById('canvas-container');
       if (!container || !renderer || !camera) return;
       const w = Math.max(2, Math.floor(container.clientWidth / 2) * 2);
