@@ -1170,6 +1170,80 @@
       }
     }
 
+
+    function createRoundedRectShape(w, h, r) {
+      r = Math.min(r, w / 2, h / 2);
+      const shape = new THREE.Shape(), x = -w / 2, y = -h / 2;
+      shape.moveTo(x + r, y);
+      shape.lineTo(x + w - r, y); shape.quadraticCurveTo(x + w, y, x + w, y + r);
+      shape.lineTo(x + w, y + h - r); shape.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      shape.lineTo(x + r, y + h); shape.quadraticCurveTo(x, y + h, x, y + h - r);
+      shape.lineTo(x, y + r); shape.quadraticCurveTo(x, y, x + r, y);
+      return shape;
+    }
+    function createScreenPlaneWithUVs(w, h, r) {
+      const geometry = new THREE.ShapeGeometry(createRoundedRectShape(w, h, r), 24);
+      const positions = geometry.attributes.position, uv = geometry.attributes.uv;
+      for (let i = 0; i < positions.count; i++) uv.setXY(i, positions.getX(i) / w + 0.5, positions.getY(i) / h + 0.5);
+      return geometry;
+    }
+    function drawProceduralScreen(tick = 0) {
+      if (!screenCtx) return;
+      const ctx = screenCtx, w = screenCanvas.width, h = screenCanvas.height;
+      ctx.fillStyle = '#101827'; ctx.fillRect(0, 0, w, h);
+      const media = uploadedVideoElement || customUploadedImage;
+      if (media) {
+        const mw = media.videoWidth || media.naturalWidth, mh = media.videoHeight || media.naturalHeight;
+        if (mw && mh) {
+          const scale = state.screenFitMode === 'contain' ? Math.min(w / mw, h / mh) : Math.max(w / mw, h / mh);
+          ctx.drawImage(media, (w - mw * scale) / 2, (h - mh * scale) / 2, mw * scale, mh * scale);
+        }
+      } else {
+        ctx.save(); ctx.scale(w / 1080, h / 2220);
+        ctx.fillStyle = '#f8fafc'; ctx.font = '500 36px sans-serif'; ctx.fillText('9:41', 80, 90);
+        ctx.fillStyle = '#94a3b8'; ctx.font = '38px sans-serif'; ctx.fillText('Welcome back', 80, 290);
+        ctx.fillStyle = '#ffffff'; ctx.font = 'bold 76px sans-serif';
+        ctx.fillText(activeDemoStyle === 'ai' ? 'Your AI assistant' : activeDemoStyle === 'analytics' ? 'Overview' : 'Your balance', 80, 400);
+        const gradient = ctx.createLinearGradient(80, 490, 1000, 1000);
+        gradient.addColorStop(0, '#10b981'); gradient.addColorStop(1, '#065f46');
+        ctx.fillStyle = gradient; ctx.fillRect(80, 490, 920, 510);
+        ctx.fillStyle = '#ffffff'; ctx.font = 'bold 110px sans-serif';
+        ctx.fillText(activeDemoStyle === 'ai' ? 'Hello there.' : '$24,680', 130, 710);
+        ctx.font = '36px sans-serif'; ctx.fillText(activeDemoStyle === 'ai' ? 'What can I help you create?' : '+12.8% this month', 130, 820);
+        ctx.fillStyle = '#ffffff'; ctx.font = 'bold 48px sans-serif'; ctx.fillText('Recent activity', 80, 1140);
+        ['Design subscription', 'Project payment', 'Coffee & friends', 'Savings deposit'].forEach((label, i) => {
+          const y = 1260 + i * 170;
+          ctx.fillStyle = '#202d42'; ctx.fillRect(80, y - 55, 920, 130);
+          ctx.fillStyle = '#e2e8f0'; ctx.font = '36px sans-serif'; ctx.fillText(label, 125, y + 20);
+        });
+        ctx.fillStyle = '#10b981'; ctx.fillRect(80, 2040, 920, 90);
+        ctx.restore();
+      }
+      if (screenTexture) screenTexture.needsUpdate = true;
+    }
+    function generateDemoScreen(style) {
+      if (uploadedVideoElement) { uploadedVideoElement.pause(); URL.revokeObjectURL(uploadedVideoElement.src); }
+      uploadedVideoElement = null; customUploadedImage = null; activeDemoStyle = style;
+      drawProceduralScreen();
+    }
+    function handleScreenMediaUpload(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      if (uploadedVideoElement) { uploadedVideoElement.pause(); URL.revokeObjectURL(uploadedVideoElement.src); }
+      uploadedVideoElement = null; customUploadedImage = null;
+      const url = URL.createObjectURL(file);
+      if (file.type.startsWith('video/')) {
+        const video = document.createElement('video');
+        video.muted = true; video.loop = true; video.playsInline = true;
+        video.onloadeddata = () => { uploadedVideoElement = video; drawProceduralScreen(); video.play().catch(console.warn); };
+        video.src = url;
+      } else {
+        const image = new Image();
+        image.onload = () => { customUploadedImage = image; drawProceduralScreen(); URL.revokeObjectURL(url); };
+        image.src = url;
+      }
+    }
+
     function initScreenCanvas() {
       screenCanvas = document.createElement('canvas');
       const { w, h } = getTargetCanvasDimensions();
