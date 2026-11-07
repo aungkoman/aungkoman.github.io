@@ -11,7 +11,7 @@ author_profile: true
 **Email:** [aungkoman@gmail.com](mailto:aungkoman@gmail.com)  
 **GitHub:** [github.com/aungkoman](https://github.com/aungkoman)  
 **LinkedIn:** [linkedin.com/in/aungkoman](https://www.linkedin.com/in/aungkoman/)  
-**Portfolio:** [aungkoman.github.io/cv](https://aungkoman.github.io/cv/)
+**Portfolio:** [aungkoman.github.io/cv/flutter](https://aungkoman.github.io/cv/flutter/)
 
 ## Professional Summary
 
@@ -23,6 +23,7 @@ Seeking a Senior Flutter Developer role focused on maintainable application arch
 
 - **Mobile:** Flutter, Dart, Provider
 - **App integration:** REST APIs, authentication flows, role-based workflows, Firebase Cloud Messaging (FCM)
+- **Additional Flutter tooling (from repository manifests):** Socket.IO, HTTP, SQLite, shared_preferences, local notifications, Syncfusion PDF Viewer
 - **Engineering:** Git, GitHub, requirements analysis, mobile/backend integration, business workflow design
 - **Backend:** Laravel, NestJS, Hono, TypeScript
 - **Web:** React, Next.js
@@ -38,7 +39,34 @@ Seeking a Senior Flutter Developer role focused on maintainable application arch
 - Translate operational requirements into user flows, API interactions, and maintainable features.
 - Collaborate across mobile and backend components during implementation and maintenance.
 
-## Selected Flutter Projects
+## GitHub-Verified Flutter Code Samples
+
+These repositories provide concrete examples of Flutter development and dependency choices; they are not presented as proof of production deployment or sole authorship.
+
+### Dr. Token — Flutter Mobile App
+[GitHub repository (private)](https://github.com/aungkoman/drtoken_mobile_app) · [iOS App Store](https://apps.apple.com/mm/app/dr-token/id6788124763)
+
+- Flutter and Dart application with Provider 6.1.5 listed as a state-management dependency.
+- Associated with the Dr. Token clinic queue and appointment platform; the repository is private, so code access can be arranged when appropriate.
+
+### Flutter To-Do List — Mobile Application
+[GitHub source](https://github.com/aungkoman/flutter-tdl)
+
+- Flutter project with Socket.IO client, HTTP integration, local notifications, SQLite, shared preferences, and time-zone dependencies.
+- Demonstrates exposure to real-time connectivity and local mobile persistence tooling.
+
+### Flutter PDF Reader — Document Viewer
+[GitHub source](https://github.com/aungkoman/flutter-pdf-reader)
+
+- Flutter project using Syncfusion PDF Viewer and bundled PDF assets.
+- Includes Google Mobile Ads integration dependency.
+
+### Polyrhythm App — Flutter Experiment
+[GitHub source](https://github.com/aungkoman/polyrhythm_app)
+
+- Flutter project with local preset persistence using shared_preferences and vector_math.
+
+## Selected Business Mobile Projects
 
 ### Asset Management System — Flutter Executive App
 **Stack:** Flutter, NestJS, PostgreSQL
@@ -111,6 +139,10 @@ Seeking a Senior Flutter Developer role focused on maintainable application arch
 
 **Master of Science in Computer Science**  
 UCSM | 2018
+
+## Repository Notes
+
+Some older Flutter repositories use pre-null-safety Dart SDK constraints and legacy dependency versions. They are included as historical code samples rather than examples of current production architecture. The Flutter Gallery repository is not claimed as an original project.
 
 ## Areas of Focus
 
