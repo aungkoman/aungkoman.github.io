@@ -1,139 +1,117 @@
 ---
 layout: single
-title: "Aung Ko Man — Curriculum Vitae"
+title: "Aung Ko Man — Senior Flutter Developer CV"
 permalink: /cv/
 author_profile: true
 ---
 
 # Aung Ko Man
-**Flutter & Full-Stack Software Developer**
+**Senior Flutter Developer | Mobile & API Integration**
 
 **Email:** [aungkoman@gmail.com](mailto:aungkoman@gmail.com)  
 **GitHub:** [github.com/aungkoman](https://github.com/aungkoman)  
 **LinkedIn:** [linkedin.com/in/aungkoman](https://www.linkedin.com/in/aungkoman/)  
-**Blog:** [aungkoman.github.io](https://aungkoman.github.io)
+**Portfolio:** [aungkoman.github.io/cv](https://aungkoman.github.io/cv/)
 
 ## Professional Summary
 
-Software developer with a Flutter GitHub development history dating back to October 2020 and an iOS App Store publishing track record since March 2021. Works with Flutter, Dart, and backend APIs to build mobile and web applications around business workflows. Experience includes e-commerce, public information, family tree, and customer loyalty applications, alongside work on asset management and case management systems.
+Flutter and full-stack software developer with a Flutter GitHub development history dating to October 2020 and an iOS App Store publishing track record dating to March 2021. Develops mobile applications connected to REST APIs and operational workflows, including authentication, role-based access, notifications, and data-driven interfaces. Experienced with Provider and cross-functional mobile/backend development using Laravel, NestJS, and Hono.
 
-Brings an understanding of both mobile interfaces and supporting backend services, including authentication, role-based access, data integration, and notifications. Interested in a Senior Flutter Developer role with responsibility for application architecture, maintainable implementation, and collaborative product delivery.
+Seeking a Senior Flutter Developer role focused on maintainable application architecture, predictable state management, design implementation, and reliable delivery.
 
-## Core Skills
+## Flutter & Technical Skills
 
 - **Mobile:** Flutter, Dart, Provider
-- **Integration:** REST APIs, authentication flows, Firebase Cloud Messaging (FCM)
-- **Backend:** Laravel, NestJS, Hono
+- **App integration:** REST APIs, authentication flows, role-based workflows, Firebase Cloud Messaging (FCM)
+- **Engineering:** Git, GitHub, requirements analysis, mobile/backend integration, business workflow design
+- **Backend:** Laravel, NestJS, Hono, TypeScript
 - **Web:** React, Next.js
-- **Data:** MySQL, PostgreSQL, Cloudflare D1
-- **Development practices:** Git, GitHub, requirements analysis, business workflow design
+- **Databases:** MySQL, PostgreSQL, Cloudflare D1
 
 ## Professional Experience
 
 ### Software Developer — Software 100
 
-- Develop mobile and web applications based on business requirements.
-- Connect Flutter applications to backend APIs and implement data-driven interfaces.
-- Work with Firebase Cloud Messaging for mobile notifications.
-- Translate operational requirements into application workflows, permissions, and API interactions.
-- Work across mobile and backend components to support feature integration and maintenance.
-
-## Published Mobile Applications
-
-My mobile publishing portfolio includes Android applications under mmsoftware100 and iOS applications under my own Apple Developer account.
-
-- **Korea Myanmar Dictionary — Android:** Korean–Myanmar dictionary application. Package: `com.teamcs.mm.dictionarykorea`. APKPure lists version 1.0 with a last-updated date of 23 June 2020; this archive date is not presented as the original Google Play release date. [Android listing](https://apkpure.net/korea-myanmar-dictionary/com.teamcs.mm.dictionarykorea)
-- **iMirror News — iOS:** App Store version 1.0 released on 16 March 2021, with later updates including offline access to favourite items. [App Store](https://apps.apple.com/us/app/imirror-news/id1558697864)
-- **MCIS MM — iOS:** Myanmar administrative divisions and place-code reference application. [App Store](https://apps.apple.com/us/app/mcis-mm/id6810076905)
-- **Additional iOS portfolio:** MOI News, Zip Myit, Young Tel, Hello Sayarwon, Rose Lady Wing, and ThankBook. [Apple Developer portfolio](https://apps.apple.com/us/developer/aung-ko-man/id1554897295)
+- Develop Flutter applications and data-driven mobile interfaces for business systems.
+- Integrate mobile features with backend APIs, authentication flows, and access permissions.
+- Work with Provider for Flutter state management and Firebase Cloud Messaging for notifications.
+- Translate operational requirements into user flows, API interactions, and maintainable features.
+- Collaborate across mobile and backend components during implementation and maintenance.
 
 ## Selected Flutter Projects
 
-### OOAK — E-commerce Application | 2021
+### Asset Management System — Flutter Executive App
+**Stack:** Flutter, NestJS, PostgreSQL
+
+- Mobile project scope includes executive dashboards, asset search, reports, and location-based information.
+- Work with role-scoped views and API-driven asset management workflows.
+
+### Case Management System — Flutter Mobile App
+**Stack:** Flutter, Laravel
+
+- Mobile project scope covers case submission, status tracking, communication, and office-based access.
+- Work with authentication and restricted access requirements for sensitive case information.
+
+### OOAK — E-commerce App | 2021
 **Role:** Flutter Mobile App Developer
 
-- Worked on an e-commerce mobile application using Flutter.
+- Worked on a Flutter-based e-commerce mobile application.
 
-### MOI — Newsletter / Public Information Application | 2022
+### MOI — Public Information App | 2022
 
-- Worked on a mobile application for public information and newsletter content.
+- Worked on a mobile application delivering public information and newsletter content.
 
-### Zip Myit — Family Tree Application | 2023
+### Zip Myit — Family Tree App | 2023
 
-- Worked on a family tree mobile application.
+- Worked on a Flutter mobile application for family-tree use cases.
 
-### Reward — Customer Loyalty Application | 2023
+### Reward — Customer Loyalty App | 2023
 
-- Worked on a mobile application supporting customer loyalty use cases.
+- Worked on a mobile application supporting customer loyalty workflows.
 
-## Additional Project Work
+## Published Mobile Applications
 
-### Asset Management System
-**Technologies:** Flutter, NestJS, React, PostgreSQL
+- **iMirror News (iOS):** App Store release on 16 March 2021, with later offline favourites functionality. [App Store](https://apps.apple.com/us/app/imirror-news/id1558697864)
+- **MCIS MM (iOS):** Myanmar administrative divisions and place-code reference app. [App Store](https://apps.apple.com/us/app/mcis-mm/id6810076905)
+- **Dr. Token (iOS):** Clinic queue and booking application. [App Store](https://apps.apple.com/mm/app/dr-token/id6788124763)
+- **Additional iOS portfolio:** MOI News, Zip Myit, Young Tel, Hello Sayarwon, Rose Lady Wing, and ThankBook. [Apple Developer portfolio](https://apps.apple.com/us/developer/aung-ko-man/id1554897295)
+- **Korea Myanmar Dictionary (Android):** [Archived listing](https://apkpure.net/korea-myanmar-dictionary/com.teamcs.mm.dictionarykorea)
 
-- Project work covers asset tracking, transfers, reporting, and role-based access.
-- Mobile scope includes executive dashboards, asset search, and location-based information.
-
-### Case Management System
-**Technologies:** Flutter, Laravel
-
-- Project work covers case submission, tracking, communication, and office-based access.
-- Requirements include authentication and restricted access to sensitive case information.
-
-## Selected Web & Business Projects
+## Additional Business & Web Projects
 
 ### Dr. Token — Clinic Queue & Booking Platform
-**Technologies:** Laravel, MySQL, Livewire, Filament  
-**Website:** [drtoken.live](https://drtoken.live)
+**Stack:** Laravel, MySQL, Livewire, Filament  
+[drtoken.live](https://drtoken.live)
 
-- Contribute to clinic and doctor scheduling, appointment APIs, and live queue display workflows.
-- Maintain clinic onboarding and integrate Cloudflare Turnstile verification.
-- Add public doctor and clinic page-view tracking through route middleware.
-- Integrate and maintain changes across public interfaces, backend APIs, and clinic operations.
+- Work across appointment APIs, doctor scheduling, clinic onboarding, and live queue workflows.
+- Integrate public-facing interfaces with clinic operations and backend services.
 
-### MM QR Menu — Restaurant Menu & Ordering System
-**Technologies:** Hono, TypeScript, Cloudflare Workers, D1, Durable Objects, React, Next.js  
-**Website:** [mmqrmenu.com](https://mmqrmenu.com)
+### MM QR Menu — Restaurant Ordering Platform
+**Stack:** Hono, TypeScript, Cloudflare Workers, D1, React, Next.js  
+[mmqrmenu.com](https://mmqrmenu.com)
 
-- Develop and maintain the restaurant application across its Hono API, React administration panel, and Next.js public menu.
-- Implement shop-scoped staff permissions and customer, waiter, kitchen, and cashier workflows.
-- Support table QR ordering, order changes, kitchen preparation status, billing, payment approval, and receipts.
-- Work on Cloudflare migration, demo data, API documentation, and integration tests.
+- Work across API, administration, and customer interfaces.
+- Implement role-based customer, waiter, kitchen, and cashier workflows.
 
 ### Tourism Government Website
-**Technologies:** Next.js, React, REST APIs, CSS Modules  
-**Website:** [tourism.gov.mm](https://www.tourism.gov.mm)
+**Stack:** Next.js, React, REST APIs  
+[tourism.gov.mm](https://www.tourism.gov.mm)
 
-- Integrate tourism information APIs across language-specific website sections.
-- Implement API-driven directories for national and regional tour guides, hot-air balloon companies, and cruise operators.
-- Develop travel advisory content and maintain tourism statistics and announcement integrations.
-- Contribute responsive page layouts and content presentation within a multilingual Next.js application.
+- Integrate multilingual tourism information APIs and responsive content interfaces.
 
-### Thanks / ThankBook — Gratitude & Social Application
-**Technologies:** Laravel, Next.js, TypeScript, Android App Links  
-**Website:** [thanks.com.mm](https://www.thanks.com.mm)
+### Thanks / ThankBook — Social Application
+**Stack:** Laravel, Next.js, TypeScript  
+[thanks.com.mm](https://www.thanks.com.mm)
 
-- Define frontend–backend API contracts and align request fields, data types, and response structures.
-- Develop mock endpoints for contact and thank-note listing and creation to support frontend integration.
-- Update contact image-input validation and document integration requirements.
-- Configure Android App Links through Digital Asset Links for the mobile application.
-- Collaborate on integration within a platform covering contacts, thank notes, comments, reactions, and messaging.
+- Work on API contracts, contact and thank-note features, and Android App Links integration.
 
-### Software 100 — Company Website
-**Website:** [software100.com.mm](https://www.software100.com.mm)
-
-- Company website included in my project portfolio.
-
-### Ministry of Information Website
-**Website:** [moi.gov.mm](https://www.moi.gov.mm)
-
-- Website project included in my portfolio, alongside the MOI mobile application listed above.
+**Other project websites:** [Software 100](https://software100.com.mm) · [Ministry of Information](https://www.moi.gov.mm)
 
 ## Education
 
 **Master of Science in Computer Science**  
 UCSM | 2018
 
-## Professional Interests
+## Areas of Focus
 
-Mobile application architecture, maintainable business software, API design, and practical use of AI in software development.
+Flutter application architecture, predictable state management, design-to-app implementation, API integration, and maintainable mobile software.
