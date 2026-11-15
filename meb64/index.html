@@ -2,7 +2,7 @@
 <html lang="my">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>သင်တန်းသားများ စာရင်း</title>
     <!-- Google Fonts (Padauk & Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Padauk:wght@400;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         :root {
             --primary: #2563eb;
@@ -30,25 +30,46 @@
             padding: 0;
         }
 
+        html {
+            /* Smooth scrolling + content ကို fixed header အောက်မှာ မကွယ်စေရန် */
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Padauk', 'Inter', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
             padding-bottom: 40px;
+            /* padding-top ကို JavaScript မှ header အမြင့်အလိုက် အလိုအလျောက် သတ်မှတ်ပါမည် */
+            padding-top: 160px;
         }
 
-        /* Header Section */
+        /* ==========================================
+           FIXED HEADER (အမြဲအပေါ်တွင် ကပ်နေမည်)
+           ========================================== */
         .app-header {
+            position: fixed;      /* sticky အစား fixed သုံးထားသည် */
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
             background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
             color: white;
             padding: 24px 20px 36px;
+            /* iPhone notch / safe area အတွက် */
+            padding-top: calc(24px + env(safe-area-inset-top, 0px));
             border-bottom-left-radius: 24px;
             border-bottom-right-radius: 24px;
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            /* အောက်က content မြင်ရအောင် နည်းနည်း blur ထည့်ထားသည် */
+            -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(6px);
+        }
+
+        /* အောက်သို့ scroll လုပ်လျှင် အရိပ်ကို ပိုထင်ရှားစေရန် */
+        .app-header.is-scrolled {
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.25);
         }
 
         .header-content {
@@ -61,6 +82,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 16px;
+            gap: 10px;
         }
 
         .header-top h1 {
@@ -75,7 +97,7 @@
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
-            backdrop-filter: blur(4px);
+            white-space: nowrap;
         }
 
         /* Search & Filter Controls */
@@ -88,6 +110,7 @@
         .search-box {
             position: relative;
             flex: 1;
+            min-width: 0;
         }
 
         .search-box i {
@@ -97,6 +120,7 @@
             transform: translateY(-50%);
             color: var(--text-muted);
             font-size: 0.95rem;
+            pointer-events: none;
         }
 
         .search-box input {
@@ -110,6 +134,8 @@
             color: var(--text-main);
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
             outline: none;
+            /* iOS တွင် focus လုပ်လျှင် auto zoom မဖြစ်စေရန် */
+            font-size: 16px;
         }
 
         .city-filter {
@@ -117,22 +143,25 @@
             border: none;
             border-radius: 12px;
             font-family: inherit;
-            font-size: 0.9rem;
+            font-size: 16px;
             background: white;
             color: var(--text-main);
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
             outline: none;
             max-width: 130px;
             cursor: pointer;
+            height: 46px;
         }
 
-        /* Main Container */
+        /* ==========================================
+           MAIN CONTAINER
+           ========================================== */
         .container {
             max-width: 600px;
-            margin: -16px auto 0;
+            margin: -16px auto 0;   /* header ၏ အောက်ခြေလုံးဝန်းမှုနှင့် ထပ်စေရန် */
             padding: 0 16px;
             position: relative;
-            z-index: 101;
+            z-index: 1;
         }
 
         /* Student Card */
@@ -270,523 +299,267 @@
             color: #cbd5e1;
             margin-bottom: 12px;
         }
+
+        /* မျက်နှာပြင် အလွန်သေးငယ်လျှင် header ကို နည်းနည်းချုံ့ခြင်း */
+        @media (max-width: 380px) {
+            .header-top h1 {
+                font-size: 1.15rem;
+            }
+            .app-header {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <header class="app-header">
-        <div class="header-content">
-            <div class="header-top">
-                <h1><i class="fa-solid fa-graduation-cap"></i> MEB (၁/၂၀၂၆-၂၀၂၇)</h1>
-                <span class="badge-count" id="totalCount">စုစုပေါင်း ၀ ဦး</span>
+<!-- ===== FIXED HEADER ===== -->
+<header class="app-header" id="appHeader">
+    <div class="header-content">
+        <div class="header-top">
+            <h1><i class="fa-solid fa-graduation-cap"></i> MEB (၁/၂၀၂၆-၂၀၂၇)</h1>
+            <span class="badge-count" id="totalCount">စုစုပေါင်း ၀ ဦး</span>
+        </div>
+        <div class="controls">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="အမည်၊ ကျောင်းသားအမှတ် ရှာရန်..."
+                       autocomplete="off" enterkeyhint="search">
             </div>
-            <div class="controls">
-                <div class="search-box">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="searchInput" placeholder="အမည်၊ ကျောင်းသားအမှတ် ရှာရန်...">
-                </div>
-                <select id="cityFilter" class="city-filter">
-                    <option value="all">မြို့အားလုံး</option>
-                </select>
-            </div>
+            <select id="cityFilter" class="city-filter">
+                <option value="all">မြို့အားလုံး</option>
+            </select>
         </div>
-    </header>
+    </div>
+</header>
 
-    <main class="container">
-        <div class="student-list" id="studentList">
-            <!-- JavaScript မှတစ်ဆင့် Data များ ဤနေရာတွင် ပေါ်လာပါမည် -->
-        </div>
+<main class="container">
+    <div class="student-list" id="studentList">
+        <!-- JavaScript မှတစ်ဆင့် Data များ ဤနေရာတွင် ပေါ်လာပါမည် -->
+    </div>
 
-        <div class="empty-state" id="emptyState">
-            <i class="fa-solid fa-user-slash"></i>
-            <p>ရှာဖွေထားသော အချက်အလက်နှင့် ကိုက်ညီသူ မရှိပါ။</p>
-        </div>
-    </main>
+    <div class="empty-state" id="emptyState">
+        <i class="fa-solid fa-user-slash"></i>
+        <p>ရှာဖွေထားသော အချက်အလက်နှင့် ကိုက်ညီသူ မရှိပါ။</p>
+    </div>
+</main>
 
-    <script>
-        // ==========================================
-        // ၁။ သင်တန်းသား အချက်အလက်များ (Data အသေထည့်ရန်နေရာ)
-        // ==========================================
-        const studentsData = [
-            {
-                id: "ကသ-၁",
-                name: "ဒေါ် နိုကစ်ဆိုင်",
-                city: "ဘဏ်တွင်းစာရင်းစစ်ဌာနခွဲ",
-                phone: "09791234567"
-            },
-            {
-                id: "ကသ-၂",
-                name: "ဦး ရန်နောင်မျိုး",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09401234568"
-            },
-            {
-                id: "ကသ-၃",
-                name: "ဦး သက်ကိုကို",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09251234569"
-            },
-            {
-                id: "ကသ-၄",
-                name: "ဒေါ် ကြူကြူခိုင်",
-                city: "ငွေစု၊ဖွံ့ဖြိုး",
-                phone: "09971234570"
-            },
-            {
-                id: "ကသ-၅",
-                name: "ဒေါ် ကြည်ကြည်ခိုင်",
-                city: "ICT",
-                phone: "09691234571"
-            },
-            {
-                id: "ကသ-၆",
-                name: "ဒေါ် ကြည်မြ",
-                city: "မူဆယ်",
-                phone: "09781234572"
-            },
-            {
-                id: "ကသ-၇",
-                name: "ဒေါ် ကေဇင်စိုး",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09791234567"
-            },
-            {
-                id: "ကသ-၈",
-                name: "ဦး ကျော်သက်",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09401234568"
-            },
-            {
-                id: "ကသ-၉",
-                name: "ဒေါ်ခိုင်နွယ်စိုး",
-                city: "ဟင်္သာတ",
-                phone: "09251234569"
-            },
-            {
-                id: "ကသ-၁၀",
-                name: "ဒေါ် ခိုင်ဖြူဖွေး",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09971234570"
-            },
-            {
-                id: "ကသ-၁၁",
-                name: "ဦး ခိုင်မင်း",
-                city: "ကလေး",
-                phone: "09691234571"
-            },
-            {
-                id: "ကသ-၁၂",
-                name: "ဒေါ် ခင်စိုးမိုးဝင်း",
-                city: "မြောင်းမြ",
-                phone: "09781234572"
-            },
-            {
-                id: "ကသ-၁၃",
-                name: "ဒေါ် ခင်နှောင်းချို",
-                city: "ဘဏ်တွင်းစာရင်းစစ်ဌာနခွဲ",
-                phone: "09791234567"
-            },
-            {
-                id: "ကသ-၁၄",
-                name: "ဒေါ် ခင်နှင်းပွင့်ဖြူ",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09401234568"
-            },
-            {
-                id: "ကသ-၁၅",
-                name: "ဒေါ် ခင်ပြည့်ပြည့်ဦး",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09251234569"
-            },
-            {
-                id: "ကသ-၁၆",
-                name: "ဒေါ် ဒေါ်ခင်လေးချို",
-                city: "ရန်ကုန် (၆)",
-                phone: "09971234570"
-            },
-            {
-                id: "ကသ-၁၇",
-                name: "ဒေါ် စိုးမိုးလွင်",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09691234571"
-            },
-            {
-                id: "ကသ-၁၈",
-                name: "ဒေါ် စောမြသီ ",
-                city: "ကျောက်ဆည်",
-                phone: "09781234572"
-            },
-            {
-                id: "ကသ-၁၉",
-                name: "ဒေါ် စန်းစန်းခိုင်",
-                city: "ကမာရွတ်",
-                phone: "09791234567"
-            },
-            {
-                id: "ကသ-၂၀",
-                name: "ဒေါ် စန်းစန်းလွင်",
-                city: "ငါန်းဇွန်",
-                phone: "09401234568"
-            },
-            {
-                id: "ကသ-၂၁",
-                name: "ဒေါ် ဆုသန္တာအောင်",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09251234569"
-            },
-            {
-                id: "ကသ-၂၂",
-                name: "ဒေါ် ဆွေဆွေခင်",
-                city: "မော်လမြိုင် (၁)",
-                phone: "09971234570"
-            },
-            {
-                id: "ကသ-၂၃",
-                name: "ဦး ဇော်ဇော်အောင်",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09691234571"
-            },
-            {
-                id: "ကသ-၂၄",
-                name: "ဦး ဇော်မျိုးပိုင်",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09781234572"
-            },
-            {
-                id: "ကသ-၂၅",
-                name: "ဦး ညွန့်ဝင်း",
-                city: "တောင်ငူ",
-                phone: "09791234567"
-            },
-            {
-                id: "ကသ-၂၆",
-                name: "ဦး တင်ဇော်အောင်",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09401234568"
-            },
-            {
-                id: "ကသ-၂၇",
-                name: "ဒေါ် တင်တင်လှ",
-                city: "ပဲခူး",
-                phone: "09251234569"
-            },
-            {
-                id: "ကသ-၂၈",
-                name: "ဦး ထက်လင်းပိုင်",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09971234570"
-            },
-            {
-                id: "ကသ-၂၉",
-                name: "ဒေါ် နဒီစိုးမိုး",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09691234571"
-            },
-            {
-                id: "ကသ-၃၀",
-                name: "ဒေါ် နှင်းခန့်မွှေး",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09781234572"
-            },
-            {
-                id: "ကသ-၃၁",
-                name: "ဒေါ် နှင်းရီ",
-                city: "ဘဏ်တွင်းစာရင်းစစ်ဌာနခွဲ",
-                phone: "09791234567"
-            },
-            {
-                id: "ကသ-၃၂",
-                name: "ဦး နေအောင်ခန့်",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09401234568"
-            },
-            {
-                id: "ကသ-၃၃",
-                name: "ဒေါ် နိုင်ဖြိုးဝေ",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09251234569"
-            },
-            {
-                id: "ကသ-၃၄",
-                name: "ဒေါ် နိုင်းကီးအွယ်",
-                city: "ချေးငွေ",
-                phone: "09971234570"
-            },
-            {
-                id: "ကသ-၃၅",
-                name: "ဒေါ် ဖြူဖြူလွင်",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09691234571"
-            },
-            {
-                id: "ကသ-၃၆",
-                name: "ဒေါ် ဖူးအိန္ဒြေသင်း",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09781234572"
-            },
-            {
-                id: "ကသ-၃၇",
-                name: "ဦး ဘီးရ်ဗဟာဒူး",
-                city: "ရှမ်းပြည်နယ်ရုံးခွဲ",
-                phone: "09791234567"
-            },
-            {
-                id: "ကသ-၃၈",
-                name: "ဦး မျိုးကျော်သူ",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09401234568"
-            },
-            {
-                id: "ကသ-၃၉",
-                name: "ဒေါ် မြခွာညိုလှိုင်",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09251234569"
-            },
-            {
-                id: "ကသ-၄၀",
-                name: "ဒေါ် မြင့်မြတ်သူ",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09971234570"
-            },
-            {
-                id: "ကသ-၄၁",
-                name: "ဒေါ် မာမာမိုး",
-                city: "စာရင်းဌာနခွဲ",
-                phone: "09691234571"
-            },
-            {
-                id: "ကသ-၄၂",
-                name: "ဒေါ် မေငြိမ်းအေး",
-                city: "ဗန်းမော်",
-                phone: "09781234572"
-            },
-            {
-                id: "ကသ-၄၃",
-                name: "ဒေါ် မေဆုလွင်",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09791234567"
-            },
-            {
-                id: "ကသ-၄၄",
-                name: "ဒေါ် မေသက်ခိုင်",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09401234568"
-            },
-            {
-                id: "ကသ-၄၅",
-                name: "ဒေါ် မော်မော်လွင်",
-                city: "သရက်",
-                phone: "09251234569"
-            },
-            {
-                id: "ကသ-၄၆",
-                name: "ဒေါ် မိုးမိုးစန်း",
-                city: "ငွေစုဘဏ်ခွဲ(၂) ရန်ကုန်",
-                phone: "09971234570"
-            },
-            {
-                id: "ကသ-၄၇",
-                name: "ဦး မောင်မောင်စော",
-                city: "ကျိုင်းတုံ",
-                phone: "09691234571"
-            },
-            {
-                id: "ကသ-၄၈",
-                name: "ဒေါ် ယမင်းသူ",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09781234572"
-            },
-            {
-                id: "ကသ-၄၉",
-                name: "ဒေါ် ယွန်းဝတီစိုးညွန့်မောင်",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09791234567"
-            },
-            {
-                id: "ကသ-၅၀",
-                name: "ဒေါ် ရီယမုံအောင်",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09401234568"
-            },
-            {
-                id: "ကသ-၅၁",
-                name: "ဦး ရဲကျော်ဦး",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09251234569"
-            },
-            {
-                id: "ကသ-၅၂",
-                name: "ဒေါ် လှိုင်သဇင်ဦး",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09971234570"
-            },
-            {
-                id: "ကသ-၅၃",
-                name: "ဦး ဝေယံမြင့်",
-                city: "ICT",
-                phone: "09691234571"
-            },
-            {
-                id: "ကသ-၅၄",
-                name: "ဒေါ် ဝိုင်းအိအိမိုး",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09781234572"
-            },
-            {
-                id: "ကသ-၅၅",
-                name: "ဒေါ် ဝင်းမာဦး",
-                city: "ပုလဲ",
-                phone: "09791234567"
-            },
-            {
-                id: "ကသ-၅၆",
-                name: "ဒေါ် ဝင်းဝင်းသန်း",
-                city: "ဘဏ်တွင်းစာရင်းစစ်ဌာနခွဲ",
-                phone: "09401234568"
-            },
-            {
-                id: "ကသ-၅၇",
-                name: "ဒေါ် သုနန္ဒာဦး",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09251234569"
-            },
-            {
-                id: "ကသ-၅၈",
-                name: "ဒေါ် သုနန္ဒာမြင့်",
-                city: "ပုသိမ်",
-                phone: "09971234570"
-            },
-            {
-                id: "ကသ-၅၉",
-                name: "ဦး သန့်ဇင်စိုး",
-                city: "ကနီ",
-                phone: "09691234571"
-            },
-            {
-                id: "ကသ-၆၀",
-                name: "ဒေါ် သန်းသန်းလွင်",
-                city: "မြင်းခြံ",
-                phone: "09781234572"
-            },
-            {
-                id: "ကသ-၆၁",
-                name: "ဦး အာကာမျိုး",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09791234567"
-            },
-            {
-                id: "ကသ-၆၂",
-                name: "ဒေါ် အိတင်ဇာကျော်",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09401234568"
-            },
-            {
-                id: "ကသ-၆၃",
-                name: "ဒေါ် အိသဇင်ဖြိုး",
-                city: "စီမံခန့်ခွဲရေးဌာနခွဲ",
-                phone: "09251234569"
-            },
-            {
-                id: "ကသ-၆၄",
-                name: "ဒေါ် အေးဝါဝါအောင်",
-                city: "မိုင်းရှူး",
-                phone: "09971234570"
-            }
-        ];
+<script>
+    // ==========================================
+    // ၁။ သင်တန်းသား အချက်အလက်များ (Data အသေထည့်ရန်နေရာ)
+    // ==========================================
+    const studentsData = [
+        { id: "ကသ-၁",  name: "ဒေါ် နိုကစ်ဆိုင်",        city: "ဘဏ်တွင်းစာရင်းစစ်ဌာနခွဲ", phone: "09000000000" },
+        { id: "ကသ-၂",  name: "ဦး ရန်နောင်မျိုး",        city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09421388247" },
+        { id: "ကသ-၃",  name: "ဦး သက်ကိုကို",           city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09000000000" },
+        { id: "ကသ-၄",  name: "ဒေါ် ကြူကြူခိုင်",        city: "ငွေစု၊ဖွံ့ဖြိုး",         phone: "09420703699" },
+        { id: "ကသ-၅",  name: "ဒေါ် ကြည်ကြည်ခိုင်",      city: "ICT",                   phone: "09420760456" },
+        { id: "ကသ-၆",  name: "ဒေါ် ကြည်မြ",             city: "မူဆယ်",                 phone: "09256556138" },
+        { id: "ကသ-၇",  name: "ဒေါ် ကေဇင်စိုး",          city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09776805797" },
+        { id: "ကသ-၈",  name: "ဦး ကျော်သက်",            city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09663513926" },
+        { id: "ကသ-၉",  name: "ဒေါ်ခိုင်နွယ်စိုး",       city: "ဟင်္သာတ",               phone: "09422491943" },
+        { id: "ကသ-၁၀", name: "ဒေါ် ခိုင်ဖြူဖွေး",       city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09449659659" },
+        { id: "ကသ-၁၁", name: "ဦး ခိုင်မင်း",            city: "ကလေး",                  phone: "09259652103" },
+        { id: "ကသ-၁၂", name: "ဒေါ် ခင်စိုးမိုးဝင်း",    city: "မြောင်းမြ",             phone: "09781234572" },
+        { id: "ကသ-၁၃", name: "ဒေါ် ခင်နှောင်းချို",     city: "ဘဏ်တွင်းစာရင်းစစ်ဌာနခွဲ", phone: "09420703711" },
+        { id: "ကသ-၁၄", name: "ဒေါ် ခင်နှင်းပွင့်ဖြူ",    city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09425037258" },
+        { id: "ကသ-၁၅", name: "ဒေါ် ခင်ပြည့်ပြည့်ဦး",    city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09787818004" },
+        { id: "ကသ-၁၆", name: "ဒေါ် ဒေါ်ခင်လေးချို",     city: "ရန်ကုန် (၆)",            phone: "09420111986" },
+        { id: "ကသ-၁၇", name: "ဒေါ် စိုးမိုးလွင်",       city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09974779555" },
+        { id: "ကသ-၁၈", name: "ဒေါ် စောမြသီ",           city: "ကျောက်ဆည်",            phone: "09441003883" },
+        { id: "ကသ-၁၉", name: "ဒေါ် စန်းစန်းခိုင်",      city: "ကမာရွတ်",               phone: "09263369645" },
+        { id: "ကသ-၂၀", name: "ဒေါ် စန်းစန်းလွင်",      city: "ငါန်းဇွန်",             phone: "09401234568" },
+        { id: "ကသ-၂၁", name: "ဒေါ် ဆုသန္တာအောင်",      city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09971164897" },
+        { id: "ကသ-၂၂", name: "ဒေါ် ဆွေဆွေခင်",         city: "မော်လမြိုင် (၁)",        phone: "09400043741" },
+        { id: "ကသ-၂၃", name: "ဦး ဇော်ဇော်အောင်",       city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09420703769" },
+        { id: "ကသ-၂၄", name: "ဦး ဇော်မျိုးပိုင်",       city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09696738926" },
+        { id: "ကသ-၂၅", name: "ဦး ညွန့်ဝင်း",           city: "တောင်ငူ",               phone: "09683224443" },
+        { id: "ကသ-၂၆", name: "ဦး တင်ဇော်အောင်",        city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09258266268" },
+        { id: "ကသ-၂၇", name: "ဒေါ် တင်တင်လှ",          city: "ပဲခူး",                 phone: "09458025730" },
+        { id: "ကသ-၂၈", name: "ဦး ထက်လင်းပိုင်",        city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09255692031" },
+        { id: "ကသ-၂၉", name: "ဒေါ် နဒီစိုးမိုး",        city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09251158285" },
+        { id: "ကသ-၃၀", name: "ဒေါ် နှင်းခန့်မွှေး",     city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09677503909" },
+        { id: "ကသ-၃၁", name: "ဒေါ် နှင်းရီ",           city: "ဘဏ်တွင်းစာရင်းစစ်ဌာနခွဲ", phone: "09253427407" },
+        { id: "ကသ-၃၂", name: "ဦး နေအောင်ခန့်",        city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09761823326" },
+        { id: "ကသ-၃၃", name: "ဒေါ် နိုင်ဖြိုးဝေ",       city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09650022324" },
+        { id: "ကသ-၃၄", name: "ဒေါ် နိုင်းကီးအွယ်",     city: "ချေးငွေ",               phone: "09442001067" },
+        { id: "ကသ-၃၅", name: "ဒေါ် ဖြူဖြူလွင်",        city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09259196790" },
+        { id: "ကသ-၃၆", name: "ဒေါ် ဖူးအိန္ဒြေသင်း",    city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09250696304" },
+        { id: "ကသ-၃၇", name: "ဦး ဘီးရ်ဗဟာဒူး",       city: "ရှမ်းပြည်နယ်ရုံးခွဲ",      phone: "09428335360" },
+        { id: "ကသ-၃၈", name: "ဦး မျိုးကျော်သူ",        city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09699691730" },
+        { id: "ကသ-၃၉", name: "ဒေါ် မြခွာညိုလှိုင်",     city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09446343133" },
+        { id: "ကသ-၄၀", name: "ဒေါ် မြင့်မြတ်သူ",       city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09953545766" },
+        { id: "ကသ-၄၁", name: "ဒေါ် မာမာမိုး",          city: "စာရင်းဌာနခွဲ",           phone: "09446973319" },
+        { id: "ကသ-၄၂", name: "ဒေါ် မေငြိမ်းအေး",       city: "ဗန်းမော်",              phone: "09257621909" },
+        { id: "ကသ-၄၃", name: "ဒေါ် မေဆုလွင်",          city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09402787791" },
+        { id: "ကသ-၄၄", name: "ဒေါ် မေသက်ခိုင်",        city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09951529645" },
+        { id: "ကသ-၄၅", name: "ဒေါ် မော်မော်လွင်",      city: "သရက်",                  phone: "09666668527" },
+        { id: "ကသ-၄၆", name: "ဒေါ် မိုးမိုးစန်း",       city: "ငွေစုဘဏ်ခွဲ(၂) ရန်ကုန်",   phone: "09445183660" },
+        { id: "ကသ-၄၇", name: "ဦး မောင်မောင်စော",      city: "ကျိုင်းတုံ",             phone: "09251004255" },
+        { id: "ကသ-၄၈", name: "ဒေါ် ယမင်းသူ",          city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09423325509" },
+        { id: "ကသ-၄၉", name: "ဒေါ် ယွန်းဝတီစိုးညွန့်မောင်", city: "စီမံခန့်ခွဲရေးဌာနခွဲ", phone: "09449717457" },
+        { id: "ကသ-၅၀", name: "ဒေါ် ရီယမုံအောင်",      city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09401234568" },
+        { id: "ကသ-၅၁", name: "ဦး ရဲကျော်ဦး",          city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09970042927" },
+        { id: "ကသ-၅၂", name: "ဒေါ် လှိုင်သဇင်ဦး",      city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09799305334" },
+        { id: "ကသ-၅၃", name: "ဦး ဝေယံမြင့်",          city: "ICT",                   phone: "09672760088" },
+        { id: "ကသ-၅၄", name: "ဒေါ် ဝိုင်းအိအိမိုး",     city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09400607857" },
+        { id: "ကသ-၅၅", name: "ဒေါ် ဝင်းမာဦး",         city: "ပုလဲ",                  phone: "09798332776" },
+        { id: "ကသ-၅၆", name: "ဒေါ် ဝင်းဝင်းသန်း",      city: "ဘဏ်တွင်းစာရင်းစစ်ဌာနခွဲ", phone: "09425012740" },
+        { id: "ကသ-၅၇", name: "ဒေါ် သုနန္ဒာဦး",        city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09688687837" },
+        { id: "ကသ-၅၈", name: "ဒေါ် သုနန္ဒာမြင့်",      city: "ပုသိမ်",                phone: "09784346740" },
+        { id: "ကသ-၅၉", name: "ဦး သန့်ဇင်စိုး",         city: "ကနီ",                   phone: "09967534592" },
+        { id: "ကသ-၆၀", name: "ဒေါ် သန်းသန်းလွင်",     city: "မြင်းခြံ",               phone: "09688838035" },
+        { id: "ကသ-၆၁", name: "ဦး အာကာမျိုး",          city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09403728043" },
+        { id: "ကသ-၆၂", name: "ဒေါ် အိတင်ဇာကျော်",      city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09798933011" },
+        { id: "ကသ-၆၃", name: "ဒေါ် အိသဇင်ဖြိုး",       city: "စီမံခန့်ခွဲရေးဌာနခွဲ",     phone: "09690510764" },
+        { id: "ကသ-၆၄", name: "ဒေါ် အေးဝါဝါအောင်",     city: "မိုင်းရှူး",             phone: "09250342425" }
+    ];
 
-        // ==========================================
-        // ၂။ App လုပ်ဆောင်ချက်များ (Logic)
-        // ==========================================
-        const studentListEl = document.getElementById('studentList');
-        const searchInput = document.getElementById('searchInput');
-        const cityFilter = document.getElementById('cityFilter');
-        const totalCountEl = document.getElementById('totalCount');
-        const emptyStateEl = document.getElementById('emptyState');
+    // ==========================================
+    // ၂။ App လုပ်ဆောင်ချက်များ (Logic)
+    // ==========================================
+    const studentListEl = document.getElementById('studentList');
+    const searchInput   = document.getElementById('searchInput');
+    const cityFilter    = document.getElementById('cityFilter');
+    const totalCountEl  = document.getElementById('totalCount');
+    const emptyStateEl  = document.getElementById('emptyState');
+    const appHeaderEl   = document.getElementById('appHeader');
 
-        // မြို့အမည်များကို Filter Dropdown ထဲသို့ အလိုအလျောက်ထည့်သွင်းခြင်း
-        function populateCityFilter() {
-            const cities = [...new Set(studentsData.map(student => student.city))];
-            cities.forEach(city => {
-                const option = document.createElement('option');
-                option.value = city;
-                option.textContent = city;
-                cityFilter.appendChild(option);
-            });
+    // ------------------------------------------
+    // (က) FIXED HEADER OFFSET
+    // Header ရဲ့ အမြင့်အလိုက် body ရဲ့ padding-top ကို ချိန်ညှိခြင်း
+    // (ဖုန်း rotate / ဖောင့် load / resize ဖြစ်လျှင်လည်း အလုပ်လုပ်သည်)
+    // ------------------------------------------
+    function syncHeaderOffset() {
+        if (!appHeaderEl) return;
+        const h = appHeaderEl.offsetHeight;
+        document.body.style.paddingTop = h + 'px';
+    }
+
+    syncHeaderOffset();
+    window.addEventListener('resize', syncHeaderOffset);
+    window.addEventListener('orientationchange', syncHeaderOffset);
+    window.addEventListener('load', syncHeaderOffset);
+
+    // Padauk ဖောင့် load ပြီးချိန် အမြင့်ပြောင်းနိုင်သည်
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(syncHeaderOffset);
+    }
+
+    // Header အမြင့် ပြောင်းတိုင်း (ဥပမာ - စာသားလိုင်းခွဲခြင်း) ပြန်တွက်ရန်
+    if ('ResizeObserver' in window) {
+        new ResizeObserver(syncHeaderOffset).observe(appHeaderEl);
+    }
+
+    // ------------------------------------------
+    // (ခ) Scroll လုပ်လျှင် header အရိပ် ပိုထင်ရှားစေခြင်း
+    // ------------------------------------------
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+            appHeaderEl.classList.toggle('is-scrolled', window.scrollY > 4);
+            ticking = false;
+        });
+    }, { passive: true });
+
+    // ------------------------------------------
+    // (ဂ) မြို့အမည်များကို Filter Dropdown ထဲသို့ ထည့်ခြင်း
+    // ------------------------------------------
+    function populateCityFilter() {
+        const cities = [...new Set(studentsData.map(s => s.city))].sort();
+        cities.forEach(city => {
+            const option = document.createElement('option');
+            option.value = city;
+            option.textContent = city;
+            cityFilter.appendChild(option);
+        });
+    }
+
+    // အမည်၏ ပထမစာလုံးကို Avatar အဖြစ်ယူခြင်း
+    function getInitials(name) {
+        return name ? name.trim().charAt(0) : '?';
+    }
+
+    // HTML escape (လုံခြုံရေးအတွက်)
+    function esc(str) {
+        return String(str).replace(/[&<>"']/g, c => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        }[c]));
+    }
+
+    // ကျောင်းသားစာရင်းကို Screen ပေါ်တွင် ပြသခြင်း
+    function renderStudents(data) {
+        studentListEl.innerHTML = '';
+        totalCountEl.textContent = `စုစုပေါင်း ${data.length} ဦး`;
+
+        if (data.length === 0) {
+            emptyStateEl.style.display = 'block';
+            return;
         }
+        emptyStateEl.style.display = 'none';
 
-        // အမည်၏ ပထမစာလုံးကို Avatar အဖြစ်ယူခြင်း
-        function getInitials(name) {
-            return name ? name.trim().charAt(0) : '?';
-        }
+        const frag = document.createDocumentFragment();
 
-        // ကျောင်းသားစာရင်းကို Screen ပေါ်တွင် ပြသခြင်း
-        function renderStudents(data) {
-            studentListEl.innerHTML = '';
-            totalCountEl.textContent = `စုစုပေါင်း ${data.length} ဦး`;
+        data.forEach(student => {
+            const cleanPhone = student.phone.replace(/[\s-]/g, '');
 
-            if (data.length === 0) {
-                emptyStateEl.style.display = 'block';
-                return;
-            } else {
-                emptyStateEl.style.display = 'none';
-            }
-
-            data.forEach(student => {
-                // ဖုန်းနံပါတ်မှ space နှင့် - များကို ဖယ်ရှားပြီး tel: link အတွက် ပြင်ဆင်ခြင်း
-                const cleanPhone = student.phone.replace(/[\s-]/g, '');
-
-                const card = document.createElement('div');
-                card.className = 'student-card';
-                card.innerHTML = `
-                    <div class="student-info">
-                        <div class="avatar">${getInitials(student.name)}</div>
-                        <div class="details">
-                            <span class="id-badge">${student.id}</span>
-                            <div class="student-name">${student.name}</div>
-                            <div class="meta-row">
-                                <span class="meta-item">
-                                    <i class="fa-solid fa-location-dot"></i> ${student.city}
-                                </span>
-                                <span class="meta-item">
-                                    <i class="fa-solid fa-phone"></i> ${student.phone}
-                                </span>
-                            </div>
+            const card = document.createElement('div');
+            card.className = 'student-card';
+            card.innerHTML = `
+                <div class="student-info">
+                    <div class="avatar">${esc(getInitials(student.name))}</div>
+                    <div class="details">
+                        <span class="id-badge">${esc(student.id)}</span>
+                        <div class="student-name">${esc(student.name)}</div>
+                        <div class="meta-row">
+                            <span class="meta-item">
+                                <i class="fa-solid fa-location-dot"></i> ${esc(student.city)}
+                            </span>
+                            <span class="meta-item">
+                                <i class="fa-solid fa-phone"></i> ${esc(student.phone)}
+                            </span>
                         </div>
                     </div>
-                    <a href="tel:${cleanPhone}" class="call-btn" title="${student.name} ထံ ဖုန်းခေါ်ရန်">
-                        <i class="fa-solid fa-phone-flip"></i>
-                    </a>
-                `;
-                studentListEl.appendChild(card);
-            });
-        }
+                </div>
+                <a href="tel:${esc(cleanPhone)}" class="call-btn" title="${esc(student.name)} ထံ ဖုန်းခေါ်ရန်">
+                    <i class="fa-solid fa-phone-flip"></i>
+                </a>
+            `;
+            frag.appendChild(card);
+        });
 
-        // ရှာဖွေခြင်းနှင့် မြို့အလိုက် စစ်ထုတ်ခြင်း
-        function filterData() {
-            const searchTerm = searchInput.value.toLowerCase().trim();
-            const selectedCity = cityFilter.value;
+        studentListEl.appendChild(frag);
+    }
 
-            const filtered = studentsData.filter(student => {
-                const matchesSearch = 
-                    student.name.toLowerCase().includes(searchTerm) ||
-                    student.id.toLowerCase().includes(searchTerm) ||
-                    student.phone.includes(searchTerm);
-                
-                const matchesCity = selectedCity === 'all' || student.city === selectedCity;
+    // ရှာဖွေခြင်းနှင့် မြို့အလိုက် စစ်ထုတ်ခြင်း
+    function filterData() {
+        const searchTerm   = searchInput.value.toLowerCase().trim();
+        const selectedCity = cityFilter.value;
 
-                return matchesSearch && matchesCity;
-            });
+        const filtered = studentsData.filter(student => {
+            const matchesSearch =
+                student.name.toLowerCase().includes(searchTerm) ||
+                student.id.toLowerCase().includes(searchTerm) ||
+                student.phone.includes(searchTerm);
 
-            renderStudents(filtered);
-        }
+            const matchesCity = selectedCity === 'all' || student.city === selectedCity;
 
-        // Event Listeners
-        searchInput.addEventListener('input', filterData);
-        cityFilter.addEventListener('change', filterData);
+            return matchesSearch && matchesCity;
+        });
 
-        // စတင်ဖွင့်ချိန်တွင် အလုပ်လုပ်ရန်
-        populateCityFilter();
-        renderStudents(studentsData);
-    </script>
+        renderStudents(filtered);
+    }
+
+    // Event Listeners
+    searchInput.addEventListener('input', filterData);
+    cityFilter.addEventListener('change', filterData);
+
+    // စတင်ဖွင့်ချိန်တွင် အလုပ်လုပ်ရန်
+    populateCityFilter();
+    renderStudents(studentsData);
+</script>
 </body>
 </html>
